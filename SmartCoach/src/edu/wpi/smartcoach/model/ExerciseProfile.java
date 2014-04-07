@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
 
+
 public class ExerciseProfile {
 
 	public static final QuestionModel[] questions;
