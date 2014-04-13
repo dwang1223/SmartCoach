@@ -46,7 +46,24 @@ public class ExerciseProfile {
 					add(new OptionModel("group", "With a group"));
 					add(new OptionModel(QuestionModel.DEFAULT, "It doesn't matter"));
 				}},
-				QuestionType.MULTIPLE)
+				QuestionType.MULTIPLE),
+				
+			new QuestionModel(
+					"profile_exercise_enjoy",
+					"Favorites", 
+					"Which exercises do you enjoy the MOST? (up to 5)", 
+					Exercise.exercises,
+					QuestionType.MULTIPLE, 
+					5),	
+					
+			new QuestionModel(
+					"profile_exercise_hate",
+					"Least Favorites", 
+					"Which exercises do you enjoy the LEAST? (up to 5)", 
+					Exercise.exercises,
+					QuestionType.MULTIPLE, 
+					5),
+					
 		};
 	}
 
