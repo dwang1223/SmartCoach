@@ -22,20 +22,14 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 	
 	private QuestionModel question;
 	
-	private OptionModel defaultOption;
-	
 	public QuestionOptionListAdapter(Context context, QuestionModel qm) {
 		super();
 		this.context = context;
 		question = qm; 
 		
-		for(OptionModel opm:qm.getResponses()){
-			if(opm.getId() == QuestionModel.DEFAULT){
-				defaultOption = opm;
-				defaultOption.setSelected(true);
-			}
+		if(qm.hasDefault()){
+			qm.getDefault().setSelected(true);
 		}
-		
 	}
 	
 	@Override
@@ -51,7 +45,6 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 	
 		final OptionModel op = getItem(position);
 		CheckBox cb = (CheckBox)view.findViewById(R.id.checkBox);
-		Log.d(TAG, "getView " + op.getId());
 		cb.setChecked(op.isSelected());
 
 		cb.setText(op.getText());
@@ -60,28 +53,39 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View view) {
 				boolean isChecked = !op.isSelected();
+				//if in single selection mode or the default item is selected
 				if(isChecked && (question.getType() == QuestionType.SINGLE || op.getId() == QuestionModel.DEFAULT)){
-					for(OptionModel opm:question.getResponses()){
+					for(OptionModel opm:question.getResponses()){ //deselect everything else
 						opm.setSelected(false);
 					}
-				} else if(question.getId() != QuestionModel.DEFAULT){
-					for(OptionModel opm:question.getResponses()){
-						defaultOption.setSelected(false);
+				} else if(op.getId() != QuestionModel.DEFAULT){ // if the selected item is not the default
+					if(question.hasDefault()){ //deselect the default
+						question.getDefault().setSelected(false);
 					}
 				}
 
-				op.setSelected(isChecked);
+				op.setSelected(isChecked); // set the item's selection 
 				
-				if(!isChecked){
+				if(!isChecked && question.hasDefault()){ //if nothing is selected
 					boolean somethingSelected = false;
 					for(OptionModel opm:question.getResponses()){
 						somethingSelected |= opm.isSelected();
 					}
-					if(!somethingSelected){
-						defaultOption.setSelected(true);
+					if(!somethingSelected){ //select the default
+						question.getDefault().setSelected(true);
 					}
 				}
 				
+				//if the max number of item has been selected
+				if(question.getType().equals(QuestionType.MULTIPLE) && question.getLimit() != QuestionModel.NO_LIMIT){
+					int count = 0;
+					for(OptionModel opm:question.getResponses()){
+						if(opm.isSelected())count++;
+					}
+					if(count > question.getLimit()){
+						op.setSelected(false); //do not allow another item to be selected
+					}
+				}				
 				notifyDataSetChanged();			
 				
 			}
