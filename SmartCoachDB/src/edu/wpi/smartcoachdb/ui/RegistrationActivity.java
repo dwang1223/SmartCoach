@@ -1,10 +1,12 @@
 package edu.wpi.smartcoachdb.ui;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import edu.wpi.smartcoach.service.impl.PatientProfileServiceImpl;
 import edu.wpi.smartcoachdb.R;
-import edu.wpi.smartcoachdb.dao.impl.PatientProfileDaoImpl;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 import edu.wpi.smartcoachdb.model.PatientProfile;
 
@@ -47,11 +48,9 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 		birthday.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Date now = new Date(System.currentTimeMillis());
-				
+				Calendar c = Calendar.getInstance();
 				new DatePickerDialog(RegistrationActivity.this,
-						RegistrationActivity.this, now.getYear(), now
-								.getMonth(), now.getDay()).show();
+						RegistrationActivity.this,c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
 			}
 		});
 
@@ -77,15 +76,17 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 
 	private void submit() {
 		String firstName = first.getText().toString();
-		String lastName = first.getText().toString();
-		String addressStr = first.getText().toString();
-		String occupationStr = first.getText().toString();
+		String lastName = last.getText().toString();
+		String addressStr = address.getText().toString();
+		String occupationStr = occupation.getText().toString();
  
 		String genderStr = gender.getSelectedItem().toString();
 		String bd = birthday.getText().toString();
 		
 		PatientProfileServiceImpl.getInstance().initPatientProfile(new PatientProfile(firstName, lastName, genderStr, new Date(Date.parse(bd)), addressStr, occupationStr));
 
+		Intent intent = new Intent(this, PatientInfoActivity.class);
+		startActivity(intent);
 	}
 
 	@Override

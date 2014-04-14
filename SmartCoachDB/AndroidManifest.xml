@@ -33,6 +33,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+<<<<<<< HEAD
+=======
+        </activity>
+        <activity
+            android:name="edu.wpi.smartcoachdb.ui.PatientInfoActivity"
+            android:label="@string/title_activity_patient_info" >
+>>>>>>> FETCH_HEAD
         </activity>
     </application>
 
