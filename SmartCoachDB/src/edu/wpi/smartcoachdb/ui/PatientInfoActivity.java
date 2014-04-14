@@ -1,5 +1,7 @@
 package edu.wpi.smartcoachdb.ui;
 
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +11,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import edu.wpi.smartcoach.service.impl.PatientInfoServiceImpl;
 import edu.wpi.smartcoachdb.R;
+import edu.wpi.smartcoachdb.model.PatientInfo;
 
 public class PatientInfoActivity extends Activity {
 
@@ -42,6 +46,11 @@ public class PatientInfoActivity extends Activity {
 		int totalHeight = Integer.parseInt(heightFt.getText().toString())*12 + Integer.parseInt(heightIn.getText().toString());
 		int currentWeight = Integer.parseInt(current.getText().toString());
 		int goalWeight = (Integer.parseInt(goal.getText().toString()));
+		
+		int age = 0; //TODO: get age from database
+		Date time = new Date();
+		
+		PatientInfoServiceImpl.getInstance().initPatientInfo(new PatientInfo(totalHeight, currentWeight, age, time, goalWeight));
 		
 		Intent intent = new Intent(this, ProfileActivity.class);
 		startActivity(intent);
