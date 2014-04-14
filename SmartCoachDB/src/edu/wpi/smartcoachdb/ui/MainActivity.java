@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,10 +35,15 @@ public class MainActivity extends Activity {
 
 		mDatabaseHelp = DatabaseHelper.getInstance(this);
 		mSQLiteDatabase = mDatabaseHelp.getWritableDatabase();
-
-		initExercise();
-		initExerciseLocation();
-		initExerciseTime();
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		//let it run just once
+		if(!prefs.getBoolean("init", false)){
+			initExercise();
+			initExerciseLocation();
+			initExerciseTime();
+			prefs.edit().putBoolean("init", true).commit();
+		}
 
 		startActivity(new Intent(this, RegistrationActivity.class));
 	}

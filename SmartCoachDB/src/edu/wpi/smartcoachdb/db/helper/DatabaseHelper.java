@@ -7,11 +7,8 @@ import edu.wpi.smartcoachdb.db.column.ExerciseToLocationColumns;
 import edu.wpi.smartcoachdb.db.column.PatientExerciseColumns;
 import edu.wpi.smartcoachdb.db.column.PatientInfoColumns;
 import edu.wpi.smartcoachdb.db.column.PatientProfileColumns;
-import edu.wpi.smartcoachdb.model.Exercise;
-import edu.wpi.smartcoachdb.model.PatientProfile;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
