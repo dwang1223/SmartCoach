@@ -9,5 +9,6 @@
     <string name="title_activity_show_profile">ShowProfileActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_activity_patient_info">PatientInfoActivity</string>
 
 </resources>
