@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import edu.wpi.smartcoachdb.R;
+import edu.wpi.smartcoachdb.dao.impl.PatientProfileDaoImpl;
+import edu.wpi.smartcoachdb.model.PatientProfile;
 
 public class RegistrationActivity extends Activity implements OnDateSetListener {
 
@@ -77,6 +79,8 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
  
 		String genderStr = gender.getSelectedItem().toString();
 		String bd = birthday.getText().toString();
+		
+		new PatientProfileDaoImpl().insertOne(new PatientProfile(firstName, lastName, genderStr, new Date(Date.parse(bd)), addressStr, occupationStr));
 
 	}
 
