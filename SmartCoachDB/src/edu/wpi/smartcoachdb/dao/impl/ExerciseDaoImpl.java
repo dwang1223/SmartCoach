@@ -3,12 +3,11 @@ package edu.wpi.smartcoachdb.dao.impl;
 import android.database.sqlite.SQLiteDatabase;
 import edu.wpi.smartcoachdb.dao.ExerciseDao;
 import edu.wpi.smartcoachdb.db.column.ExerciseColumns;
+import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 import edu.wpi.smartcoachdb.model.Exercise;
 import edu.wpi.smartcoachdb.ui.MainActivity;
 
 public class ExerciseDaoImpl implements ExerciseDao{
-
-	private SQLiteDatabase mSQLiteDatabase = MainActivity.mSQLiteDatabase;
 
 	@Override
 	public void insertOne(Exercise exercise) {
@@ -23,7 +22,7 @@ public class ExerciseDaoImpl implements ExerciseDao{
 				+ exercise.getExerciseType() + "','"
 				+ exercise.getExerciseNumberOfPersons() + "','"
 				+ exercise.getExerciseEquipment() + "')";
-		mSQLiteDatabase.execSQL(sql);
+		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
 	}
 	
 }

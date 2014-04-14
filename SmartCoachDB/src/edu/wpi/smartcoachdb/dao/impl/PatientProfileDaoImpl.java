@@ -1,15 +1,11 @@
 package edu.wpi.smartcoachdb.dao.impl;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import edu.wpi.smartcoachdb.dao.PatientProfileDao;
 import edu.wpi.smartcoachdb.db.column.PatientProfileColumns;
+import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 import edu.wpi.smartcoachdb.model.PatientProfile;
-import edu.wpi.smartcoachdb.ui.MainActivity;
 
 public class PatientProfileDaoImpl implements PatientProfileDao {
-
-	private SQLiteDatabase mSQLiteDatabase = MainActivity.mSQLiteDatabase;
 
 	@Override
 	public void insertOne(PatientProfile patientProfile) {
@@ -28,7 +24,7 @@ public class PatientProfileDaoImpl implements PatientProfileDao {
 				+ patientProfile.getPatientBirthday() + "','"
 				+ patientProfile.getPatientAddress() + "','"
 				+ patientProfile.getPatientOccupation() + "')";
-		mSQLiteDatabase.execSQL(sql);
+		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
 	}
 
 }

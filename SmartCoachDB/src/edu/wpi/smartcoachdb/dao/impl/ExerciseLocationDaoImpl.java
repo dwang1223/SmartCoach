@@ -1,14 +1,11 @@
 package edu.wpi.smartcoachdb.dao.impl;
 
-import android.database.sqlite.SQLiteDatabase;
 import edu.wpi.smartcoachdb.dao.ExerciseLocationDao;
 import edu.wpi.smartcoachdb.db.column.ExerciseLocationColumns;
+import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 import edu.wpi.smartcoachdb.model.ExerciseLocation;
-import edu.wpi.smartcoachdb.ui.MainActivity;
 
 public class ExerciseLocationDaoImpl implements ExerciseLocationDao {
-
-	private SQLiteDatabase mSQLiteDatabase = MainActivity.mSQLiteDatabase;
 
 	@Override
 	public void insertOne(ExerciseLocation exerciseLocation) {
@@ -19,7 +16,7 @@ public class ExerciseLocationDaoImpl implements ExerciseLocationDao {
 				+ ExerciseLocationColumns.FIELD_LOCATION_TYPE + ") "
 				+ "values ('" + exerciseLocation.getSpecificLocation() + "', '"
 				+ exerciseLocation.getLocationType() + "')";
-		mSQLiteDatabase.execSQL(sql);
+		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
 	}
 
 }

@@ -15,11 +15,24 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+	
+	private static DatabaseHelper instance;
+	
+	public static DatabaseHelper getInstance(Context ctx){
+		if(instance == null){
+			instance = new DatabaseHelper(ctx);
+		}
+		return instance;
+	}
+	
+	public static DatabaseHelper getInstance(){
+		return instance;
+	}
 
 	private static final String DATABASE_NAME = "smartcoach.db";
 	private static final int DATABASE_VERSION = 1;
 
-	public DatabaseHelper(Context context) {
+	private DatabaseHelper(Context context) {
 		// default value of CursorFactory is null
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}

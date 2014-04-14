@@ -2,10 +2,11 @@ package edu.wpi.smartcoachdb.ui;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,27 +21,24 @@ import edu.wpi.smartcoachdb.model.Exercise;
 import edu.wpi.smartcoachdb.model.ExerciseLocation;
 import edu.wpi.smartcoachdb.model.ExerciseTime;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
 	private DatabaseHelper mDatabaseHelp = null;
-	public static SQLiteDatabase mSQLiteDatabase = null;
-
+	private static SQLiteDatabase mSQLiteDatabase = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		//setContentView(R.layout.activity_main);
 
-		mDatabaseHelp = new DatabaseHelper(this);
+		mDatabaseHelp = DatabaseHelper.getInstance(this);
 		mSQLiteDatabase = mDatabaseHelp.getWritableDatabase();
 
 		initExercise();
 		initExerciseLocation();
 		initExerciseTime();
 
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		startActivity(new Intent(this, RegistrationActivity.class));
 	}
 
 	/**

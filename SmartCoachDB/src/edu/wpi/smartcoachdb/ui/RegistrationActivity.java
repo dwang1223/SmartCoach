@@ -15,8 +15,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import edu.wpi.smartcoach.service.impl.PatientProfileServiceImpl;
 import edu.wpi.smartcoachdb.R;
 import edu.wpi.smartcoachdb.dao.impl.PatientProfileDaoImpl;
+import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 import edu.wpi.smartcoachdb.model.PatientProfile;
 
 public class RegistrationActivity extends Activity implements OnDateSetListener {
@@ -32,6 +34,8 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registration);
 
+		DatabaseHelper.getInstance(this);
+		
 		first = (EditText) findViewById(R.id.firstName);
 		last = (EditText) findViewById(R.id.lastName);
 		address = (EditText) findViewById(R.id.address);
@@ -80,7 +84,7 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 		String genderStr = gender.getSelectedItem().toString();
 		String bd = birthday.getText().toString();
 		
-		new PatientProfileDaoImpl().insertOne(new PatientProfile(firstName, lastName, genderStr, new Date(Date.parse(bd)), addressStr, occupationStr));
+		PatientProfileServiceImpl.getInstance().initPatientProfile(new PatientProfile(firstName, lastName, genderStr, new Date(Date.parse(bd)), addressStr, occupationStr));
 
 	}
 
