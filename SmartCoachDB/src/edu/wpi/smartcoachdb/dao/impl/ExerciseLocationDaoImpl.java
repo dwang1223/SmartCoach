@@ -1,9 +1,9 @@
 package edu.wpi.smartcoachdb.dao.impl;
 
+import edu.wpi.smartcoach.model.ExerciseLocation;
 import edu.wpi.smartcoachdb.dao.ExerciseLocationDao;
 import edu.wpi.smartcoachdb.db.column.ExerciseLocationColumns;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
-import edu.wpi.smartcoachdb.model.ExerciseLocation;
 
 public class ExerciseLocationDaoImpl implements ExerciseLocationDao {
 

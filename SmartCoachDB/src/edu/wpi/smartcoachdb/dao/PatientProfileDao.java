@@ -1,6 +1,6 @@
 package edu.wpi.smartcoachdb.dao;
 
-import edu.wpi.smartcoachdb.model.PatientProfile;
+import edu.wpi.smartcoach.model.PatientProfile;
 
 public interface PatientProfileDao {
 

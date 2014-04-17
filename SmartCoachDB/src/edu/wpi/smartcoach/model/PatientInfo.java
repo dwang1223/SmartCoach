@@ -1,4 +1,4 @@
-package edu.wpi.smartcoachdb.model;
+package edu.wpi.smartcoach.model;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
 package edu.wpi.smartcoachdb.dao;
 
-import edu.wpi.smartcoachdb.model.ExerciseTime;
+import edu.wpi.smartcoach.model.ExerciseTime;
 
 public interface ExerciseTimeDao {
 

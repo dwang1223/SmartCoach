@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoachdb.R;
+import edu.wpi.smartcoach.R;
 
 public class QuestionFragment extends Fragment {
 	

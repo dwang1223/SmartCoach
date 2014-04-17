@@ -10,6 +10,17 @@ public class ExerciseProfile {
 
 	public static final QuestionModel[] questions;
 
+	public static final int YES = 1;
+	public static final int NO = 0;
+
+	public static final int HOME = 2;
+	public static final int GYM = 3;
+	public static final int OUTDOOR = 4;
+
+	public static final int ALONE = 5;
+	public static final int FRIEND = 6;
+	public static final int GROUP = 7;
+
 	static {
 		questions = new QuestionModel[] {
 				
@@ -18,9 +29,9 @@ public class ExerciseProfile {
 				"Preference",
 				"Do you like to exercise?", 
 				new ArrayList<OptionModel>() {{
-					add(new OptionModel("yes", "Yes"));
-					add(new OptionModel("no", "No"));
-					add(new OptionModel(QuestionModel.DEFAULT, "Not Sure"));
+					add(new SimpleOption(YES, "Yes"));
+					add(new SimpleOption(NO, "No"));
+					add(new SimpleOption(QuestionModel.DEFAULT, "Not Sure"));
 				}},
 				QuestionType.SINGLE),
 			
@@ -29,10 +40,10 @@ public class ExerciseProfile {
 				"Location",
 				"Where would you like to exercise?",
 				new ArrayList<OptionModel>() {{
-					add(new OptionModel("home", "At Home"));
-					add(new OptionModel("gym", "In the Gym"));
-					add(new OptionModel("outdoors", "Outdoors"));
-					add(new OptionModel(QuestionModel.DEFAULT, "It doesn't matter"));
+					add(new SimpleOption(HOME, "At Home"));
+					add(new SimpleOption(GYM, "In the Gym"));
+					add(new SimpleOption(OUTDOOR, "Outdoors"));
+					add(new SimpleOption(QuestionModel.DEFAULT, "It doesn't matter"));
 				}}, 
 				QuestionType.MULTIPLE),
 			
@@ -41,10 +52,10 @@ public class ExerciseProfile {
 				"Social",
 				"With whom do you prefer to exercise?",
 				new ArrayList<OptionModel>() {{
-					add(new OptionModel("alone", "Alone"));
-					add(new OptionModel("friend", "With a friend"));
-					add(new OptionModel("group", "With a group"));
-					add(new OptionModel(QuestionModel.DEFAULT, "It doesn't matter"));
+					add(new SimpleOption(ALONE, "Alone"));
+					add(new SimpleOption(FRIEND, "With a friend"));
+					add(new SimpleOption(GROUP, "With a group"));
+					add(new SimpleOption(QuestionModel.DEFAULT, "It doesn't matter"));
 				}},
 				QuestionType.MULTIPLE),
 				
@@ -52,7 +63,7 @@ public class ExerciseProfile {
 					"profile_exercise_enjoy",
 					"Favorites", 
 					"Which exercises do you enjoy the MOST? (up to 5)", 
-					Exercise.getExercises(),
+					Exercises.getExerciseOptions(),
 					QuestionType.MULTIPLE, 
 					5),	
 					
@@ -60,7 +71,7 @@ public class ExerciseProfile {
 					"profile_exercise_hate",
 					"Least Favorites", 
 					"Which exercises do you enjoy the LEAST? (up to 5)", 
-					Exercise.getExercises(),
+					Exercises.getExerciseOptions(),
 					QuestionType.MULTIPLE, 
 					5),
 					

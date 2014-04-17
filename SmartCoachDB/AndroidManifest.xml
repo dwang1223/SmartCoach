@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.wpi.smartcoachdb"
+    package="edu.wpi.smartcoach"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,19 +14,15 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="edu.wpi.smartcoachdb.ui.ProfileActivity"
+            android:name="edu.wpi.smartcoach.activity.ProfileActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="edu.wpi.smartcoach.ShowProfileActivity"
-            android:label="@string/title_activity_show_profile" >
-        </activity>
-        <activity
-            android:name="edu.wpi.smartcoachdb.ui.RegistrationActivity"
+            android:name="edu.wpi.smartcoach.activity.RegistrationActivity"
             android:label="@string/title_activity_registration" >
         </activity>
         <activity
-            android:name="edu.wpi.smartcoachdb.ui.MainActivity"
+            android:name="edu.wpi.smartcoach.activity.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +32,7 @@
 
         </activity>
         <activity
-            android:name="edu.wpi.smartcoachdb.ui.PatientInfoActivity"
+            android:name="edu.wpi.smartcoach.activity.PatientInfoActivity"
             android:label="@string/title_activity_patient_info" >
         </activity>
     </application>

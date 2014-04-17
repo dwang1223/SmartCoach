@@ -1,9 +1,9 @@
 package edu.wpi.smartcoachdb.dao.impl;
 
+import edu.wpi.smartcoach.model.ExerciseTime;
 import edu.wpi.smartcoachdb.dao.ExerciseTimeDao;
 import edu.wpi.smartcoachdb.db.column.ExerciseTimeColumns;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
-import edu.wpi.smartcoachdb.model.ExerciseTime;
 
 public class ExerciseTimeDaoImpl implements ExerciseTimeDao {
 

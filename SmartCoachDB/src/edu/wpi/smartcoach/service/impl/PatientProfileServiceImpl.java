@@ -1,9 +1,9 @@
 package edu.wpi.smartcoach.service.impl;
 
+import edu.wpi.smartcoach.model.PatientProfile;
 import edu.wpi.smartcoach.service.PatientProfileService;
 import edu.wpi.smartcoachdb.dao.PatientProfileDao;
 import edu.wpi.smartcoachdb.dao.impl.PatientProfileDaoImpl;
-import edu.wpi.smartcoachdb.model.PatientProfile;
 
 public class PatientProfileServiceImpl implements PatientProfileService {
 

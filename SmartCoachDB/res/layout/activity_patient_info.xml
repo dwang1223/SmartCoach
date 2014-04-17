@@ -22,11 +22,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp" >
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.21" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Height"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/height_ft"
-                android:layout_width="match_parent"
+                android:layout_width="83dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -38,7 +46,7 @@
 
             <EditText
                 android:id="@+id/height_in"
-                android:layout_width="match_parent"
+                android:layout_width="58dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
@@ -47,26 +55,54 @@
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/current"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:ems="10"
-            android:hint="current weight(lbs)"
-            android:inputType="numberSigned" />
+            android:layout_weight="0.21" >
 
-        <EditText
-            android:id="@+id/goal"
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Weight"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/current"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="current weight(lbs)"
+                android:inputType="numberSigned" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:ems="10"
-            android:hint="goal weight (lbs)"
-            android:inputType="numberSigned" />
+            android:layout_weight="0.21" >
 
+            <TextView
+                android:id="@+id/TextView02"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Goal"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/goal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="goal weight (lbs)"
+                android:inputType="numberSigned" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <Button

@@ -1,11 +1,11 @@
 package edu.wpi.smartcoachdb.dao.impl;
 
 import android.database.sqlite.SQLiteDatabase;
+import edu.wpi.smartcoach.activity.MainActivity;
+import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoachdb.dao.ExerciseDao;
 import edu.wpi.smartcoachdb.db.column.ExerciseColumns;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
-import edu.wpi.smartcoachdb.model.Exercise;
-import edu.wpi.smartcoachdb.ui.MainActivity;
 
 public class ExerciseDaoImpl implements ExerciseDao{
 
@@ -18,7 +18,7 @@ public class ExerciseDaoImpl implements ExerciseDao{
 				+ ExerciseColumns.FIELD_EXERCISE_TYPE + ", "
 				+ ExerciseColumns.FIELD_EXERCISE_NUMBER_OF_PERSONS + ", "
 				+ ExerciseColumns.FIELD_EXERCISE_EQUIPMENT + ") "
-				+ "values ('" + exercise.getExerciseName() + "', '"
+				+ "values ('" + exercise.getName() + "', '"
 				+ exercise.getExerciseType() + "','"
 				+ exercise.getExerciseNumberOfPersons() + "','"
 				+ exercise.getExerciseEquipment() + "')";

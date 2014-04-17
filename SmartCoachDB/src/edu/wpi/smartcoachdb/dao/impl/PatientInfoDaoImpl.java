@@ -1,9 +1,9 @@
 package edu.wpi.smartcoachdb.dao.impl;
 
+import edu.wpi.smartcoach.model.PatientInfo;
 import edu.wpi.smartcoachdb.dao.PatientInfoDao;
 import edu.wpi.smartcoachdb.db.column.PatientInfoColumns;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
-import edu.wpi.smartcoachdb.model.PatientInfo;
 
 public class PatientInfoDaoImpl implements PatientInfoDao {
 

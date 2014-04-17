@@ -1,4 +1,4 @@
-package edu.wpi.smartcoachdb.ui;
+package edu.wpi.smartcoach.activity;
 
 import java.util.ArrayList;
 
@@ -14,14 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import edu.wpi.smartcoachdb.R;
+import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.Exercise;
+import edu.wpi.smartcoach.model.ExerciseLocation;
+import edu.wpi.smartcoach.model.ExerciseTime;
 import edu.wpi.smartcoachdb.dao.impl.ExerciseDaoImpl;
 import edu.wpi.smartcoachdb.dao.impl.ExerciseLocationDaoImpl;
 import edu.wpi.smartcoachdb.dao.impl.ExerciseTimeDaoImpl;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
-import edu.wpi.smartcoachdb.model.Exercise;
-import edu.wpi.smartcoachdb.model.ExerciseLocation;
-import edu.wpi.smartcoachdb.model.ExerciseTime;
 
 public class MainActivity extends Activity {
 

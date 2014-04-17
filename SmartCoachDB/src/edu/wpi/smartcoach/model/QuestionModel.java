@@ -10,14 +10,14 @@ public class QuestionModel {
 		SINGLE, MULTIPLE
 	};
 	
-	public static final String DEFAULT = "any";
+	public static final int DEFAULT = -1;
 	public static final int NO_LIMIT = -1;
 	
 	private String id;
 	private String title;
 	private String prompt;
-	private List<OptionModel> responses;
-	private OptionModel defaultResponse = null;
+	private List<Option> responses;
+	private Option defaultResponse = null;
 	
 	private QuestionType type;
 	
@@ -30,12 +30,13 @@ public class QuestionModel {
 		this.id = id;
 		this.title = title;
 		this.prompt = prompt;
-		this.responses = responses;
+		this.responses = new ArrayList<Option>();
 		this.type = type;
 		
 		for(OptionModel opm:responses){
-			if(opm.getId().equals(DEFAULT)){
-				defaultResponse = opm;
+			Option op = new Option(opm);
+			if(opm.getId() == DEFAULT){
+				defaultResponse = op;
 			}
 		}
 		
@@ -65,7 +66,7 @@ public class QuestionModel {
 		return prompt;
 	}
 	
-	public List<OptionModel> getResponses(){
+	public List<Option> getResponses(){
 		return responses;
 	}
 	
@@ -81,13 +82,13 @@ public class QuestionModel {
 		return defaultResponse != null;
 	}
 	
-	public OptionModel getDefault(){
+	public Option getDefault(){
 		return defaultResponse;
 	}
 	
-	public List<OptionModel> getSelectedResponses(){
-		ArrayList<OptionModel> responseList = new ArrayList<OptionModel>();
-		for(OptionModel opm:responses){
+	public List<Option> getSelectedResponses(){
+		ArrayList<Option> responseList = new ArrayList<Option>();
+		for(Option opm:responses){
 			if(opm.isSelected()){
 				responseList.add(opm);
 			}

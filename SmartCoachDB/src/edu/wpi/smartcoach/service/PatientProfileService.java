@@ -1,6 +1,6 @@
 package edu.wpi.smartcoach.service;
 
-import edu.wpi.smartcoachdb.model.PatientProfile;
+import edu.wpi.smartcoach.model.PatientProfile;
 
 public interface PatientProfileService {
 	/**

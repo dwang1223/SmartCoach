@@ -1,4 +1,4 @@
-package edu.wpi.smartcoachdb.ui;
+package edu.wpi.smartcoach.activity;
 
 import java.util.Date;
 
@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import edu.wpi.smartcoach.model.PatientInfo;
 import edu.wpi.smartcoach.service.impl.PatientInfoServiceImpl;
-import edu.wpi.smartcoachdb.R;
-import edu.wpi.smartcoachdb.model.PatientInfo;
+import edu.wpi.smartcoach.R;
 
 public class PatientInfoActivity extends Activity {
 

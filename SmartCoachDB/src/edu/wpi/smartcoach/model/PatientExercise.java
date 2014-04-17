@@ -1,4 +1,4 @@
-package edu.wpi.smartcoachdb.model;
+package edu.wpi.smartcoach.model;
 
 public class PatientExercise {
 	private int id;

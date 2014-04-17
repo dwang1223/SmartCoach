@@ -30,6 +30,7 @@
             android:id="@+id/lastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Last Name" />
 
@@ -37,13 +38,15 @@
             android:id="@+id/gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="10dp"
             android:entries="@array/gender" />
 
         <TextView
             android:id="@+id/birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
             android:text="Birthday"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -51,6 +54,7 @@
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Address"
             android:inputType="textPostalAddress" />
@@ -59,8 +63,10 @@
             android:id="@+id/occupation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="Occupation" />
+
     </LinearLayout>
 
     <Button

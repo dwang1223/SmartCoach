@@ -1,7 +1,8 @@
-package edu.wpi.smartcoachdb.ui;
+package edu.wpi.smartcoach.activity;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -17,10 +18,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import edu.wpi.smartcoach.model.PatientProfile;
 import edu.wpi.smartcoach.service.impl.PatientProfileServiceImpl;
-import edu.wpi.smartcoachdb.R;
+import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
-import edu.wpi.smartcoachdb.model.PatientProfile;
 
 public class RegistrationActivity extends Activity implements OnDateSetListener {
 
@@ -104,7 +105,9 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear,
 			int dayOfMonth) {
-		birthday.setText(new Date(year, monthOfYear, dayOfMonth).toString());
+		GregorianCalendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+		birthday.setText(String.format("%s/%s/%s", monthOfYear, dayOfMonth, year));
+		
 	}
 
 }

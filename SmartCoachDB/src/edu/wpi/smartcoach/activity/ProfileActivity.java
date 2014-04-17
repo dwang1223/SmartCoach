@@ -1,4 +1,4 @@
-package edu.wpi.smartcoachdb.ui;
+package edu.wpi.smartcoach.activity;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.View;
 import edu.wpi.smartcoach.model.ExerciseProfile;
-import edu.wpi.smartcoach.model.OptionModel;
+import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.view.QuestionFragment;
-import edu.wpi.smartcoachdb.R;
+import edu.wpi.smartcoach.R;
 
 public class ProfileActivity extends FragmentActivity {
 	
@@ -44,7 +44,7 @@ public class ProfileActivity extends FragmentActivity {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor prefEdit = prefs.edit();
 		for(QuestionModel qm:ExerciseProfile.questions){
-			List<OptionModel> select = qm.getSelectedResponses();
+			List<Option> select = qm.getSelectedResponses();
 			String responseStr = "";
 			for(int i = 0; i < select.size(); i++){
 				responseStr += select.get(i).getId();

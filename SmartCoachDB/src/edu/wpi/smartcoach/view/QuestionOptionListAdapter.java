@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import edu.wpi.smartcoachdb.R;
-import edu.wpi.smartcoach.model.OptionModel;
+import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
 
@@ -43,7 +43,7 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 			view = convertView;			
 		}
 	
-		final OptionModel op = getItem(position);
+		final Option op = getItem(position);
 		CheckBox cb = (CheckBox)view.findViewById(R.id.checkBox);
 		cb.setChecked(op.isSelected());
 
@@ -55,7 +55,7 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 				boolean isChecked = !op.isSelected();
 				//if in single selection mode or the default item is selected
 				if(isChecked && (question.getType() == QuestionType.SINGLE || op.getId() == QuestionModel.DEFAULT)){
-					for(OptionModel opm:question.getResponses()){ //deselect everything else
+					for(Option opm:question.getResponses()){ //deselect everything else
 						opm.setSelected(false);
 					}
 				} else if(op.getId() != QuestionModel.DEFAULT){ // if the selected item is not the default
@@ -68,7 +68,7 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 				
 				if(!isChecked && question.hasDefault()){ //if nothing is selected
 					boolean somethingSelected = false;
-					for(OptionModel opm:question.getResponses()){
+					for(Option opm:question.getResponses()){
 						somethingSelected |= opm.isSelected();
 					}
 					if(!somethingSelected){ //select the default
@@ -79,7 +79,7 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 				//if the max number of item has been selected
 				if(question.getType().equals(QuestionType.MULTIPLE) && question.getLimit() != QuestionModel.NO_LIMIT){
 					int count = 0;
-					for(OptionModel opm:question.getResponses()){
+					for(Option opm:question.getResponses()){
 						if(opm.isSelected())count++;
 					}
 					if(count > question.getLimit()){
@@ -100,7 +100,7 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public OptionModel getItem(int position) {
+	public Option getItem(int position) {
 		return question.getResponses().get(position);
 	}
 

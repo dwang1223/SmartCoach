@@ -1,53 +1,68 @@
 package edu.wpi.smartcoach.model;
 
-import java.util.ArrayList;
 
-public class Exercise {
-	
-	public static ArrayList<OptionModel> exercises;
-	
-	static {
-		exercises = new ArrayList<OptionModel>(){{
-			add(new OptionModel("walk", "Walking"));
-			add(new OptionModel("run", "Running"));
-			add(new OptionModel("bike", "Biking"));
-			add(new OptionModel("hike", "Hiking"));
-			add(new OptionModel("skate", "Skating"));
-			add(new OptionModel("yoga", "Yoga"));
-			add(new OptionModel("gymnastics", "Gymnastics"));
-			add(new OptionModel("weight", "Weight Training"));
-			add(new OptionModel("karate", "Karate"));
-			add(new OptionModel("dance", "Dancing"));
-			add(new OptionModel("swim", "Swimming"));
-			add(new OptionModel("tennis", "Tennis"));
-			add(new OptionModel("badminton", "Badminton"));
-			add(new OptionModel("basket", "Basketball"));
-			add(new OptionModel("volley", "Volleyball"));
-			add(new OptionModel("handegg", "Football"));
-			add(new OptionModel("football", "Soccer"));
-			add(new OptionModel("box", "Boxing"));
-			add(new OptionModel("hockey", "Hockey"));
-			add(new OptionModel("ice", "Ice skating"));
-			add(new OptionModel("ski", "Skiing"));
-			add(new OptionModel("golf", "Golf"));
-			add(new OptionModel("horse", "Horseback Riding"));
-		}};
+public class Exercise implements OptionModel {
+	private int id;
+	private String name;
+	private String type;
+	private String numberOfPersons;
+	private String equipment;
+
+	public Exercise(int id, String name){
+		this.id = id;
+		this.name = name;
+		//TODO: fill in remaining from db
 	}
 	
-	public static ArrayList<OptionModel> getExercises(){
-		ArrayList<OptionModel> newList = new ArrayList<OptionModel>();
-		for(OptionModel opm:exercises){
-			newList.add(new OptionModel(opm.getId(), opm.getText()));
-		}
-		return newList;
+	public Exercise(String exerciseName, String exerciseType,
+			String exerciseNumberOfPersons, String exerciseEquipment) {
+		super();
+		this.name = exerciseName;
+		this.type = exerciseType;
+		this.numberOfPersons = exerciseNumberOfPersons;
+		this.equipment = exerciseEquipment;
 	}
-	
-	public static OptionModel getExerciseById(String id){
-		for(OptionModel opm:exercises){
-			if(id.equals(opm.getId())){
-				return opm;
-			}
-		}
-		return null;
+
+	@Override
+	public int getId() {
+		return id;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	public void setExerciseName(String exerciseName) {
+		this.name = exerciseName;
+	}
+
+	public String getExerciseType() {
+		return type;
+	}
+
+	public void setExerciseType(String exerciseType) {
+		this.type = exerciseType;
+	}
+
+	public String getExerciseNumberOfPersons() {
+		return numberOfPersons;
+	}
+
+	public void setExerciseNumberOfPersons(String exerciseNumberOfPersons) {
+		this.numberOfPersons = exerciseNumberOfPersons;
+	}
+
+	public String getExerciseEquipment() {
+		return equipment;
+	}
+
+	public void setExerciseEquipment(String exerciseEquipment) {
+		this.equipment = exerciseEquipment;
+	}
+
 }
