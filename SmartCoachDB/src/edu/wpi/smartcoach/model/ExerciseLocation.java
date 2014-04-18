@@ -5,6 +5,11 @@ public class ExerciseLocation {
 	private String specificLocation;
 	private String locationType;
 
+	public ExerciseLocation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public ExerciseLocation(String specificLocation, String locationType) {
 		super();
 		this.specificLocation = specificLocation;

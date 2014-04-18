@@ -4,6 +4,11 @@ public class ExerciseTime {
 	private int id;
 	private String exerciseTime;
 
+	public ExerciseTime() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public ExerciseTime(String exerciseTime) {
 		super();
 		this.exerciseTime = exerciseTime;

@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 			prefs.edit().putBoolean("init", true).commit();
 		}
 
-		startActivity(new Intent(this, RegistrationActivity.class));
+		startActivity(new Intent(this, TestActivity.class));
 	}
 
 	/**

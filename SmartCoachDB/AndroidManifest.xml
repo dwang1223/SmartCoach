@@ -35,6 +35,10 @@
             android:name="edu.wpi.smartcoach.activity.PatientInfoActivity"
             android:label="@string/title_activity_patient_info" >
         </activity>
+         <activity
+            android:name="edu.wpi.smartcoach.activity.TestActivity"
+            android:label="@string/title_activity_test" >
+        </activity>
     </application>
 
 </manifest>
