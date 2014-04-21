@@ -59,21 +59,21 @@ public class ExerciseProfile {
 				}},
 				QuestionType.MULTIPLE),
 				
-			new QuestionModel(
-					"profile_exercise_enjoy",
-					"Favorites", 
-					"Which exercises do you enjoy the MOST? (up to 5)", 
-					Exercises.getExerciseOptions(),
-					QuestionType.MULTIPLE, 
-					5),	
-					
-			new QuestionModel(
-					"profile_exercise_hate",
-					"Least Favorites", 
-					"Which exercises do you enjoy the LEAST? (up to 5)", 
-					Exercises.getExerciseOptions(),
-					QuestionType.MULTIPLE, 
-					5),
+//			new QuestionModel(
+//					"profile_exercise_enjoy",
+//					"Favorites", 
+//					"Which exercises do you enjoy the MOST? (up to 5)", 
+//					Exercises.getExerciseOptions(),
+//					QuestionType.MULTIPLE, 
+//					5),	
+//					
+//			new QuestionModel(
+//					"profile_exercise_hate",
+//					"Least Favorites", 
+//					"Which exercises do you enjoy the LEAST? (up to 5)", 
+//					Exercises.getExerciseOptions(),
+//					QuestionType.MULTIPLE, 
+//					5),
 					
 			new QuestionModel(
 					"profile_exercise_equip",

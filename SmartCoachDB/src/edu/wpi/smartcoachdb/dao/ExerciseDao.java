@@ -1,5 +1,7 @@
 package edu.wpi.smartcoachdb.dao;
 
+import java.util.List;
+
 import edu.wpi.smartcoach.model.Exercise;
 
 public interface ExerciseDao {
@@ -9,4 +11,10 @@ public interface ExerciseDao {
 	 * @param exercise
 	 */
 	public void insertOne(Exercise exercise);
+	
+	/**
+	 * get all data from table of t_exercise
+	 * @return
+	 */
+	public List<Exercise> getAll();
 }

@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoach.model.ExerciseLocation;
 import edu.wpi.smartcoach.model.ExerciseTime;
 import edu.wpi.smartcoach.service.impl.ExerciseLocationServiceImpl;
+import edu.wpi.smartcoach.service.impl.ExerciseServiceImpl;
 import edu.wpi.smartcoach.service.impl.ExerciseTimeServiceImpl;
 
 public class TestActivity extends Activity {
@@ -27,6 +29,14 @@ public class TestActivity extends Activity {
 				android.R.layout.simple_expandable_list_item_1, getData_ExerciseLocation()));
 	}
 
+	private List<String> getData_Exercise(){
+		List<Exercise> mExercises = ExerciseServiceImpl.getInstance().getAllDataFromTable();
+		List<String> data = new ArrayList<String>();
+		for(Exercise mExercise : mExercises){
+			data.add(mExercise.getExerciseName());
+		}
+		return data;
+	}
 	private List<String> getData_ExerciseTime() {
 		List<ExerciseTime> mExerciseTimes = ExerciseTimeServiceImpl
 				.getInstance().getAllDataFromTable();

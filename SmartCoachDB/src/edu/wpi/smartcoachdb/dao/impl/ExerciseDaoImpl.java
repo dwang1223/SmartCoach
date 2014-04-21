@@ -1,10 +1,16 @@
 package edu.wpi.smartcoachdb.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import edu.wpi.smartcoach.activity.MainActivity;
 import edu.wpi.smartcoach.model.Exercise;
+import edu.wpi.smartcoach.model.ExerciseLocation;
 import edu.wpi.smartcoachdb.dao.ExerciseDao;
 import edu.wpi.smartcoachdb.db.column.ExerciseColumns;
+import edu.wpi.smartcoachdb.db.column.ExerciseLocationColumns;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 
 public class ExerciseDaoImpl implements ExerciseDao{
@@ -18,11 +24,38 @@ public class ExerciseDaoImpl implements ExerciseDao{
 				+ ExerciseColumns.FIELD_EXERCISE_TYPE + ", "
 				+ ExerciseColumns.FIELD_EXERCISE_NUMBER_OF_PERSONS + ", "
 				+ ExerciseColumns.FIELD_EXERCISE_EQUIPMENT + ") "
-				+ "values ('" + exercise.getName() + "', '"
+				+ "values ('" + exercise.getExerciseName() + "', '"
 				+ exercise.getExerciseType() + "','"
 				+ exercise.getExerciseNumberOfPersons() + "','"
 				+ exercise.getExerciseEquipment() + "')";
 		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
+	}
+
+	@Override
+	public List<Exercise> getAll() {
+		// TODO Auto-generated method stub
+		List<Exercise> mExerciseList = new ArrayList<Exercise>();
+		Exercise mExercise = null;
+		String sql = "select * from "
+				+ ExerciseColumns.TABLE_EXERCISE;
+		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+				.rawQuery(sql, null);
+		try {
+			mCursor.moveToNext();
+			while (mCursor.getPosition() != mCursor.getCount()) {
+				mExercise = new Exercise();
+				mExercise.setId(mCursor.getInt(0));
+				mExercise.setExerciseName(mCursor.getString(1));
+				mExercise.setExerciseType(mCursor.getString(2));
+				mExercise.setExerciseNumberOfPersons(mCursor.getString(3));
+				mExercise.setExerciseEquipment(mCursor.getString(4));
+				mExerciseList.add(mExercise);
+				mCursor.moveToNext();
+			}
+		} catch (Exception e) {
+			mCursor.close();
+		}
+		return mExerciseList;
 	}
 	
 }
