@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import edu.wpi.smartcoach.ExerciseProblemActivity;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoach.model.ExerciseLocation;

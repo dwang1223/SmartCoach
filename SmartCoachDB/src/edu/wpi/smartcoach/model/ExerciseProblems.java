@@ -3,6 +3,7 @@ package edu.wpi.smartcoach.model;
 import java.util.ArrayList;
 
 import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
+import edu.wpi.smartcoach.service.impl.ExerciseLocationServiceImpl;
 import edu.wpi.smartcoach.service.impl.ExerciseServiceImpl;
 import edu.wpi.smartcoach.service.impl.ExerciseTimeServiceImpl;
 
@@ -10,7 +11,7 @@ public class ExerciseProblems {
 	
 	private static final int PROBLEM_NOLIKE = 0;
 	private static final int PROBLEM_TIME = 1;
-	private static final int PROBLEM_MOTIVATION = 2;
+	private static final int PROBLEM_LOCATION = 2;
 	private static final int PROBLEM_INJURY = 3;
 	
 	public static final QuestionModel EXERCISE_TIME = new QuestionModel(
@@ -25,6 +26,14 @@ public class ExerciseProblems {
 			"Least Favorites", 
 			"Which exercises have tried and not liked?", 
 			ExerciseServiceImpl.getInstance().getAllDataFromTable(),
+			QuestionType.MULTIPLE 
+			);
+	
+	public static final QuestionModel EXERCISE_LOCATION = new QuestionModel(
+			"profile_exercise_where",
+			"Location", 
+			"Where do you prefer to exercise?", 
+			ExerciseLocationServiceImpl.getInstance().getAllDataFromTable(),
 			QuestionType.MULTIPLE 
 			);
 	
@@ -43,7 +52,7 @@ public class ExerciseProblems {
 	public static final ArrayList<ProblemOption> problems = new  ArrayList<ProblemOption>(){{
 		add(new ProblemOption(PROBLEM_NOLIKE, "I don't like to exercise", EXERCISE_NOLIKE));
 		add(new ProblemOption(PROBLEM_TIME, "I don't have time to exercise", EXERCISE_TIME));
-		add(new ProblemOption(PROBLEM_MOTIVATION, "I am not motivated to exercise", null));
+		add(new ProblemOption(PROBLEM_LOCATION, "I don't have place to exercise", EXERCISE_LOCATION));
 		add(new ProblemOption(PROBLEM_INJURY, "I have an injury that prevents me from exercising", EXERCISE_INJURY));
 	}};
 	
