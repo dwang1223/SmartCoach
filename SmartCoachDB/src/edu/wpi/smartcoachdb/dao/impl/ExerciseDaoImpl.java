@@ -24,7 +24,7 @@ public class ExerciseDaoImpl implements ExerciseDao{
 				+ ExerciseColumns.FIELD_EXERCISE_TYPE + ", "
 				+ ExerciseColumns.FIELD_EXERCISE_NUMBER_OF_PERSONS + ", "
 				+ ExerciseColumns.FIELD_EXERCISE_EQUIPMENT + ") "
-				+ "values ('" + exercise.getExerciseName() + "', '"
+				+ "values ('" + exercise.getName() + "', '"
 				+ exercise.getExerciseType() + "','"
 				+ exercise.getExerciseNumberOfPersons() + "','"
 				+ exercise.getExerciseEquipment() + "')";
@@ -33,7 +33,6 @@ public class ExerciseDaoImpl implements ExerciseDao{
 
 	@Override
 	public List<Exercise> getAll() {
-		// TODO Auto-generated method stub
 		List<Exercise> mExerciseList = new ArrayList<Exercise>();
 		Exercise mExercise = null;
 		String sql = "select * from "
@@ -45,7 +44,7 @@ public class ExerciseDaoImpl implements ExerciseDao{
 			while (mCursor.getPosition() != mCursor.getCount()) {
 				mExercise = new Exercise();
 				mExercise.setId(mCursor.getInt(0));
-				mExercise.setExerciseName(mCursor.getString(1));
+				mExercise.setName(mCursor.getString(1));
 				mExercise.setExerciseType(mCursor.getString(2));
 				mExercise.setExerciseNumberOfPersons(mCursor.getString(3));
 				mExercise.setExerciseEquipment(mCursor.getString(4));

@@ -1,6 +1,6 @@
 package edu.wpi.smartcoach.model;
 
-public class ExerciseTime {
+public class ExerciseTime implements OptionModel {
 	private int id;
 	private String exerciseTime;
 
@@ -18,16 +18,25 @@ public class ExerciseTime {
 		return id;
 	}
 
+	@Override
+	public String getName() {
+		return getTime();
+	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getExerciseTime() {
+	public String getTime() {
 		return exerciseTime;
 	}
 
-	public void setExerciseTime(String exerciseTime) {
+	public void setTime(String exerciseTime) {
 		this.exerciseTime = exerciseTime;
+	}
+
+	public String toString(){
+		return getName();
 	}
 
 }

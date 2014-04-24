@@ -1,11 +1,11 @@
 package edu.wpi.smartcoach.model;
 
-public class Exercise {
+public class Exercise implements OptionModel {
 	private int id;
-	private String exerciseName;
-	private String exerciseType;
-	private String exerciseNumberOfPersons;
-	private String exerciseEquipment;
+	private String name;
+	private String type;
+	private String numberOfPersons;
+	private String equipment;
 
 	public Exercise() {
 		super();
@@ -15,56 +15,60 @@ public class Exercise {
 	public Exercise(int id, String exerciseName) {
 		super();
 		this.id = id;
-		this.exerciseName = exerciseName;
+		this.name = exerciseName;
 	}
 
 	public Exercise(String exerciseName, String exerciseType,
 			String exerciseNumberOfPersons, String exerciseEquipment) {
 		super();
-		this.exerciseName = exerciseName;
-		this.exerciseType = exerciseType;
-		this.exerciseNumberOfPersons = exerciseNumberOfPersons;
-		this.exerciseEquipment = exerciseEquipment;
+		this.name = exerciseName;
+		this.type = exerciseType;
+		this.numberOfPersons = exerciseNumberOfPersons;
+		this.equipment = exerciseEquipment;
 	}
 
 	public int getId() {
 		return id;
+	}	
+
+	@Override
+	public String getName() {
+		return name;
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getExerciseName() {
-		return exerciseName;
-	}
-
-	public void setExerciseName(String exerciseName) {
-		this.exerciseName = exerciseName;
+	public void setName(String exerciseName) {
+		this.name = exerciseName;
 	}
 
 	public String getExerciseType() {
-		return exerciseType;
+		return type;
 	}
 
 	public void setExerciseType(String exerciseType) {
-		this.exerciseType = exerciseType;
+		this.type = exerciseType;
 	}
 
 	public String getExerciseNumberOfPersons() {
-		return exerciseNumberOfPersons;
+		return numberOfPersons;
 	}
 
-	public void setExerciseNumberOfPersons(String exerciseNumberOfPersons) {
-		this.exerciseNumberOfPersons = exerciseNumberOfPersons;
+	public void setExerciseNumberOfPersons(String numberOfPersons) {
+		this.numberOfPersons = numberOfPersons;
 	}
 
 	public String getExerciseEquipment() {
-		return exerciseEquipment;
+		return equipment;
 	}
 
 	public void setExerciseEquipment(String exerciseEquipment) {
-		this.exerciseEquipment = exerciseEquipment;
+		this.equipment = exerciseEquipment;
 	}
-
+	
+	public String toString(){
+		return getName();
+	}
 }

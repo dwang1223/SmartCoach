@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import edu.wpi.smartcoach.ExerciseProblemActivity;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoach.model.ExerciseLocation;
@@ -45,7 +46,7 @@ public class MainActivity extends Activity {
 			prefs.edit().putBoolean("init", true).commit();
 		}
 
-		startActivity(new Intent(this, TestActivity.class));
+		startActivity(new Intent(this, ExerciseProblemActivity.class));
 	}
 
 	/**

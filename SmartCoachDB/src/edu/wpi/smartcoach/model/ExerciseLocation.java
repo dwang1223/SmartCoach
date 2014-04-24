@@ -1,13 +1,12 @@
 package edu.wpi.smartcoach.model;
 
-public class ExerciseLocation {
+public class ExerciseLocation implements OptionModel{
 	private int id;
 	private String specificLocation;
 	private String locationType;
 
 	public ExerciseLocation() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public ExerciseLocation(String specificLocation, String locationType) {
@@ -16,9 +15,16 @@ public class ExerciseLocation {
 		this.locationType = locationType;
 	}
 
+	@Override
 	public int getId() {
 		return id;
 	}
+	
+	@Override
+	public String getName() {
+		return getSpecificLocation();
+	}
+
 
 	public void setId(int id) {
 		this.id = id;
@@ -39,5 +45,6 @@ public class ExerciseLocation {
 	public void setLocationType(String locationType) {
 		this.locationType = locationType;
 	}
+
 
 }

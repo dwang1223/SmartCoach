@@ -2,7 +2,6 @@ package edu.wpi.smartcoach.activity;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -13,12 +12,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.view.View;
+import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.ExerciseProfile;
 import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.view.QuestionFragment;
-import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.view.QuestionFragment.QuestionResponseListener;
 
 public class ProfileActivity extends FragmentActivity {
 	
@@ -75,16 +74,19 @@ public class ProfileActivity extends FragmentActivity {
 			qf
 				.setQuestion(ExerciseProfile.questions[position])
 				.setLast(position == getCount()-1)
-				.setNextButtonListener( new View.OnClickListener() {				
+				.setNextButtonListener( new QuestionResponseListener() {
+					
 					@Override
-					public void onClick(View v) {
+					public void responseEntered(QuestionModel question) {
 						if(position == getCount()-1){
 							doFinish();
 						} else {
 							mViewPager.setCurrentItem(position+1, true);
 						}
+						
 					}
 				});
+				
 			return qf;
 		}
 

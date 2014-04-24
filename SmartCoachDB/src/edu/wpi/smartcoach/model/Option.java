@@ -22,6 +22,10 @@ public class Option {
 		return selected;
 	}
 	
+	public OptionModel getModel(){
+		return model;
+	}
+	
 	public void setSelected(boolean select){
 		selected = select;
 	}

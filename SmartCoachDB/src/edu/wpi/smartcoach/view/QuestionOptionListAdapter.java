@@ -1,16 +1,14 @@
 package edu.wpi.smartcoach.view;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.Option;
+import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
 
@@ -55,6 +53,7 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 				boolean isChecked = !op.isSelected();
 				//if in single selection mode or the default item is selected
 				if(isChecked && (question.getType() == QuestionType.SINGLE || op.getId() == QuestionModel.DEFAULT)){
+					
 					for(Option opm:question.getResponses()){ //deselect everything else
 						opm.setSelected(false);
 					}

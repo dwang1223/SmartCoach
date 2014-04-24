@@ -16,7 +16,7 @@ public class ExerciseTimeDaoImpl implements ExerciseTimeDao {
 		// TODO Auto-generated method stub
 		String sql = "insert into " + ExerciseTimeColumns.TABLE_EXERCISE_TIME
 				+ " (" + ExerciseTimeColumns.FIELD_EXERCISE_TIME + ") "
-				+ "values ('" + exerciseTime.getExerciseTime() + "')";
+				+ "values ('" + exerciseTime.getTime() + "')";
 		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
 	}
 
@@ -33,7 +33,7 @@ public class ExerciseTimeDaoImpl implements ExerciseTimeDao {
 			while (mCursor.getPosition() != mCursor.getCount()) {
 				mExerciseTime = new ExerciseTime();
 				mExerciseTime.setId(mCursor.getInt(0));
-				mExerciseTime.setExerciseTime(mCursor.getString(1));
+				mExerciseTime.setTime(mCursor.getString(1));
 				mExerciseTimeList.add(mExerciseTime);
 				mCursor.moveToNext();
 			}

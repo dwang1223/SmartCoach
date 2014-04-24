@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import android.util.Log;
+
 public class QuestionModel {
+	
+	private static final String TAG = QuestionModel.class.getSimpleName();
 	
 	public enum QuestionType {
 		SINGLE, MULTIPLE
@@ -26,15 +30,15 @@ public class QuestionModel {
 	 */
 	private int max = NO_LIMIT;
 	
-	public QuestionModel(String id, String title, String prompt, List<OptionModel> responses, QuestionType type){
+	public QuestionModel(String id, String title, String prompt, List<? extends OptionModel> responses, QuestionType type){
 		this.id = id;
 		this.title = title;
 		this.prompt = prompt;
 		this.responses = new ArrayList<Option>();
 		this.type = type;
-		
 		for(OptionModel opm:responses){
 			Option op = new Option(opm);
+			this.responses.add(op);
 			if(opm.getId() == DEFAULT){
 				defaultResponse = op;
 			}
@@ -42,7 +46,7 @@ public class QuestionModel {
 		
 	}
 	
-	public QuestionModel(String id, String title, String prompt, List<OptionModel> responses, QuestionType type, int max){
+	public QuestionModel(String id, String title, String prompt, List<? extends OptionModel> responses, QuestionType type, int max){
 		this(id, title, prompt, responses, type);
 		if(type.equals(QuestionType.MULTIPLE)){
 			this.max = max;
@@ -94,5 +98,10 @@ public class QuestionModel {
 			}
 		}
 		return responseList;
+	}
+	
+	@Override
+	public String toString(){
+		return String.format("%s:%s {%s}", id, prompt, responses.toString());
 	}
 }

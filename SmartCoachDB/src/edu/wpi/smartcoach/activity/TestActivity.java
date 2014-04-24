@@ -33,7 +33,7 @@ public class TestActivity extends Activity {
 		List<Exercise> mExercises = ExerciseServiceImpl.getInstance().getAllDataFromTable();
 		List<String> data = new ArrayList<String>();
 		for(Exercise mExercise : mExercises){
-			data.add(mExercise.getExerciseName());
+			data.add(mExercise.getName());
 		}
 		return data;
 	}
@@ -42,7 +42,7 @@ public class TestActivity extends Activity {
 				.getInstance().getAllDataFromTable();
 		List<String> data = new ArrayList<String>();
 		for (ExerciseTime mExerciseTime : mExerciseTimes) {
-			data.add(mExerciseTime.getExerciseTime());
+			data.add(mExerciseTime.getTime());
 		}
 		return data;
 	}

@@ -20,7 +20,7 @@ public class QuestionFragment extends Fragment {
 	private QuestionOptionListAdapter adapter;
 	
 	private Button next;
-	private View.OnClickListener listener;
+	private QuestionResponseListener listener;
 	private boolean isLast = false;
 	
 	private QuestionModel question;
@@ -32,7 +32,7 @@ public class QuestionFragment extends Fragment {
 		return this;
 	}
 	
-	public QuestionFragment setNextButtonListener(View.OnClickListener ocl){
+	public QuestionFragment setNextButtonListener(QuestionResponseListener ocl){		
 		listener = ocl;
 		return this;
 	}
@@ -54,7 +54,9 @@ public class QuestionFragment extends Fragment {
 		next.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				listener.onClick(v);
+				if(listener != null){
+					listener.responseEntered(question);;
+				}
 			}
 		});
 		
@@ -71,6 +73,10 @@ public class QuestionFragment extends Fragment {
 		adapter.notifyDataSetChanged();
 
 		return rootView;
+	}
+	
+	public interface QuestionResponseListener {
+		public void responseEntered(QuestionModel question);
 	}
 
 	
