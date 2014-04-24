@@ -14,7 +14,7 @@ import edu.wpi.smartcoach.model.ExerciseProblems;
 import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.ProblemOption;
 import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoach.service.impl.ExerciseServiceImpl;
+import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.view.QuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment.QuestionResponseListener;
 
@@ -62,7 +62,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	}
 	
 	private void createFilteredList(){
-		List<Exercise> exercisesList = ExerciseServiceImpl.getInstance().getAllDataFromTable();
+		List<Exercise> exercisesList = ExerciseService.getInstance().getAllDataFromTable();
 		exercises.addAll(exercisesList);
 		
 	}

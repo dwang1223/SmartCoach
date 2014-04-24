@@ -11,9 +11,9 @@ import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoach.model.ExerciseLocation;
 import edu.wpi.smartcoach.model.ExerciseTime;
-import edu.wpi.smartcoach.service.impl.ExerciseLocationServiceImpl;
-import edu.wpi.smartcoach.service.impl.ExerciseServiceImpl;
-import edu.wpi.smartcoach.service.impl.ExerciseTimeServiceImpl;
+import edu.wpi.smartcoach.service.ExerciseLocationService;
+import edu.wpi.smartcoach.service.ExerciseService;
+import edu.wpi.smartcoach.service.ExerciseTimeService;
 
 public class TestActivity extends Activity {
 
@@ -30,7 +30,7 @@ public class TestActivity extends Activity {
 	}
 
 	private List<String> getData_Exercise(){
-		List<Exercise> mExercises = ExerciseServiceImpl.getInstance().getAllDataFromTable();
+		List<Exercise> mExercises = ExerciseService.getInstance().getAllDataFromTable();
 		List<String> data = new ArrayList<String>();
 		for(Exercise mExercise : mExercises){
 			data.add(mExercise.getName());
@@ -38,7 +38,7 @@ public class TestActivity extends Activity {
 		return data;
 	}
 	private List<String> getData_ExerciseTime() {
-		List<ExerciseTime> mExerciseTimes = ExerciseTimeServiceImpl
+		List<ExerciseTime> mExerciseTimes = ExerciseTimeService
 				.getInstance().getAllDataFromTable();
 		List<String> data = new ArrayList<String>();
 		for (ExerciseTime mExerciseTime : mExerciseTimes) {
@@ -47,7 +47,7 @@ public class TestActivity extends Activity {
 		return data;
 	}
 	private List<String> getData_ExerciseLocation() {
-		List<ExerciseLocation> mExerciseLocations = ExerciseLocationServiceImpl
+		List<ExerciseLocation> mExerciseLocations = ExerciseLocationService
 				.getInstance().getAllDataFromTable();
 		List<String> data = new ArrayList<String>();
 		for (ExerciseLocation mExerciseLocation : mExerciseLocations) {

@@ -18,9 +18,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import edu.wpi.smartcoach.model.PatientProfile;
-import edu.wpi.smartcoach.service.impl.PatientProfileServiceImpl;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.PatientProfile;
+import edu.wpi.smartcoach.service.PatientProfileService;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 
 public class RegistrationActivity extends Activity implements OnDateSetListener {
@@ -84,7 +84,7 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 		String genderStr = gender.getSelectedItem().toString();
 		String bd = birthday.getText().toString();
 		
-		PatientProfileServiceImpl.getInstance().initPatientProfile(new PatientProfile(firstName, lastName, genderStr, new Date(Date.parse(bd)), addressStr, occupationStr));
+		PatientProfileService.getInstance().initPatientProfile(new PatientProfile(firstName, lastName, genderStr, new Date(Date.parse(bd)), addressStr, occupationStr));
 
 		Intent intent = new Intent(this, PatientInfoActivity.class);
 		startActivity(intent);

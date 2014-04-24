@@ -3,8 +3,8 @@ package edu.wpi.smartcoach.model;
 import java.util.ArrayList;
 
 import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
-import edu.wpi.smartcoach.service.impl.ExerciseServiceImpl;
-import edu.wpi.smartcoach.service.impl.ExerciseTimeServiceImpl;
+import edu.wpi.smartcoach.service.ExerciseService;
+import edu.wpi.smartcoach.service.ExerciseTimeService;
 
 public class ExerciseProblems {
 	
@@ -17,14 +17,14 @@ public class ExerciseProblems {
 			"profile_exercise_when",
 			"Time",
 			"When do you prefer to exercise?",
-			ExerciseTimeServiceImpl.getInstance().getAllDataFromTable(),
+			ExerciseTimeService.getInstance().getAllDataFromTable(),
 			QuestionType.MULTIPLE);
 	
 	public static final QuestionModel EXERCISE_NOLIKE = new QuestionModel(
 			"profile_exercise_hate",
 			"Least Favorites", 
 			"Which exercises have tried and not liked?", 
-			ExerciseServiceImpl.getInstance().getAllDataFromTable(),
+			ExerciseService.getInstance().getAllDataFromTable(),
 			QuestionType.MULTIPLE 
 			);
 	
@@ -32,7 +32,7 @@ public class ExerciseProblems {
 			"profile_exercise_like",
 			"Possible Exercises", 
 			"Which exercises can you still do with your injury?", 
-			ExerciseServiceImpl.getInstance().getAllDataFromTable(),
+			ExerciseService.getInstance().getAllDataFromTable(),
 			QuestionType.MULTIPLE 
 			);
 	

@@ -19,9 +19,9 @@ import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoach.model.ExerciseLocation;
 import edu.wpi.smartcoach.model.ExerciseTime;
-import edu.wpi.smartcoachdb.dao.impl.ExerciseDaoImpl;
-import edu.wpi.smartcoachdb.dao.impl.ExerciseLocationDaoImpl;
-import edu.wpi.smartcoachdb.dao.impl.ExerciseTimeDaoImpl;
+import edu.wpi.smartcoachdb.dao.ExerciseDao;
+import edu.wpi.smartcoachdb.dao.ExerciseLocationDao;
+import edu.wpi.smartcoachdb.dao.ExerciseTimeDao;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 
 public class MainActivity extends Activity {
@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
 	 * insert data of table of t_exercise
 	 */
 	public void initExercise() {
-		ExerciseDaoImpl mExerciseDaoImpl = new ExerciseDaoImpl();
+		ExerciseDao mExerciseDaoImpl = new ExerciseDao();
 		ArrayList<Exercise> exerciseList = new ArrayList<Exercise>();
 		Exercise mExercise1 = new Exercise("Walking", "Cardio", "Any",
 				"shoes");
@@ -95,7 +95,7 @@ public class MainActivity extends Activity {
 	 * insert data of table of t_exercise_location
 	 */
 	public void initExerciseLocation() {
-		ExerciseLocationDaoImpl mExerciseLocationDaoImpl = new ExerciseLocationDaoImpl();
+		ExerciseLocationDao mExerciseLocationDaoImpl = new ExerciseLocationDao();
 		ArrayList<ExerciseLocation> exerciseLocationList = new ArrayList<ExerciseLocation>();
 		ExerciseLocation meExerciseLocation1 = new ExerciseLocation("Home", "Indoor");
 		ExerciseLocation meExerciseLocation2 = new ExerciseLocation("Gym", "Indoor");
@@ -122,7 +122,7 @@ public class MainActivity extends Activity {
 	 * insert data of table of t_exercise_time
 	 */
 	public void initExerciseTime() {
-		ExerciseTimeDaoImpl mExerciseTimeDaoImpl = new ExerciseTimeDaoImpl();
+		ExerciseTimeDao mExerciseTimeDaoImpl = new ExerciseTimeDao();
 		ArrayList<ExerciseTime> exerciseTimeList = new ArrayList<ExerciseTime>();
 		ExerciseTime mExerciseTime1 = new ExerciseTime("Early morning");
 		ExerciseTime mExerciseTime2 = new ExerciseTime("Morning");
