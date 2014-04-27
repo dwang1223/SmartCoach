@@ -1,23 +1,21 @@
 package edu.wpi.smartcoach.model;
 
-import android.util.Log;
+import edu.wpi.smartcoach.solver.ProblemSolver;
 
 public class ProblemOption extends SimpleOption{
 
 	private static final String TAG = ProblemOption.class.getSimpleName();
 	
-	private QuestionModel nextQuestion;
+	private ProblemSolver solver;
 	
-	public ProblemOption(int id, String name, QuestionModel next) {
-		super(id, name);
-		this.nextQuestion = next;
+	public ProblemOption(int id, String text, ProblemSolver solver){
+		super(id, text);
+		this.solver = solver;
+		
 	}
 	
-	public QuestionModel getNextQuestion(){
-		return nextQuestion;
-	}	
-	
-	public String toString(){
-		return getName() + " -> "+ nextQuestion == null?"NONE":nextQuestion.toString();
+	public ProblemSolver getSolver() {
+		return solver;
 	}
+
 }

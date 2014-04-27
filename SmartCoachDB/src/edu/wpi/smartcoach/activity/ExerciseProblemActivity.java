@@ -1,25 +1,17 @@
 package edu.wpi.smartcoach.activity;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.R.id;
-import edu.wpi.smartcoach.R.layout;
-import edu.wpi.smartcoach.R.menu;
 import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoach.model.ExerciseProblems;
-import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.ProblemOption;
 import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
-import edu.wpi.smartcoach.service.impl.ExerciseServiceImpl;
+import edu.wpi.smartcoach.solver.ProblemSolver;
 import edu.wpi.smartcoach.view.QuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment.QuestionResponseListener;
 
@@ -31,8 +23,8 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	
 	private ArrayList<Exercise> exercises;
 	
-	private ArrayList<QuestionModel> problemQuestions;
-	int index = -1;
+	private ProblemSolver solver  = null;
+	
 	
 	
 	@Override
@@ -40,7 +32,6 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_exercise_problem);
 		
-		problemQuestions = new ArrayList<QuestionModel>();
 		exercises = new  ArrayList<Exercise>();
 		questionFragment = new QuestionFragment();
 		questionFragment.setQuestion(ExerciseProblems.BASE_PROBLEM);
@@ -49,34 +40,23 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		
 	}
 
-	private void doSave(){
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		Editor prefEdit = prefs.edit();
-		for(QuestionModel qm:problemQuestions){
-			List<Option> select = qm.getSelectedResponses();
-			String responseStr = "";
-			for(int i = 0; i < select.size(); i++){
-				responseStr += select.get(i).getId();
-				if(i < select.size()-1){
-					responseStr += ",";
-				}
-			}
-			prefEdit.putString(qm.getId(), responseStr);
-		}
-		prefEdit.commit();		
-	}
-	
-	private void createFilteredList(){
-		List<Exercise> exercisesList = ExerciseServiceImpl.getInstance().getAllDataFromTable();
-		exercises.addAll(exercisesList);
-		
-		QuestionModel allExercises = new QuestionModel("Exercise", "Exercise", "Which exercise would you like to try?", exercisesList, QuestionType.SINGLE);
-		questionFragment = new QuestionFragment();
-		questionFragment.setQuestion(allExercises);
-		getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
-		//questionFragment.setNextButtonListener(this);
-		
-	}
+//	private void doSave(){
+//		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//		Editor prefEdit = prefs.edit();
+//		for(QuestionModel qm:problemQuestions){
+//			List<Option> select = qm.getSelectedResponses();
+//			String responseStr = "";
+//			for(int i = 0; i < select.size(); i++){
+//				responseStr += select.get(i).getId();
+//				if(i < select.size()-1){
+//					responseStr += ",";
+//				}
+//			}
+//			prefEdit.putString(qm.getId(), responseStr);
+//		}
+//		prefEdit.commit();		
+//	}
+
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,27 +67,25 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 
 	@Override
 	public void responseEntered(QuestionModel question) {
+		Log.d(TAG, "responseEntered "+question.toString());
+		boolean submit = true;
 		if(question == ExerciseProblems.BASE_PROBLEM){
-			List<Option> selectedProblems = question.getSelectedResponses();
-			for(Option o:selectedProblems){
-				ProblemOption po = ((ProblemOption)o.getModel());
-				if(po.getNextQuestion() != null){
-					problemQuestions.add(po.getNextQuestion());
-				}
-			}
-			index = -1;
+			solver = ((ProblemOption)question.getSelectedResponses().get(0).getModel()).getSolver();
+			submit = false;
 		}
 		
-		index++;
-		if(index >= problemQuestions.size()){
-			doSave();
-			createFilteredList();
-			return;
+		if(solver != null && solver.hasNextQuestion()){
+		
+			if(submit){
+				solver.submitResponse(question);
+			}
+
+			questionFragment = new QuestionFragment();
+			questionFragment.setQuestion(solver.getNextQuestion());
+			questionFragment.setNextButtonListener(this);
+			getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
+			
 		}
-		questionFragment = new QuestionFragment();
-		questionFragment.setQuestion(problemQuestions.get(index));
-		questionFragment.setNextButtonListener(this);
-		getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();		
 		
 	}
 

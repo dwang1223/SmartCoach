@@ -1,50 +1,53 @@
 package edu.wpi.smartcoach.model;
 
 public class PatientExercise {
-	private int id;
-	private int patientID;
-	private int exerciseID;
-	private int exerciseTimeID;
-	private String patientPreference;
-
-	public int getId() {
-		return id;
+	
+	private Exercise exercise;
+	private String location;
+	private String time;
+	private boolean liked;	
+	
+	public PatientExercise(Exercise exercise, String location, String time,boolean liked) {
+		this.exercise = exercise;
+		this.location = location;
+		this.time = time;
+		this.liked = liked;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public PatientExercise(){
+		this(null, null, null, false);
 	}
-
-	public int getPatientID() {
-		return patientID;
+	
+	public Exercise getExercise() {
+		return exercise;
 	}
-
-	public void setPatientID(int patientID) {
-		this.patientID = patientID;
+	
+	public String getLocation() {
+		return location;
 	}
-
-	public int getExerciseID() {
-		return exerciseID;
+	
+	public String getTime() {
+		return time;
 	}
-
-	public void setExerciseID(int exerciseID) {
-		this.exerciseID = exerciseID;
+	
+	public boolean isLiked() {
+		return liked;
 	}
-
-	public int getExerciseTimeID() {
-		return exerciseTimeID;
+	
+	public void setExercise(Exercise exercise) {
+		this.exercise = exercise;
 	}
-
-	public void setExerciseTimeID(int exerciseTimeID) {
-		this.exerciseTimeID = exerciseTimeID;
+	
+	public void setLocation(String location) {
+		this.location = location;
 	}
-
-	public String getPatientPreference() {
-		return patientPreference;
+	
+	public void setTime(String time) {
+		this.time = time;
 	}
-
-	public void setPatientPreference(String patientPreference) {
-		this.patientPreference = patientPreference;
+	
+	public void setLiked(boolean liked) {
+		this.liked = liked;
 	}
 
 }
