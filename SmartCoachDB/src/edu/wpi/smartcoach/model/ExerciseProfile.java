@@ -5,8 +5,8 @@ import java.util.List;
 
 import android.util.Log;
 import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
-import edu.wpi.smartcoach.service.impl.ExerciseServiceImpl;
-import edu.wpi.smartcoach.service.impl.ExerciseTimeServiceImpl;
+import edu.wpi.smartcoach.service.ExerciseService;
+import edu.wpi.smartcoach.service.ExerciseTimeService;
 
 public class ExerciseProfile {
 
@@ -27,8 +27,8 @@ public class ExerciseProfile {
 
 	static {		
 		
-		final List<Exercise> exercises = ExerciseServiceImpl.getInstance().getAllDataFromTable();		
-		final List<ExerciseTime> times = ExerciseTimeServiceImpl.getInstance().getAllDataFromTable();
+		final List<Exercise> exercises = ExerciseService.getInstance().getAllDataFromTable();		
+		final List<ExerciseTime> times = ExerciseTimeService.getInstance().getAllDataFromTable();
 
 		Log.d(TAG, exercises.toString());
 		Log.d(TAG, times.toString());

@@ -3,10 +3,11 @@ package edu.wpi.smartcoach.model;
 import java.util.ArrayList;
 
 import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
-import edu.wpi.smartcoach.service.impl.ExerciseLocationServiceImpl;
-import edu.wpi.smartcoach.service.impl.ExerciseServiceImpl;
-import edu.wpi.smartcoach.service.impl.ExerciseTimeServiceImpl;
+import edu.wpi.smartcoach.service.ExerciseLocationService;
+import edu.wpi.smartcoach.service.ExerciseService;
+import edu.wpi.smartcoach.service.ExerciseTimeService;
 import edu.wpi.smartcoach.solver.MotivationProblemSolver;
+
 
 public class ExerciseProblems {
 
@@ -19,14 +20,15 @@ public class ExerciseProblems {
 			"profile_exercise_when",
 			"Time",
 			"When do you prefer to exercise?",
-			ExerciseTimeServiceImpl.getInstance().getAllDataFromTable(),
+			ExerciseTimeService.getInstance().getAllDataFromTable(),
 			QuestionType.MULTIPLE);
 	
+
 	public static final QuestionModel EXERCISE_MOTIVATION = new QuestionModel(
 			"profile_exercises_try",
 			"Tried", 
 			"Which exercises did oyu try?", 
-			ExerciseServiceImpl.getInstance().getAllDataFromTable(),
+			ExerciseService.getInstance().getAllDataFromTable(),
 			QuestionType.MULTIPLE 
 			);
 	
@@ -34,7 +36,7 @@ public class ExerciseProblems {
 			"profile_exercise_where",
 			"Location", 
 			"Where do you prefer to exercise?", 
-			ExerciseLocationServiceImpl.getInstance().getAllDataFromTable(),
+			ExerciseLocationService.getInstance().getAllDataFromTable(),
 			QuestionType.MULTIPLE 
 			);
 	
@@ -42,7 +44,7 @@ public class ExerciseProblems {
 			"profile_exercise_like",
 			"Possible Exercises", 
 			"Which exercises can you still do with your injury?", 
-			ExerciseServiceImpl.getInstance().getAllDataFromTable(),
+			ExerciseService.getInstance().getAllDataFromTable(),
 			QuestionType.MULTIPLE 
 			);
 	

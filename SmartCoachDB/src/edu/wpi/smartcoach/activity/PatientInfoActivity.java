@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import edu.wpi.smartcoach.model.PatientInfo;
-import edu.wpi.smartcoach.service.impl.PatientInfoServiceImpl;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.PatientInfo;
+import edu.wpi.smartcoach.service.PatientInfoService;
 
 public class PatientInfoActivity extends Activity {
 
@@ -50,7 +50,7 @@ public class PatientInfoActivity extends Activity {
 		int age = 0; //TODO: get age from database
 		Date time = new Date();
 		
-		PatientInfoServiceImpl.getInstance().initPatientInfo(new PatientInfo(totalHeight, currentWeight, age, time, goalWeight));
+		PatientInfoService.getInstance().initPatientInfo(new PatientInfo(totalHeight, currentWeight, age, time, goalWeight));
 		
 		Intent intent = new Intent(this, ProfileActivity.class);
 		startActivity(intent);
