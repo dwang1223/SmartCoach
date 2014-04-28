@@ -39,7 +39,7 @@
             android:label="@string/title_activity_test" >
         </activity>
         <activity
-            android:name="edu.wpi.smartcoach.ExerciseProblemActivity"
+            android:name="edu.wpi.smartcoach.activity.ExerciseProblemActivity"
             android:label="@string/title_activity_exercise_problem" >
         </activity>
     </application>

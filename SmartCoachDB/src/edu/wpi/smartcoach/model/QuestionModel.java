@@ -90,6 +90,10 @@ public class QuestionModel {
 		return defaultResponse;
 	}
 	
+	public void setPrompt(String p){
+		this.prompt = p;
+	}
+	
 	public List<Option> getSelectedResponses(){
 		ArrayList<Option> responseList = new ArrayList<Option>();
 		for(Option opm:responses){
@@ -98,6 +102,20 @@ public class QuestionModel {
 			}
 		}
 		return responseList;
+	}
+	
+	@Override
+	public QuestionModel clone(){
+		List<OptionModel> responseModelList = new ArrayList<OptionModel>();
+		for(Option op:responses){
+			responseModelList.add(op.getModel());
+		}
+		return new QuestionModel(
+				id,
+				title,
+				prompt,
+				responseModelList,
+				type);
 	}
 	
 	@Override
