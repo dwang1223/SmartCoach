@@ -5,16 +5,15 @@ import java.util.List;
 
 import android.util.Log;
 import edu.wpi.smartcoach.model.Exercise;
-import edu.wpi.smartcoach.model.ExerciseProblems;
 import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.PatientExercise;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.SimpleOption;
-import edu.wpi.smartcoach.service.impl.ExerciseLocationServiceImpl;
-import edu.wpi.smartcoach.service.impl.ExerciseServiceImpl;
-import edu.wpi.smartcoach.service.impl.ExerciseTimeServiceImpl;
+import edu.wpi.smartcoach.service.ExerciseLocationService;
+import edu.wpi.smartcoach.service.ExerciseService;
+import edu.wpi.smartcoach.service.ExerciseTimeService;
 
 public class MotivationProblemSolver implements ProblemSolver{
 	
@@ -33,14 +32,14 @@ public class MotivationProblemSolver implements ProblemSolver{
 				"location",
 				"Location",
 				"Where did you try <exercise>",
-				ExerciseLocationServiceImpl.getInstance().getAllDataFromTable(),
+				ExerciseLocationService.getInstance().getAllDataFromTable(),
 				QuestionType.SINGLE),
 
 		new QuestionModel(
 				"time",
 				"Time",
 				"When did you try <exercise>",
-				ExerciseTimeServiceImpl.getInstance().getAllDataFromTable(),
+				ExerciseTimeService.getInstance().getAllDataFromTable(),
 				QuestionType.SINGLE),
 				
 		new QuestionModel(
@@ -81,7 +80,7 @@ public class MotivationProblemSolver implements ProblemSolver{
 						"exercises",
 						"Exercises",
 						"Which exercises did you try to do?",
-						ExerciseServiceImpl.getInstance().getAllDataFromTable(),
+						ExerciseService.getInstance().getAllDataFromTable(),
 						QuestionType.MULTIPLE);
 				
 			} else {

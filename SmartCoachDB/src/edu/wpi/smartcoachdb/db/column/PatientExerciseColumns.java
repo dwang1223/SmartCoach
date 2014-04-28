@@ -5,6 +5,7 @@ public interface PatientExerciseColumns {
 	String FIELD_ID = "id";
 	String FIELD_PATIENT_ID = "patient_id";
 	String FIELD_EXERCISE_ID = "exercise_id";
+	String FIELD_EXERCISE_LOCATION_ID = "exercise_location_id";
 	String FIELD_EXERCISE_TIME_ID = "exercise_time_id";
 	String FIELD_PATIENT_PREFERENCE = "patient_preference";
 }

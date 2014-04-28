@@ -12,17 +12,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-	
+
 	private static DatabaseHelper instance;
-	
-	public static DatabaseHelper getInstance(Context ctx){
-		if(instance == null){
+
+	public static DatabaseHelper getInstance(Context ctx) {
+		if (instance == null) {
 			instance = new DatabaseHelper(ctx);
 		}
 		return instance;
 	}
-	
-	public static DatabaseHelper getInstance(){
+
+	public static DatabaseHelper getInstance() {
 		return instance;
 	}
 
@@ -106,14 +106,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ PatientExerciseColumns.FIELD_PATIENT_ID + " INTEGER,"
 				+ PatientExerciseColumns.FIELD_EXERCISE_ID + " INTEGER,"
-				+ PatientExerciseColumns.FIELD_EXERCISE_TIME_ID + " INTEGER,"
-				+ PatientExerciseColumns.FIELD_PATIENT_PREFERENCE + " VARCHAR,"
-				+ "FOREIGN KEY (" + PatientExerciseColumns.FIELD_PATIENT_ID
-				+ ") REFERENCES " + PatientProfileColumns.TABLE_PATIENT_PROFILE
-				+ "(" + PatientProfileColumns.FIELD_ID + ")," + "FOREIGN KEY ("
+				+ PatientExerciseColumns.FIELD_EXERCISE_LOCATION_ID
+				+ " INTEGER," + PatientExerciseColumns.FIELD_EXERCISE_TIME_ID
+				+ " INTEGER," + PatientExerciseColumns.FIELD_PATIENT_PREFERENCE
+				+ " VARCHAR," + "FOREIGN KEY ("
+				+ PatientExerciseColumns.FIELD_PATIENT_ID + ") REFERENCES "
+				+ PatientProfileColumns.TABLE_PATIENT_PROFILE + "("
+				+ PatientProfileColumns.FIELD_ID + ")," + "FOREIGN KEY ("
 				+ PatientExerciseColumns.FIELD_EXERCISE_ID + ") REFERENCES "
 				+ ExerciseColumns.TABLE_EXERCISE + "("
 				+ ExerciseColumns.FIELD_ID + ")," + "FOREIGN KEY ("
+				+ PatientExerciseColumns.FIELD_EXERCISE_LOCATION_ID
+				+ ") REFERENCES "
+				+ ExerciseLocationColumns.TABLE_EXERCISE_LOCATION + "("
+				+ ExerciseLocationColumns.FIELD_ID + ")," + "FOREIGN KEY ("
 				+ PatientExerciseColumns.FIELD_EXERCISE_TIME_ID
 				+ ") REFERENCES " + ExerciseTimeColumns.TABLE_EXERCISE_TIME
 				+ "(" + ExerciseTimeColumns.FIELD_ID + ") )");
