@@ -46,7 +46,7 @@ public class MotivationProblemSolver implements ProblemSolver{
 		new QuestionModel(
 				"like",
 				"Liked",
-				"Did you enjoy <exercise> at <location> it the <time>?",
+				"Did you enjoy <exercise> at <location> in the <time>?",
 				new ArrayList<OptionModel>(){{
 					add(new SimpleOption(YES, "Yes"));
 					add(new SimpleOption(NO, "No"));
