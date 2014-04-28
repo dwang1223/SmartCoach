@@ -8,5 +8,6 @@ public interface ProblemSolver {
 	public void submitResponse(QuestionModel response);
 
 	public boolean hasNextQuestion();
-	
+
+	public QuestionModel getSolution();
 }

@@ -152,6 +152,25 @@ public class MotivationProblemSolver implements ProblemSolver{
 		return hasNext;
 	}
 
+
+	@Override
+	public QuestionModel getSolution() {
+		ArrayList<OptionModel> solutions = new ArrayList<OptionModel>();
+		int id = 0;
+		for(PatientExercise e:exercises){
+			id++;
+			String result = String.format("You %slike %s at %s in the %s", e.isLiked()?"":"do not ", e.getExercise().getName(), e.getLocation(), e.getTime());
+			solutions.add(new SimpleOption(id, result));
+		}
+		return new QuestionModel(
+				"results",
+				"Results",
+				"Here are the results.",
+				solutions,
+				QuestionType.SINGLE);
+		
+	}
+
 	
 	
 }

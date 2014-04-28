@@ -74,17 +74,27 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 			submit = false;
 		}
 		
+		QuestionModel newQuestion = null;
+		
 		if(solver != null && solver.hasNextQuestion()){
 		
 			if(submit){
 				solver.submitResponse(question);
 			}
 
+			newQuestion = solver.getNextQuestion();
+			
+		} else {
+			
+			newQuestion = solver.getSolution();
+			
+		}
+		
+		if(newQuestion != null){
 			questionFragment = new QuestionFragment();
-			questionFragment.setQuestion(solver.getNextQuestion());
+			questionFragment.setQuestion(newQuestion);
 			questionFragment.setNextButtonListener(this);
 			getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
-			
 		}
 		
 	}
