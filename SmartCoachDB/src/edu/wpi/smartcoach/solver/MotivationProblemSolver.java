@@ -38,7 +38,7 @@ public class MotivationProblemSolver implements ProblemSolver{
 
 		new QuestionModel(
 				"time",
-				"Location",
+				"Time",
 				"When did you try <exercise>",
 				ExerciseTimeServiceImpl.getInstance().getAllDataFromTable(),
 				QuestionType.SINGLE),
