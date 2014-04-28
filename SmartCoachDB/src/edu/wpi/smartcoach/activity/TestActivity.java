@@ -25,8 +25,8 @@ public class TestActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_test);
 		mListView = (ListView) findViewById(R.id.test_listview);
-		mListView.setAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.simple_expandable_list_item_1, getData_ExerciseLocation()));
+		mListView.setAdapter(new ArrayAdapter<Integer>(this,
+				android.R.layout.simple_expandable_list_item_1, getExerciseTimeID()));
 	}
 
 	private List<String> getData_Exercise(){
@@ -35,6 +35,24 @@ public class TestActivity extends Activity {
 		for(Exercise mExercise : mExercises){
 			data.add(mExercise.getName());
 		}
+		return data;
+	}
+	private List<Integer> getExerciseID(){
+		List<Integer> data = new ArrayList<Integer>();
+		data.add(ExerciseService.getInstance().getExerciseID("Walking"));
+		data.add(ExerciseService.getInstance().getExerciseID("Yoga"));
+		return data;
+	}
+	private List<Integer> getExerciseLocationID(){
+		List<Integer> data = new ArrayList<Integer>();
+		data.add(ExerciseLocationService.getInstance().getExerciseLocationID("Street"));
+		data.add(ExerciseLocationService.getInstance().getExerciseLocationID("Beach"));
+		return data;
+	}
+	private List<Integer> getExerciseTimeID(){
+		List<Integer> data = new ArrayList<Integer>();
+		data.add(ExerciseTimeService.getInstance().getExerciseTimeID("Morning"));
+		data.add(ExerciseTimeService.getInstance().getExerciseTimeID("Night"));
 		return data;
 	}
 	private List<String> getData_ExerciseTime() {

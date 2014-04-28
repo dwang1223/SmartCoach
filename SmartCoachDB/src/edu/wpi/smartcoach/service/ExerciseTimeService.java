@@ -21,4 +21,7 @@ public class ExerciseTimeService {
 		return mExerciseTimeDao.getAll();
 	}
 
+	public int getExerciseTimeID(String exerciseTime){
+		return mExerciseTimeDao.getID(exerciseTime);
+	}
 }

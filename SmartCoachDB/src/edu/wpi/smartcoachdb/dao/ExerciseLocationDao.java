@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.database.Cursor;
 import edu.wpi.smartcoach.model.ExerciseLocation;
+import edu.wpi.smartcoachdb.db.column.ExerciseColumns;
 import edu.wpi.smartcoachdb.db.column.ExerciseLocationColumns;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 
@@ -45,4 +46,19 @@ public class ExerciseLocationDao {
 		return mExerciseLocationList;
 	}
 
+	public int getID(String specificLocation) {
+		int exerciseLocationID = 0;
+		String sql = "select * from " + ExerciseLocationColumns.TABLE_EXERCISE_LOCATION
+				+ " where " + ExerciseLocationColumns.FIELD_SPECIFIC_LOCATION + " = '"
+				+ specificLocation + "'";
+		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+				.rawQuery(sql, null);
+		try {
+			mCursor.moveToNext();
+			exerciseLocationID = mCursor.getInt(0);
+		} finally {
+			mCursor.close();
+		}
+		return exerciseLocationID;
+	}
 }

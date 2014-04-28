@@ -4,12 +4,26 @@ public class ExerciseToLocation implements OptionModel {
 	private int exerciseID;
 	private int exerciseLocationID;
 
+	public ExerciseToLocation(int exerciseID, int exerciseLocationID) {
+		super();
+		this.exerciseID = exerciseID;
+		this.exerciseLocationID = exerciseLocationID;
+	}
+
 	@Override
 	public int getId() {
 		return exerciseID;
 	}
 
 	public void setID(int exerciseID) {
+		this.exerciseID = exerciseID;
+	}
+
+	public int getExerciseID() {
+		return exerciseID;
+	}
+
+	public void setExerciseID(int exerciseID) {
 		this.exerciseID = exerciseID;
 	}
 
@@ -20,7 +34,6 @@ public class ExerciseToLocation implements OptionModel {
 	public void setLocationID(int exerciseLocationID) {
 		this.exerciseLocationID = exerciseLocationID;
 	}
-
 
 	@Override
 	public String getName() {

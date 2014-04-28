@@ -20,5 +20,8 @@ public class ExerciseLocationService {
 	public List<ExerciseLocation> getAllDataFromTable() {
 		return mExerciseLocationDao.getAll();
 	}
-
+	
+	public int getExerciseLocationID(String specificLocation){
+		return mExerciseLocationDao.getID(specificLocation);
+	}
 }

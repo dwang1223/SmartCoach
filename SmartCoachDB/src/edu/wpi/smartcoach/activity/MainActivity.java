@@ -1,6 +1,7 @@
 package edu.wpi.smartcoach.activity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,29 +19,33 @@ import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoach.model.ExerciseLocation;
 import edu.wpi.smartcoach.model.ExerciseTime;
+import edu.wpi.smartcoach.model.ExerciseToLocation;
 import edu.wpi.smartcoachdb.dao.ExerciseDao;
 import edu.wpi.smartcoachdb.dao.ExerciseLocationDao;
 import edu.wpi.smartcoachdb.dao.ExerciseTimeDao;
+import edu.wpi.smartcoachdb.dao.ExerciseToLocationDao;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 
 public class MainActivity extends Activity {
 
 	private DatabaseHelper mDatabaseHelp = null;
 	private static SQLiteDatabase mSQLiteDatabase = null;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.activity_main);
+		// setContentView(R.layout.activity_main);
 
 		mDatabaseHelp = DatabaseHelper.getInstance(this);
 		mSQLiteDatabase = mDatabaseHelp.getWritableDatabase();
-		
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		//let it run just once
-		if(!prefs.getBoolean("init", false)){
+
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		// let it run just once
+		if (!prefs.getBoolean("init", false)) {
 			initExercise();
 			initExerciseLocation();
+			initExerciseToLocation();
 			initExerciseTime();
 			prefs.edit().putBoolean("init", true).commit();
 		}
@@ -54,25 +59,21 @@ public class MainActivity extends Activity {
 	public void initExercise() {
 		ExerciseDao mExerciseDaoImpl = new ExerciseDao();
 		ArrayList<Exercise> exerciseList = new ArrayList<Exercise>();
-		Exercise mExercise1 = new Exercise("Walking", "Cardio", "Any",
-				"shoes");
-		Exercise mExercise2 = new Exercise("Running", "Cardio", "Any",
-				"shoes");
-		Exercise mExercise3 = new Exercise("Biking", "Cardio", "Any",
-				"bike");
+		Exercise mExercise1 = new Exercise("Walking", "Cardio", "Any", "shoes");
+		Exercise mExercise2 = new Exercise("Running", "Cardio", "Any", "shoes");
+		Exercise mExercise3 = new Exercise("Biking", "Cardio", "Any", "bike");
 		Exercise mExercise4 = new Exercise("Hiking", "Cardio", "Any", "shoes");
-		Exercise mExercise5 = new Exercise("Skating", "Cardio", "Any",
-				"skates");
+		Exercise mExercise5 = new Exercise("Skating", "Cardio", "Any", "skates");
 		Exercise mExercise6 = new Exercise("Yoga", "Other", "Any", "mat");
 		Exercise mExercise7 = new Exercise("Pilates", "Other", "Any", "mat");
 		Exercise mExercise8 = new Exercise("Gymnastics", "Other", "Any", "mat");
-		Exercise mExercise9 = new Exercise("weight training", "Strength", "Any",
-				"weights");
+		Exercise mExercise9 = new Exercise("weight training", "Strength",
+				"Any", "weights");
 		Exercise mExercise10 = new Exercise("dancing", "Cardio", "Any", "shoes");
-		Exercise mExercise11 = new Exercise("swimming", "Cardio",
-				"Any", "swimsuit");
-		Exercise mExercise12 = new Exercise("basketball", "Cardio",
-				"Group", "ball");
+		Exercise mExercise11 = new Exercise("swimming", "Cardio", "Any",
+				"swimsuit");
+		Exercise mExercise12 = new Exercise("basketball", "Cardio", "Group",
+				"ball");
 		exerciseList.add(mExercise1);
 		exerciseList.add(mExercise2);
 		exerciseList.add(mExercise3);
@@ -96,27 +97,105 @@ public class MainActivity extends Activity {
 	public void initExerciseLocation() {
 		ExerciseLocationDao mExerciseLocationDaoImpl = new ExerciseLocationDao();
 		ArrayList<ExerciseLocation> exerciseLocationList = new ArrayList<ExerciseLocation>();
-		ExerciseLocation meExerciseLocation1 = new ExerciseLocation("Home", "Indoor");
-		ExerciseLocation meExerciseLocation2 = new ExerciseLocation("Gym", "Indoor");
-		ExerciseLocation meExerciseLocation3 = new ExerciseLocation("Mall", "Indoor");
-		ExerciseLocation meExerciseLocation4 = new ExerciseLocation("Swimming pool", "Indoor/Outdoor");
-		ExerciseLocation meExerciseLocation5 = new ExerciseLocation("Street", "Outdoor");
-		ExerciseLocation meExerciseLocation6 = new ExerciseLocation("Yard", "Outdoor");
-		ExerciseLocation meExerciseLocation7 = new ExerciseLocation("Park", "Outdoor");
-		ExerciseLocation meExerciseLocation8 = new ExerciseLocation("Beach", "Outdoor");
-		exerciseLocationList.add(meExerciseLocation1);
-		exerciseLocationList.add(meExerciseLocation2);
-		exerciseLocationList.add(meExerciseLocation3);
-		exerciseLocationList.add(meExerciseLocation4);
-		exerciseLocationList.add(meExerciseLocation5);
-		exerciseLocationList.add(meExerciseLocation6);
-		exerciseLocationList.add(meExerciseLocation7);
-		exerciseLocationList.add(meExerciseLocation8);
-		for(ExerciseLocation mExerciseLocation: exerciseLocationList){
+		ExerciseLocation mExerciseLocation1 = new ExerciseLocation("Home",
+				"Indoor");
+		ExerciseLocation mExerciseLocation2 = new ExerciseLocation("Gym",
+				"Indoor");
+		ExerciseLocation mExerciseLocation3 = new ExerciseLocation("Mall",
+				"Indoor");
+		ExerciseLocation mExerciseLocation4 = new ExerciseLocation(
+				"Swimming pool", "Indoor/Outdoor");
+		ExerciseLocation mExerciseLocation5 = new ExerciseLocation("Street",
+				"Outdoor");
+		ExerciseLocation mExerciseLocation6 = new ExerciseLocation("Yard",
+				"Outdoor");
+		ExerciseLocation mExerciseLocation7 = new ExerciseLocation("Park",
+				"Outdoor");
+		ExerciseLocation mExerciseLocation8 = new ExerciseLocation("Beach",
+				"Outdoor");
+		ExerciseLocation mExerciseLocation9 = new ExerciseLocation("Mountain",
+				"Outdoor");
+		ExerciseLocation mExerciseLocation10 = new ExerciseLocation("Skating Rink",
+				"Outdoor");
+		ExerciseLocation mExerciseLocation11 = new ExerciseLocation("Field",
+				"Outdoor");
+		exerciseLocationList.add(mExerciseLocation1);
+		exerciseLocationList.add(mExerciseLocation2);
+		exerciseLocationList.add(mExerciseLocation3);
+		exerciseLocationList.add(mExerciseLocation4);
+		exerciseLocationList.add(mExerciseLocation5);
+		exerciseLocationList.add(mExerciseLocation6);
+		exerciseLocationList.add(mExerciseLocation7);
+		exerciseLocationList.add(mExerciseLocation8);
+		exerciseLocationList.add(mExerciseLocation9);
+		exerciseLocationList.add(mExerciseLocation10);
+		exerciseLocationList.add(mExerciseLocation11);
+		for (ExerciseLocation mExerciseLocation : exerciseLocationList) {
 			mExerciseLocationDaoImpl.insertOne(mExerciseLocation);
 		}
 	}
-	
+
+	/**
+	 * insert data of table of t_exercise_to_location
+	 */
+	public void initExerciseToLocation() {
+		ExerciseToLocationDao mExerciseToLocationDaoImp = new ExerciseToLocationDao();
+		ArrayList<ExerciseToLocation> exerciseToLocationList = new ArrayList<ExerciseToLocation>();
+		exerciseToLocationList.add(new ExerciseToLocation(1, 1));
+		exerciseToLocationList.add(new ExerciseToLocation(1, 2));
+		exerciseToLocationList.add(new ExerciseToLocation(1, 3));
+		exerciseToLocationList.add(new ExerciseToLocation(1, 5));
+		exerciseToLocationList.add(new ExerciseToLocation(1, 6));
+		exerciseToLocationList.add(new ExerciseToLocation(1, 7));
+		exerciseToLocationList.add(new ExerciseToLocation(1, 8));
+
+		exerciseToLocationList.add(new ExerciseToLocation(2, 2));
+		exerciseToLocationList.add(new ExerciseToLocation(2, 3));
+		exerciseToLocationList.add(new ExerciseToLocation(2, 5));
+		exerciseToLocationList.add(new ExerciseToLocation(2, 6));
+		exerciseToLocationList.add(new ExerciseToLocation(2, 7));
+		exerciseToLocationList.add(new ExerciseToLocation(2, 8));
+		
+		exerciseToLocationList.add(new ExerciseToLocation(3, 5));
+		exerciseToLocationList.add(new ExerciseToLocation(3, 6));
+		exerciseToLocationList.add(new ExerciseToLocation(3, 7));
+
+		exerciseToLocationList.add(new ExerciseToLocation(4, 9));
+
+		exerciseToLocationList.add(new ExerciseToLocation(5, 5));
+		exerciseToLocationList.add(new ExerciseToLocation(5, 10));
+		
+		exerciseToLocationList.add(new ExerciseToLocation(6, 1));
+		exerciseToLocationList.add(new ExerciseToLocation(6, 2));
+		exerciseToLocationList.add(new ExerciseToLocation(6, 7));
+		exerciseToLocationList.add(new ExerciseToLocation(6, 8));
+		
+		exerciseToLocationList.add(new ExerciseToLocation(7, 1));
+		exerciseToLocationList.add(new ExerciseToLocation(7, 2));
+		exerciseToLocationList.add(new ExerciseToLocation(7, 7));
+		exerciseToLocationList.add(new ExerciseToLocation(7, 8));
+		
+		exerciseToLocationList.add(new ExerciseToLocation(8, 1));
+		exerciseToLocationList.add(new ExerciseToLocation(8, 2));
+		exerciseToLocationList.add(new ExerciseToLocation(8, 7));
+		exerciseToLocationList.add(new ExerciseToLocation(8, 8));
+		
+		exerciseToLocationList.add(new ExerciseToLocation(9, 1));
+		exerciseToLocationList.add(new ExerciseToLocation(9, 2));
+		
+		exerciseToLocationList.add(new ExerciseToLocation(10, 1));
+		exerciseToLocationList.add(new ExerciseToLocation(10, 2));
+		
+		exerciseToLocationList.add(new ExerciseToLocation(11, 4));
+		
+		exerciseToLocationList.add(new ExerciseToLocation(12, 2));
+		exerciseToLocationList.add(new ExerciseToLocation(12, 11));
+		
+		for(ExerciseToLocation mExerciseToLocation : exerciseToLocationList){
+			mExerciseToLocationDaoImp.intertOne(mExerciseToLocation);
+		}
+	}
+
 	/**
 	 * insert data of table of t_exercise_time
 	 */
