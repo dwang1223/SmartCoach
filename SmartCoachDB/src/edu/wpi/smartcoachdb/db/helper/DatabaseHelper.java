@@ -108,8 +108,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ PatientExerciseColumns.FIELD_EXERCISE_ID + " INTEGER,"
 				+ PatientExerciseColumns.FIELD_EXERCISE_LOCATION_ID
 				+ " INTEGER," + PatientExerciseColumns.FIELD_EXERCISE_TIME_ID
-				+ " INTEGER," + PatientExerciseColumns.FIELD_PATIENT_PREFERENCE
-				+ " VARCHAR," + "FOREIGN KEY ("
+				+ " INTEGER," + PatientExerciseColumns.FIELD_PATIENT_IS_LIKED
+				+ " BOOLEAN," + "FOREIGN KEY ("
 				+ PatientExerciseColumns.FIELD_PATIENT_ID + ") REFERENCES "
 				+ PatientProfileColumns.TABLE_PATIENT_PROFILE + "("
 				+ PatientProfileColumns.FIELD_ID + ")," + "FOREIGN KEY ("
