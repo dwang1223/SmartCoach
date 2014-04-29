@@ -61,4 +61,20 @@ public class ExerciseLocationDao {
 		}
 		return exerciseLocationID;
 	}
+	
+	public String getLocation(int exerciseLocationID) {
+		String specificLocation;
+		String sql = "select * from " + ExerciseLocationColumns.TABLE_EXERCISE_LOCATION
+				+ " where " + ExerciseLocationColumns.FIELD_ID + " = "
+				+ exerciseLocationID;
+		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+				.rawQuery(sql, null);
+		try {
+			mCursor.moveToNext();
+			specificLocation = mCursor.getString(1);
+		} finally {
+			mCursor.close();
+		}
+		return specificLocation;
+	}
 }

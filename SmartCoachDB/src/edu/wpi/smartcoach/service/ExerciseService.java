@@ -25,4 +25,7 @@ public class ExerciseService {
 		return mExerciseDao.getID(exerciseName);
 	}
 	
+	public String getExerciseName(int exerciseID){
+		return mExerciseDao.getName(exerciseID);
+	}
 }

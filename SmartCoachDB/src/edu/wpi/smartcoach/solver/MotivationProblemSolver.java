@@ -3,6 +3,7 @@ package edu.wpi.smartcoach.solver;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
 import android.util.Log;
 import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoach.model.Option;
@@ -15,93 +16,94 @@ import edu.wpi.smartcoach.service.ExerciseLocationService;
 import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;
 
-public class MotivationProblemSolver implements ProblemSolver{
-	
-	private static final String TAG = MotivationProblemSolver.class.getSimpleName();
+public class MotivationProblemSolver implements ProblemSolver {
+
+	private static final String TAG = MotivationProblemSolver.class
+			.getSimpleName();
 
 	private static final int EXERCISE_QUESTION_LOCATION = 0;
 	private static final int EXERCISE_QUESTION_TIME = 1;
-	private static final int EXERCISE_QUESTION_LIKE = 2; 
-	
+	private static final int EXERCISE_QUESTION_LIKE = 2;
+
 	private static final int YES = 1;
 	private static final int NO = 0;
-	
-	private static final QuestionModel[] EXERCISE_QUESTIONS = {
-		
-		new QuestionModel(
-				"location",
-				"Location",
-				"Where did you try <exercise>",
-				ExerciseLocationService.getInstance().getAllDataFromTable(),
-				QuestionType.SINGLE),
 
-		new QuestionModel(
-				"time",
-				"Time",
-				"When did you try <exercise>",
-				ExerciseTimeService.getInstance().getAllDataFromTable(),
-				QuestionType.SINGLE),
-				
-		new QuestionModel(
-				"like",
-				"Liked",
-				"Did you enjoy <exercise> at <location> in the <time>?",
-				new ArrayList<OptionModel>(){{
-					add(new SimpleOption(YES, "Yes"));
-					add(new SimpleOption(NO, "No"));
-				}},
-				QuestionType.SINGLE),
-	};
-	
+	private static final QuestionModel[] EXERCISE_QUESTIONS = {
+
+			new QuestionModel("location", "Location",
+					"Where did you try <exercise>", ExerciseLocationService
+							.getInstance().getAllDataFromTable(),
+					QuestionType.SINGLE),
+
+			new QuestionModel("time", "Time", "When did you try <exercise>",
+					ExerciseTimeService.getInstance().getAllDataFromTable(),
+					QuestionType.SINGLE),
+
+			new QuestionModel("like", "Liked",
+					"Did you enjoy <exercise> at <location> in the <time>?",
+					new ArrayList<OptionModel>() {
+						{
+							add(new SimpleOption(YES, "Yes"));
+							add(new SimpleOption(NO, "No"));
+						}
+					}, QuestionType.SINGLE), };
+
 	private boolean exercisesSubmitted;
-	private ArrayList<PatientExercise> exercises;
-	
+	private ArrayList<PatientExercise> patientExerciseList = null;
+
 	private int exerciseIndex;
-	
+
 	private int exerciseQuestionIndex;
-	
-	public MotivationProblemSolver(){
+
+	public MotivationProblemSolver() {
 		exercisesSubmitted = false;
-		exercises = new ArrayList<PatientExercise>();
-		
+		patientExerciseList = new ArrayList<PatientExercise>();
+
 		exerciseIndex = 0;
 		exerciseQuestionIndex = 0;
-		
-		
+
 	}
-	
 
 	@Override
 	public QuestionModel getNextQuestion() {
 		QuestionModel next = null;
-		if(hasNextQuestion()){
-			if(!exercisesSubmitted){
-				next =  new QuestionModel(
-						"exercises",
-						"Exercises",
-						"Which exercises did you try to do?",
-						ExerciseService.getInstance().getAllDataFromTable(),
+		if (hasNextQuestion()) {
+			if (!exercisesSubmitted) {
+				next = new QuestionModel("exercises", "Exercises",
+						"Which exercises did you try to do?", ExerciseService
+								.getInstance().getAllDataFromTable(),
 						QuestionType.MULTIPLE);
-				
+
 			} else {
-				PatientExercise current = exercises.get(exerciseIndex);
-				switch(exerciseQuestionIndex){
+				PatientExercise current = patientExerciseList
+						.get(exerciseIndex);
+				String exerciseNameString = ExerciseService.getInstance()
+						.getExerciseName(current.getExerciseID());
+				switch (exerciseQuestionIndex) {
 				case EXERCISE_QUESTION_LOCATION:
-					next = EXERCISE_QUESTIONS[EXERCISE_QUESTION_LOCATION].clone();
-					next.setPrompt(next.getPrompt().replace("<exercise>", current.getExercise().getName()));
+					next = EXERCISE_QUESTIONS[EXERCISE_QUESTION_LOCATION]
+							.clone();
+					next.setPrompt(next.getPrompt().replace("<exercise>",
+							exerciseNameString));
 					break;
 				case EXERCISE_QUESTION_TIME:
 					next = EXERCISE_QUESTIONS[EXERCISE_QUESTION_TIME].clone();
-					next.setPrompt(next.getPrompt().replace("<exercise>", current.getExercise().getName()));
+					next.setPrompt(next.getPrompt().replace("<exercise>",
+							exerciseNameString));
 					break;
 				case EXERCISE_QUESTION_LIKE:
+					String exerciseLocation = ExerciseLocationService
+							.getInstance().getSpecificLocation(
+									current.getExerciseLocationID());
+					String exerciseTime = ExerciseTimeService.getInstance()
+							.getExerciseTime(current.getExerciseTimeID());
 					next = EXERCISE_QUESTIONS[EXERCISE_QUESTION_LIKE].clone();
 					String prompt = next.getPrompt()
-							.replace("<exercise>", current.getExercise().getName())
-							.replace("<location>", current.getLocation())
-							.replace("<time>", current.getTime());
-					next.setPrompt(prompt);			
-	
+							.replace("<exercise>", exerciseNameString)
+							.replace("<location>", exerciseLocation)
+							.replace("<time>", exerciseTime);
+					next.setPrompt(prompt);
+
 				}
 			}
 		}
@@ -111,65 +113,76 @@ public class MotivationProblemSolver implements ProblemSolver{
 
 	@Override
 	public void submitResponse(QuestionModel response) {
-		if(!exercisesSubmitted){
+		if (!exercisesSubmitted) {
 			exercisesSubmitted = true;
 			List<Option> responseList = response.getSelectedResponses();
-			for(Option op:responseList){
-				exercises.add(new PatientExercise((Exercise)op.getModel(), null, null, false));
+			for (Option op : responseList) {
+				int exerciseID = ((Exercise) op.getModel()).getId();
+				patientExerciseList.add(new PatientExercise(1, exerciseID, -1,
+						-1, false));
 			}
 		} else {
-			PatientExercise current = exercises.get(exerciseIndex);
-			switch(exerciseQuestionIndex){
+			PatientExercise current = patientExerciseList.get(exerciseIndex);
+			switch (exerciseQuestionIndex) {
 			case EXERCISE_QUESTION_LOCATION:
-				String loc = response.getSelectedResponses().get(0).getModel().getName();
-				current.setLocation(loc);
+				String locationName = response.getSelectedResponses().get(0)
+						.getModel().getName();
+				int locationID = ExerciseLocationService.getInstance()
+						.getExerciseLocationID(locationName);
+				current.setExerciseLocationID(locationID);
 				break;
 			case EXERCISE_QUESTION_TIME:
-				String time = response.getSelectedResponses().get(0).getModel().getName();
-				current.setTime(time);
+				String time = response.getSelectedResponses().get(0).getModel()
+						.getName();
+				int timeID = ExerciseTimeService.getInstance()
+						.getExerciseTimeID(time);
+				current.setExerciseTimeID(timeID);
 				break;
 			case EXERCISE_QUESTION_LIKE:
-				boolean like = response.getSelectedResponses().get(0).getModel().getId() == YES;
-				current.setLiked(like);		
-				
+				boolean like = response.getSelectedResponses().get(0)
+						.getModel().getId() == YES;
+				current.setLiked(like);
+
 			}
-			
+
 			exerciseQuestionIndex++;
-			if(exerciseQuestionIndex == EXERCISE_QUESTIONS.length){
+			if (exerciseQuestionIndex == EXERCISE_QUESTIONS.length) {
 				exerciseQuestionIndex = 0;
 				exerciseIndex++;
 			}
-			Log.d(TAG, "index "+exerciseIndex+":"+exerciseQuestionIndex);
+			Log.d(TAG, "index " + exerciseIndex + ":" + exerciseQuestionIndex);
 		}
 	}
 
- 
 	@Override
 	public boolean hasNextQuestion() {
-		boolean hasNext = !exercisesSubmitted || exerciseIndex < exercises.size();
-		Log.d(TAG, "hasNextQuestion "+hasNext);
+		boolean hasNext = !exercisesSubmitted
+				|| exerciseIndex < patientExerciseList.size();
+		Log.d(TAG, "hasNextQuestion " + hasNext);
 		return hasNext;
 	}
-
 
 	@Override
 	public QuestionModel getSolution() {
 		ArrayList<OptionModel> solutions = new ArrayList<OptionModel>();
 		int id = 0;
-		for(PatientExercise e:exercises){
+		for (PatientExercise mPatientExercise : patientExerciseList) {
 			id++;
-			String result = String.format("You %slike %s at %s in the %s", e.isLiked()?"":"do not ", e.getExercise().getName(), e.getLocation(), e.getTime());
+			String exerciseNameString = ExerciseService.getInstance()
+					.getExerciseName(mPatientExercise.getExerciseID());
+			String exerciseLocation = ExerciseLocationService.getInstance()
+					.getSpecificLocation(
+							mPatientExercise.getExerciseLocationID());
+			String exerciseTime = ExerciseTimeService.getInstance()
+					.getExerciseTime(mPatientExercise.getExerciseTimeID());
+			String result = String.format("You %slike %s at %s in the %s",
+					mPatientExercise.isLiked() ? "" : "do not ",
+					exerciseNameString, exerciseLocation, exerciseTime);
 			solutions.add(new SimpleOption(id, result));
 		}
-		return new QuestionModel(
-				"results",
-				"Results",
-				"Here are the results.",
-				solutions,
-				QuestionType.SINGLE);
-		
+		return new QuestionModel("results", "Results", "Here are the results.",
+				solutions, QuestionType.SINGLE);
+
 	}
 
-	
-	
 }

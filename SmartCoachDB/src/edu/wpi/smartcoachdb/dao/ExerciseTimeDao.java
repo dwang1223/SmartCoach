@@ -6,6 +6,7 @@ import java.util.List;
 import android.database.Cursor;
 import edu.wpi.smartcoach.model.ExerciseTime;
 import edu.wpi.smartcoachdb.db.column.ExerciseColumns;
+import edu.wpi.smartcoachdb.db.column.ExerciseLocationColumns;
 import edu.wpi.smartcoachdb.db.column.ExerciseTimeColumns;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 
@@ -55,5 +56,21 @@ public class ExerciseTimeDao {
 			mCursor.close();
 		}
 		return exerciseTimeID;
+	}
+	
+	public String getTime(int exerciseTimeID) {
+		String exerciseTime;
+		String sql = "select * from " + ExerciseTimeColumns.TABLE_EXERCISE_TIME
+				+ " where " + ExerciseTimeColumns.FIELD_ID + " = "
+				+ exerciseTimeID;
+		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+				.rawQuery(sql, null);
+		try {
+			mCursor.moveToNext();
+			exerciseTime = mCursor.getString(1);
+		} finally {
+			mCursor.close();
+		}
+		return exerciseTime;
 	}
 }

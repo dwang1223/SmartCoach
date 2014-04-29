@@ -24,4 +24,8 @@ public class ExerciseLocationService {
 	public int getExerciseLocationID(String specificLocation){
 		return mExerciseLocationDao.getID(specificLocation);
 	}
+	
+	public String getSpecificLocation(int exerciseLocationID) {
+		return mExerciseLocationDao.getLocation(exerciseLocationID);
+	}
 }

@@ -63,4 +63,20 @@ public class ExerciseDao {
 		}
 		return exerciseID;
 	}
+	
+	public String getName(int exerciseID) {
+		String exerciseName;
+		String sql = "select * from " + ExerciseColumns.TABLE_EXERCISE
+				+ " where " + ExerciseColumns.FIELD_ID + " = "
+				+ exerciseID;
+		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+				.rawQuery(sql, null);
+		try {
+			mCursor.moveToNext();
+			exerciseName = mCursor.getString(1);
+		} finally {
+			mCursor.close();
+		}
+		return exerciseName;
+	}
 }

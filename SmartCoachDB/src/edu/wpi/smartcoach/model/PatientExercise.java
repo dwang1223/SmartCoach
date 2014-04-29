@@ -1,51 +1,68 @@
 package edu.wpi.smartcoach.model;
 
 public class PatientExercise {
-	
-	private Exercise exercise;
-	private String location;
-	private String time;
-	private boolean liked;	
-	
-	public PatientExercise(Exercise exercise, String location, String time,boolean liked) {
-		this.exercise = exercise;
-		this.location = location;
-		this.time = time;
+
+	private int id;
+	private int patientID;
+	private int exerciseID;
+	private int exerciseLocationID;
+	private int exerciseTimeID;
+	private boolean liked;
+
+	public PatientExercise(int patientID, int exerciseID,
+			int exerciseLocationID, int exerciseTimeID, boolean liked) {
+		super();
+		this.patientID = patientID;
+		this.exerciseID = exerciseID;
+		this.exerciseLocationID = exerciseLocationID;
+		this.exerciseTimeID = exerciseTimeID;
 		this.liked = liked;
 	}
 
-	public PatientExercise(){
-		this(null, null, null, false);
+	public int getId() {
+		return id;
 	}
-	
-	public Exercise getExercise() {
-		return exercise;
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	
-	public String getLocation() {
-		return location;
+
+	public int getPatientID() {
+		return patientID;
 	}
-	
-	public String getTime() {
-		return time;
+
+	public void setPatientID(int patientID) {
+		this.patientID = patientID;
 	}
-	
+
+	public int getExerciseID() {
+		return exerciseID;
+	}
+
+	public void setExerciseID(int exerciseID) {
+		this.exerciseID = exerciseID;
+	}
+
+	public int getExerciseLocationID() {
+		return exerciseLocationID;
+	}
+
+	public void setExerciseLocationID(int exerciseLocationID) {
+		this.exerciseLocationID = exerciseLocationID;
+	}
+
+	public int getExerciseTimeID() {
+		return exerciseTimeID;
+	}
+
+	public void setExerciseTimeID(int exerciseTimeID) {
+		this.exerciseTimeID = exerciseTimeID;
+	}
+
 	public boolean isLiked() {
 		return liked;
 	}
-	
-	public void setExercise(Exercise exercise) {
-		this.exercise = exercise;
-	}
-	
-	public void setLocation(String location) {
-		this.location = location;
-	}
-	
-	public void setTime(String time) {
-		this.time = time;
-	}
-	
+
 	public void setLiked(boolean liked) {
 		this.liked = liked;
 	}
