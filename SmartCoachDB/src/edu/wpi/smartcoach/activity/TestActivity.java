@@ -14,6 +14,7 @@ import edu.wpi.smartcoach.model.ExerciseTime;
 import edu.wpi.smartcoach.service.ExerciseLocationService;
 import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;
+import edu.wpi.smartcoach.service.ExerciseToLocationService;
 
 public class TestActivity extends Activity {
 
@@ -26,7 +27,7 @@ public class TestActivity extends Activity {
 		setContentView(R.layout.activity_test);
 		mListView = (ListView) findViewById(R.id.test_listview);
 		mListView.setAdapter(new ArrayAdapter<Integer>(this,
-				android.R.layout.simple_expandable_list_item_1, getExerciseTimeID()));
+				android.R.layout.simple_expandable_list_item_1, getLocationList()));
 	}
 
 	private List<String> getData_Exercise(){
@@ -53,6 +54,11 @@ public class TestActivity extends Activity {
 		List<Integer> data = new ArrayList<Integer>();
 		data.add(ExerciseTimeService.getInstance().getExerciseTimeID("Morning"));
 		data.add(ExerciseTimeService.getInstance().getExerciseTimeID("Night"));
+		return data;
+	}
+	private List<Integer> getLocationList(){
+		List<Integer> data = new ArrayList<Integer>();
+		data = ExerciseToLocationService.getInstance().getLocationListByExercise(2);
 		return data;
 	}
 	private List<String> getData_ExerciseTime() {
