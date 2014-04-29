@@ -54,7 +54,7 @@ public class QuestionFragment extends Fragment {
 		next.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				if(listener != null){
+				if(question.hasMinimumResponses() && listener != null){
 					listener.responseEntered(question);;
 				}
 			}

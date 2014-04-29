@@ -54,6 +54,7 @@ public class ProfileActivity extends FragmentActivity {
 			prefEdit.putString(qm.getId(), responseStr);
 		}
 		prefEdit.commit();		
+		finish();
 	}
 
 	@Override

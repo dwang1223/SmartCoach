@@ -64,6 +64,6 @@ public class ExerciseProblems {
 			"Problem",
 			"What is the biggest problem when exercising?",
 			problems,
-			QuestionType.MULTIPLE);
+			QuestionType.MULTIPLE,1,QuestionModel.NO_LIMIT);
 
 }

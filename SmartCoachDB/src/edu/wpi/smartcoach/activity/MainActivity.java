@@ -48,9 +48,12 @@ public class MainActivity extends Activity {
 			initExerciseToLocation();
 			initExerciseTime();
 			prefs.edit().putBoolean("init", true).commit();
-		}
+			startActivity(new Intent(this, RegistrationActivity.class));
+		} else {
 
-		startActivity(new Intent(this, ExerciseProblemActivity.class));
+			startActivity(new Intent(this, ExerciseProblemActivity.class));
+		}
+		finish();
 	}
 
 	/**

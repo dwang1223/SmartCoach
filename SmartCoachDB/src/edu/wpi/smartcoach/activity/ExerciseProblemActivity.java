@@ -1,13 +1,10 @@
 package edu.wpi.smartcoach.activity;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoach.model.ExerciseProblems;
 import edu.wpi.smartcoach.model.ProblemOption;
 import edu.wpi.smartcoach.model.QuestionModel;
@@ -21,7 +18,6 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 
 	private QuestionFragment questionFragment;
 	
-	private ArrayList<Exercise> exercises;
 	
 	private ProblemSolver solver  = null;
 	
@@ -32,7 +28,6 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_exercise_problem);
 		
-		exercises = new  ArrayList<Exercise>();
 		questionFragment = new QuestionFragment();
 		questionFragment.setQuestion(ExerciseProblems.BASE_PROBLEM);
 		questionFragment.setNextButtonListener(this);

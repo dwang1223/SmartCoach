@@ -95,13 +95,13 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 
 				// if the max number of item has been selected
 				if (question.getType().equals(QuestionType.MULTIPLE)
-						&& question.getLimit() != QuestionModel.NO_LIMIT) {
+						&& question.getMax() != QuestionModel.NO_LIMIT) {
 					int count = 0;
 					for (Option opm : question.getResponses()) {
 						if (opm.isSelected())
 							count++;
 					}
-					if (count > question.getLimit()) {
+					if (count > question.getMax()) {
 						op.setSelected(false); // do not allow another item to
 												// be selected
 					}

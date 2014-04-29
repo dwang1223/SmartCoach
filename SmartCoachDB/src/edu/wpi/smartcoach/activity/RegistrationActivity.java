@@ -88,6 +88,7 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 
 		Intent intent = new Intent(this, PatientInfoActivity.class);
 		startActivity(intent);
+		finish();
 	}
 
 	@Override

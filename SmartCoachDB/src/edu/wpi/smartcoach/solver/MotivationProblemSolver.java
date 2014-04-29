@@ -3,7 +3,6 @@ package edu.wpi.smartcoach.solver;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
 import android.util.Log;
 import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoach.model.Option;
@@ -15,6 +14,7 @@ import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoach.service.ExerciseLocationService;
 import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;
+import edu.wpi.smartcoach.service.ExerciseToLocationService;
 import edu.wpi.smartcoach.service.PatientExerciseService;
 
 public class MotivationProblemSolver implements ProblemSolver {
@@ -34,11 +34,11 @@ public class MotivationProblemSolver implements ProblemSolver {
 			new QuestionModel("location", "Location",
 					"Where did you try <exercise>", ExerciseLocationService
 							.getInstance().getAllDataFromTable(),
-					QuestionType.SINGLE),
+					QuestionType.MULTIPLE,1,QuestionModel.NO_LIMIT),
 
 			new QuestionModel("time", "Time", "When did you try <exercise>",
 					ExerciseTimeService.getInstance().getAllDataFromTable(),
-					QuestionType.SINGLE),
+					QuestionType.MULTIPLE,1,QuestionModel.NO_LIMIT),
 
 			new QuestionModel("like", "Liked",
 					"Did you enjoy <exercise> at <location> in the <time>?",
@@ -47,7 +47,7 @@ public class MotivationProblemSolver implements ProblemSolver {
 							add(new SimpleOption(YES, "Yes"));
 							add(new SimpleOption(NO, "No"));
 						}
-					}, QuestionType.SINGLE), };
+					}, QuestionType.MULTIPLE, 1, QuestionModel.NO_LIMIT) };
 
 	private boolean exercisesSubmitted;
 	private ArrayList<PatientExercise> patientExerciseList = null;
@@ -71,8 +71,7 @@ public class MotivationProblemSolver implements ProblemSolver {
 		if (hasNextQuestion()) {
 			if (!exercisesSubmitted) {
 				next = new QuestionModel("exercises", "Exercises",
-						"Which exercises did you try to do?", ExerciseService
-								.getInstance().getAllDataFromTable(),
+						"Which exercises did you try to do?", ExerciseService.getInstance().getAllDataFromTable(),
 						QuestionType.MULTIPLE);
 
 			} else {
@@ -86,6 +85,8 @@ public class MotivationProblemSolver implements ProblemSolver {
 							.clone();
 					next.setPrompt(next.getPrompt().replace("<exercise>",
 							exerciseNameString));
+					next.setOptions(getLocationOptions());
+					
 					break;
 				case EXERCISE_QUESTION_TIME:
 					next = EXERCISE_QUESTIONS[EXERCISE_QUESTION_TIME].clone();
@@ -153,6 +154,12 @@ public class MotivationProblemSolver implements ProblemSolver {
 			}
 			Log.d(TAG, "index " + exerciseIndex + ":" + exerciseQuestionIndex);
 		}
+	}
+	
+	private List<OptionModel> getLocationOptions(){
+		PatientExercise current = patientExerciseList.get(exerciseIndex);
+		List<Integer> locationIds = ExerciseToLocationService.getInstance().getLocationListByExercise(current.getExerciseID());
+		return ExerciseLocationService.getInstance().getLocations(locationIds);
 	}
 
 	@Override

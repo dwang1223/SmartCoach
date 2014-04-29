@@ -1,8 +1,11 @@
 package edu.wpi.smartcoach.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.wpi.smartcoach.model.ExerciseLocation;
+import edu.wpi.smartcoach.model.OptionModel;
+import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoachdb.dao.ExerciseLocationDao;
 
 public class ExerciseLocationService {
@@ -27,5 +30,13 @@ public class ExerciseLocationService {
 	
 	public String getSpecificLocation(int exerciseLocationID) {
 		return mExerciseLocationDao.getLocation(exerciseLocationID);
+	}
+	
+	public List<OptionModel> getLocations(List<Integer> idList){		
+		ArrayList<OptionModel> locations = new ArrayList<OptionModel>();
+		for(Integer i:idList){
+			locations.add(new SimpleOption(i, getSpecificLocation(i)));
+		}
+		return locations;
 	}
 }

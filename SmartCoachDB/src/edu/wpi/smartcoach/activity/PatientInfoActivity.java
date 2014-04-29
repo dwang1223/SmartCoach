@@ -54,6 +54,7 @@ public class PatientInfoActivity extends Activity {
 		
 		Intent intent = new Intent(this, ProfileActivity.class);
 		startActivity(intent);
+		finish();
 	}
 
 	@Override
