@@ -15,6 +15,7 @@ import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoach.service.ExerciseLocationService;
 import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;
+import edu.wpi.smartcoach.service.PatientExerciseService;
 
 public class MotivationProblemSolver implements ProblemSolver {
 
@@ -179,6 +180,8 @@ public class MotivationProblemSolver implements ProblemSolver {
 					mPatientExercise.isLiked() ? "" : "do not ",
 					exerciseNameString, exerciseLocation, exerciseTime);
 			solutions.add(new SimpleOption(id, result));
+			//insert solution into db
+			PatientExerciseService.getInstance().addPatientExercise(mPatientExercise);
 		}
 		return new QuestionModel("results", "Results", "Here are the results.",
 				solutions, QuestionType.SINGLE);
