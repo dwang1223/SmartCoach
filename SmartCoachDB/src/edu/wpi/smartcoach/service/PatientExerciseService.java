@@ -1,6 +1,6 @@
 package edu.wpi.smartcoach.service;
 
-import edu.wpi.smartcoach.model.PatientExercise;
+import edu.wpi.smartcoach.model.exercise.PatientExercise;
 import edu.wpi.smartcoachdb.dao.PatientExerciseDao;
 
 public class PatientExerciseService {

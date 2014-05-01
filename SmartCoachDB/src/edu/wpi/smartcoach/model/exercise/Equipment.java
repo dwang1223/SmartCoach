@@ -1,6 +1,8 @@
-package edu.wpi.smartcoach.model;
+package edu.wpi.smartcoach.model.exercise;
 
 import java.util.ArrayList;
+
+import edu.wpi.smartcoach.model.OptionModel;
 
 public class Equipment implements OptionModel{
 	

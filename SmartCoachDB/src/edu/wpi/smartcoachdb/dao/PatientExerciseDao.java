@@ -1,6 +1,6 @@
 package edu.wpi.smartcoachdb.dao;
 
-import edu.wpi.smartcoach.model.PatientExercise;
+import edu.wpi.smartcoach.model.exercise.PatientExercise;
 import edu.wpi.smartcoachdb.db.column.PatientExerciseColumns;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 

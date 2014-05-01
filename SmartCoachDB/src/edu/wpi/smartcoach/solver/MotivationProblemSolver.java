@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
-import edu.wpi.smartcoach.model.Exercise;
 import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.OptionModel;
-import edu.wpi.smartcoach.model.PatientExercise;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
+import edu.wpi.smartcoach.model.exercise.Exercise;
+import edu.wpi.smartcoach.model.exercise.PatientExercise;
 import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoach.service.ExerciseLocationService;
 import edu.wpi.smartcoach.service.ExerciseService;

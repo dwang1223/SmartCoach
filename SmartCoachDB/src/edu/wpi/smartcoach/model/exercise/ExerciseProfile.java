@@ -1,9 +1,12 @@
-package edu.wpi.smartcoach.model;
+package edu.wpi.smartcoach.model.exercise;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
+import edu.wpi.smartcoach.model.OptionModel;
+import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
 import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;

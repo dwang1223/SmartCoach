@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.database.Cursor;
-import edu.wpi.smartcoach.model.ExerciseLocation;
+import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoachdb.db.column.ExerciseColumns;
 import edu.wpi.smartcoachdb.db.column.ExerciseLocationColumns;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;

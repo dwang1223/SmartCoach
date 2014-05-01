@@ -1,4 +1,6 @@
-package edu.wpi.smartcoach.model;
+package edu.wpi.smartcoach.model.exercise;
+
+import edu.wpi.smartcoach.model.OptionModel;
 
 public class ExerciseToLocation implements OptionModel {
 	private int exerciseID;

@@ -2,7 +2,7 @@ package edu.wpi.smartcoach.service;
 
 import java.util.List;
 
-import edu.wpi.smartcoach.model.Exercise;
+import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoachdb.dao.ExerciseDao;
 
 public class ExerciseService {

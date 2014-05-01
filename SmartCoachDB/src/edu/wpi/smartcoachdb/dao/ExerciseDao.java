@@ -5,7 +5,7 @@ import java.util.List;
 
 import android.R.integer;
 import android.database.Cursor;
-import edu.wpi.smartcoach.model.Exercise;
+import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoachdb.db.column.ExerciseColumns;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 

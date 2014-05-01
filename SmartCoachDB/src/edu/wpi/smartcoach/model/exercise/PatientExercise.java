@@ -1,4 +1,4 @@
-package edu.wpi.smartcoach.model;
+package edu.wpi.smartcoach.model.exercise;
 
 public class PatientExercise {
 
