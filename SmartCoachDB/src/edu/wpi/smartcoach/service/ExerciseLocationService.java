@@ -32,10 +32,10 @@ public class ExerciseLocationService {
 		return mExerciseLocationDao.getID(specificLocation);
 	}
 	
-	public List<OptionModel> getLocations(List<Integer> idList){		
-		ArrayList<OptionModel> locations = new ArrayList<OptionModel>();
+	public List<ExerciseLocation> getLocations(List<Integer> idList){		
+		ArrayList<ExerciseLocation> locations = new ArrayList<ExerciseLocation>();
 		for(Integer i:idList){
-			locations.add(new SimpleOption(i, getLocation(i).getSpecificLocation()));
+			locations.add(getLocation(i));
 		}
 		return locations;
 	}

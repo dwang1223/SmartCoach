@@ -183,9 +183,7 @@ public class MotivationProblemSolver implements ProblemSolver {
 	}
 	
 	private List<OptionModel> getLocationOptions(){
-		ExerciseState current = stateList.get(exerciseIndex);
-		List<Integer> locationIds = ExerciseToLocationService.getInstance().getLocationListByExercise(current.getExercise().getId());
-		return ExerciseLocationService.getInstance().getLocations(locationIds);
+
 	}
 
 	@Override

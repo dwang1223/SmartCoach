@@ -10,14 +10,14 @@ import edu.wpi.smartcoach.model.ProblemOption;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.exercise.ExerciseProblems;
 import edu.wpi.smartcoach.solver.ProblemSolver;
-import edu.wpi.smartcoach.view.QuestionFragment;
+import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
 
 public class ExerciseProblemActivity extends FragmentActivity implements QuestionResponseListener{
 	
 	private static final String TAG = ExerciseProblemActivity.class.getSimpleName();
 
-	private QuestionFragment questionFragment;
+	private OptionQuestionFragment questionFragment;
 	
 	
 	private ProblemSolver solver  = null;
@@ -29,7 +29,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_exercise_problem);
 		
-		questionFragment = new QuestionFragment();
+		questionFragment = new OptionQuestionFragment();
 		questionFragment.setQuestion(ExerciseProblems.BASE_PROBLEM);
 		questionFragment.setNextButtonListener(this);
 		getSupportFragmentManager().beginTransaction().add(R.id.container, questionFragment).commit();
@@ -71,7 +71,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		}
 		
 		if(newQuestion != null){
-			questionFragment = new QuestionFragment();
+			questionFragment = new OptionQuestionFragment();
 			questionFragment.setQuestion(newQuestion);
 			questionFragment.setNextButtonListener(this);
 			getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	

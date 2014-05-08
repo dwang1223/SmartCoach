@@ -1,9 +1,14 @@
 package edu.wpi.smartcoach.solver;
 
-import edu.wpi.smartcoach.model.OptionQuestionModel;
+import java.util.HashMap;
+import java.util.Queue;
+
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.exercise.Exercise;
 
 public class TimeProblemSolver implements ProblemSolver {
+	
+	private HashMap<Exercise, Queue<QuestionModel>> questions;
 
 	@Override
 	public QuestionModel getNextQuestion() {

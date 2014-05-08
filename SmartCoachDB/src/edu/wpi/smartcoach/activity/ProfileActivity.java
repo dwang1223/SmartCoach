@@ -17,7 +17,7 @@ import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.exercise.ExerciseProfile;
-import edu.wpi.smartcoach.view.QuestionFragment;
+import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
 
 public class ProfileActivity extends FragmentActivity {
@@ -72,7 +72,7 @@ public class ProfileActivity extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(final int position) {
-			QuestionFragment qf = new QuestionFragment();
+			OptionQuestionFragment qf = new OptionQuestionFragment();
 			qf
 				.setQuestion(ExerciseProfile.questions[position])
 				.setLast(position == getCount()-1)

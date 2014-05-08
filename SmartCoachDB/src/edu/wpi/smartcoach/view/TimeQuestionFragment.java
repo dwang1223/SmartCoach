@@ -1,7 +1,6 @@
 package edu.wpi.smartcoach.view;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import android.widget.TimePicker;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
 
-public class TimeQuestionFragment extends Fragment {
+public class TimeQuestionFragment extends QuestionFragment {
 
 	private static final String TAG = TimeQuestionFragment.class.getSimpleName();
 	
@@ -27,8 +26,16 @@ public class TimeQuestionFragment extends Fragment {
 		
 	}
 	
-	public void setQuestion(TimeQuestionModel tqm){
+	@Override
+	public TimeQuestionFragment setNextButtonListener(
+			QuestionResponseListener listener) {
+		this.listener = listener;
+		return this;
+	}
+	
+	public TimeQuestionFragment setQuestion(TimeQuestionModel tqm){
 		this.question = tqm;
+		return this;
 	}
 		
 	@Override
@@ -58,5 +65,7 @@ public class TimeQuestionFragment extends Fragment {
 		
 		return root;
 	}
+
+
 
 }
