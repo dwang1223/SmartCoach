@@ -50,4 +50,8 @@ public class Equipment {
 		return name;
 	}
 	
+	public String toString(){
+		return name;
+	}
+	
 }

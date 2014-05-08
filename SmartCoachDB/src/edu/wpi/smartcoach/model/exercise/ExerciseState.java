@@ -3,9 +3,9 @@ package edu.wpi.smartcoach.model.exercise;
 public class ExerciseState {
 
 	private int id;
-	private Exercise exerciseID;
-	private ExerciseLocation locationID;
-	private ExerciseTime timeID;
+	private Exercise exercise;
+	private ExerciseLocation location;
+	private ExerciseTime time;
 	private int frequency;
 	private int duration;
 
@@ -14,20 +14,24 @@ public class ExerciseState {
 	private boolean timeLiked;
 	private long recordTime;
 
-	public ExerciseState(Exercise exerciseID, ExerciseLocation locationID,
+	public ExerciseState(Exercise exercise, ExerciseLocation location,
 			ExerciseTime timeID, int frequency, int duration,
 			boolean exerciseLiked, boolean locationLiked, boolean timeLiked,
 			long recordTime) {
 		super();
-		this.exerciseID = exerciseID;
-		this.locationID = locationID;
-		this.timeID = timeID;
+		this.exercise = exercise;
+		this.location = location;
+		this.time = timeID;
 		this.frequency = frequency;
 		this.duration = duration;
 		this.exerciseLiked = exerciseLiked;
 		this.locationLiked = locationLiked;
 		this.timeLiked = timeLiked;
 		this.recordTime = recordTime;
+	}
+	
+	public ExerciseState(){
+		
 	}
 
 	public int getId() {
@@ -38,28 +42,28 @@ public class ExerciseState {
 		this.id = id;
 	}
 
-	public Exercise getExerciseID() {
-		return exerciseID;
+	public Exercise getExercise() {
+		return exercise;
 	}
 
-	public void setExerciseID(Exercise exerciseID) {
-		this.exerciseID = exerciseID;
+	public void setExercise(Exercise exercise) {
+		this.exercise = exercise;
 	}
 
-	public ExerciseLocation getLocationID() {
-		return locationID;
+	public ExerciseLocation getLocation() {
+		return location;
 	}
 
-	public void setLocationID(ExerciseLocation locationID) {
-		this.locationID = locationID;
+	public void setLocation(ExerciseLocation location) {
+		this.location = location;
 	}
 
-	public ExerciseTime getTimeID() {
-		return timeID;
+	public ExerciseTime getTime() {
+		return time;
 	}
 
-	public void setTimeID(ExerciseTime timeID) {
-		this.timeID = timeID;
+	public void setTime(ExerciseTime time) {
+		this.time = time;
 	}
 
 	public int getFrequency() {

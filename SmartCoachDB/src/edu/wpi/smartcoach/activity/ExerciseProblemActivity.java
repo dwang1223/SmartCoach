@@ -1,6 +1,7 @@
 package edu.wpi.smartcoach.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.exercise.ExerciseProblems;
 import edu.wpi.smartcoach.solver.ProblemSolver;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
+import edu.wpi.smartcoach.view.QuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
 
 public class ExerciseProblemActivity extends FragmentActivity implements QuestionResponseListener{
@@ -54,7 +56,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 			submit = false;
 		}
 		
-		OptionQuestionModel newQuestion = null;
+		QuestionModel newQuestion = null;
 		
 		if(solver != null && solver.hasNextQuestion()){
 		
@@ -71,9 +73,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		}
 		
 		if(newQuestion != null){
-			questionFragment = new OptionQuestionFragment();
-			questionFragment.setQuestion(newQuestion);
-			questionFragment.setNextButtonListener(this);
+			Fragment questionFragment = QuestionFragment.createQuestion(newQuestion);
 			getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
 		}
 		

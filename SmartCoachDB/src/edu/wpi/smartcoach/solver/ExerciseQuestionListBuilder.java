@@ -16,7 +16,7 @@ import edu.wpi.smartcoach.service.ExerciseTimeService;
 import edu.wpi.smartcoach.service.ExerciseToLocationService;
 
 public class ExerciseQuestionListBuilder {
-	
+
 	public static Queue<QuestionModel> buildBasicQuestionList(Exercise e){
 		Queue<QuestionModel> questions = new LinkedList<QuestionModel>();
 		
@@ -27,6 +27,7 @@ public class ExerciseQuestionListBuilder {
 		
 		return questions;
 	}
+
 	
 	private static QuestionModel getLocationQuestion(Exercise e){
 
@@ -40,7 +41,7 @@ public class ExerciseQuestionListBuilder {
 						add(new SimpleOption(el.getId(), el));
 					}
 				}},
-				QuestionType.MULTIPLE,1,OptionQuestionModel.NO_LIMIT);
+				QuestionType.SINGLE,1,OptionQuestionModel.NO_LIMIT);
 	}
 	
 	private static QuestionModel getTimeQuestion(Exercise e){
@@ -51,7 +52,7 @@ public class ExerciseQuestionListBuilder {
 						add(new SimpleOption(et.getId(), et));
 					}
 				}},
-				QuestionType.MULTIPLE,1,OptionQuestionModel.NO_LIMIT);		
+				QuestionType.SINGLE,1,OptionQuestionModel.NO_LIMIT);		
 	}
 	
 	private static QuestionModel getFrequencyQuestion(Exercise e){
