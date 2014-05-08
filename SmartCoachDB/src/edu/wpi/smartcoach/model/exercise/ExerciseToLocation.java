@@ -2,7 +2,7 @@ package edu.wpi.smartcoach.model.exercise;
 
 import edu.wpi.smartcoach.model.OptionModel;
 
-public class ExerciseToLocation implements OptionModel {
+public class ExerciseToLocation {
 	private int exerciseID;
 	private int exerciseLocationID;
 
@@ -12,7 +12,6 @@ public class ExerciseToLocation implements OptionModel {
 		this.exerciseLocationID = exerciseLocationID;
 	}
 
-	@Override
 	public int getId() {
 		return exerciseID;
 	}
@@ -36,11 +35,4 @@ public class ExerciseToLocation implements OptionModel {
 	public void setLocationID(int exerciseLocationID) {
 		this.exerciseLocationID = exerciseLocationID;
 	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

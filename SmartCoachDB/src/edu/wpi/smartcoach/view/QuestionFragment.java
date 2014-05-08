@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.R;
 
 public class QuestionFragment extends Fragment {
@@ -23,11 +23,11 @@ public class QuestionFragment extends Fragment {
 	private QuestionResponseListener listener;
 	private boolean isLast = false;
 	
-	private QuestionModel question;
+	private OptionQuestionModel question;
 
 	public QuestionFragment() {}
 	
-	public QuestionFragment setQuestion(QuestionModel q){
+	public QuestionFragment setQuestion(OptionQuestionModel q){
 		question = q;
 		return this;
 	}
@@ -74,10 +74,7 @@ public class QuestionFragment extends Fragment {
 
 		return rootView;
 	}
-	
-	public interface QuestionResponseListener {
-		public void responseEntered(QuestionModel question);
-	}
+
 
 	
 }

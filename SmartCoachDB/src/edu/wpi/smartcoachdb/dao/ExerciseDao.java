@@ -3,7 +3,6 @@ package edu.wpi.smartcoachdb.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
 import android.database.Cursor;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoachdb.db.column.ExerciseColumns;

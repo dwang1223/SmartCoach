@@ -24,18 +24,18 @@ public class ExerciseLocationService {
 		return mExerciseLocationDao.getAll();
 	}
 	
-	public int getExerciseLocationID(String specificLocation){
-		return mExerciseLocationDao.getID(specificLocation);
+	public ExerciseLocation getLocation(int id){
+		return mExerciseLocationDao.getLocation(id);
 	}
 	
-	public String getSpecificLocation(int exerciseLocationID) {
-		return mExerciseLocationDao.getLocation(exerciseLocationID);
+	public int getExerciseLocationID(String specificLocation){
+		return mExerciseLocationDao.getID(specificLocation);
 	}
 	
 	public List<OptionModel> getLocations(List<Integer> idList){		
 		ArrayList<OptionModel> locations = new ArrayList<OptionModel>();
 		for(Integer i:idList){
-			locations.add(new SimpleOption(i, getSpecificLocation(i)));
+			locations.add(new SimpleOption(i, getLocation(i).getSpecificLocation()));
 		}
 		return locations;
 	}

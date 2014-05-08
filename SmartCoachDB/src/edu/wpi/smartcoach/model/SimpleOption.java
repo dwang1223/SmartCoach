@@ -3,21 +3,26 @@ package edu.wpi.smartcoach.model;
 public class SimpleOption implements OptionModel{
 	
 	int id;
-	String name;
+	Object value;
 	
-	public SimpleOption(int id, String name){
+	public SimpleOption(int id, Object val){
 		this.id = id;
-		this.name = name;
+		this.value = val;
 	}
 
 	@Override
 	public int getId() {
 		return id;
 	}
+	
+	@Override
+	public String getText(){
+		return value.toString();
+	}
 
 	@Override
-	public String getName() {
-		return name;
+	public Object getValue() {
+		return value;
 	}
 
 }

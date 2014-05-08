@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import edu.wpi.smartcoach.model.OptionModel;
 
-public class Equipment implements OptionModel{
+public class Equipment {
 	
-	public static ArrayList<OptionModel> equipment;
+	public static ArrayList<Equipment> equipment;
 	
 	static {
-		equipment = new ArrayList<OptionModel>(){{
+		equipment = new ArrayList<Equipment>(){{
 			add(new Equipment(0, "Treadmill"));
 			add(new Equipment(1, "Eliptical"));
 			add(new Equipment(2, "Stationary Bike"));
@@ -26,9 +26,9 @@ public class Equipment implements OptionModel{
 	}
 	
 	public static Equipment getEquipmentById(String id){
-		for(OptionModel opm:equipment){
-			if(id.equals(opm.getId())){
-				return (Equipment)opm;
+		for(Equipment e:equipment){
+			if(id.equals(e.getId())){
+				return e;
 			}
 		}
 		return null;
@@ -42,14 +42,12 @@ public class Equipment implements OptionModel{
 		this.name = name;
 	}
 
-	@Override
 	public int getId() {
 		return id;
 	}
 
-	@Override
-	public String getName() {
+	public String getName(){
 		return name;
 	}
-
+	
 }

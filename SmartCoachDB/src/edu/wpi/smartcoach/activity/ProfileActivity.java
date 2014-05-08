@@ -14,10 +14,11 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.Option;
+import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.exercise.ExerciseProfile;
 import edu.wpi.smartcoach.view.QuestionFragment;
-import edu.wpi.smartcoach.view.QuestionFragment.QuestionResponseListener;
+import edu.wpi.smartcoach.view.QuestionResponseListener;
 
 public class ProfileActivity extends FragmentActivity {
 	
@@ -42,7 +43,7 @@ public class ProfileActivity extends FragmentActivity {
 	private void doFinish(){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor prefEdit = prefs.edit();
-		for(QuestionModel qm:ExerciseProfile.questions){
+		for(OptionQuestionModel qm:ExerciseProfile.questions){
 			List<Option> select = qm.getSelectedResponses();
 			String responseStr = "";
 			for(int i = 0; i < select.size(); i++){

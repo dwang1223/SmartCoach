@@ -24,26 +24,26 @@ public class ExerciseLocationDao {
 
 	public List<ExerciseLocation> getAll() {
 		// TODO Auto-generated method stub
-		List<ExerciseLocation> mExerciseLocationList = new ArrayList<ExerciseLocation>();
-		ExerciseLocation mExerciseLocation = null;
+		List<ExerciseLocation> exerciseLocationList = new ArrayList<ExerciseLocation>();
+		ExerciseLocation exerciseLocation = null;
 		String sql = "select * from "
 				+ ExerciseLocationColumns.TABLE_EXERCISE_LOCATION;
-		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+		Cursor cursor = DatabaseHelper.getInstance().getReadableDatabase()
 				.rawQuery(sql, null);
 		try {
-			mCursor.moveToNext();
-			while (mCursor.getPosition() != mCursor.getCount()) {
-				mExerciseLocation = new ExerciseLocation();
-				mExerciseLocation.setId(mCursor.getInt(0));
-				mExerciseLocation.setSpecificLocation(mCursor.getString(1));
-				mExerciseLocation.setLocationType(mCursor.getString(2));
-				mExerciseLocationList.add(mExerciseLocation);
-				mCursor.moveToNext();
+			cursor.moveToNext();
+			while (cursor.getPosition() != cursor.getCount()) {
+				exerciseLocation = new ExerciseLocation();
+				exerciseLocation.setId(cursor.getInt(0));
+				exerciseLocation.setSpecificLocation(cursor.getString(1));
+				exerciseLocation.setLocationType(cursor.getString(2));
+				exerciseLocationList.add(exerciseLocation);
+				cursor.moveToNext();
 			}
 		} catch (Exception e) {
-			mCursor.close();
+			cursor.close();
 		}
-		return mExerciseLocationList;
+		return exerciseLocationList;
 	}
 
 	public int getID(String specificLocation) {
@@ -62,19 +62,21 @@ public class ExerciseLocationDao {
 		return exerciseLocationID;
 	}
 	
-	public String getLocation(int exerciseLocationID) {
+	public ExerciseLocation getLocation(int id) {
 		String specificLocation;
+		String locationType;
 		String sql = "select * from " + ExerciseLocationColumns.TABLE_EXERCISE_LOCATION
 				+ " where " + ExerciseLocationColumns.FIELD_ID + " = "
-				+ exerciseLocationID;
-		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+				+ id;
+		Cursor cursor = DatabaseHelper.getInstance().getReadableDatabase()
 				.rawQuery(sql, null);
 		try {
-			mCursor.moveToNext();
-			specificLocation = mCursor.getString(1);
+			cursor.moveToNext();
+			specificLocation = cursor.getString(1);
+			locationType = cursor.getString(2);
 		} finally {
-			mCursor.close();
+			cursor.close();
 		}
-		return specificLocation;
+		return new ExerciseLocation(id, specificLocation, locationType);
 	}
 }

@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.Option;
-import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
+import edu.wpi.smartcoach.model.OptionQuestionModel;
+import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 
 public class QuestionOptionListAdapter extends BaseAdapter {
 
@@ -18,9 +18,9 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 
 	private Context context;
 
-	private QuestionModel question;
+	private OptionQuestionModel question;
 
-	public QuestionOptionListAdapter(Context context, QuestionModel qm) {
+	public QuestionOptionListAdapter(Context context, OptionQuestionModel qm) {
 		super();
 		this.context = context;
 		question = qm;
@@ -63,14 +63,14 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 				// if in single selection mode or the default item is selected
 				if (isChecked
 						&& (question.getType() == QuestionType.SINGLE || op
-								.getId() == QuestionModel.DEFAULT)) {
+								.getId() == OptionQuestionModel.DEFAULT)) {
 
 					for (Option opm : question.getResponses()) { // deselect
 																	// everything
 																	// else
 						opm.setSelected(false);
 					}
-				} else if (op.getId() != QuestionModel.DEFAULT) { // if the
+				} else if (op.getId() != OptionQuestionModel.DEFAULT) { // if the
 																	// selected
 																	// item is
 																	// not the
@@ -95,7 +95,7 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 
 				// if the max number of item has been selected
 				if (question.getType().equals(QuestionType.MULTIPLE)
-						&& question.getMax() != QuestionModel.NO_LIMIT) {
+						&& question.getMax() != OptionQuestionModel.NO_LIMIT) {
 					int count = 0;
 					for (Option opm : question.getResponses()) {
 						if (opm.isSelected())

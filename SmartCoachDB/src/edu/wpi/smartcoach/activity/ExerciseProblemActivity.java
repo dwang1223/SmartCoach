@@ -5,12 +5,13 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.ProblemOption;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.exercise.ExerciseProblems;
 import edu.wpi.smartcoach.solver.ProblemSolver;
 import edu.wpi.smartcoach.view.QuestionFragment;
-import edu.wpi.smartcoach.view.QuestionFragment.QuestionResponseListener;
+import edu.wpi.smartcoach.view.QuestionResponseListener;
 
 public class ExerciseProblemActivity extends FragmentActivity implements QuestionResponseListener{
 	
@@ -35,23 +36,6 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		
 	}
 
-//	private void doSave(){
-//		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//		Editor prefEdit = prefs.edit();
-//		for(QuestionModel qm:problemQuestions){
-//			List<Option> select = qm.getSelectedResponses();
-//			String responseStr = "";
-//			for(int i = 0; i < select.size(); i++){
-//				responseStr += select.get(i).getId();
-//				if(i < select.size()-1){
-//					responseStr += ",";
-//				}
-//			}
-//			prefEdit.putString(qm.getId(), responseStr);
-//		}
-//		prefEdit.commit();		
-//	}
-
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,7 +45,8 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	}
 
 	@Override
-	public void responseEntered(QuestionModel question) {
+	public void responseEntered(QuestionModel q) {
+		OptionQuestionModel question = (OptionQuestionModel)q;
 		Log.d(TAG, "responseEntered "+question.toString());
 		boolean submit = true;
 		if(question == ExerciseProblems.BASE_PROBLEM){
@@ -69,7 +54,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 			submit = false;
 		}
 		
-		QuestionModel newQuestion = null;
+		OptionQuestionModel newQuestion = null;
 		
 		if(solver != null && solver.hasNextQuestion()){
 		

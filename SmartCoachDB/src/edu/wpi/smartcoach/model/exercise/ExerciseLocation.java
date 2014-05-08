@@ -1,8 +1,7 @@
 package edu.wpi.smartcoach.model.exercise;
 
-import edu.wpi.smartcoach.model.OptionModel;
 
-public class ExerciseLocation implements OptionModel{
+public class ExerciseLocation {
 	private int id;
 	private String specificLocation;
 	private String locationType;
@@ -11,23 +10,17 @@ public class ExerciseLocation implements OptionModel{
 		super();
 	}
 
-	public ExerciseLocation(String specificLocation, String locationType) {
+	public ExerciseLocation(int id, String specificLocation, String locationType) {
 		super();
+		this.id = id;
 		this.specificLocation = specificLocation;
 		this.locationType = locationType;
 	}
 
-	@Override
 	public int getId() {
 		return id;
 	}
 	
-	@Override
-	public String getName() {
-		return getSpecificLocation();
-	}
-
-
 	public void setId(int id) {
 		this.id = id;
 	}

@@ -1,13 +1,13 @@
 package edu.wpi.smartcoach.solver;
 
-import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.OptionQuestionModel;
 
 public interface ProblemSolver {
 	
-	public QuestionModel getNextQuestion();
-	public void submitResponse(QuestionModel response);
+	public OptionQuestionModel getNextQuestion();
+	public void submitResponse(OptionQuestionModel response);
 
 	public boolean hasNextQuestion();
 
-	public QuestionModel getSolution();
+	public OptionQuestionModel getSolution();
 }

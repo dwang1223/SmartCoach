@@ -3,8 +3,8 @@ package edu.wpi.smartcoach.model.exercise;
 import java.util.ArrayList;
 
 import edu.wpi.smartcoach.model.ProblemOption;
-import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
+import edu.wpi.smartcoach.model.OptionQuestionModel;
+import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.service.ExerciseLocationService;
 import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;
@@ -18,7 +18,7 @@ public class ExerciseProblems {
 	private static final int PROBLEM_BORED = 2;
 	private static final int PROBLEM_INJURY = 3;
 	
-	public static final QuestionModel EXERCISE_TIME = new QuestionModel(
+	public static final OptionQuestionModel EXERCISE_TIME = new OptionQuestionModel(
 			"profile_exercise_when",
 			"Time",
 			"When do you prefer to exercise?",
@@ -26,7 +26,7 @@ public class ExerciseProblems {
 			QuestionType.MULTIPLE);
 	
 
-	public static final QuestionModel EXERCISE_MOTIVATION = new QuestionModel(
+	public static final OptionQuestionModel EXERCISE_MOTIVATION = new OptionQuestionModel(
 			"profile_exercises_try",
 			"Tried", 
 			"Which exercises did oyu try?", 
@@ -34,7 +34,7 @@ public class ExerciseProblems {
 			QuestionType.MULTIPLE 
 			);
 	
-	public static final QuestionModel EXERCISE_LOCATION = new QuestionModel(
+	public static final OptionQuestionModel EXERCISE_LOCATION = new OptionQuestionModel(
 			"profile_exercise_where",
 			"Location", 
 			"Where do you prefer to exercise?", 
@@ -42,7 +42,7 @@ public class ExerciseProblems {
 			QuestionType.MULTIPLE 
 			);
 	
-	public static final QuestionModel EXERCISE_INJURY = new QuestionModel(
+	public static final OptionQuestionModel EXERCISE_INJURY = new OptionQuestionModel(
 			"profile_exercise_like",
 			"Possible Exercises", 
 			"Which exercises can you still do with your injury?", 
@@ -61,11 +61,11 @@ public class ExerciseProblems {
 		add(new ProblemOption(PROBLEM_INJURY, "I have an injury that prevents me from exercising", null));
 	}};
 	
-	public static final QuestionModel BASE_PROBLEM = new QuestionModel(
+	public static final OptionQuestionModel BASE_PROBLEM = new OptionQuestionModel(
 			"problem_base",
 			"Problem",
 			"What is the biggest problem when exercising?",
 			problems,
-			QuestionType.MULTIPLE,1,QuestionModel.NO_LIMIT);
+			QuestionType.MULTIPLE,1,OptionQuestionModel.NO_LIMIT);
 
 }

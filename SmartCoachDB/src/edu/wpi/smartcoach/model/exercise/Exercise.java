@@ -2,7 +2,7 @@ package edu.wpi.smartcoach.model.exercise;
 
 import edu.wpi.smartcoach.model.OptionModel;
 
-public class Exercise implements OptionModel {
+public class Exercise {
 	private int id;
 	private String name;
 	private String type;
@@ -33,8 +33,7 @@ public class Exercise implements OptionModel {
 		return id;
 	}	
 
-	@Override
-	public String getName() {
+	public String getName(){
 		return name;
 	}
 
@@ -71,6 +70,8 @@ public class Exercise implements OptionModel {
 	}
 	
 	public String toString(){
-		return getName();
+		return name;
 	}
+
+
 }

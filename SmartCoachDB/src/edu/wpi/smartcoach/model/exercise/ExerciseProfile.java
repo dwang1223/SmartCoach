@@ -5,9 +5,9 @@ import java.util.List;
 
 import android.util.Log;
 import edu.wpi.smartcoach.model.OptionModel;
-import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.SimpleOption;
-import edu.wpi.smartcoach.model.QuestionModel.QuestionType;
+import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;
 
@@ -15,7 +15,7 @@ public class ExerciseProfile {
 
 	private static final String TAG = ExerciseProfile.class.getSimpleName();
 	
-	public static final QuestionModel[] questions;
+	public static final OptionQuestionModel[] questions;
 
 	public static final int YES = 1;
 	public static final int NO = 0;
@@ -36,7 +36,7 @@ public class ExerciseProfile {
 		Log.d(TAG, exercises.toString());
 		Log.d(TAG, times.toString());
 		
-		questions = new QuestionModel[] {
+		questions = new OptionQuestionModel[] {
 								
 //		new QuestionModel(
 //				"profile_exercise_like", 
@@ -49,7 +49,7 @@ public class ExerciseProfile {
 //				}},
 //				QuestionType.SINGLE),
 			
-		new QuestionModel(
+		new OptionQuestionModel(
 				"profile_exercise_location",
 				"Location",
 				"Where would you prefer to exercise?",
@@ -57,11 +57,11 @@ public class ExerciseProfile {
 					add(new SimpleOption(HOME, "At Home"));
 					add(new SimpleOption(GYM, "In the Gym"));
 					add(new SimpleOption(OUTDOOR, "Outdoors"));
-					add(new SimpleOption(QuestionModel.DEFAULT, "It doesn't matter"));
+					add(new SimpleOption(OptionQuestionModel.DEFAULT, "It doesn't matter"));
 				}}, 
 				QuestionType.MULTIPLE),
 			
-			new QuestionModel(
+			new OptionQuestionModel(
 				"profile_exercise_who",
 				"Social",
 				"With whom do you prefer to exercise?",
@@ -69,49 +69,65 @@ public class ExerciseProfile {
 					add(new SimpleOption(ALONE, "Alone"));
 					add(new SimpleOption(FRIEND, "With a friend"));
 					add(new SimpleOption(GROUP, "With a group"));
-					add(new SimpleOption(QuestionModel.DEFAULT, "It doesn't matter"));
+					add(new SimpleOption(OptionQuestionModel.DEFAULT, "It doesn't matter"));
 				}},
 				QuestionType.MULTIPLE),
 				
-			new QuestionModel(
+			new OptionQuestionModel(
 					"profile_exercise_when",
 					"Time",
 					"When do you prefer to exercise?",
-					times,
+					new ArrayList<OptionModel>(){{
+						for(ExerciseTime t:times){
+							add(new SimpleOption(t.getId(), t));
+						}
+					}},
 					QuestionType.MULTIPLE),
 				
-			new QuestionModel(
+			new OptionQuestionModel(
 					"profile_exercise_enjoy",
 					"Favorites", 
 					"Which exercises have you tried and liked?", 
-					exercises,
+					new ArrayList<OptionModel>(){{
+						for(Exercise e:exercises){
+							add(new SimpleOption(e.getId(), e));
+						}
+					}},
 					QuestionType.MULTIPLE
 					),	
 					
-			new QuestionModel(
+			new OptionQuestionModel(
 					"profile_exercise_hate",
 					"Least Favorites", 
 					"Which exercises have tried and not liked?", 
-					exercises,
+					new ArrayList<OptionModel>(){{
+						for(Exercise e:exercises){
+							add(new SimpleOption(e.getId(), e));
+						}
+					}},
 					QuestionType.MULTIPLE 
 					),
 					
-			new QuestionModel(
+			new OptionQuestionModel(
 					"profile_exercise_equip",
 					"Equipment",
 					"Please check all that you own:",
-					Equipment.equipment,
+					new ArrayList<OptionModel>(){{
+						for(Equipment e:Equipment.equipment){
+							add(new SimpleOption(e.getId(), e));
+						}
+					}},
 					QuestionType.MULTIPLE),
 					
 		};
 		
-		for(QuestionModel q:questions){
+		for(OptionQuestionModel q:questions){
 			Log.d(TAG, q.toString());
 		}
 	}
 	
-	public static QuestionModel getQuestionById(String id){
-		for(QuestionModel q:questions){
+	public static OptionQuestionModel getQuestionById(String id){
+		for(OptionQuestionModel q:questions){
 			if(id.equals(q.getId())){
 				return q;
 			}

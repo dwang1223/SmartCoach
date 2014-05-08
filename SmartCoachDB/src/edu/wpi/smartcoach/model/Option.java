@@ -15,7 +15,7 @@ public class Option {
 	}
 	
 	public String getText(){
-		return model.getName();
+		return model.getValue().toString();
 	}
 	
 	public boolean isSelected(){

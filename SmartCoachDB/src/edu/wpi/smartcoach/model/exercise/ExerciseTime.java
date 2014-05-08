@@ -2,9 +2,9 @@ package edu.wpi.smartcoach.model.exercise;
 
 import edu.wpi.smartcoach.model.OptionModel;
 
-public class ExerciseTime implements OptionModel {
+public class ExerciseTime {
 	private int id;
-	private String exerciseTime;
+	private String time;
 
 	public ExerciseTime() {
 		super();
@@ -13,16 +13,11 @@ public class ExerciseTime implements OptionModel {
 
 	public ExerciseTime(String exerciseTime) {
 		super();
-		this.exerciseTime = exerciseTime;
+		this.time = exerciseTime;
 	}
 
 	public int getId() {
 		return id;
-	}
-
-	@Override
-	public String getName() {
-		return getTime();
 	}
 	
 	public void setId(int id) {
@@ -30,15 +25,15 @@ public class ExerciseTime implements OptionModel {
 	}
 
 	public String getTime() {
-		return exerciseTime;
+		return time;
 	}
 
 	public void setTime(String exerciseTime) {
-		this.exerciseTime = exerciseTime;
+		this.time = exerciseTime;
 	}
 
 	public String toString(){
-		return getName();
+		return getTime();
 	}
 
 }
