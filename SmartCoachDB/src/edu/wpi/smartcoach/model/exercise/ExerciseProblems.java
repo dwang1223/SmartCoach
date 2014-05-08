@@ -2,9 +2,11 @@ package edu.wpi.smartcoach.model.exercise;
 
 import java.util.ArrayList;
 
-import edu.wpi.smartcoach.model.ProblemOption;
+import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
+import edu.wpi.smartcoach.model.ProblemOption;
+import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoach.service.ExerciseLocationService;
 import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;
@@ -22,7 +24,11 @@ public class ExerciseProblems {
 			"profile_exercise_when",
 			"Time",
 			"When do you prefer to exercise?",
-			ExerciseTimeService.getInstance().getAllDataFromTable(),
+			new ArrayList<OptionModel>(){{
+				for(ExerciseTime et:ExerciseTimeService.getInstance().getAllDataFromTable()){
+					add(new SimpleOption(et.getId(), et));
+				}
+			}},
 			QuestionType.MULTIPLE);
 	
 
@@ -30,7 +36,13 @@ public class ExerciseProblems {
 			"profile_exercises_try",
 			"Tried", 
 			"Which exercises did oyu try?", 
-			ExerciseService.getInstance().getAllDataFromTable(),
+			new ArrayList<OptionModel>(){
+				{
+					for(Exercise e:ExerciseService.getInstance().getAllDataFromTable()){
+						add(new SimpleOption(e.getId(), e));
+					}
+				}
+			},
 			QuestionType.MULTIPLE 
 			);
 	
@@ -38,20 +50,17 @@ public class ExerciseProblems {
 			"profile_exercise_where",
 			"Location", 
 			"Where do you prefer to exercise?", 
-			ExerciseLocationService.getInstance().getAllDataFromTable(),
+			new ArrayList<OptionModel>(){
+				{
+					for(ExerciseLocation e:ExerciseLocationService.getInstance().getAllDataFromTable()){
+						add(new SimpleOption(e.getId(), e));
+					}
+				}
+			}
+			,
 			QuestionType.MULTIPLE 
 			);
-	
-	public static final OptionQuestionModel EXERCISE_INJURY = new OptionQuestionModel(
-			"profile_exercise_like",
-			"Possible Exercises", 
-			"Which exercises can you still do with your injury?", 
-			ExerciseService.getInstance().getAllDataFromTable(),
-			QuestionType.MULTIPLE 
-			);
-	
 
-	
 	
 	
 	public static final ArrayList<ProblemOption> problems = new  ArrayList<ProblemOption>(){{
