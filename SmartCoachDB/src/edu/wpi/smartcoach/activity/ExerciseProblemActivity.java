@@ -1,7 +1,6 @@
 package edu.wpi.smartcoach.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -73,7 +72,8 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		}
 		
 		if(newQuestion != null){
-			Fragment questionFragment = QuestionFragment.createQuestion(newQuestion);
+			QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
+			questionFragment.setNextButtonListener(this);
 			getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
 		}
 		

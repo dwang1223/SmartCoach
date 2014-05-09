@@ -69,6 +69,7 @@ public class Exercise {
 		this.equipment = exerciseEquipment;
 	}
 	
+	@Override
 	public String toString(){
 		return name;
 	}

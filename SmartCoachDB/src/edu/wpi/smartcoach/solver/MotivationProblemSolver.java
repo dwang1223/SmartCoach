@@ -55,7 +55,7 @@ public class MotivationProblemSolver implements ProblemSolver {
 			
 			return questions.get(current).poll();
 		}
-		return null;
+		return next;
 	}
 
 	@Override
