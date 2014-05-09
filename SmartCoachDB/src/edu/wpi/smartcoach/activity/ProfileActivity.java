@@ -2,6 +2,7 @@ package edu.wpi.smartcoach.activity;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.Option;
+import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.exercise.ExerciseProfile;
@@ -44,7 +45,7 @@ public class ProfileActivity extends FragmentActivity {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor prefEdit = prefs.edit();
 		for(OptionQuestionModel qm:ExerciseProfile.questions){
-			List<Option> select = qm.getSelectedResponses();
+			List<OptionModel> select = qm.getSelectedResponses();
 			String responseStr = "";
 			for(int i = 0; i < select.size(); i++){
 				responseStr += select.get(i).getId();
@@ -54,7 +55,10 @@ public class ProfileActivity extends FragmentActivity {
 			}
 			prefEdit.putString(qm.getId(), responseStr);
 		}
-		prefEdit.commit();		
+		prefEdit.commit();	
+		
+		Intent intent = new Intent(this, ExerciseProblemActivity.class);
+		startActivity(intent);		
 		finish();
 	}
 

@@ -2,6 +2,7 @@ package edu.wpi.smartcoach.service;
 
 import java.util.List;
 
+import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoachdb.dao.ExerciseToLocationDao;
 
 public class ExerciseToLocationService {
@@ -16,7 +17,7 @@ public class ExerciseToLocationService {
 		return mExerciseToLocationService;
 	}
 	
-	public List<Integer> getLocationListByExercise(int exerciseID){
+	public List<ExerciseLocation> getLocationListByExercise(int exerciseID){
 		return mExerciseToLocationDao.getLocationList(exerciseID);
 	}
 }

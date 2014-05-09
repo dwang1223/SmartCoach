@@ -11,8 +11,9 @@ public class ExerciseTime {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ExerciseTime(String exerciseTime) {
+	public ExerciseTime(int id ,String exerciseTime) {
 		super();
+		this.id = id;
 		this.time = exerciseTime;
 	}
 

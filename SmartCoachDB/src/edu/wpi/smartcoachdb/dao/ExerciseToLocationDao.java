@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.database.Cursor;
+import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoach.model.exercise.ExerciseToLocation;
+import edu.wpi.smartcoach.service.ExerciseLocationService;
 import edu.wpi.smartcoachdb.db.column.ExerciseToLocationColumns;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 
@@ -19,8 +21,8 @@ public class ExerciseToLocationDao {
 		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
 	}
 
-	public List<Integer> getLocationList(int exerciseID) {
-		List<Integer> locationIDList = new ArrayList<Integer>();
+	public List<ExerciseLocation> getLocationList(int exerciseID) {
+		List<ExerciseLocation> locationList = new ArrayList<ExerciseLocation>();
 		int locationID = 0;
 		String sql = "select * from "
 				+ ExerciseToLocationColumns.TABLE_EXERCISE + " where "
@@ -32,12 +34,12 @@ public class ExerciseToLocationDao {
 			mCursor.moveToNext();
 			while (mCursor.getPosition() != mCursor.getCount()) {
 				locationID = mCursor.getInt(1);
-				locationIDList.add(locationID);
+				locationList.add(ExerciseLocationService.getInstance().getLocation(locationID));
 				mCursor.moveToNext();
 			}
 		} finally {
 			mCursor.close();
 		}
-		return locationIDList;
+		return locationList;
 	}
 }

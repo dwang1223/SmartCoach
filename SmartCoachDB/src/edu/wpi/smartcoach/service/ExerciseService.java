@@ -21,11 +21,12 @@ public class ExerciseService {
 		return mExerciseDao.getAll();
 	}
 
+	
 	public int getExerciseID(String exerciseName){
 		return mExerciseDao.getID(exerciseName);
 	}
 	
-	public String getExerciseName(int exerciseID){
-		return mExerciseDao.getName(exerciseID);
+	public Exercise getExercise(int id){
+		return mExerciseDao.getExercise(id);
 	}
 }

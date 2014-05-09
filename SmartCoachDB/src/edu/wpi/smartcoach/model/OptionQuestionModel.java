@@ -113,11 +113,28 @@ public class OptionQuestionModel implements QuestionModel{
 		}
 	}
 	
-	public List<Option> getSelectedResponses(){
-		ArrayList<Option> responseList = new ArrayList<Option>();
+	public List<OptionModel> getOptions(){
+		ArrayList<OptionModel> opms = new ArrayList<OptionModel>();
+		for(Option op:responses){
+			opms.add(op.getModel());
+		}
+		return opms;
+	}
+	
+	public OptionModel getSelectedResponse(){
 		for(Option opm:responses){
 			if(opm.isSelected()){
-				responseList.add(opm);
+				return opm.getModel();
+			}
+		}
+		return null;
+	}
+	
+	public List<OptionModel> getSelectedResponses(){
+		ArrayList<OptionModel> responseList = new ArrayList<OptionModel>();
+		for(Option opm:responses){
+			if(opm.isSelected()){
+				responseList.add(opm.getModel());
 			}
 		}
 		return responseList;

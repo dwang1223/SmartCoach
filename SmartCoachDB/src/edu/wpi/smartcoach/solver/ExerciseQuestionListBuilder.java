@@ -27,12 +27,9 @@ public class ExerciseQuestionListBuilder {
 		
 		return questions;
 	}
-
 	
 	private static QuestionModel getLocationQuestion(Exercise e){
-
-		List<Integer> locationIds = ExerciseToLocationService.getInstance().getLocationListByExercise(e.getId());
-		final List<ExerciseLocation> locations =  ExerciseLocationService.getInstance().getLocations(locationIds);
+		final List<ExerciseLocation> locations =  ExerciseToLocationService.getInstance().getLocationListByExercise(e.getId());
 		final String prompt = String.format("Where do you %s?", e.getName());
 		return new OptionQuestionModel("location", "Location",
 				prompt, 
@@ -60,7 +57,7 @@ public class ExerciseQuestionListBuilder {
 		frequencies.add(new SimpleOption(0, "Less than once per week"));
 		frequencies.add(new SimpleOption(1, "Once per week"));
 		for(int i = 2; i < 7; i++){
-			frequencies.add(new SimpleOption(i, i + "times per week"));
+			frequencies.add(new SimpleOption(i, i + " times per week"));
 		}
 		frequencies.add(new SimpleOption(7, "7 times per week (daily)"));
 		

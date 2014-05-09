@@ -13,6 +13,9 @@ public class ExerciseState {
 	private boolean locationLiked;
 	private boolean timeLiked;
 	private long recordTime;
+	
+	private boolean wouldIncrease;
+
 
 	public ExerciseState(Exercise exercise, ExerciseLocation location,
 			ExerciseTime timeID, int frequency, int duration,
@@ -32,6 +35,21 @@ public class ExerciseState {
 	
 	public ExerciseState(){
 		
+	}
+	
+
+	/**
+	 * @return the wouldIncrease
+	 */
+	public boolean wouldIncrease() {
+		return wouldIncrease;
+	}
+
+	/**
+	 * @param wouldIncrease the wouldIncrease to set
+	 */
+	public void setWouldIncrease(boolean wouldIncrease) {
+		this.wouldIncrease = wouldIncrease;
 	}
 
 	public int getId() {
@@ -113,5 +131,19 @@ public class ExerciseState {
 	public void setRecordTime(long recordTime) {
 		this.recordTime = recordTime;
 	}
+	
+	public boolean isLiked(){
+		return isExerciseLiked() && isLocationLiked() && isTimeLiked();
+	}
+	
+	@Override
+	public ExerciseState clone(){
+		return new ExerciseState(exercise, location, time, frequency, duration, false, false, false, 0);
+	}
 
+	
+	@Override 
+	public String toString(){
+		return String.format("%s, %s, %s, %dx%d mins", exercise.getName(), location.getSpecificLocation(), time.getTime(), frequency, duration );
+	}
 }

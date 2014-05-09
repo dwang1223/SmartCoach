@@ -41,5 +41,23 @@ public class ExerciseLocation {
 		this.locationType = locationType;
 	}
 
+	@Override
+	public String toString(){
+		return specificLocation;
+	}
+	
+	@Override
+	public boolean equals(Object e){
+		if(e == null){
+			return false;
+		}
+		
+		if(e instanceof ExerciseLocation){
+			if(id == ((ExerciseLocation)e).getId()){
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

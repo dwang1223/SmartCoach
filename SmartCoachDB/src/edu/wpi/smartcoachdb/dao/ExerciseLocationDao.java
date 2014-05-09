@@ -74,6 +74,10 @@ public class ExerciseLocationDao {
 			cursor.moveToNext();
 			specificLocation = cursor.getString(1);
 			locationType = cursor.getString(2);
+		} catch(Exception e){
+			e.printStackTrace();
+			specificLocation = "error";
+			locationType = "error";
 		} finally {
 			cursor.close();
 		}

@@ -1,5 +1,6 @@
 package edu.wpi.smartcoach.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -22,6 +23,8 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	
 	
 	private ProblemSolver solver  = null;
+	
+	private boolean solutionRetrieved;
 	
 	
 	
@@ -46,29 +49,37 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	}
 
 	@Override
-	public void responseEntered(QuestionModel q) {
-		OptionQuestionModel question = (OptionQuestionModel)q;
-		Log.d(TAG, "responseEntered "+question.toString());
+	public void responseEntered(QuestionModel q) {;
+		Log.d(TAG, "responseEntered "+q.toString());
+		
+		if(solutionRetrieved){
+			Intent intent = new Intent(this, ExerciseProblemActivity.class);
+			startActivity(intent);
+			finish();
+		}
+		
 		boolean submit = true;
-		if(question == ExerciseProblems.BASE_PROBLEM){
-			solver = ((ProblemOption)question.getSelectedResponses().get(0).getModel()).getSolver();
+		if(q == ExerciseProblems.BASE_PROBLEM){
+			solver = ((ProblemOption)((OptionQuestionModel)q).getSelectedResponse()).getSolver();
 			submit = false;
 		}
 		
 		QuestionModel newQuestion = null;
 		
-		if(solver != null && solver.hasNextQuestion()){
+		if(solver != null){
 		
 			if(submit){
-				solver.submitResponse(question);
+				solver.submitResponse(q);
 			}
-
-			newQuestion = solver.getNextQuestion();
 			
-		} else {
-			
-			newQuestion = solver.getSolution();
-			
+			if(solver.hasNextQuestion()){
+				newQuestion = solver.getNextQuestion();
+				Log.d(TAG, "next: "+newQuestion.getId());
+			} else {
+				newQuestion = solver.getSolution(this);
+				solutionRetrieved = true;
+				Log.d(TAG, "get solution");
+			}
 		}
 		
 		if(newQuestion != null){

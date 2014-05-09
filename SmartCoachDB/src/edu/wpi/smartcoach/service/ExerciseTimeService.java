@@ -25,7 +25,7 @@ public class ExerciseTimeService {
 		return mExerciseTimeDao.getID(exerciseTime);
 	}
 	
-	public String getExerciseTime(int exerciseTimeID) {
+	public ExerciseTime getExerciseTime(int exerciseTimeID) {
 		return mExerciseTimeDao.getTime(exerciseTimeID);
 	}
 }

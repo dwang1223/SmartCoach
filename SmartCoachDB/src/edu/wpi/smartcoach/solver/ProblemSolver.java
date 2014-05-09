@@ -1,5 +1,6 @@
 package edu.wpi.smartcoach.solver;
 
+import android.content.Context;
 import edu.wpi.smartcoach.model.QuestionModel;
 
 public interface ProblemSolver {
@@ -9,5 +10,5 @@ public interface ProblemSolver {
 
 	public boolean hasNextQuestion();
 
-	public QuestionModel getSolution();
+	public QuestionModel getSolution(Context ctx);
 }

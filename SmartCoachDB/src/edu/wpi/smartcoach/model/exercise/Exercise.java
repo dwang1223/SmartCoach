@@ -73,6 +73,19 @@ public class Exercise {
 	public String toString(){
 		return name;
 	}
+	
+	@Override
+	public boolean equals(Object e){
+		if(e == null){
+			return false;
+		}
+		if(e instanceof Exercise){
+			return id == ((Exercise)e).getId();
+		} else {
+			return false;
+		}
+		
+	}
 
 
 }

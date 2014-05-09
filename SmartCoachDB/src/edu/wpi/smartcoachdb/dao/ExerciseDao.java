@@ -24,58 +24,64 @@ public class ExerciseDao {
 	}
 
 	public List<Exercise> getAll() {
-		List<Exercise> mExerciseList = new ArrayList<Exercise>();
-		Exercise mExercise = null;
+		List<Exercise> exerciseList = new ArrayList<Exercise>();
+		Exercise exercise = null;
 		String sql = "select * from " + ExerciseColumns.TABLE_EXERCISE;
-		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+		Cursor cursor = DatabaseHelper.getInstance().getReadableDatabase()
 				.rawQuery(sql, null);
 		try {
-			mCursor.moveToNext();
-			while (mCursor.getPosition() != mCursor.getCount()) {
-				mExercise = new Exercise();
-				mExercise.setId(mCursor.getInt(0));
-				mExercise.setName(mCursor.getString(1));
-				mExercise.setExerciseType(mCursor.getString(2));
-				mExercise.setExerciseNumberOfPersons(mCursor.getString(3));
-				mExercise.setExerciseEquipment(mCursor.getString(4));
-				mExerciseList.add(mExercise);
-				mCursor.moveToNext();
+			cursor.moveToNext();
+			while (cursor.getPosition() != cursor.getCount()) {
+				exercise = new Exercise();
+				exercise.setId(cursor.getInt(0));
+				exercise.setName(cursor.getString(1));
+				exercise.setExerciseType(cursor.getString(2));
+				exercise.setExerciseNumberOfPersons(cursor.getString(3));
+				exercise.setExerciseEquipment(cursor.getString(4));
+				exerciseList.add(exercise);
+				cursor.moveToNext();
 			}
 		} catch (Exception e) {
-			mCursor.close();
+			cursor.close();
 		}
-		return mExerciseList;
+		return exerciseList;
 	}
 
 	public int getID(String exerciseName) {
-		int exerciseID = 0;
+		int id = 0;
 		String sql = "select * from " + ExerciseColumns.TABLE_EXERCISE
 				+ " where " + ExerciseColumns.FIELD_EXERCISE_NAME + " = '"
 				+ exerciseName + "'";
-		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+		Cursor cursor = DatabaseHelper.getInstance().getReadableDatabase()
 				.rawQuery(sql, null);
 		try {
-			mCursor.moveToNext();
-			exerciseID = mCursor.getInt(0);
+			cursor.moveToNext();
+			id = cursor.getInt(0);
 		} finally {
-			mCursor.close();
+			cursor.close();
 		}
-		return exerciseID;
+		return id;
 	}
 	
-	public String getName(int exerciseID) {
-		String exerciseName;
+	public Exercise getExercise(int id) {
+		Exercise exercise;
+		
 		String sql = "select * from " + ExerciseColumns.TABLE_EXERCISE
 				+ " where " + ExerciseColumns.FIELD_ID + " = "
-				+ exerciseID;
-		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+				+ id;
+		Cursor cursor = DatabaseHelper.getInstance().getReadableDatabase()
 				.rawQuery(sql, null);
 		try {
-			mCursor.moveToNext();
-			exerciseName = mCursor.getString(1);
+			cursor.moveToNext();				
+			exercise = new Exercise();
+			exercise.setId(cursor.getInt(0));
+			exercise.setName(cursor.getString(1));
+			exercise.setExerciseType(cursor.getString(2));
+			exercise.setExerciseNumberOfPersons(cursor.getString(3));
+			exercise.setExerciseEquipment(cursor.getString(4));
 		} finally {
-			mCursor.close();
+			cursor.close();
 		}
-		return exerciseName;
+		return exercise;
 	}
 }

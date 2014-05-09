@@ -1,12 +1,13 @@
 package edu.wpi.smartcoach.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
 
@@ -19,8 +20,11 @@ public class TimeQuestionFragment extends QuestionFragment {
 	private QuestionResponseListener listener;
 	
 	private TextView questionView;
-	private TimePicker picker;
+	private NumberPicker hourPicker;
+	private NumberPicker minutePicker;
 	private Button next;
+	
+	private String[] minutes;
 	
 	public TimeQuestionFragment(){
 		
@@ -45,17 +49,33 @@ public class TimeQuestionFragment extends QuestionFragment {
 		
 		questionView = (TextView)root.findViewById(R.id.questionText);
 		
-		picker = (TimePicker)root.findViewById(R.id.picker);
-		picker.setIs24HourView(false);
-		picker.setCurrentHour(0);
-		picker.setCurrentMinute(30);
+		hourPicker = (NumberPicker)root.findViewById(R.id.hour);
+		minutePicker = (NumberPicker)root.findViewById(R.id.minute);
+		
+		hourPicker.setMinValue(0);
+		hourPicker.setMaxValue(23);
+		hourPicker.setValue(0);
+		
+		minutes = new String[12];
+		for(int i = 0; i < minutes.length; i++){
+			minutes[i] = String.format("%02d", i * (60/minutes.length));
+		}
+		minutePicker.setDisplayedValues(minutes);
+		minutePicker.setMinValue(0);
+		minutePicker.setMaxValue(minutes.length-1);
+		minutePicker.setValue(minutes.length/2);
+		
+
 
 		next = (Button)root.findViewById(R.id.nextButton);
 		
 		next.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				question.setResponse(picker.getCurrentHour(), picker.getCurrentMinute());
+				Log.d(TAG, String.format("time picked %d:%d", hourPicker.getValue(),
+						Integer.parseInt(minutes[minutePicker.getValue()])));
+				question.setResponse(hourPicker.getValue(),
+						Integer.parseInt(minutes[minutePicker.getValue()]));
 				listener.responseEntered(question);
 				
 			}

@@ -58,19 +58,19 @@ public class ExerciseTimeDao {
 		return exerciseTimeID;
 	}
 	
-	public String getTime(int exerciseTimeID) {
+	public ExerciseTime getTime(int id) {
 		String exerciseTime;
 		String sql = "select * from " + ExerciseTimeColumns.TABLE_EXERCISE_TIME
 				+ " where " + ExerciseTimeColumns.FIELD_ID + " = "
-				+ exerciseTimeID;
-		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+				+ id;
+		Cursor cursor = DatabaseHelper.getInstance().getReadableDatabase()
 				.rawQuery(sql, null);
 		try {
-			mCursor.moveToNext();
-			exerciseTime = mCursor.getString(1);
+			cursor.moveToNext();
+			exerciseTime = cursor.getString(1);
 		} finally {
-			mCursor.close();
+			cursor.close();
 		}
-		return exerciseTime;
+		return new ExerciseTime(id, exerciseTime);
 	}
 }

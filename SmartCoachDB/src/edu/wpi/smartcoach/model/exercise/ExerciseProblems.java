@@ -11,6 +11,7 @@ import edu.wpi.smartcoach.service.ExerciseLocationService;
 import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;
 import edu.wpi.smartcoach.solver.MotivationProblemSolver;
+import edu.wpi.smartcoach.solver.TimeProblemSolver;
 
 
 public class ExerciseProblems {
@@ -64,7 +65,7 @@ public class ExerciseProblems {
 	
 	
 	public static final ArrayList<ProblemOption> problems = new  ArrayList<ProblemOption>(){{
-		add(new ProblemOption(PROBLEM_TIME, "I don't have time to exercise", null));
+		add(new ProblemOption(PROBLEM_TIME, "I don't have time to exercise", new TimeProblemSolver()));
 		add(new ProblemOption(PROBLEM_MOTIVATION, "I find it hard to get started", new MotivationProblemSolver()));
 		add(new ProblemOption(PROBLEM_BORED, "I get bored while exercising", null));
 		add(new ProblemOption(PROBLEM_INJURY, "I have an injury that prevents me from exercising", null));
@@ -75,6 +76,6 @@ public class ExerciseProblems {
 			"Problem",
 			"What is the biggest problem when exercising?",
 			problems,
-			QuestionType.MULTIPLE,1,OptionQuestionModel.NO_LIMIT);
+			QuestionType.SINGLE);
 
 }
