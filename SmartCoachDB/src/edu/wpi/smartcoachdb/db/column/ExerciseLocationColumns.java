@@ -5,4 +5,5 @@ public interface ExerciseLocationColumns {
 		String FIELD_ID = "id";
 		String FIELD_SPECIFIC_LOCATION = "specific_location";
 		String FIELD_LOCATION_TYPE = "location_type";
+		String FIELD_FORM_PREPOSITION = "form_preposition";
 }

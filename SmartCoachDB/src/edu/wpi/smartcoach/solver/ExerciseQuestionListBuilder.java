@@ -30,7 +30,7 @@ public class ExerciseQuestionListBuilder {
 	
 	private static QuestionModel getLocationQuestion(Exercise e){
 		final List<ExerciseLocation> locations =  ExerciseToLocationService.getInstance().getLocationListByExercise(e.getId());
-		final String prompt = String.format("Where do you %s?", e.getName());
+		final String prompt = String.format("Where do you %s?", e.getFormInfinitive());
 		return new OptionQuestionModel("location", "Location",
 				prompt, 
 				new ArrayList<OptionModel>(){{
@@ -42,7 +42,7 @@ public class ExerciseQuestionListBuilder {
 	}
 	
 	private static QuestionModel getTimeQuestion(Exercise e){
-		String prompt = String.format("When do you %s?", e.getName());
+		String prompt = String.format("When do you %s?", e.getFormInfinitive());
 		return new OptionQuestionModel("time", "Time", prompt,
 				new ArrayList<OptionModel>(){{
 					for(ExerciseTime et:ExerciseTimeService.getInstance().getAllDataFromTable()){
@@ -61,7 +61,7 @@ public class ExerciseQuestionListBuilder {
 		}
 		frequencies.add(new SimpleOption(7, "7 times per week (daily)"));
 		
-		String prompt = String.format("On average, how many days do you %s in a week", e.getName());
+		String prompt = String.format("On average, how many days do you %s in a week", e.getFormInfinitive());
 		return new OptionQuestionModel("frequency", "Frequency", prompt,
 				frequencies,
 				QuestionType.SINGLE);

@@ -38,6 +38,7 @@ public class ExerciseDao {
 				exercise.setExerciseType(cursor.getString(2));
 				exercise.setExerciseNumberOfPersons(cursor.getString(3));
 				exercise.setExerciseEquipment(cursor.getString(4));
+				exercise.setFormInfinitive(cursor.getString(5));
 				exerciseList.add(exercise);
 				cursor.moveToNext();
 			}
@@ -79,6 +80,7 @@ public class ExerciseDao {
 			exercise.setExerciseType(cursor.getString(2));
 			exercise.setExerciseNumberOfPersons(cursor.getString(3));
 			exercise.setExerciseEquipment(cursor.getString(4));
+			exercise.setFormInfinitive(cursor.getString(5));
 		} finally {
 			cursor.close();
 		}

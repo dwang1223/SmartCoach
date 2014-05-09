@@ -65,6 +65,7 @@ public class ExerciseLocationDao {
 	public ExerciseLocation getLocation(int id) {
 		String specificLocation;
 		String locationType;
+		String preposition;
 		String sql = "select * from " + ExerciseLocationColumns.TABLE_EXERCISE_LOCATION
 				+ " where " + ExerciseLocationColumns.FIELD_ID + " = "
 				+ id;
@@ -74,13 +75,15 @@ public class ExerciseLocationDao {
 			cursor.moveToNext();
 			specificLocation = cursor.getString(1);
 			locationType = cursor.getString(2);
+			preposition = cursor.getString(3);
 		} catch(Exception e){
 			e.printStackTrace();
-			specificLocation = "error";
-			locationType = "error";
+			specificLocation = "<error>";
+			locationType = "<error>";
+			preposition = "<error>";
 		} finally {
 			cursor.close();
 		}
-		return new ExerciseLocation(id, specificLocation, locationType);
+		return new ExerciseLocation(id, specificLocation, locationType, preposition);
 	}
 }

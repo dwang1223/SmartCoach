@@ -8,6 +8,8 @@ public class Exercise {
 	private String type;
 	private String numberOfPersons;
 	private String equipment;
+	
+	private String formInfinitive;
 
 	public Exercise() {
 		super();
@@ -21,12 +23,27 @@ public class Exercise {
 	}
 
 	public Exercise(String exerciseName, String exerciseType,
-			String exerciseNumberOfPersons, String exerciseEquipment) {
+			String exerciseNumberOfPersons, String exerciseEquipment, String infinitive) {
 		super();
 		this.name = exerciseName;
 		this.type = exerciseType;
 		this.numberOfPersons = exerciseNumberOfPersons;
 		this.equipment = exerciseEquipment;
+		this.formInfinitive = infinitive;
+	}
+
+	/**
+	 * @return the formInfinitive
+	 */
+	public String getFormInfinitive() {
+		return formInfinitive;
+	}
+
+	/**
+	 * @param formInfinitive the formInfinitive to set
+	 */
+	public void setFormInfinitive(String formInfinitive) {
+		this.formInfinitive = formInfinitive;
 	}
 
 	public int getId() {

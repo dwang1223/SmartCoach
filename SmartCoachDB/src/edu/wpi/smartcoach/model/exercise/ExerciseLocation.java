@@ -5,16 +5,18 @@ public class ExerciseLocation {
 	private int id;
 	private String specificLocation;
 	private String locationType;
+	private String formPreposition;
 
 	public ExerciseLocation() {
 		super();
 	}
 
-	public ExerciseLocation(int id, String specificLocation, String locationType) {
+	public ExerciseLocation(int id, String specificLocation, String locationType, String preposition) {
 		super();
 		this.id = id;
 		this.specificLocation = specificLocation;
 		this.locationType = locationType;
+		this.formPreposition = preposition;
 	}
 
 	public int getId() {
@@ -44,6 +46,10 @@ public class ExerciseLocation {
 	@Override
 	public String toString(){
 		return specificLocation;
+	}
+	
+	public String getPreposition(){
+		return formPreposition;
 	}
 	
 	@Override
