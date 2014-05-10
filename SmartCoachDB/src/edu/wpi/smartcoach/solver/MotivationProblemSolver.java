@@ -146,7 +146,7 @@ public class MotivationProblemSolver implements ProblemSolver {
 	private void addLikeQuestion(){
 		ExerciseState cState = state.get(current);
 		Log.d(TAG, "adding like question");
-		String prompt = String.format("Did you enjoy %s %s in the %s", cState.getExercise().getName(),
+		String prompt = String.format("Did you enjoy %s %s in the %s?", cState.getExercise().getName().toLowerCase(),
 				cState.getLocation().getPreposition(), 
 				cState.getTime().getTime().toLowerCase());
 		

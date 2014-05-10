@@ -61,14 +61,14 @@ public class ExerciseQuestionListBuilder {
 		}
 		frequencies.add(new SimpleOption(7, "7 times per week (daily)"));
 		
-		String prompt = String.format("On average, how many days do you %s in a week", e.getFormInfinitive());
+		String prompt = String.format("On average, how many days do you %s in a week?", e.getFormInfinitive());
 		return new OptionQuestionModel("frequency", "Frequency", prompt,
 				frequencies,
 				QuestionType.SINGLE);
 	}
 	
 	private static QuestionModel getDurationQuestion(Exercise e){
-		String prompt = String.format("On average, how much time do you spend %s each day?", e.getName());
+		String prompt = String.format("On average, how much time do you spend %s each day?", e.getName().toLowerCase());
 		return new TimeQuestionModel("duration", "Duration",
 				prompt);
 	}
