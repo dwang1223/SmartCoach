@@ -12,11 +12,12 @@ import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoach.model.exercise.ExerciseTime;
 import edu.wpi.smartcoach.service.ExerciseLocationService;
+import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;
 import edu.wpi.smartcoach.service.ExerciseToLocationService;
 
 public class ExerciseQuestionListBuilder {
-
+	
 	public static Queue<QuestionModel> buildBasicQuestionList(Exercise e){
 		Queue<QuestionModel> questions = new LinkedList<QuestionModel>();
 		
@@ -28,7 +29,18 @@ public class ExerciseQuestionListBuilder {
 		return questions;
 	}
 	
-	private static QuestionModel getLocationQuestion(Exercise e){
+	public static QuestionModel getExerciseListQuestion(){
+		ArrayList<SimpleOption> exerciseOptions = new ArrayList<SimpleOption>();
+		List<Exercise> exerciseList = ExerciseService.getInstance().getAllDataFromTable();
+		for(Exercise e:exerciseList){
+			exerciseOptions.add(new SimpleOption(e.getId(), e));
+		}
+		return new OptionQuestionModel("exercises", "Exercises",
+				"Which exercises did you try to do?", exerciseOptions,
+				QuestionType.MULTIPLE, 1, OptionQuestionModel.NO_LIMIT);
+	}
+	
+	public static QuestionModel getLocationQuestion(Exercise e){
 		final List<ExerciseLocation> locations =  ExerciseToLocationService.getInstance().getLocationListByExercise(e.getId());
 		final String prompt = String.format("Where do you %s?", e.getFormInfinitive());
 		return new OptionQuestionModel("location", "Location",
@@ -41,7 +53,7 @@ public class ExerciseQuestionListBuilder {
 				QuestionType.SINGLE,1,OptionQuestionModel.NO_LIMIT);
 	}
 	
-	private static QuestionModel getTimeQuestion(Exercise e){
+	public static QuestionModel getTimeQuestion(Exercise e){
 		String prompt = String.format("When do you %s?", e.getFormInfinitive());
 		return new OptionQuestionModel("time", "Time", prompt,
 				new ArrayList<OptionModel>(){{
@@ -64,7 +76,7 @@ public class ExerciseQuestionListBuilder {
 		String prompt = String.format("On average, how many days do you %s in a week?", e.getFormInfinitive());
 		return new OptionQuestionModel("frequency", "Frequency", prompt,
 				frequencies,
-				QuestionType.SINGLE);
+				QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT);
 	}
 	
 	private static QuestionModel getDurationQuestion(Exercise e){

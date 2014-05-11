@@ -56,11 +56,12 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 			Intent intent = new Intent(this, ExerciseProblemActivity.class);
 			startActivity(intent);
 			finish();
+			return;
 		}
 		
 		boolean submit = true;
 		if(q == ExerciseProblems.BASE_PROBLEM){
-			solver = ((ProblemOption)((OptionQuestionModel)q).getSelectedResponse()).getSolver();
+			solver = ExerciseProblems.getSolver((((OptionQuestionModel)q).getSelectedResponse()).getId());
 			submit = false;
 		}
 		

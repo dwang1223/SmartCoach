@@ -51,7 +51,7 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 			public void onClick(View v) {
 				Calendar c = Calendar.getInstance();
 				new DatePickerDialog(RegistrationActivity.this,
-						RegistrationActivity.this,c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
+						RegistrationActivity.this, 1970, 1, 1).show();
 			}
 		});
 
@@ -106,8 +106,8 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear,
 			int dayOfMonth) {
-		GregorianCalendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
-		birthday.setText(String.format("%s/%s/%s", monthOfYear, dayOfMonth, year));
+		GregorianCalendar calendar = new GregorianCalendar(year, monthOfYear+1, dayOfMonth);
+		birthday.setText(String.format("%s/%s/%s", monthOfYear+1, dayOfMonth, year));
 		
 	}
 

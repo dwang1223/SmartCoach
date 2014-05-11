@@ -4,28 +4,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import edu.wpi.smartcoach.model.ExerciseSolution;
 import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.SimpleOption;
+import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
 
-public class TimeProblemSolver extends MotivationProblemSolver {
+public class TimeProblemSolver extends BaseProblemSolver {
 
 	@Override
-	public QuestionModel getSolution(Context ctx){
-		OptionQuestionModel solutionQuestion = (OptionQuestionModel)super.getSolution(ctx);
-		List<OptionModel> solutions = solutionQuestion.getOptions();
+	public QuestionModel getSolution(Context ctx) {
 		
-		for(ExerciseState s:state.values()){
-			if(!s.isTimeLiked()){
-				solutions.add(0, new SimpleOption(solutions.size(), "Increase intensity of "+s.getExercise()));
-			}
+		ArrayList<ExerciseSolution> solutions = new ArrayList<ExerciseSolution>();
+		List<ExerciseState> states = new ArrayList<ExerciseState>(state.values());
+		
+		solutions.addAll(Solutions.getNewExerciseSolutions(states, ctx));
+		solutions.addAll(Solutions.getNewLocationSolutions(states, ctx));
+		solutions.addAll(Solutions.getNewTimeSolutions(states, ctx));
+		
+		for(ExerciseSolution s:solutions){
+			String message = s.getMessage();
+			String newMessage = String.format("%s Increase the intensity of the %s to help reduce time.", 
+					message,
+					s.getExercise().getName().toLowerCase());
+			s.setMessage(newMessage);
 		}
 		
-		solutionQuestion.setOptions(solutions);
-		return solutionQuestion;
-
+		ArrayList<OptionModel> options = new ArrayList<OptionModel>();
+		
+		for(ExerciseSolution soln:solutions){
+			options.add(new SimpleOption(solutions.indexOf(soln), soln));
+		}
+		
+		if(options.isEmpty()){
+			options.add(new SimpleOption(0, "No Solutions found..."));
+		}
+		
+		return new OptionQuestionModel("solutions", "Solutions", "Here are some things you can try:", 
+				options, QuestionType.SINGLE);
 	}
 	
 }

@@ -71,7 +71,7 @@ public class ExerciseProfile {
 					add(new SimpleOption(GROUP, "With a group"));
 					add(new SimpleOption(OptionQuestionModel.DEFAULT, "It doesn't matter"));
 				}},
-				QuestionType.MULTIPLE),
+				QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT),
 				
 			new OptionQuestionModel(
 					"profile_exercise_when",

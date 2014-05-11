@@ -51,15 +51,12 @@ public class OptionQuestionModel implements QuestionModel{
 	public OptionQuestionModel(String id, String title, String prompt, List<? extends OptionModel> responses, QuestionType type, int min, int max){
 		this(id, title, prompt, responses, type);
 		
-		if(type.equals(QuestionType.MULTIPLE)){
 			this.min = Math.max(0, min);
 			this.max = max;
 			if(max < 1){
 				max = NO_LIMIT;
 			}
-		} else {
-			max = NO_LIMIT;
-		}
+
 	}
 	
 	public String getId(){
