@@ -119,6 +119,10 @@ public class ExerciseProfile {
 					}},
 					QuestionType.MULTIPLE),
 					
+			new OptionQuestionModel("complete", "Profile Complete", 
+					"You have created your profile successfully, now you are ready to do some problem solving.", new ArrayList<OptionModel>(), QuestionType.SINGLE),
+
+					
 		};
 		
 		for(OptionQuestionModel q:questions){

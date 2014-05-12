@@ -2,10 +2,12 @@ package edu.wpi.smartcoach.model.exercise;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoach.solver.BoredomProblemSolver;
+import edu.wpi.smartcoach.solver.InjuryProblemSolver;
 import edu.wpi.smartcoach.solver.MotivationProblemSolver;
 import edu.wpi.smartcoach.solver.ProblemSolver;
 import edu.wpi.smartcoach.solver.TimeProblemSolver;
@@ -27,7 +29,7 @@ public class ExerciseProblems {
 		add(new SimpleOption(PROBLEM_INJURY, "I have an injury that prevents me from exercising"));
 	}};
 	
-	public static final ProblemSolver getSolver(int problem){
+	public static final ProblemSolver getSolver(int problem, Context ctx){
 		
 		ProblemSolver solver = null;
 		
@@ -42,7 +44,7 @@ public class ExerciseProblems {
 				solver = new BoredomProblemSolver();
 				break;
 			case PROBLEM_INJURY:
-				solver = null;
+				solver = new InjuryProblemSolver(ctx);
 				break;
 			default:
 				solver =null;

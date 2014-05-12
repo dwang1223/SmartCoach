@@ -28,14 +28,16 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 	private EditText first, last, address, occupation;
 	private Spinner gender;
 	private TextView birthday;
-
+	
 	private Button submit;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registration);
-
+		
+		setTitle("Registration");
+		
 		DatabaseHelper.getInstance(this);
 		
 		first = (EditText) findViewById(R.id.firstName);
@@ -51,7 +53,7 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 			public void onClick(View v) {
 				Calendar c = Calendar.getInstance();
 				new DatePickerDialog(RegistrationActivity.this,
-						RegistrationActivity.this, 1970, 1, 1).show();
+						RegistrationActivity.this, 1970, 0, 1).show();
 			}
 		});
 
@@ -82,9 +84,15 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 		String occupationStr = occupation.getText().toString();
  
 		String genderStr = gender.getSelectedItem().toString();
-		String bd = birthday.getText().toString();
 		
-		PatientProfileService.getInstance().initPatientProfile(new PatientProfile(firstName, lastName, genderStr, new Date(Date.parse(bd)), addressStr, occupationStr));
+		Date bd = null;
+		try{
+			bd = new Date(Date.parse(birthday.getText().toString()));
+		}catch(Exception e){
+			return;
+		}
+		
+		PatientProfileService.getInstance().initPatientProfile(new PatientProfile(firstName, lastName, genderStr, bd, addressStr, occupationStr));
 
 		Intent intent = new Intent(this, PatientInfoActivity.class);
 		startActivity(intent);

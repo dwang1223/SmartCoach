@@ -41,7 +41,7 @@ public class BoredomProblemSolver implements ProblemSolver{
 		QuestionModel next;
 		if (!exercisesSubmitted) {
 			
-			next = ExerciseQuestionListBuilder.getExerciseListQuestion();
+			next = ExerciseQuestionBuilder.getExerciseListQuestion();
 
 		} else {
 			
@@ -65,7 +65,7 @@ public class BoredomProblemSolver implements ProblemSolver{
 				
 				LinkedList<QuestionModel> qList = new LinkedList<QuestionModel>();
 
-				qList.add(ExerciseQuestionListBuilder.getLocationQuestion(e));
+				qList.add(ExerciseQuestionBuilder.getLocationQuestion(e));
 				
 				questions.put(e, qList);
 			}
@@ -106,7 +106,7 @@ public class BoredomProblemSolver implements ProblemSolver{
 		ArrayList<OptionModel> options = new ArrayList<OptionModel>();
 		
 		for(ExerciseSolution s:solutions){
-			options.add(new SimpleOption(s.getId(), s));
+			options.add(new SimpleOption(solutions.size(), s));
 		}
 				
 		return new OptionQuestionModel("solutions", "Solutions", 

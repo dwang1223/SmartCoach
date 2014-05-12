@@ -5,11 +5,13 @@ import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
 import edu.wpi.smartcoach.model.exercise.ExerciseTime;
 
+/**
+ * A solution to the problems identified during problem solving sessions.
+ * Has an exercise, location, time, and message.
+ * @author akshay
+ *
+ */
 public class ExerciseSolution {
-	
-	private static int nextID = 0;
-	
-	private int id;
 	
 	private Exercise exercise;
 	private ExerciseLocation location;
@@ -22,11 +24,23 @@ public class ExerciseSolution {
 	
 	private long timeStamp;
 
+	/**
+	 * Default Constructor
+	 */
 	public ExerciseSolution(){
-		id = nextID;
-		nextID++;
+
 	}
 	
+	/**
+	 * Construct with all fields
+	 * @param exercise The recommended exercise
+	 * @param location The recommended location
+	 * @param time The recommended time of day
+	 * @param frequency Frequency of exercise, in days per week
+	 * @param duration Duration of exercise in minutes
+	 * @param message The message to show to the user
+	 * @param timeStamp When this object was created
+	 */
 	public ExerciseSolution(Exercise exercise, ExerciseLocation location,
 			ExerciseTime time, int frequency, int duration, String message,
 			long timeStamp) {
@@ -40,6 +54,11 @@ public class ExerciseSolution {
 		this.timeStamp = timeStamp;
 	}
 	
+	/**
+	 * Initializes a ExerciseSolution using an ExerciseState
+	 * Copies the exercise, location, time, frequency, and duration
+	 * @param state
+	 */
 	public ExerciseSolution(ExerciseState state){
 		this(state.getExercise(),
 			state.getLocation(),
@@ -50,9 +69,6 @@ public class ExerciseSolution {
 			0);
 	}
 
-	public int getId() {
-		return id;
-	}
 
 	public Exercise getExercise() {
 		return exercise;
@@ -80,10 +96,6 @@ public class ExerciseSolution {
 
 	public long getTimeStamp() {
 		return timeStamp;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public void setExercise(Exercise exercise) {

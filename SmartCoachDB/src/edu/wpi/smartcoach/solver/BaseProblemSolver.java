@@ -48,7 +48,7 @@ public class BaseProblemSolver implements ProblemSolver {
 		QuestionModel next;
 		if (!exercisesSubmitted) {
 			
-			next = ExerciseQuestionListBuilder.getExerciseListQuestion();
+			next = ExerciseQuestionBuilder.getExerciseListQuestion();
 
 		} else {
 			
@@ -69,7 +69,7 @@ public class BaseProblemSolver implements ProblemSolver {
 				ExerciseState eState = new ExerciseState();
 				eState.setExercise(e);
 				state.put(e, eState);
-				questions.put(e, ExerciseQuestionListBuilder.buildBasicQuestionList(e));
+				questions.put(e, ExerciseQuestionBuilder.buildBasicQuestionList(e));
 			}
 			current = exercises.get(0);
 		} else {

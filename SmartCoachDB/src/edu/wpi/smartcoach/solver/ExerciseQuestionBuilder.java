@@ -16,7 +16,7 @@ import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;
 import edu.wpi.smartcoach.service.ExerciseToLocationService;
 
-public class ExerciseQuestionListBuilder {
+public class ExerciseQuestionBuilder {
 	
 	public static Queue<QuestionModel> buildBasicQuestionList(Exercise e){
 		Queue<QuestionModel> questions = new LinkedList<QuestionModel>();

@@ -6,7 +6,11 @@ import edu.wpi.smartcoach.model.OptionModel;
 
 public class Equipment {
 	
+	public static final int ID_GYM_MEMBERSHIP = 13;
+	
 	public static ArrayList<Equipment> equipment;
+	
+	
 	
 	static {
 		equipment = new ArrayList<Equipment>(){{
@@ -22,7 +26,7 @@ public class Equipment {
 			add(new Equipment(9, "Running Shoes"));
 			add(new Equipment(10, "Swimsuit"));
 			add(new Equipment(12, "Excercise Videos"));
-			add(new Equipment(13, "Gym membership"));
+			add(new Equipment(ID_GYM_MEMBERSHIP, "Gym membership"));
 		}};
 	}
 	

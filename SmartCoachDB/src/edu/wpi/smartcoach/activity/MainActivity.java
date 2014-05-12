@@ -3,15 +3,13 @@ package edu.wpi.smartcoach.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 
@@ -22,7 +20,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_main);
 
 		mDatabaseHelp = DatabaseHelper.getInstance(this);
 
@@ -32,12 +30,18 @@ public class MainActivity extends Activity {
 		if (!prefs.getBoolean("init", false)) {
 			mDatabaseHelp.initializeFromDefault(this);
 			prefs.edit().putBoolean("init", true).commit();
-			startActivity(new Intent(this, RegistrationActivity.class));
+			startActivity(new Intent(this, RegistrationIntroActivity.class));
+			finish();
 		} else {
-
-			startActivity(new Intent(this, ExerciseProblemActivity.class));
+			Button exerciseProblems = (Button)findViewById(R.id.exerciseSolver);
+			exerciseProblems.setOnClickListener(new OnClickListener() {				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getBaseContext(), ExerciseProblemActivity.class);
+					startActivity(intent);
+				}
+			});
 		}
-		finish();
 	}
 
 	@Override
@@ -59,22 +63,4 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
-		}
-	}
-
 }

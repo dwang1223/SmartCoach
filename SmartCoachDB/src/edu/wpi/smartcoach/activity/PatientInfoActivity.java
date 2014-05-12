@@ -22,8 +22,9 @@ public class PatientInfoActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_patient_info);
-
+		setTitle("Basic Information");
 		heightFt = (EditText)findViewById(R.id.height_ft);
 		heightIn = (EditText)findViewById(R.id.height_in);
 		current = (EditText)findViewById(R.id.current);
@@ -43,15 +44,18 @@ public class PatientInfoActivity extends Activity {
 	}
 	
 	public void submit(){
-		int totalHeight = Integer.parseInt(heightFt.getText().toString())*12 + Integer.parseInt(heightIn.getText().toString());
-		int currentWeight = Integer.parseInt(current.getText().toString());
-		int goalWeight = (Integer.parseInt(goal.getText().toString()));
-		
-		int age = 0; //TODO: get age from database
-		Date time = new Date();
-		
-		PatientInfoService.getInstance().initPatientInfo(new PatientInfo(totalHeight, currentWeight, age, time, goalWeight));
-		
+
+		try{
+			int totalHeight = Integer.parseInt(heightFt.getText().toString())*12 + Integer.parseInt(heightIn.getText().toString());
+			int currentWeight = Integer.parseInt(current.getText().toString());
+			int goalWeight = (Integer.parseInt(goal.getText().toString()));
+			
+			int age = 0; //TODO: get age from database
+			Date time = new Date();
+			PatientInfoService.getInstance().initPatientInfo(new PatientInfo(totalHeight, currentWeight, age, time, goalWeight));
+		} catch(Exception e){
+			return;
+		}
 		Intent intent = new Intent(this, ProfileActivity.class);
 		startActivity(intent);
 		finish();

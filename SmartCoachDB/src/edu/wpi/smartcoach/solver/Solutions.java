@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import edu.wpi.smartcoach.model.ExerciseSolution;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
@@ -18,6 +19,8 @@ import edu.wpi.smartcoach.service.ExerciseTimeService;
 import edu.wpi.smartcoach.service.ExerciseToLocationService;
 
 public class Solutions {
+	
+	private static final String TAG = Solutions.class.getSimpleName();
 	
 	private static final int MIN_FREQUENCY = 2; //at least two days/week
 	private static final int MAX_FREQUENCY = 7;
@@ -205,7 +208,7 @@ public class Solutions {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		
 		int groupPreference = Integer.parseInt(prefs.getString("profile_exercise_who", "-1"));
-		
+		Log.d(TAG, "Group Preference: "+groupPreference);
 		
 		for(ExerciseState state:states){
 
@@ -213,7 +216,7 @@ public class Solutions {
 			
 			switch(groupPreference){
 				case ExerciseProfile.ALONE:
-					if(state.getLocation().getLocationType().equals("Outdoors")){
+					if(state.getLocation().getLocationType().equals("Outdoor")){
 						message = String.format("Try listening to some music while you %s.",
 								state.getExercise().getFormInfinitive());
 					} else {

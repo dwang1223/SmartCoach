@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import edu.wpi.smartcoach.view.Option;
 import android.util.Log;
 
 public class OptionQuestionModel implements QuestionModel{

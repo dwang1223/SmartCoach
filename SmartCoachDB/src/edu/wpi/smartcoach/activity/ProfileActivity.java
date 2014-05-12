@@ -32,7 +32,7 @@ public class ProfileActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-
+		setTitle("Profile Information");
 		mSectionsPagerAdapter = new QuestionsPagerAdapter(
 				getSupportFragmentManager());
 
@@ -47,7 +47,7 @@ public class ProfileActivity extends FragmentActivity {
 		for(OptionQuestionModel qm:ExerciseProfile.questions){
 			List<OptionModel> select = qm.getSelectedResponses();
 			String responseStr = "";
-			for(int i = 0; i < select.size(); i++){
+			for(int i = 0; i < select.size()-1; i++){
 				responseStr += select.get(i).getId();
 				if(i < select.size()-1){
 					responseStr += ",";
@@ -57,7 +57,7 @@ public class ProfileActivity extends FragmentActivity {
 		}
 		prefEdit.commit();	
 		
-		Intent intent = new Intent(this, ExerciseProblemActivity.class);
+		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);		
 		finish();
 	}

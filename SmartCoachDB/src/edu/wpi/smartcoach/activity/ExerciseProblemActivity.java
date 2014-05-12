@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
-import edu.wpi.smartcoach.model.ProblemOption;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.exercise.ExerciseProblems;
 import edu.wpi.smartcoach.solver.ProblemSolver;
@@ -32,7 +31,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_exercise_problem);
-		
+		setTitle("Problem Solving");
 		questionFragment = new OptionQuestionFragment();
 		questionFragment.setQuestion(ExerciseProblems.BASE_PROBLEM);
 		questionFragment.setNextButtonListener(this);
@@ -53,7 +52,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		Log.d(TAG, "responseEntered "+q.toString());
 		
 		if(solutionRetrieved){
-			Intent intent = new Intent(this, ExerciseProblemActivity.class);
+			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
 			finish();
 			return;
@@ -61,7 +60,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		
 		boolean submit = true;
 		if(q == ExerciseProblems.BASE_PROBLEM){
-			solver = ExerciseProblems.getSolver((((OptionQuestionModel)q).getSelectedResponse()).getId());
+			solver = ExerciseProblems.getSolver((((OptionQuestionModel)q).getSelectedResponse()).getId(), this);
 			submit = false;
 		}
 		

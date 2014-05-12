@@ -12,5 +12,6 @@
     <string name="title_activity_patient_info">PatientInfoActivity</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_exercise_problem">ExerciseProblemActivity</string>
+    <string name="title_activity_registration_intro">RegistrationIntroActivity</string>
 
 </resources>

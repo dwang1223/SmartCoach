@@ -1,4 +1,6 @@
-package edu.wpi.smartcoach.model;
+package edu.wpi.smartcoach.view;
+
+import edu.wpi.smartcoach.model.OptionModel;
 
 public class Option {
 	
