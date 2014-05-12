@@ -102,7 +102,8 @@ public class BoredomProblemSolver implements ProblemSolver{
 	@Override
 	public QuestionModel getSolution(Context ctx) {
 		List<ExerciseSolution> solutions = Solutions.getBoredomSolutions(new ArrayList<ExerciseState>(state.values()), ctx);
-		
+
+		solutions.addAll(Solutions.getNewExerciseRecommendation(new ArrayList<ExerciseState>(), ctx));
 		ArrayList<OptionModel> options = new ArrayList<OptionModel>();
 		
 		for(ExerciseSolution s:solutions){

@@ -29,7 +29,6 @@ public class MainActivity extends Activity {
 		// let it run just once
 		if (!prefs.getBoolean("init", false)) {
 			mDatabaseHelp.initializeFromDefault(this);
-			prefs.edit().putBoolean("init", true).commit();
 			startActivity(new Intent(this, RegistrationIntroActivity.class));
 			finish();
 		} else {

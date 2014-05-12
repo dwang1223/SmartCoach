@@ -37,9 +37,8 @@ public class OptionQuestionFragment extends QuestionFragment {
 		return this;
 	}
 	
-	public OptionQuestionFragment setLast(boolean last){
+	public void setLast(boolean last){
 		isLast = last;
-		return this;
 	}
 
 	@Override

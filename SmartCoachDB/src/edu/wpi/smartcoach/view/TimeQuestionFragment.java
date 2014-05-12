@@ -26,6 +26,8 @@ public class TimeQuestionFragment extends QuestionFragment {
 	
 	private String[] minutes;
 	
+	private boolean isLast= false;
+	
 	public TimeQuestionFragment(){
 		
 	}
@@ -40,6 +42,11 @@ public class TimeQuestionFragment extends QuestionFragment {
 	public TimeQuestionFragment setQuestion(TimeQuestionModel tqm){
 		this.question = tqm;
 		return this;
+	}
+	
+	@Override
+	public void setLast(boolean isLast){
+		this.isLast = isLast;
 	}
 		
 	@Override
@@ -68,6 +75,10 @@ public class TimeQuestionFragment extends QuestionFragment {
 
 
 		next = (Button)root.findViewById(R.id.nextButton);
+		
+		if(isLast){
+			next.setText("Finish");
+		}
 		
 		next.setOnClickListener(new View.OnClickListener() {			
 			@Override

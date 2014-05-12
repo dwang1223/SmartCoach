@@ -1,13 +1,16 @@
 package edu.wpi.smartcoach.solver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import edu.wpi.smartcoach.model.ExerciseSolution;
+import edu.wpi.smartcoach.model.exercise.Equipment;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoach.model.exercise.ExerciseProfile;
@@ -202,12 +205,82 @@ public class Solutions {
 		return solutionList;
 	}
 	
+	public static List<ExerciseSolution> getNewExerciseRecommendation(List<ExerciseState> states, Context ctx){
+		ArrayList<ExerciseSolution> solutionList = new ArrayList<ExerciseSolution>();
+
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		
+		String[] ids = prefs.getString("profile_exercise_enjoy", "").split(",");
+		String[] eqIds = prefs.getString("profile_exercise_equip", "").split(",");
+		
+		ArrayList<Exercise> liked = new ArrayList<Exercise>();
+		for(String sId:ids){
+			try {
+				int id = Integer.parseInt(sId);
+				liked.add(ExerciseService.getInstance().getExercise(id));				
+			} catch(Exception e){}
+			
+		}
+		
+		ArrayList<Equipment> equip = new ArrayList<Equipment>();
+		for(String sId:eqIds){
+			try {
+				int id = Integer.parseInt(sId);
+				equip.add(Equipment.getEquipmentById(id));				
+			} catch(Exception e){}
+		}		
+		
+		for(ExerciseState state:states){ //remove exercises they are already doing
+			liked.remove(state.getExercise());
+		}
+		
+		HashMap<Exercise, Equipment> likedEquiped = new HashMap<Exercise, Equipment>();
+		for(Exercise l:liked){
+			for(Equipment eq:equip){
+				for(int id:eq.getExercises()){
+					if(l.getId() == id){
+						if(!likedEquiped.containsKey(l)){
+							likedEquiped.put(l, eq);
+						}
+					}
+				}
+			}
+		}
+		
+		Exercise newExercise = null;
+		Equipment newEquip = null;
+		String message = null;
+		if(likedEquiped.size() > 0){
+			Entry<Exercise, Equipment> entry = likedEquiped.entrySet().toArray(new Entry[]{})[((int)(Math.random()*likedEquiped.size()))];
+			newExercise = entry.getKey();
+			newEquip = entry.getValue();
+			message = String.format("Consider starting to %s using your %s.", 
+					newExercise.getFormInfinitive(),
+					newEquip.getName().toLowerCase());
+		} else if(liked.size() > 0){
+			newExercise = liked.get((int)(Math.random()*liked.size()));
+			message = String.format("Consider starting to %s.", newExercise.getFormInfinitive());
+		}
+		
+		if(newExercise != null){
+			ExerciseSolution solution = new ExerciseSolution(newExercise, null, null, 2, 30, message, 0);
+			
+			solutionList.add(solution);
+		}
+		
+		return solutionList;
+		
+	}
+	
 	public static List<ExerciseSolution> getBoredomSolutions(List<ExerciseState> states, Context ctx){
 		ArrayList<ExerciseSolution> solutionList = new ArrayList<ExerciseSolution>();
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		
-		int groupPreference = Integer.parseInt(prefs.getString("profile_exercise_who", "-1"));
+		int groupPreference = -1;
+		try{
+			Integer.parseInt(prefs.getString("profile_exercise_who", "-1"));
+		}catch(Exception e){}
 		Log.d(TAG, "Group Preference: "+groupPreference);
 		
 		for(ExerciseState state:states){
@@ -242,6 +315,32 @@ public class Solutions {
 		}
 		
 		return solutionList;
+	}
+	
+	private List<ExerciseLocation> getAllLikedLocations(Context ctx){
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		String[] ids = prefs.getString("profile_exercise_location", "").split(",");
+		ArrayList<ExerciseLocation> liked = new ArrayList<ExerciseLocation>();
+		for(String id:ids){
+			try {
+				liked.add(ExerciseLocationService.getInstance().getLocation(Integer.parseInt(id)));
+			} catch(Exception e){
+				
+			}
+		}
+		return liked;
+	}
+	
+	private List<ExerciseTime> getAllLikedTimes(Context ctx){
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		String[] ids = prefs.getString("profile_exercise_when", "").split(",");
+		ArrayList<ExerciseTime> liked = new ArrayList<ExerciseTime>();
+		for(String id:ids){
+			try{
+				liked.add(ExerciseTimeService.getInstance().getExerciseTime(Integer.parseInt(id)));
+			} catch(Exception e){}
+		}
+		return liked;
 	}
 
 }

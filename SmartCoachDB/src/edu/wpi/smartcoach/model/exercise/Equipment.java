@@ -14,37 +14,39 @@ public class Equipment {
 	
 	static {
 		equipment = new ArrayList<Equipment>(){{
-			add(new Equipment(0, "Treadmill"));
-			add(new Equipment(1, "Eliptical"));
-			add(new Equipment(2, "Stationary Bike"));
-			add(new Equipment(3, "Bike"));
-			add(new Equipment(4, "Stepper"));
-			add(new Equipment(5, "Tennis Racquet"));
-			add(new Equipment(6, "Badminton Racquet"));
-			add(new Equipment(7, "Roller blades/skates"));
-			add(new Equipment(8, "Ice skates"));
-			add(new Equipment(9, "Running Shoes"));
-			add(new Equipment(10, "Swimsuit"));
-			add(new Equipment(12, "Excercise Videos"));
-			add(new Equipment(ID_GYM_MEMBERSHIP, "Gym membership"));
+			add(new Equipment(0, "Treadmill", new int[]{1,2}));
+			add(new Equipment(1, "Eliptical", new int[]{1}));
+			add(new Equipment(2, "Stationary Bike", new int[]{3}));
+			add(new Equipment(3, "Bike", new int[]{3}));
+			add(new Equipment(4, "Stepper", new int[]{1}));
+			add(new Equipment(5, "Tennis Racquet", new int[]{}));
+			add(new Equipment(6, "Badminton Racquet", new int[]{}));
+			add(new Equipment(7, "Roller blades/skates", new int[]{5}));
+			add(new Equipment(8, "Ice skates", new int[]{5}));
+			add(new Equipment(9, "Running Shoes", new int[]{1,2,4}));
+			add(new Equipment(10, "Swimsuit", new int[]{11}));
+			add(new Equipment(12, "Excercise Videos", new int[]{7,10}));
+			add(new Equipment(ID_GYM_MEMBERSHIP, "Gym membership", new int[]{1,2,3,6,9,12}));
 		}};
 	}
 	
-	public static Equipment getEquipmentById(String id){
+	public static Equipment getEquipmentById(int id){
 		for(Equipment e:equipment){
-			if(id.equals(e.getId())){
+			if(id == e.getId()){
 				return e;
 			}
 		}
 		return null;
 	}
-	
+		
 	private int id;
 	private String name;
+	private int[] exercises;
 	
-	public Equipment(int id, String name){
+	public Equipment(int id, String name, int[] exercises){
 		this.id = id;
 		this.name = name;
+		this.exercises = exercises;
 	}
 
 	public int getId() {
@@ -58,5 +60,11 @@ public class Equipment {
 	public String toString(){
 		return name;
 	}
+	
+	public int[] getExercises(){
+		return exercises;
+	}
+	
+	
 	
 }

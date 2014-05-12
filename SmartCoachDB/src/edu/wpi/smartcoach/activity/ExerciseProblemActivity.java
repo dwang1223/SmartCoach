@@ -52,8 +52,6 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		Log.d(TAG, "responseEntered "+q.toString());
 		
 		if(solutionRetrieved){
-			Intent intent = new Intent(this, MainActivity.class);
-			startActivity(intent);
 			finish();
 			return;
 		}
@@ -65,7 +63,6 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		}
 		
 		QuestionModel newQuestion = null;
-		
 		if(solver != null){
 		
 			if(submit){
@@ -77,6 +74,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 				Log.d(TAG, "next: "+newQuestion.getId());
 			} else {
 				newQuestion = solver.getSolution(this);
+				
 				solutionRetrieved = true;
 				Log.d(TAG, "get solution");
 			}
@@ -85,6 +83,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		if(newQuestion != null){
 			QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
 			questionFragment.setNextButtonListener(this);
+			questionFragment.setLast(solutionRetrieved);
 			getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
 		}
 		

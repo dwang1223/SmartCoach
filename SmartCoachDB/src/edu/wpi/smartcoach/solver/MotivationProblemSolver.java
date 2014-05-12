@@ -26,7 +26,7 @@ public class MotivationProblemSolver extends BaseProblemSolver {
 		solutions.addAll(Solutions.getNewExerciseSolutions(states, ctx));
 		solutions.addAll(Solutions.getNewLocationSolutions(states, ctx));
 		solutions.addAll(Solutions.getNewTimeSolutions(states, ctx));
-		
+		solutions.addAll(Solutions.getNewExerciseRecommendation(states, ctx));
 		ArrayList<OptionModel> options = new ArrayList<OptionModel>();
 		
 		for(ExerciseSolution soln:solutions){

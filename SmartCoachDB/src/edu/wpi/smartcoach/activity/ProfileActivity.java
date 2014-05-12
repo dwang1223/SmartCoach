@@ -57,6 +57,9 @@ public class ProfileActivity extends FragmentActivity {
 		}
 		prefEdit.commit();	
 		
+
+		prefs.edit().putBoolean("init", true).commit();
+		
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);		
 		finish();
@@ -77,10 +80,9 @@ public class ProfileActivity extends FragmentActivity {
 		@Override
 		public Fragment getItem(final int position) {
 			OptionQuestionFragment qf = new OptionQuestionFragment();
-			qf
-				.setQuestion(ExerciseProfile.questions[position])
-				.setLast(position == getCount()-1)
-				.setNextButtonListener( new QuestionResponseListener() {
+			qf.setQuestion(ExerciseProfile.questions[position]);
+			qf.setLast(position == getCount()-1);
+			qf.setNextButtonListener( new QuestionResponseListener() {
 					
 					@Override
 					public void responseEntered(QuestionModel question) {
