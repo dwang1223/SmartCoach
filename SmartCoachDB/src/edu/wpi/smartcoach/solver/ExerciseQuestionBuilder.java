@@ -18,8 +18,8 @@ import edu.wpi.smartcoach.service.ExerciseToLocationService;
 
 public class ExerciseQuestionBuilder {
 	
-	public static Queue<QuestionModel> buildBasicQuestionList(Exercise e){
-		Queue<QuestionModel> questions = new LinkedList<QuestionModel>();
+	public static ArrayList<QuestionModel> buildBasicQuestionList(Exercise e){
+		ArrayList<QuestionModel> questions = new ArrayList<QuestionModel>();
 		
 		questions.add(getLocationQuestion(e));
 		questions.add(getTimeQuestion(e));
@@ -37,7 +37,7 @@ public class ExerciseQuestionBuilder {
 		}
 		return new OptionQuestionModel("exercises", "Exercises",
 				"Which exercises did you try to do?", exerciseOptions,
-				QuestionType.MULTIPLE, 1, OptionQuestionModel.NO_LIMIT);
+				QuestionType.MULTIPLE, 1, OptionQuestionModel.NO_LIMIT, true);
 	}
 	
 	public static QuestionModel getLocationQuestion(Exercise e){
@@ -50,7 +50,7 @@ public class ExerciseQuestionBuilder {
 						add(new SimpleOption(el.getId(), el));
 					}
 				}},
-				QuestionType.SINGLE,1,OptionQuestionModel.NO_LIMIT);
+				QuestionType.SINGLE,1,OptionQuestionModel.NO_LIMIT, true);
 	}
 	
 	public static QuestionModel getTimeQuestion(Exercise e){
@@ -61,7 +61,7 @@ public class ExerciseQuestionBuilder {
 						add(new SimpleOption(et.getId(), et));
 					}
 				}},
-				QuestionType.SINGLE,1,OptionQuestionModel.NO_LIMIT);		
+				QuestionType.SINGLE,1,OptionQuestionModel.NO_LIMIT, false);		
 	}
 	
 	private static QuestionModel getFrequencyQuestion(Exercise e){
@@ -76,7 +76,7 @@ public class ExerciseQuestionBuilder {
 		String prompt = String.format("On average, how many days do you %s in a week?", e.getFormInfinitive());
 		return new OptionQuestionModel("frequency", "Frequency", prompt,
 				frequencies,
-				QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT);
+				QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT, false);
 	}
 	
 	private static QuestionModel getDurationQuestion(Exercise e){

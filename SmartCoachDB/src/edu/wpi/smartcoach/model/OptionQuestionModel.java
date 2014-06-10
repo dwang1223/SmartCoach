@@ -1,6 +1,8 @@
 package edu.wpi.smartcoach.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -24,6 +26,8 @@ public class OptionQuestionModel implements QuestionModel{
 	private List<Option> responses;
 	private Option defaultResponse = null;
 	
+	private boolean isSorted;
+	
 	private QuestionType type;
 	
 	
@@ -33,7 +37,7 @@ public class OptionQuestionModel implements QuestionModel{
 	private int min = 0;
 	private int max = NO_LIMIT;
 	
-	public OptionQuestionModel(String id, String title, String prompt, List<? extends OptionModel> responses, QuestionType type){
+	public OptionQuestionModel(String id, String title, String prompt, List<? extends OptionModel> responses, QuestionType type, boolean sort){
 		this.id = id;
 		this.title = title;
 		this.prompt = prompt;
@@ -44,13 +48,31 @@ public class OptionQuestionModel implements QuestionModel{
 			this.responses.add(op);
 			if(opm.getId() == DEFAULT){
 				defaultResponse = op;
+				this.responses.remove(defaultResponse);
 			}
+		}
+		
+		this.isSorted = sort;
+		
+		if(sort){		
+			Collections.sort(this.responses, new Comparator<Option>() {
+				
+				@Override
+				public int compare(Option a, Option b){
+					return a.getText().compareTo(b.getText());
+				}
+				
+			});
+		}
+		
+		if(defaultResponse != null){
+			this.responses.add(defaultResponse);
 		}
 		
 	}
 	
-	public OptionQuestionModel(String id, String title, String prompt, List<? extends OptionModel> responses, QuestionType type, int min, int max){
-		this(id, title, prompt, responses, type);
+	public OptionQuestionModel(String id, String title, String prompt, List<? extends OptionModel> responses, QuestionType type, int min, int max, boolean sort){
+		this(id, title, prompt, responses, type, sort);
 		
 			this.min = Math.max(0, min);
 			this.max = max;
@@ -99,7 +121,7 @@ public class OptionQuestionModel implements QuestionModel{
 	public void setPrompt(String p){
 		this.prompt = p;
 	}
-	
+		
 	public void setOptions(List<? extends OptionModel> newOptions){
 		this.responses.clear();
 		for(OptionModel opm:newOptions){
@@ -118,7 +140,7 @@ public class OptionQuestionModel implements QuestionModel{
 		}
 		return opms;
 	}
-	
+		
 	public OptionModel getSelectedResponse(){
 		for(Option opm:responses){
 			if(opm.isSelected()){
@@ -165,7 +187,8 @@ public class OptionQuestionModel implements QuestionModel{
 				responseModelList,
 				type,
 				min,
-				max);
+				max,
+				isSorted);
 	}
 	
 	@Override

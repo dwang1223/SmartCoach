@@ -13,5 +13,6 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_exercise_problem">ExerciseProblemActivity</string>
     <string name="title_activity_registration_intro">RegistrationIntroActivity</string>
+    <string name="title_activity_view_profile">Profile</string>
 
 </resources>

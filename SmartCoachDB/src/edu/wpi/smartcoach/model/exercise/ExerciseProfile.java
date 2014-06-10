@@ -59,7 +59,7 @@ public class ExerciseProfile {
 					add(new SimpleOption(OUTDOOR, "Outdoors"));
 					add(new SimpleOption(OptionQuestionModel.DEFAULT, "It doesn't matter"));
 				}}, 
-				QuestionType.MULTIPLE),
+				QuestionType.MULTIPLE, true),
 			
 			new OptionQuestionModel(
 				"profile_exercise_who",
@@ -71,7 +71,7 @@ public class ExerciseProfile {
 					add(new SimpleOption(GROUP, "With a group"));
 					add(new SimpleOption(OptionQuestionModel.DEFAULT, "It doesn't matter"));
 				}},
-				QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT),
+				QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT, true),
 				
 			new OptionQuestionModel(
 					"profile_exercise_when",
@@ -82,7 +82,7 @@ public class ExerciseProfile {
 							add(new SimpleOption(t.getId(), t));
 						}
 					}},
-					QuestionType.MULTIPLE),
+					QuestionType.MULTIPLE, false),
 				
 			new OptionQuestionModel(
 					"profile_exercise_enjoy",
@@ -93,7 +93,7 @@ public class ExerciseProfile {
 							add(new SimpleOption(e.getId(), e));
 						}
 					}},
-					QuestionType.MULTIPLE
+					QuestionType.MULTIPLE, true
 					),	
 					
 			new OptionQuestionModel(
@@ -105,7 +105,7 @@ public class ExerciseProfile {
 							add(new SimpleOption(e.getId(), e));
 						}
 					}},
-					QuestionType.MULTIPLE 
+					QuestionType.MULTIPLE , true
 					),
 					
 			new OptionQuestionModel(
@@ -117,10 +117,10 @@ public class ExerciseProfile {
 							add(new SimpleOption(e.getId(), e));
 						}
 					}},
-					QuestionType.MULTIPLE),
+					QuestionType.MULTIPLE, true),
 					
 			new OptionQuestionModel("complete", "Profile Complete", 
-					"You have created your profile successfully, now you are ready to do some problem solving.", new ArrayList<OptionModel>(), QuestionType.SINGLE),
+					"You have created your profile successfully, now you are ready to do some problem solving.", new ArrayList<OptionModel>(), QuestionType.SINGLE, false),
 
 					
 		};

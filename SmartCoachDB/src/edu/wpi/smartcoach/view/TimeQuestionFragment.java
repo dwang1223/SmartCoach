@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -17,12 +18,15 @@ public class TimeQuestionFragment extends QuestionFragment {
 	
 	private TimeQuestionModel question;
 	
-	private QuestionResponseListener listener;
+	private QuestionResponseListener nextListener;
+	private QuestionResponseListener backListener;
+	private boolean backEnabled = false;
 	
 	private TextView questionView;
 	private NumberPicker hourPicker;
 	private NumberPicker minutePicker;
 	private Button next;
+	private Button back;
 	
 	private String[] minutes;
 	
@@ -35,13 +39,22 @@ public class TimeQuestionFragment extends QuestionFragment {
 	@Override
 	public TimeQuestionFragment setNextButtonListener(
 			QuestionResponseListener listener) {
-		this.listener = listener;
+		this.nextListener = listener;
 		return this;
 	}
 	
 	public TimeQuestionFragment setQuestion(TimeQuestionModel tqm){
 		this.question = tqm;
 		return this;
+	}
+	
+	public TimeQuestionFragment setBackButtonListener(QuestionResponseListener ocl){
+		backListener = ocl;
+		return this;
+	}
+	
+	public void setBackEnabled(boolean enabled){
+		backEnabled = enabled;
 	}
 	
 	@Override
@@ -75,6 +88,7 @@ public class TimeQuestionFragment extends QuestionFragment {
 
 
 		next = (Button)root.findViewById(R.id.nextButton);
+		back = (Button)root.findViewById(R.id.backButton);
 		
 		if(isLast){
 			next.setText("Finish");
@@ -87,10 +101,24 @@ public class TimeQuestionFragment extends QuestionFragment {
 						Integer.parseInt(minutes[minutePicker.getValue()])));
 				question.setResponse(hourPicker.getValue(),
 						Integer.parseInt(minutes[minutePicker.getValue()]));
-				listener.responseEntered(question);
+				nextListener.responseEntered(question);
 				
 			}
 		});
+		
+		back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(backListener != null){
+					backListener.responseEntered(question);
+				}
+			}
+		});
+		
+		if(!backEnabled){
+			back.setVisibility(View.INVISIBLE);
+		}
 		
 		questionView.setText(question.getPrompt());
 		

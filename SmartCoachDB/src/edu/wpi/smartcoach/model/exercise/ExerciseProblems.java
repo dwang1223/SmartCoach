@@ -59,6 +59,6 @@ public class ExerciseProblems {
 			"Problem",
 			"What is the biggest problem when exercising?",
 			problems,
-			QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT);
+			QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT, false);
 
 }

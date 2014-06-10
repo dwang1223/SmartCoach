@@ -16,6 +16,9 @@ import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 public class MainActivity extends Activity {
 
 	private DatabaseHelper mDatabaseHelp = null;
+	
+	private View exerciseButton;
+	private View profileButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +35,27 @@ public class MainActivity extends Activity {
 			startActivity(new Intent(this, RegistrationIntroActivity.class));
 			finish();
 		} else {
-			Button exerciseProblems = (Button)findViewById(R.id.exerciseSolver);
-			exerciseProblems.setOnClickListener(new OnClickListener() {				
+			exerciseButton = (View)findViewById(R.id.exerciseSolver);
+			profileButton = (View)findViewById(R.id.profile);
+			
+			exerciseButton.setOnClickListener(new OnClickListener() {				
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(getBaseContext(), ExerciseProblemActivity.class);
 					startActivity(intent);
 				}
 			});
+			
+			profileButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getBaseContext(), ViewProfileActivity.class);
+					startActivity(intent);					
+				}
+			});
+			
+			
 		}
 	}
 

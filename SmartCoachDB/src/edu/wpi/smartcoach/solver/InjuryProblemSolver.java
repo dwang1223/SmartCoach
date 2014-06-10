@@ -1,12 +1,13 @@
 package edu.wpi.smartcoach.solver;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import android.content.Context;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
+import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.SimpleOption;
-import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 
 public class InjuryProblemSolver implements ProblemSolver {
 
@@ -22,12 +23,16 @@ public class InjuryProblemSolver implements ProblemSolver {
 	private boolean hasConsultedTherapist = false;
 	private boolean finished = false;
 	
+	private Stack<QuestionModel> backStack;
+	
 	
 	
 	QuestionModel nextQuestion;
 	
 	public InjuryProblemSolver(Context context){
 		this.context = context;		
+		
+		backStack = new Stack<QuestionModel>();
 		
 		qGymMembership = InjuryQuestionBuilder.getGymMembershipQuestion(context);
 		qTherapist = InjuryQuestionBuilder.getPhysicalTherapistQuestion();
@@ -45,6 +50,7 @@ public class InjuryProblemSolver implements ProblemSolver {
 	@Override
 	public void submitResponse(QuestionModel responseQuestion) {
 		OptionQuestionModel response = (OptionQuestionModel)responseQuestion;
+		backStack.push(response);
 		if(response == qGymMembership){
 			hasGymMembership = response.getSelectedResponse().getId() == SimpleOption.YES;
 			nextQuestion = qTherapist;
@@ -60,6 +66,16 @@ public class InjuryProblemSolver implements ProblemSolver {
 			finished = true;
 		}
 		
+	}
+	
+	@Override
+	public void back(){
+		nextQuestion = backStack.pop();
+	}
+	
+	@Override
+	public boolean isBackAllowed(){
+		return !(nextQuestion == qGymMembership);
 	}
 
 	@Override
@@ -96,7 +112,7 @@ public class InjuryProblemSolver implements ProblemSolver {
 		}
 		
 		return new OptionQuestionModel("solutions", "Solutions", 
-				"Here are some things you can try:", solutions, QuestionType.MULTIPLE);
+				"Here are some things you can try:", solutions, QuestionType.MULTIPLE, false);
 	}
 
 }

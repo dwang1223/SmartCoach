@@ -20,17 +20,18 @@ import edu.wpi.smartcoach.model.exercise.ExerciseState;
 public class BoredomProblemSolver implements ProblemSolver{
 
 	protected ArrayList<Exercise> exercises;
-	protected HashMap<Exercise, Queue<QuestionModel>> questions;
+	protected HashMap<Exercise, ArrayList<QuestionModel>> questions;
 	protected HashMap<Exercise, ExerciseState> state;
 	
 	protected Exercise current;
+	protected int questionIndex = -1;
 	protected QuestionModel nextQuestion;
 	
 	private boolean exercisesSubmitted;
 	
 	public BoredomProblemSolver(){
 		exercises = new ArrayList<Exercise>();
-		questions = new HashMap<Exercise, Queue<QuestionModel>>();
+		questions = new HashMap<Exercise, ArrayList<QuestionModel>>();
 		state = new HashMap<Exercise, ExerciseState>();
 		
 		exercisesSubmitted = false;
@@ -63,7 +64,7 @@ public class BoredomProblemSolver implements ProblemSolver{
 				eState.setExercise(e);
 				state.put(e, eState);
 				
-				LinkedList<QuestionModel> qList = new LinkedList<QuestionModel>();
+				ArrayList<QuestionModel> qList = new ArrayList<QuestionModel>();
 
 				qList.add(ExerciseQuestionBuilder.getLocationQuestion(e));
 				
@@ -77,13 +78,34 @@ public class BoredomProblemSolver implements ProblemSolver{
 		}
 		
 		
-		if(questions.get(current).isEmpty()){
+		//Log.d(TAG, questions.get(current).size()+"  PEEK  "+ questions.get(current).peek().toString());
+		if(questionIndex == questions.get(current).size()){
 			if(exercises.indexOf(current)+1 < exercises.size()){
 				current = exercises.get(exercises.indexOf(current)+1);
+				questionIndex = -1;
 			} 
 		}
-		nextQuestion = questions.get(current).poll();	
 		
+		questionIndex++;
+		nextQuestion = questions.get(current).get(questionIndex);
+		
+	}
+	
+	@Override
+	public void back(){
+		questionIndex--;
+		if(questionIndex == -1){
+			current = exercises.get(exercises.indexOf(current)-1);
+			questionIndex = questions.get(current).size()-1;
+		}
+
+		nextQuestion = questions.get(current).get(questionIndex);
+		
+	}
+	
+	@Override
+	public boolean isBackAllowed(){
+		return !(exercises.indexOf(current) <= 0 && questionIndex <= 0);
 	}
 
 	@Override
@@ -91,7 +113,7 @@ public class BoredomProblemSolver implements ProblemSolver{
 		if(!exercisesSubmitted){
 			return true;
 		} else {
-		if(current == exercises.get(exercises.size()-1) && questions.get(current).isEmpty() && nextQuestion == null){
+			if(current == exercises.get(exercises.size()-1) && questionIndex == questions.get(current).size()-1){
 				return false;
 			} else {
 				return true;
@@ -113,7 +135,7 @@ public class BoredomProblemSolver implements ProblemSolver{
 		return new OptionQuestionModel("solutions", "Solutions", 
 				"Try some of these to make exercise a little more interesting",
 				options, 
-				QuestionType.MULTIPLE);
+				QuestionType.MULTIPLE, false);
 	}
 
 }

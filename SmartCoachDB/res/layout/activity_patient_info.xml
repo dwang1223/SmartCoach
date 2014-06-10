@@ -61,7 +61,7 @@
             android:layout_weight="0.21" >
 
             <TextView
-                android:id="@+id/TextView01"
+                android:id="@+id/birthdate"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="Weight"
@@ -85,7 +85,7 @@
             android:layout_weight="0.21" >
 
             <TextView
-                android:id="@+id/TextView02"
+                android:id="@+id/height"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="Goal"
@@ -111,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/linearLayout1"
         android:layout_below="@+id/linearLayout1"
-        android:background="@drawable/bg_card_highlight"
+        android:background="@drawable/bg_card_button"
 		android:layout_marginTop="10dp"
         android:text="Submit"
         android:textColor="#ffffff" />

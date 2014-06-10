@@ -19,5 +19,9 @@ public class PatientProfileService{
 	public void initPatientProfile(PatientProfile profile) {
 		mPatientProfileDao.insertOne(profile);
 	}
+	
+	public PatientProfile getProfile(){
+		return mPatientProfileDao.getProfile();
+	}
 
 }

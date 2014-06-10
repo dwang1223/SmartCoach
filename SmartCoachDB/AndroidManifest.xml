@@ -34,11 +34,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.wpi.smartcoach.activity.PatientInfoActivity"
+            android:name="edu.wpi.smartcoach.activity.PatientMetricsActivity"
             android:label="@string/title_activity_patient_info"
             android:screenOrientation="portrait" >
-        </activity>        
-
+        </activity>
         <activity
             android:name="edu.wpi.smartcoach.activity.ExerciseProblemActivity"
             android:label="@string/title_activity_exercise_problem"
@@ -47,6 +46,10 @@
         <activity
             android:name="edu.wpi.smartcoach.activity.RegistrationIntroActivity"
             android:label="@string/title_activity_registration_intro" >
+        </activity>
+        <activity
+            android:name="edu.wpi.smartcoach.activity.ViewProfileActivity"
+            android:label="@string/title_activity_view_profile" >
         </activity>
     </application>
 

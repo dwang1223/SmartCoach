@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/bg_card_highlight"
+        android:background="@drawable/bg_card_button"
         android:text="Next"
         android:textColor="#ffffff" />
 
@@ -35,8 +35,20 @@
         android:layout_below="@+id/questionText"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
+        android:fadeScrollbars="false"
         android:divider="@null" >
 
     </ListView>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/nextButton"
+        android:layout_alignBottom="@+id/nextButton"
+        android:layout_alignLeft="@+id/optionList"
+        android:background="@drawable/bg_card_button"
+        android:text="Back"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>

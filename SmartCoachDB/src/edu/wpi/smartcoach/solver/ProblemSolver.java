@@ -9,6 +9,8 @@ public interface ProblemSolver {
 	public void submitResponse(QuestionModel response);
 
 	public boolean hasNextQuestion();
+	public boolean isBackAllowed();
+	public void back();
 
 	public QuestionModel getSolution(Context ctx);
 }

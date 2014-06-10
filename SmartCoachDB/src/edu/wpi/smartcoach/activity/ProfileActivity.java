@@ -81,6 +81,7 @@ public class ProfileActivity extends FragmentActivity {
 		public Fragment getItem(final int position) {
 			OptionQuestionFragment qf = new OptionQuestionFragment();
 			qf.setQuestion(ExerciseProfile.questions[position]);
+			qf.setBackEnabled(position == 0);
 			qf.setLast(position == getCount()-1);
 			qf.setNextButtonListener( new QuestionResponseListener() {
 					
@@ -94,7 +95,13 @@ public class ProfileActivity extends FragmentActivity {
 						
 					}
 				});
+			qf.setBackButtonListener(new QuestionResponseListener() {
 				
+				@Override
+				public void responseEntered(QuestionModel question) {
+					mViewPager.setCurrentItem(position-1, true);					
+				}
+			});
 			return qf;
 		}
 

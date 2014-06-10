@@ -37,7 +37,7 @@ public class PatientProfile {
 		this.id = id;
 	}
 
-	public String getPatientFirstName() {
+	public String getFirstName() {
 		return patientFirstName;
 	}
 
@@ -45,7 +45,7 @@ public class PatientProfile {
 		this.patientFirstName = patientFirstName;
 	}
 
-	public String getPatientLastName() {
+	public String getLastName() {
 		return patientLastName;
 	}
 
@@ -53,7 +53,7 @@ public class PatientProfile {
 		this.patientLastName = patientLastName;
 	}
 
-	public String getPatientGender() {
+	public String getGender() {
 		return patientGender;
 	}
 

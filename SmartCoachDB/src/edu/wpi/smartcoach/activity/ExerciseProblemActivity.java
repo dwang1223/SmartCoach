@@ -35,6 +35,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		questionFragment = new OptionQuestionFragment();
 		questionFragment.setQuestion(ExerciseProblems.BASE_PROBLEM);
 		questionFragment.setNextButtonListener(this);
+		questionFragment.setBackEnabled(false);
 		getSupportFragmentManager().beginTransaction().add(R.id.container, questionFragment).commit();
 		
 	}
@@ -83,10 +84,36 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		if(newQuestion != null){
 			QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
 			questionFragment.setNextButtonListener(this);
+			questionFragment.setBackButtonListener(new QuestionResponseListener() {
+				
+				@Override
+				public void responseEntered(QuestionModel question) {
+					navigateBack();
+				}
+			});
+			questionFragment.setBackEnabled(!solutionRetrieved && solver.isBackAllowed());
 			questionFragment.setLast(solutionRetrieved);
 			getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
 		}
 		
+	}
+	
+	private void navigateBack(){
+		solver.back();
+		QuestionModel newQuestion = solver.getNextQuestion();
+		
+		QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
+		questionFragment.setNextButtonListener(this);
+		questionFragment.setBackButtonListener(new QuestionResponseListener() {
+			
+			@Override
+			public void responseEntered(QuestionModel question) {
+				navigateBack();
+			}
+		});
+		questionFragment.setBackEnabled(solver.isBackAllowed());
+		questionFragment.setLast(solutionRetrieved);
+		getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
 	}
 
 }

@@ -25,11 +25,14 @@ import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 
 public class RegistrationActivity extends Activity implements OnDateSetListener {
 
-	private EditText first, last, address, occupation;
+	private EditText first, last;
+	//private EditText address, occupation;
 	private Spinner gender;
 	private TextView birthday;
 	
 	private Button submit;
+	
+	private boolean editing;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +41,20 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 		
 		setTitle("Registration");
 		
+		if(getIntent().getExtras() != null){
+			editing = getIntent().getExtras().getBoolean("edit", false);
+		} else {
+			editing = false;
+		}
+		
+		
+		
 		DatabaseHelper.getInstance(this);
 		
 		first = (EditText) findViewById(R.id.firstName);
 		last = (EditText) findViewById(R.id.lastName);
-		address = (EditText) findViewById(R.id.address);
-		occupation = (EditText) findViewById(R.id.occupation);
+//		address = (EditText) findViewById(R.id.address);
+//		occupation = (EditText) findViewById(R.id.occupation);
 
 		gender = (Spinner) findViewById(R.id.gender);
 		birthday = (TextView) findViewById(R.id.birthday);
@@ -56,6 +67,15 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 						RegistrationActivity.this, 1970, 0, 1).show();
 			}
 		});
+		
+		if(editing){
+			PatientProfile profile = PatientProfileService.getInstance().getProfile();
+			first.setText(profile.getFirstName());
+			last.setText(profile.getLastName());
+			gender.setSelection(profile.getGender().equals("Male")?0:1);
+			Date d = profile.getPatientBirthday();
+			onDateSet(null, d.getYear(),d.getMonth(), d.getDate());
+		}
 
 		submit = (Button) findViewById(R.id.submit);
 
@@ -80,8 +100,8 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 	private void submit() {
 		String firstName = first.getText().toString();
 		String lastName = last.getText().toString();
-		String addressStr = address.getText().toString();
-		String occupationStr = occupation.getText().toString();
+		//String addressStr = address.getText().toString();
+		//String occupationStr = occupation.getText().toString();
  
 		String genderStr = gender.getSelectedItem().toString();
 		
@@ -92,10 +112,12 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 			return;
 		}
 		
-		PatientProfileService.getInstance().initPatientProfile(new PatientProfile(firstName, lastName, genderStr, bd, addressStr, occupationStr));
+		PatientProfileService.getInstance().initPatientProfile(new PatientProfile(firstName, lastName, genderStr, bd, "address", "occupation"));
 
-		Intent intent = new Intent(this, PatientInfoActivity.class);
-		startActivity(intent);
+		if(!editing){
+			Intent intent = new Intent(this, PatientMetricsActivity.class);
+			startActivity(intent);
+		}
 		finish();
 	}
 

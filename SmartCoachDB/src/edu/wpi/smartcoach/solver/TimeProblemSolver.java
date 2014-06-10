@@ -65,7 +65,7 @@ public class TimeProblemSolver extends BaseProblemSolver {
 		}
 		
 		return new OptionQuestionModel("solutions", "Solutions", "Here are some things you can try:", 
-				options, QuestionType.SINGLE);
+				options, QuestionType.SINGLE, false);
 	}
 	
 }

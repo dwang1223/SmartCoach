@@ -15,8 +15,6 @@
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold" />
-    
-    
 
     <Button
         android:id="@+id/nextButton"
@@ -24,14 +22,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/bg_card_highlight"
+        android:background="@drawable/bg_card_button"
         android:text="Next"
         android:textColor="#ffffff" />
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/nextButton"
         android:layout_below="@+id/questionText"
         android:layout_centerHorizontal="true"
         android:gravity="center" >
@@ -40,7 +38,6 @@
             android:id="@+id/hour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            
             android:layout_gravity="center" />
 
         <TextView
@@ -55,7 +52,55 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/textView3"
+        android:layout_weight="1"
+        android:text="hours"
+        android:textColor="#777777"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/exerciselabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_weight="1"
+        android:text="minutes"
+        android:textColor="#777777"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColorHint="#ccc"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_centerHorizontal="true"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/nextButton"
+        android:layout_alignBottom="@+id/nextButton"
+        android:layout_alignLeft="@+id/questionText"
+        android:background="@drawable/bg_card_button"
+        android:text="Back"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>

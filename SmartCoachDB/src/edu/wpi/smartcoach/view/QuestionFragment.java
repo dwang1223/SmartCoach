@@ -18,7 +18,9 @@ public abstract class QuestionFragment extends Fragment {
 		return null;
 	}
 
+	public abstract void setBackEnabled(boolean first);
 	public abstract void setLast(boolean isLast);
 	public abstract QuestionFragment setNextButtonListener(QuestionResponseListener listener);
+	public abstract QuestionFragment setBackButtonListener(QuestionResponseListener listener);
 
 }

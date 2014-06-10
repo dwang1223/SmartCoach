@@ -1,15 +1,15 @@
 package edu.wpi.smartcoach.view;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.OptionQuestionModel;
 
 public class OptionQuestionFragment extends QuestionFragment {
 	
@@ -20,7 +20,10 @@ public class OptionQuestionFragment extends QuestionFragment {
 	private QuestionOptionListAdapter adapter;
 	
 	private Button next;
-	private QuestionResponseListener listener;
+	private Button back;
+	private QuestionResponseListener nextListener;
+	private QuestionResponseListener backListener;
+	private boolean backEnabled = false;
 	private boolean isLast = false;
 	
 	private OptionQuestionModel question;
@@ -33,8 +36,17 @@ public class OptionQuestionFragment extends QuestionFragment {
 	}
 	
 	public OptionQuestionFragment setNextButtonListener(QuestionResponseListener ocl){		
-		listener = ocl;
+		nextListener = ocl;
 		return this;
+	}
+	
+	public OptionQuestionFragment setBackButtonListener(QuestionResponseListener ocl){
+		backListener = ocl;
+		return this;
+	}
+	
+	public void setBackEnabled(boolean enabled){
+		backEnabled = enabled;
 	}
 	
 	public void setLast(boolean last){
@@ -50,14 +62,30 @@ public class OptionQuestionFragment extends QuestionFragment {
 		optionListView = (ListView)rootView.findViewById(R.id.optionList);
 		
 		next = (Button)rootView.findViewById(R.id.nextButton);
+		back = (Button)rootView.findViewById(R.id.backButton);
+		
 		next.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				if(question.hasMinimumResponses() && listener != null){
-					listener.responseEntered(question);;
+				if(question.hasMinimumResponses() && nextListener != null){
+					nextListener.responseEntered(question);;
 				}
 			}
 		});
+		
+		back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(backListener != null){
+					backListener.responseEntered(question);
+				}
+			}
+		});
+		
+		if(!backEnabled){
+			back.setVisibility(View.INVISIBLE);
+		}
 		
 		if(isLast){
 			next.setText("Finish");
