@@ -32,11 +32,11 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/nextButton"
         android:layout_alignLeft="@+id/questionText"
-        android:layout_below="@+id/questionText"
+        android:layout_below="@+id/instructions"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:fadeScrollbars="false"
-        android:divider="@null" >
+        android:layout_marginTop="0dp"
+        android:divider="@null"
+        android:fadeScrollbars="false" >
 
     </ListView>
 
@@ -50,5 +50,17 @@
         android:background="@drawable/bg_card_button"
         android:text="Back"
         android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/questionText"
+        android:layout_below="@+id/questionText"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:text="Select One:"
+        android:textColor="#777777"
+        android:textStyle="italic" />
 
 </RelativeLayout>

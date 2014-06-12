@@ -12,12 +12,18 @@ import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 
 public class QuestionOptionListAdapter extends BaseAdapter {
 
+	public interface ResponseChangedListener{
+		public void responseChanged(OptionQuestionModel q);
+	}
+	
 	private static final String TAG = QuestionOptionListAdapter.class
 			.getSimpleName();
 
 	private Context context;
 
 	private OptionQuestionModel question;
+	
+	private ResponseChangedListener responseListener;
 
 	public QuestionOptionListAdapter(Context context, OptionQuestionModel qm) {
 		super();
@@ -26,6 +32,13 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 
 		if (qm.hasDefault()) {
 			qm.getDefault().setSelected(true);
+		}
+	}
+	
+	public void setResponseChangedListener(ResponseChangedListener rl){
+		responseListener = rl;
+		if(responseListener != null){
+			responseListener.responseChanged(question);
 		}
 	}
 
@@ -105,6 +118,11 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 												// be selected
 					}
 				}
+				
+				if(responseListener != null){
+					responseListener.responseChanged(question);
+				}
+				
 				notifyDataSetChanged();
 
 			}

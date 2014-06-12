@@ -50,7 +50,7 @@ public class ExerciseQuestionBuilder {
 						add(new SimpleOption(el.getId(), el));
 					}
 				}},
-				QuestionType.SINGLE,1,OptionQuestionModel.NO_LIMIT, true);
+				QuestionType.MULTIPLE, 1, OptionQuestionModel.NO_LIMIT, true);
 	}
 	
 	public static QuestionModel getTimeQuestion(Exercise e){
@@ -61,7 +61,7 @@ public class ExerciseQuestionBuilder {
 						add(new SimpleOption(et.getId(), et));
 					}
 				}},
-				QuestionType.SINGLE,1,OptionQuestionModel.NO_LIMIT, false);		
+				QuestionType.MULTIPLE,1,OptionQuestionModel.NO_LIMIT, false);		
 	}
 	
 	private static QuestionModel getFrequencyQuestion(Exercise e){

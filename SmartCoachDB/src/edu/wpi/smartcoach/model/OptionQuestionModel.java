@@ -48,6 +48,7 @@ public class OptionQuestionModel implements QuestionModel{
 			this.responses.add(op);
 			if(opm.getId() == DEFAULT){
 				defaultResponse = op;
+				this.min = 1;
 				this.responses.remove(defaultResponse);
 			}
 		}
@@ -193,6 +194,6 @@ public class OptionQuestionModel implements QuestionModel{
 	
 	@Override
 	public String toString(){
-		return String.format("%s:%s {%s}", id, prompt, responses.toString());
+		return String.format("%s:%s", id, prompt);
 	}
 }

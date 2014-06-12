@@ -10,14 +10,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
+import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
+import edu.wpi.smartcoach.view.QuestionOptionListAdapter.ResponseChangedListener;
 
-public class OptionQuestionFragment extends QuestionFragment {
+public class OptionQuestionFragment extends QuestionFragment implements ResponseChangedListener {
 	
 	private static final String TAG  = OptionQuestionFragment.class.getSimpleName();
 
 	private TextView questionView;
 	private ListView optionListView;
 	private QuestionOptionListAdapter adapter;
+	
+	private TextView instructions;
 	
 	private Button next;
 	private Button back;
@@ -61,6 +65,8 @@ public class OptionQuestionFragment extends QuestionFragment {
 		questionView = (TextView)rootView.findViewById(R.id.questionText);
 		optionListView = (ListView)rootView.findViewById(R.id.optionList);
 		
+		instructions = (TextView)rootView.findViewById(R.id.instructions);
+		
 		next = (Button)rootView.findViewById(R.id.nextButton);
 		back = (Button)rootView.findViewById(R.id.backButton);
 		
@@ -83,6 +89,14 @@ public class OptionQuestionFragment extends QuestionFragment {
 			}
 		});
 		
+		if(question.getType() == QuestionType.SINGLE){
+			 instructions.setText("Pick one:");
+		} else if(question.getResponses().size() == 0){
+			instructions.setText("");
+		} else {
+			instructions.setText("Pick all that apply:");
+		}
+		
 		if(!backEnabled){
 			back.setVisibility(View.INVISIBLE);
 		}
@@ -97,9 +111,20 @@ public class OptionQuestionFragment extends QuestionFragment {
 		
 		questionView.setText(question.getPrompt());	
 		
+		adapter.setResponseChangedListener(this);
+		
 		adapter.notifyDataSetChanged();
 
 		return rootView;
+	}
+
+	@Override
+	public void responseChanged(OptionQuestionModel q) {
+		if(q.hasMinimumResponses()){
+			next.setBackgroundResource(R.drawable.bg_card_button);
+		} else {
+			next.setBackgroundResource(R.drawable.bg_card_disable);
+		}
 	}
 
 

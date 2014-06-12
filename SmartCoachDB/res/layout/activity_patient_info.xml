@@ -26,7 +26,7 @@
             android:layout_weight="0.21" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/instructions"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="Height"

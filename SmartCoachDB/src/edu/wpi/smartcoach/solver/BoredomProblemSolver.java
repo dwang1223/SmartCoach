@@ -2,11 +2,10 @@ package edu.wpi.smartcoach.solver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import android.content.Context;
+import android.util.Log;
 import edu.wpi.smartcoach.model.ExerciseSolution;
 import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
@@ -19,22 +18,32 @@ import edu.wpi.smartcoach.model.exercise.ExerciseState;
 
 public class BoredomProblemSolver implements ProblemSolver{
 
+	private static final String TAG = BoredomProblemSolver.class.getSimpleName();
+	
 	protected ArrayList<Exercise> exercises;
 	protected HashMap<Exercise, ArrayList<QuestionModel>> questions;
 	protected HashMap<Exercise, ExerciseState> state;
 	
 	protected Exercise current;
-	protected int questionIndex = -1;
-	protected QuestionModel nextQuestion;
+	protected int questionIndex = 0;
+	protected QuestionModel currentQuestion;
 	
 	private boolean exercisesSubmitted;
 	
+	private boolean done;
+	
 	public BoredomProblemSolver(){
+		init();
+	}
+	
+	public void init(){
 		exercises = new ArrayList<Exercise>();
 		questions = new HashMap<Exercise, ArrayList<QuestionModel>>();
 		state = new HashMap<Exercise, ExerciseState>();
-		
+
+		questionIndex = 0;
 		exercisesSubmitted = false;
+		done = false;
 	}
 	
 	@Override
@@ -46,13 +55,16 @@ public class BoredomProblemSolver implements ProblemSolver{
 
 		} else {
 			
-			next = nextQuestion;
+			next = currentQuestion;
 		}
 		return next;
 	}
 
 	@Override
 	public void submitResponse(QuestionModel response) {
+		
+		boolean last = false;
+		
 		if(!exercisesSubmitted){
 			exercisesSubmitted = true;
 			
@@ -71,54 +83,59 @@ public class BoredomProblemSolver implements ProblemSolver{
 				questions.put(e, qList);
 			}
 			current = exercises.get(0);
-			
+						
 		} else {
 			OptionQuestionModel locResponse = (OptionQuestionModel)response;
 			state.get(current).setLocation((ExerciseLocation)locResponse.getSelectedResponse().getValue());
+			last = true;
 		}
 		
 		
 		//Log.d(TAG, questions.get(current).size()+"  PEEK  "+ questions.get(current).peek().toString());
-		if(questionIndex == questions.get(current).size()){
-			if(exercises.indexOf(current)+1 < exercises.size()){
-				current = exercises.get(exercises.indexOf(current)+1);
-				questionIndex = -1;
-			} 
+		if(last){		
+			if(questionIndex == questions.get(current).size()){
+				if(exercises.indexOf(current) < exercises.size()-1){
+					current = exercises.get(exercises.indexOf(current)+1);
+					questionIndex = 0;
+				} else {
+					done = true;
+				} 
+			}
 		}
-		
-		questionIndex++;
-		nextQuestion = questions.get(current).get(questionIndex);
-		
+		if(!done){
+			currentQuestion = questions.get(current).get(questionIndex);
+			questionIndex++;
+		}
 	}
 	
 	@Override
 	public void back(){
-		questionIndex--;
-		if(questionIndex == -1){
-			current = exercises.get(exercises.indexOf(current)-1);
-			questionIndex = questions.get(current).size()-1;
-		}
 
-		nextQuestion = questions.get(current).get(questionIndex);
+		questionIndex = questions.get(current).indexOf(currentQuestion)-1;
+
 		
+		if(questionIndex == -1){
+			if(exercises.indexOf(current) == 0){
+				init();
+				return;
+			} else {
+				current = exercises.get(exercises.indexOf(current)-1);
+				questionIndex = questions.get(current).size()-1;
+			}
+		}
+		
+		currentQuestion = questions.get(current).get(questionIndex);
+		questionIndex++;
 	}
 	
 	@Override
 	public boolean isBackAllowed(){
-		return !(exercises.indexOf(current) <= 0 && questionIndex <= 0);
+		return exercisesSubmitted;
 	}
 
 	@Override
 	public boolean hasNextQuestion() {
-		if(!exercisesSubmitted){
-			return true;
-		} else {
-			if(current == exercises.get(exercises.size()-1) && questionIndex == questions.get(current).size()-1){
-				return false;
-			} else {
-				return true;
-			}
-		}
+		return !done;
 	}
 
 	@Override

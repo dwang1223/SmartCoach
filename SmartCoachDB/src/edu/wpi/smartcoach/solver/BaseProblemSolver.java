@@ -35,13 +35,23 @@ public class BaseProblemSolver implements ProblemSolver {
 
 	protected boolean exercisesSubmitted = false;
 	protected Exercise current = null;
-	protected int questionIndex = -1;
-	protected QuestionModel nextQuestion = null;
+	protected int questionIndex = 0;
+	protected QuestionModel currentQuestion = null;
+	
+	private boolean done = false;
 	
 	public BaseProblemSolver(){
+		init();
+	}
+	
+	public void init(){
 		exercises = new ArrayList<Exercise>();
 		questions = new HashMap<Exercise, ArrayList<QuestionModel>>();
 		state = new HashMap<Exercise, ExerciseState>();
+		
+		exercisesSubmitted = false;
+		questionIndex = 0;
+		done = false;
 	}
 	
 	@Override
@@ -53,13 +63,16 @@ public class BaseProblemSolver implements ProblemSolver {
 
 		} else {
 			
-			next = nextQuestion;
+			next = currentQuestion;
 		}
 		return next;
 	}
 
 	@Override
 	public void submitResponse(QuestionModel response) {
+		
+		boolean lastQuestion = false;
+		
 		if (!exercisesSubmitted) {
 			exercisesSubmitted = true;
 			
@@ -84,7 +97,7 @@ public class BaseProblemSolver implements ProblemSolver {
 				
 				OptionQuestionModel timeResponse = (OptionQuestionModel)response;
 				state.get(current).setTime((ExerciseTime)timeResponse.getSelectedResponse().getValue());
-				addLikeQuestion();
+				
 				
 			} else if(id.equals("frequency")){
 				
@@ -95,6 +108,7 @@ public class BaseProblemSolver implements ProblemSolver {
 				
 				TimeQuestionModel durationResponse = (TimeQuestionModel)response;
 				state.get(current).setDuration(durationResponse.getResponse());
+				addLikeQuestion();
 				
 			} else if (id.equals("like")){
 				
@@ -114,6 +128,7 @@ public class BaseProblemSolver implements ProblemSolver {
 				OptionQuestionModel increaseResponse = (OptionQuestionModel)response;
 				boolean wouldIncrease = increaseResponse.getSelectedResponse().getId() == YES;
 				state.get(current).setWouldIncrease(wouldIncrease);
+				lastQuestion = true;
 				
 			} else if(id.equals("aspect")){
 				
@@ -131,51 +146,63 @@ public class BaseProblemSolver implements ProblemSolver {
 					default:
 						break;
 				}
+				lastQuestion = true;
 			}			
 		}
 		
-		//Log.d(TAG, questions.get(current).size()+"  PEEK  "+ questions.get(current).peek().toString());
-		if(questionIndex == questions.get(current).size()-1){
-			if(exercises.indexOf(current)+1 < exercises.size()){
+		Log.d(TAG, "questionIndex="+questionIndex+", size="+questions.get(current).size());
+		Log.d(TAG, questions.get(current).toString());
+		if(lastQuestion){
+			if(exercises.indexOf(current) < exercises.size()-1){
 				current = exercises.get(exercises.indexOf(current)+1);
-				questionIndex = -1;
-			} 
+				questionIndex = 0;
+			} else {
+				done = true;
+			}
 		}
 		
-		
-		questionIndex++;
-		nextQuestion = questions.get(current).get(questionIndex);
-		
+		if(!done){
+			currentQuestion = questions.get(current).get(questionIndex);
+			questionIndex++;
+		}
 	}
 	
 	@Override
 	public void back(){
-		String id = nextQuestion.getId();
+		String id = currentQuestion.getId();
+		
 		boolean clear = false;
 		if(id.equals("like") || id.equals("increase") || id.equals("aspect")){
 			clear = true;
 		}
 		
-		questionIndex--;
-		if(questionIndex == -1){
-			current = exercises.get(exercises.indexOf(current)-1);
-			questionIndex = questions.get(current).size()-1;
-		}
+		questionIndex = questions.get(current).indexOf(currentQuestion)-1;
 		
 		if(clear){
-			int index = questions.get(current).indexOf(nextQuestion);
+			int index = questions.get(current).indexOf(currentQuestion);
 			while(questions.get(current).size() > index){
 				questions.get(current).remove(index);
 			}
 		}
 		
-		nextQuestion = questions.get(current).get(questionIndex);
+		if(questionIndex == -1){
+			if(exercises.indexOf(current) == 0){
+				init();
+				return;
+			} else {
+				current = exercises.get(exercises.indexOf(current)-1);
+				questionIndex = questions.get(current).size()-1;
+			}
+		}
+
+		currentQuestion = questions.get(current).get(questionIndex);
+		questionIndex++;
 		
 	}
 	
 	@Override
 	public boolean isBackAllowed(){
-		return !(exercises.indexOf(current) <= 0 && questionIndex <= 0 );
+		return exercisesSubmitted;
 	}
 	
 	private void addLikeQuestion(){
@@ -226,15 +253,7 @@ public class BaseProblemSolver implements ProblemSolver {
 	
 	@Override
 	public boolean hasNextQuestion() {
-		if(!exercisesSubmitted){
-			return true;
-		} else {
-		if(current == exercises.get(exercises.size()-1) && questionIndex == questions.get(current).size()-1){
-				return false;
-			} else {
-				return true;
-			}
-		}
+		return !done;
 	}
 	
 	@Override
