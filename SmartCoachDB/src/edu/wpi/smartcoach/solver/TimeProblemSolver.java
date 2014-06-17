@@ -5,12 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
-import edu.wpi.smartcoach.model.ExerciseSolution;
 import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.SimpleOption;
+import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
 
 public class TimeProblemSolver extends BaseProblemSolver {

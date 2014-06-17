@@ -5,13 +5,22 @@ public class ExerciseState {
 	private int id;
 	private Exercise exercise;
 	private ExerciseLocation location;
+	private ExerciseLocation weekendLocation;
 	private ExerciseTime time;
+	private ExerciseTime weekendTime;
 	private int frequency;
 	private int duration;
+	private int weekendDuration;
+	
+	private boolean weekendDifferent;
 
 	private boolean exerciseLiked;
 	private boolean locationLiked;
 	private boolean timeLiked;
+	
+	private boolean weekendExerciseLiked;
+	private boolean weekendLocationLiked;
+	private boolean weekendTimeLiked;
 	private long recordTime;
 	
 	private boolean wouldIncrease;
@@ -136,12 +145,111 @@ public class ExerciseState {
 		return isExerciseLiked() && isLocationLiked() && isTimeLiked();
 	}
 	
+
+	/**
+	 * @return the weekendLocation
+	 */
+	public ExerciseLocation getWeekendLocation() {
+		return weekendLocation;
+	}
+
+	/**
+	 * @return the weekendTime
+	 */
+	public ExerciseTime getWeekendTime() {
+		return weekendTime;
+	}
+
+	/**
+	 * @return the weekendsDifferent
+	 */
+	public boolean isWeekendDifferent() {
+		return weekendDifferent;
+	}
+
+	/**
+	 * @param weekendLocation the weekendLocation to set
+	 */
+	public void setWeekendLocation(ExerciseLocation weekendLocation) {
+		this.weekendLocation = weekendLocation;
+	}
+
+	/**
+	 * @param weekendTime the weekendTime to set
+	 */
+	public void setWeekendTime(ExerciseTime weekendTime) {
+		this.weekendTime = weekendTime;
+	}
+
+	/**
+	 * @param weekendsDifferent the weekendsDifferent to set
+	 */
+	public void setWeekendDifferent(boolean weekendsDifferent) {
+		this.weekendDifferent = weekendsDifferent;
+	}
+
+	/**
+	 * @return the weekendDuration
+	 */
+	public int getWeekendDuration() {
+		return weekendDuration;
+	}
+
+	/**
+	 * @param weekendDuration the weekendDuration to set
+	 */
+	public void setWeekendDuration(int weekendDuration) {
+		this.weekendDuration = weekendDuration;
+	}
+
 	@Override
 	public ExerciseState clone(){
 		return new ExerciseState(exercise, location, time, frequency, duration, false, false, false, 0);
 	}
 
 	
+	/**
+	 * @return the weekendExerciseLiked
+	 */
+	public boolean isWeekendExerciseLiked() {
+		return weekendExerciseLiked;
+	}
+
+	/**
+	 * @return the weekendLocationLiked
+	 */
+	public boolean isWeekendLocationLiked() {
+		return weekendLocationLiked;
+	}
+
+	/**
+	 * @return the weekendTimeLiked
+	 */
+	public boolean isWeekendTimeLiked() {
+		return weekendTimeLiked;
+	}
+
+	/**
+	 * @param weekendExerciseLiked the weekendExerciseLiked to set
+	 */
+	public void setWeekendExerciseLiked(boolean weekendExerciseLiked) {
+		this.weekendExerciseLiked = weekendExerciseLiked;
+	}
+
+	/**
+	 * @param weekendLocationLiked the weekendLocationLiked to set
+	 */
+	public void setWeekendLocationLiked(boolean weekendLocationLiked) {
+		this.weekendLocationLiked = weekendLocationLiked;
+	}
+
+	/**
+	 * @param weekendTimeLiked the weekendTimeLiked to set
+	 */
+	public void setWeekendTimeLiked(boolean weekendTimeLiked) {
+		this.weekendTimeLiked = weekendTimeLiked;
+	}
+
 	@Override 
 	public String toString(){
 		return String.format("%s, %s, %s, %dx%d mins", exercise.getName(), location.getSpecificLocation(), time.getTime(), frequency, duration );

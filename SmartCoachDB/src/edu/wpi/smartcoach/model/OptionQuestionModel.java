@@ -68,7 +68,9 @@ public class OptionQuestionModel implements QuestionModel{
 		
 		if(defaultResponse != null){
 			this.responses.add(defaultResponse);
+			defaultResponse.setSelected(true);
 		}
+		
 		
 	}
 	
@@ -156,6 +158,16 @@ public class OptionQuestionModel implements QuestionModel{
 		for(Option opm:responses){
 			if(opm.isSelected()){
 				responseList.add(opm.getModel());
+			}
+		}
+		return responseList;
+	}
+	
+	public List<Object> getSelectedValues(){
+		ArrayList<Object> responseList = new ArrayList<Object>();
+		for(Option opm:responses){
+			if(opm.isSelected()){
+				responseList.add(opm.getModel().getValue());
 			}
 		}
 		return responseList;

@@ -21,11 +21,11 @@ public class ExerciseQuestionBuilder {
 	public static ArrayList<QuestionModel> buildBasicQuestionList(Exercise e){
 		ArrayList<QuestionModel> questions = new ArrayList<QuestionModel>();
 		
-		questions.add(getLocationQuestion(e));
-		questions.add(getTimeQuestion(e));
+		questions.add(getLocationQuestion(e, false));
+		questions.add(getTimeQuestion(e, false));
 		questions.add(getFrequencyQuestion(e));
-		questions.add(getDurationQuestion(e));
-		
+		questions.add(getDurationQuestion(e, false));
+		questions.add(getCheckWeekendQuestion(e));
 		return questions;
 	}
 	
@@ -40,10 +40,11 @@ public class ExerciseQuestionBuilder {
 				QuestionType.MULTIPLE, 1, OptionQuestionModel.NO_LIMIT, true);
 	}
 	
-	public static QuestionModel getLocationQuestion(Exercise e){
+	public static QuestionModel getLocationQuestion(Exercise e, boolean weekend){
 		final List<ExerciseLocation> locations =  ExerciseToLocationService.getInstance().getLocationListByExercise(e.getId());
-		final String prompt = String.format("Where do you %s?", e.getFormInfinitive());
-		return new OptionQuestionModel("location", "Location",
+		final String prompt = String.format("Where do you %s%s?", e.getFormInfinitive(), weekend?" on weekends":"");
+		String id = "location"+(weekend?"_we":"");
+		return new OptionQuestionModel(id, "Location",
 				prompt, 
 				new ArrayList<OptionModel>(){{
 					for(ExerciseLocation el:locations){
@@ -53,9 +54,10 @@ public class ExerciseQuestionBuilder {
 				QuestionType.MULTIPLE, 1, OptionQuestionModel.NO_LIMIT, true);
 	}
 	
-	public static QuestionModel getTimeQuestion(Exercise e){
-		String prompt = String.format("When do you %s?", e.getFormInfinitive());
-		return new OptionQuestionModel("time", "Time", prompt,
+	public static QuestionModel getTimeQuestion(Exercise e, boolean weekend){
+		String prompt = String.format("When do you %s%s?", e.getFormInfinitive(), weekend?" on weekends":"");
+		String id = "time"+(weekend?"_we":"");
+		return new OptionQuestionModel(id, "Time", prompt,
 				new ArrayList<OptionModel>(){{
 					for(ExerciseTime et:ExerciseTimeService.getInstance().getAllDataFromTable()){
 						add(new SimpleOption(et.getId(), et));
@@ -79,9 +81,15 @@ public class ExerciseQuestionBuilder {
 				QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT, false);
 	}
 	
-	private static QuestionModel getDurationQuestion(Exercise e){
-		String prompt = String.format("On average, how much time do you spend %s each day?", e.getName().toLowerCase());
-		return new TimeQuestionModel("duration", "Duration",
+	private static QuestionModel getCheckWeekendQuestion(Exercise e){
+		String prompt = String.format("Is your %s schedule different on weekends?", e.getName().toLowerCase());
+		return new OptionQuestionModel("checkweekend", "Weekends", prompt, SimpleOption.getYesNoOptions(), QuestionType.SINGLE,1, OptionQuestionModel.NO_LIMIT, false);
+	}
+	
+	public static QuestionModel getDurationQuestion(Exercise e, boolean weekend){
+		String prompt = String.format("On average, how much time do you spend %s each day%s?", e.getName().toLowerCase(), weekend?" on weekends":"");
+		String id = "duration"+(weekend?"_we":"");
+		return new TimeQuestionModel(id, "Duration",
 				prompt);
 	}
 

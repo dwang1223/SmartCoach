@@ -7,6 +7,7 @@ import java.util.Queue;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.StateSet;
 import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
@@ -37,6 +38,13 @@ public class BaseProblemSolver implements ProblemSolver {
 	protected Exercise current = null;
 	protected int questionIndex = 0;
 	protected QuestionModel currentQuestion = null;
+	
+	private ArrayList<String> clearIDs = new ArrayList<String>(){{
+		add("like");
+		add("increase");
+		add("aspect");
+		add("location_we");	
+	}};
 	
 	private boolean done = false;
 	
@@ -108,10 +116,42 @@ public class BaseProblemSolver implements ProblemSolver {
 				
 				TimeQuestionModel durationResponse = (TimeQuestionModel)response;
 				state.get(current).setDuration(durationResponse.getResponse());
-				addLikeQuestion();
+			} else if (id.equals("checkweekend")){
+
+				OptionQuestionModel we = (OptionQuestionModel)response;		
+				ExerciseState es = state.get(current);
+				
+				if(we.getSelectedResponse().getId() != YES){
+					es.setWeekendDifferent(false);
+					es.setWeekendLocation(es.getLocation());
+					es.setWeekendTime(es.getTime());
+					es.setWeekendDuration(es.getDuration());
+					addLikeQuestion("like", es.getExercise(), es.getLocation(), es.getTime());
+				} else {
+					es.setWeekendDifferent(true);
+					addWeekendQuestions();
+				}
+			
+			} else if(id.equals("location_we")){
+				
+				OptionQuestionModel locationResponse =  (OptionQuestionModel)response;
+				state.get(current).setWeekendLocation((ExerciseLocation)locationResponse.getSelectedResponse().getValue());
+				
+			} else if(id.equals("time_we")){
+				
+				OptionQuestionModel timeResponse = (OptionQuestionModel)response;
+				state.get(current).setWeekendTime((ExerciseTime)timeResponse.getSelectedResponse().getValue());				
+				
+			}  else if (id.equals("duration_we")){
+				
+				TimeQuestionModel durationResponse = (TimeQuestionModel)response;
+				state.get(current).setWeekendDuration(durationResponse.getResponse());
+				
+				ExerciseState es = state.get(current);
+				addLikeQuestion("like",  es.getExercise(), es.getLocation(), es.getTime());
 				
 			} else if (id.equals("like")){
-				
+			
 				OptionQuestionModel likeResponse = (OptionQuestionModel)response;
 				boolean liked = likeResponse.getSelectedResponse().getId() == YES;
 				state.get(current).setExerciseLiked(true);
@@ -120,19 +160,30 @@ public class BaseProblemSolver implements ProblemSolver {
 				if(liked){
 					addIncreaseExerciseQuestion();
 				} else {
-					addAspectQuestion();
+					addAspectQuestion("aspect");
 				}
-				
+							
 			} else if(id.equals("increase")){
 				
 				OptionQuestionModel increaseResponse = (OptionQuestionModel)response;
 				boolean wouldIncrease = increaseResponse.getSelectedResponse().getId() == YES;
 				state.get(current).setWouldIncrease(wouldIncrease);
-				lastQuestion = true;
+				
+				ExerciseState es = state.get(current);
+				if(es.isWeekendDifferent() && (es.getWeekendLocation() != es.getLocation() || es.getWeekendTime() != es.getTime())){
+					addLikeQuestion("like_we",  es.getExercise(), es.getWeekendLocation(), es.getWeekendTime());
+				} else {
+					lastQuestion = true;
+				}
 				
 			} else if(id.equals("aspect")){
 				
 				int problem = ((OptionQuestionModel)response).getSelectedResponse().getId();
+				
+				state.get(current).setExerciseLiked(true);
+				state.get(current).setLocationLiked(true);
+				state.get(current).setTimeLiked(true);
+				
 				switch (problem) {
 					case EXERCISE:
 						state.get(current).setExerciseLiked(false);
@@ -146,8 +197,50 @@ public class BaseProblemSolver implements ProblemSolver {
 					default:
 						break;
 				}
+				
+				ExerciseState es = state.get(current);
+				if(es.isWeekendDifferent() && (es.getWeekendLocation() != es.getLocation() || es.getWeekendTime() != es.getTime())){
+					addLikeQuestion("like_we",  es.getExercise(), es.getWeekendLocation(), es.getWeekendTime());;
+				} else {
+					lastQuestion = true;
+				}
+				
+			} else if (id.equals("like_we")){
+				
+				OptionQuestionModel likeResponse = (OptionQuestionModel)response;
+				boolean liked = likeResponse.getSelectedResponse().getId() == YES;
+				state.get(current).setWeekendExerciseLiked(true);
+				state.get(current).setWeekendLocationLiked(true);
+				state.get(current).setWeekendTimeLiked(true);
+				if(!liked){
+					addAspectQuestion("aspect_we");
+				} else {
+					lastQuestion = true;
+				}
+				
+			} else if (id.equals("aspect_we")){
+				int problem = ((OptionQuestionModel)response).getSelectedResponse().getId();
+				
+				state.get(current).setWeekendExerciseLiked(true);
+				state.get(current).setWeekendLocationLiked(true);
+				state.get(current).setWeekendTimeLiked(true);
+				
+				switch (problem) {
+					case EXERCISE:
+						state.get(current).setWeekendExerciseLiked(false);
+						break;
+					case TIME:
+						state.get(current).setWeekendTimeLiked(false);
+						break;
+					case LOCATION:
+						state.get(current).setWeekendLocationLiked(false);
+						break;
+					default:
+						break;
+				}
 				lastQuestion = true;
-			}			
+			}
+				
 		}
 		
 		Log.d(TAG, "questionIndex="+questionIndex+", size="+questions.get(current).size());
@@ -172,7 +265,7 @@ public class BaseProblemSolver implements ProblemSolver {
 		String id = currentQuestion.getId();
 		
 		boolean clear = false;
-		if(id.equals("like") || id.equals("increase") || id.equals("aspect")){
+		if(clearIDs.contains(id)){
 			clear = true;
 		}
 		
@@ -200,24 +293,32 @@ public class BaseProblemSolver implements ProblemSolver {
 		
 	}
 	
+	
+	
 	@Override
 	public boolean isBackAllowed(){
 		return exercisesSubmitted;
 	}
 	
-	private void addLikeQuestion(){
-		ExerciseState cState = state.get(current);
+	private void addWeekendQuestions() {
+		questions.get(current).add(ExerciseQuestionBuilder.getLocationQuestion(current, true));
+		questions.get(current).add(ExerciseQuestionBuilder.getTimeQuestion(current, true));
+		questions.get(current).add(ExerciseQuestionBuilder.getDurationQuestion(current, true));
+		
+	}
+	
+	private void addLikeQuestion(String id, Exercise e, ExerciseLocation l, ExerciseTime t){
 		Log.d(TAG, "adding like question");
-		String prompt = String.format("Did you enjoy %s %s in the %s?", cState.getExercise().getName().toLowerCase(),
-				cState.getLocation().getPreposition(), 
-				cState.getTime().getTime().toLowerCase());
+		String prompt = String.format("Did you enjoy %s %s in the %s?", e.getName().toLowerCase(),
+				l.getPreposition(), 
+				t.getTime().toLowerCase());
 		
 		ArrayList<OptionModel> yesNoOptions = new ArrayList<OptionModel>();
 		yesNoOptions.add(new SimpleOption(YES, "Yes"));
 		yesNoOptions.add(new SimpleOption(NO, "No"));
 		
 		questions.get(current).add(
-				new OptionQuestionModel("like", "Liked", prompt,
+				new OptionQuestionModel(id, "Liked", prompt,
 					yesNoOptions,
 					QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT, false));	
 	}
@@ -236,7 +337,7 @@ public class BaseProblemSolver implements ProblemSolver {
 				QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT, false));
 	}
 
-	private void addAspectQuestion(){
+	private void addAspectQuestion(String id){
 		Log.d(TAG, "adding aspect question");
 		ExerciseState cState = state.get(current);
 		ArrayList<OptionModel> options = new ArrayList<OptionModel>();
@@ -246,7 +347,7 @@ public class BaseProblemSolver implements ProblemSolver {
 		
 		String prompt = String.format("Which of the following was the problem with %s?", cState.getExercise().getName().toLowerCase());
 		
-		questions.get(current).add(new OptionQuestionModel("aspect", "Problem", prompt, 
+		questions.get(current).add(new OptionQuestionModel(id, "Problem", prompt, 
 				options,
 				QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT, false));
 	}

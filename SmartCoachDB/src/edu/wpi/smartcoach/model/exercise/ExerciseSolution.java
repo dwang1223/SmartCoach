@@ -1,9 +1,5 @@
-package edu.wpi.smartcoach.model;
+package edu.wpi.smartcoach.model.exercise;
 
-import edu.wpi.smartcoach.model.exercise.Exercise;
-import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
-import edu.wpi.smartcoach.model.exercise.ExerciseState;
-import edu.wpi.smartcoach.model.exercise.ExerciseTime;
 
 /**
  * A solution to the problems identified during problem solving sessions.
@@ -17,10 +13,12 @@ public class ExerciseSolution {
 	private ExerciseLocation location;
 	private ExerciseTime time;
 	
+	
 	private int frequency;
 	private int duration;
 	
 	private String message;
+	private String reminder;
 	
 	private long timeStamp;
 
@@ -42,7 +40,7 @@ public class ExerciseSolution {
 	 * @param timeStamp When this object was created
 	 */
 	public ExerciseSolution(Exercise exercise, ExerciseLocation location,
-			ExerciseTime time, int frequency, int duration, String message,
+			ExerciseTime time, int frequency, int duration, String message,String reminder,
 			long timeStamp) {
 		this();
 		this.exercise = exercise;
@@ -51,6 +49,7 @@ public class ExerciseSolution {
 		this.frequency = frequency;
 		this.duration = duration;
 		this.message = message;
+		this.reminder = reminder;
 		this.timeStamp = timeStamp;
 	}
 	
@@ -66,9 +65,24 @@ public class ExerciseSolution {
 			state.getFrequency(),
 			state.getDuration(),
 			null,
+			null,
 			0);
 	}
 
+
+	/**
+	 * @return the reminder
+	 */
+	public String getReminder() {
+		return reminder;
+	}
+
+	/**
+	 * @param reminder the reminder to set
+	 */
+	public void setReminder(String reminder) {
+		this.reminder = reminder;
+	}
 
 	public Exercise getExercise() {
 		return exercise;

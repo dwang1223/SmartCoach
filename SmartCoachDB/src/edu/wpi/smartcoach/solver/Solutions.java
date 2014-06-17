@@ -9,11 +9,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import edu.wpi.smartcoach.model.ExerciseSolution;
 import edu.wpi.smartcoach.model.exercise.Equipment;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoach.model.exercise.ExerciseProfile;
+import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
 import edu.wpi.smartcoach.model.exercise.ExerciseTime;
 import edu.wpi.smartcoach.service.ExerciseLocationService;
@@ -58,8 +58,13 @@ public class Solutions {
 						s.getFrequency(),
 						durationFormat);
 				
-				s.setMessage(message);
+				String reminder = String.format("%s in the %s %s", 
+						s.getExercise().getFormInfinitive(),
+						s.getLocation().getPreposition(),
+						s.getTime().getTime().toLowerCase());
 				
+				s.setMessage(message);
+				s.setReminder(reminder);
 				solutionList.add(s);				
 			}
 		}
@@ -98,9 +103,11 @@ public class Solutions {
 					Exercise newExercise = liked.get((int)(Math.random()*liked.size()));
 					s.setExercise(newExercise);
 					
-					String message = String.format("Instead of %s, try to %s.");
+					String message = String.format("Instead of %s, try to %s.", state.getExercise().getName().toLowerCase(), s.getExercise().getFormInfinitive().toLowerCase());
+					String reminder = String.format("Try %s", s.getExercise().getName().toLowerCase());
+					
 					s.setMessage(message);
-
+					s.setReminder(reminder);
 					solutionList.add(s);	
 				}
 							
@@ -154,7 +161,15 @@ public class Solutions {
 							s.getLocation().getPreposition(),
 							state.getLocation().getPreposition()							
 							);
+					
+					String reminder = String.format("%s %s instead of %s.", 
+							s.getExercise().getFormInfinitive(),
+							s.getLocation().getPreposition(),
+							state.getLocation().getPreposition()							
+							);
+					
 					s.setMessage(message);
+					s.setReminder(reminder);
 					solutionList.add(s);
 				}
 							
@@ -198,7 +213,10 @@ public class Solutions {
 						s.getTime().getTime().toLowerCase(),
 						state.getTime().getTime().toLowerCase());
 				
+				String reminder = String.format("%s in the %s", s.getExercise().getFormInfinitive(), s.getTime().getTime().toLowerCase());
+				
 				s.setMessage(message);
+				s.setReminder(reminder);
 							
 			}
 		}		
@@ -250,6 +268,7 @@ public class Solutions {
 		Exercise newExercise = null;
 		Equipment newEquip = null;
 		String message = null;
+		String reminder = null;
 		if(likedEquiped.size() > 0){
 			Entry<Exercise, Equipment> entry = likedEquiped.entrySet().toArray(new Entry[]{})[((int)(Math.random()*likedEquiped.size()))];
 			newExercise = entry.getKey();
@@ -262,8 +281,10 @@ public class Solutions {
 			message = String.format("Consider starting to %s.", newExercise.getFormInfinitive());
 		}
 		
+		reminder = newExercise.getFormInfinitive();
+		
 		if(newExercise != null){
-			ExerciseSolution solution = new ExerciseSolution(newExercise, null, null, 2, 30, message, 0);
+			ExerciseSolution solution = new ExerciseSolution(newExercise, null, null, 2, 30, message, reminder, 0);
 			
 			solutionList.add(solution);
 		}
@@ -310,6 +331,7 @@ public class Solutions {
 			
 			ExerciseSolution solution = new ExerciseSolution(state);
 			solution.setMessage(message);
+			solution.setReminder(message);
 			solutionList.add(solution);
 			
 		}

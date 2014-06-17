@@ -29,10 +29,6 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 		super();
 		this.context = context;
 		question = qm;
-
-		if (qm.hasDefault()) {
-			qm.getDefault().setSelected(true);
-		}
 	}
 	
 	public void setResponseChangedListener(ResponseChangedListener rl){

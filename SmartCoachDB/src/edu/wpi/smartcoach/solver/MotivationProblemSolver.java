@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import edu.wpi.smartcoach.model.ExerciseSolution;
 import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.SimpleOption;
+import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
 
 public class MotivationProblemSolver extends BaseProblemSolver {
@@ -34,7 +34,7 @@ public class MotivationProblemSolver extends BaseProblemSolver {
 		}
 		
 		if(options.isEmpty()){
-			options.add(new SimpleOption(0, "No Solutions found..."));
+			options.add(new SimpleOption(-1, "No Solutions found..."));
 		}
 		
 		return new OptionQuestionModel("solutions", "Solutions", "Here are some things you can try:", 

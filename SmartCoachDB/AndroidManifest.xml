@@ -51,6 +51,10 @@
             android:name="edu.wpi.smartcoach.activity.ViewProfileActivity"
             android:label="@string/title_activity_view_profile" >
         </activity>
+        <activity
+            android:name="edu.wpi.smartcoach.activity.SetReminderActivity"
+            android:label="@string/title_activity_set_reminder" >
+        </activity>
     </application>
 
 </manifest>

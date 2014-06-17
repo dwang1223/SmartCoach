@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
-import edu.wpi.smartcoach.model.ExerciseSolution;
 import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
@@ -14,6 +13,7 @@ import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
+import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
 
 public class BoredomProblemSolver implements ProblemSolver{
@@ -78,7 +78,7 @@ public class BoredomProblemSolver implements ProblemSolver{
 				
 				ArrayList<QuestionModel> qList = new ArrayList<QuestionModel>();
 
-				qList.add(ExerciseQuestionBuilder.getLocationQuestion(e));
+				qList.add(ExerciseQuestionBuilder.getLocationQuestion(e, false));
 				
 				questions.put(e, qList);
 			}

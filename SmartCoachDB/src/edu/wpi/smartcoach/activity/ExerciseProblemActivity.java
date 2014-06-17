@@ -9,6 +9,7 @@ import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.exercise.ExerciseProblems;
+import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.solver.ProblemSolver;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment;
@@ -53,6 +54,12 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		Log.d(TAG, "responseEntered "+q.toString());
 		
 		if(solutionRetrieved){
+			OptionQuestionModel solution = (OptionQuestionModel)q;
+			if(solution.getSelectedResponses().size() != 0 && solution.getSelectedResponse().getId() != -1){
+				Intent intent = new Intent(getBaseContext(), SetReminderActivity.class);
+				intent.putExtra("reminder", ((ExerciseSolution)solution.getSelectedResponse().getValue()).getReminder());
+				startActivity(intent);
+			}
 			finish();
 			return;
 		}
