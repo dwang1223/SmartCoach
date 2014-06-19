@@ -36,7 +36,7 @@ public class ExerciseQuestionBuilder {
 			exerciseOptions.add(new SimpleOption(e.getId(), e));
 		}
 		return new OptionQuestionModel("exercises", "Exercises",
-				"Which exercises did you try to do?", exerciseOptions,
+				"Which exercises are you currently doing?", exerciseOptions,
 				QuestionType.MULTIPLE, 1, OptionQuestionModel.NO_LIMIT, true);
 	}
 	

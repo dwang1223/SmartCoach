@@ -26,6 +26,7 @@ public class TimeProblemSolver extends BaseProblemSolver {
 		solutions.addAll(Solutions.getNewTimeSolutions(states, ctx));
 
 		solutions.addAll(Solutions.getNewExerciseRecommendation(states, ctx));
+		//solutions.addAll(Solutions.getWeekendIncreaseRecommendation(states, ctx));
 		
 		for(ExerciseSolution s:solutions){
 			String message = s.getMessage();

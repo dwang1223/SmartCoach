@@ -34,6 +34,12 @@ public class SetReminderActivity extends FragmentActivity {
 		
 		reminders = getIntent().getExtras().getStringArray("reminder");
 		
+		for(int i = 0; i < reminders.length; i++){
+			if(reminders[i] == null){
+				reminders[i] = "";
+			}
+		}
+		
 		mSectionsPagerAdapter = new ReminderPagerAdapter(
 				getSupportFragmentManager());
 

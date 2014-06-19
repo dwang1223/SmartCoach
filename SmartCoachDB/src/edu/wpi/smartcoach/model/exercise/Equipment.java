@@ -15,7 +15,7 @@ public class Equipment {
 	static {
 		equipment = new ArrayList<Equipment>(){{
 			add(new Equipment(0, "Treadmill", new int[]{1,2}));
-			add(new Equipment(1, "Eliptical", new int[]{1}));
+			add(new Equipment(1, "Elliptical", new int[]{1}));
 			add(new Equipment(2, "Stationary Bike", new int[]{3}));
 			add(new Equipment(3, "Bike", new int[]{3}));
 			add(new Equipment(4, "Stepper", new int[]{1}));
@@ -25,7 +25,7 @@ public class Equipment {
 			add(new Equipment(8, "Ice skates", new int[]{5}));
 			add(new Equipment(9, "Running Shoes", new int[]{1,2,4}));
 			add(new Equipment(10, "Swimsuit", new int[]{11}));
-			add(new Equipment(12, "Excercise Videos", new int[]{7,10}));
+			add(new Equipment(12, "Exercise Videos", new int[]{7,10}));
 			add(new Equipment(ID_GYM_MEMBERSHIP, "Gym membership", new int[]{1,2,3,6,9,12}));
 		}};
 	}

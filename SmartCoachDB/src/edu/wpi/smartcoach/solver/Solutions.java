@@ -45,7 +45,8 @@ public class Solutions {
 				duration = Math.max(MIN_DURATION, Math.min(MAX_DURATION, duration));
 				
 				int frequency = s.getFrequency();
-				frequency = Math.max(MIN_FREQUENCY, Math.max(MAX_FREQUENCY, frequency));
+				frequency++;
+				frequency = Math.max(MIN_FREQUENCY, Math.min(MAX_FREQUENCY, frequency));
 				
 				s.setDuration(duration);
 				s.setFrequency(frequency);
@@ -174,6 +175,60 @@ public class Solutions {
 				}
 							
 			}
+			
+			if(state.isWeekendDifferent() && !state.isWeekendLocationLiked()){
+				ExerciseSolution s = new ExerciseSolution(state);
+				
+				String[] ids = prefs.getString("profile_exercise_location", "").split(",");
+				ArrayList<ExerciseLocation> liked = new ArrayList<ExerciseLocation>();
+				for(String id:ids){
+					try {
+						liked.add(ExerciseLocationService.getInstance().getLocation(Integer.parseInt(id)));
+					} catch(Exception e){
+						
+					}
+				}
+				List<ExerciseLocation> possible = ExerciseToLocationService.getInstance().getLocationListByExercise(s.getExercise().getId());					
+				
+				possible.remove(state.getWeekendLocation());
+				
+				ArrayList<ExerciseLocation> intersect = new ArrayList<ExerciseLocation>(); //locations the user likes, and can do the exercise at
+				for(ExerciseLocation l:liked){
+					if(possible.contains(l)){
+						intersect.add(l);
+					}
+				}
+				
+				ExerciseLocation newLoc = null;
+				
+				if(intersect.size() > 0){//get a liked location if possible
+					newLoc = intersect.get(0);
+				} else if(possible.size() > 0) {
+					newLoc = possible.get((int)(Math.random()*possible.size()));//get the next possible location
+				}
+				
+				if(newLoc != null){
+					s.setLocation(newLoc);
+					
+					String message = String.format("On weekends, Try to %s %s instead of %s.", 
+							s.getExercise().getFormInfinitive(),
+							s.getLocation().getPreposition(),
+							state.getWeekendLocation().getPreposition()							
+							);
+					
+					String reminder = String.format("On weekends, %s %s instead of %s.", 
+							s.getExercise().getFormInfinitive(),
+							s.getLocation().getPreposition(),
+							state.getWeekendLocation().getPreposition()							
+							);
+					
+					s.setMessage(message);
+					s.setReminder(reminder);
+					solutionList.add(s);
+				}
+							
+			}
+			
 		}		
 		return solutionList;
 	}
@@ -184,7 +239,7 @@ public class Solutions {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		
 		for(ExerciseState state:states){
-			if(!state.isLocationLiked()){
+			if(!state.isTimeLiked()){
 				ExerciseSolution s = new ExerciseSolution(state);
 				
 				String[] ids = prefs.getString("profile_exercise_when", "").split(",");
@@ -218,7 +273,48 @@ public class Solutions {
 				s.setMessage(message);
 				s.setReminder(reminder);
 							
+				solutionList.add(s);
 			}
+			
+			if(state.isWeekendDifferent() && !state.isWeekendTimeLiked()){
+				ExerciseSolution s = new ExerciseSolution(state);
+				
+				String[] ids = prefs.getString("profile_exercise_when", "").split(",");
+				ArrayList<ExerciseTime> liked = new ArrayList<ExerciseTime>();
+				for(String id:ids){
+					try{
+						liked.add(ExerciseTimeService.getInstance().getExerciseTime(Integer.parseInt(id)));
+					} catch(Exception e){}
+				}
+				liked.remove(state.getWeekendTime());
+				
+				ExerciseTime newTime = null;
+				
+				if(liked.size() > 0){
+					newTime = liked.get(0);
+				} else {
+					List<ExerciseTime> allTimes = ExerciseTimeService.getInstance().getAllDataFromTable(); //pick a time that is 2 after the current one (warp around)
+					newTime = allTimes.get((allTimes.indexOf(s.getTime())+2)%allTimes.size());
+				}
+				
+				s.setTime(newTime);
+				
+				String message = String.format("On weekends, try to %s %s in the %s instead of in the %s.",
+						s.getExercise().getFormInfinitive(),
+						state.getWeekendLocation().getPreposition(),
+						s.getTime().getTime().toLowerCase(),
+						state.getWeekendTime().getTime().toLowerCase());
+				
+				String reminder = String.format("On weekends, %s in the %s", s.getExercise().getFormInfinitive(), s.getTime().getTime().toLowerCase());
+				
+				s.setMessage(message);
+				s.setReminder(reminder);
+				solutionList.add(s);
+							
+			}
+			
+			
+			
 		}		
 		return solutionList;
 	}
@@ -281,9 +377,10 @@ public class Solutions {
 			message = String.format("Consider starting to %s.", newExercise.getFormInfinitive());
 		}
 		
-		reminder = newExercise.getFormInfinitive();
 		
 		if(newExercise != null){
+
+			reminder = newExercise.getFormInfinitive();
 			ExerciseSolution solution = new ExerciseSolution(newExercise, null, null, 2, 30, message, reminder, 0);
 			
 			solutionList.add(solution);
@@ -338,6 +435,7 @@ public class Solutions {
 		
 		return solutionList;
 	}
+	
 	
 	private List<ExerciseLocation> getAllLikedLocations(Context ctx){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);

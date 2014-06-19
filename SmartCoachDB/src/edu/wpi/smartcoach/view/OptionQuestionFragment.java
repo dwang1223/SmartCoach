@@ -91,11 +91,12 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		
 		if(question.getType() == QuestionType.SINGLE){
 			 instructions.setText("Pick one:");
-		} else if(question.getResponses().size() == 0){
+		} else if(question.getOptions().size() == 0){
 			instructions.setText("");
 		} else {
 			instructions.setText("Pick all that apply:");
 		}
+	
 		
 		if(!backEnabled){
 			back.setVisibility(View.INVISIBLE);

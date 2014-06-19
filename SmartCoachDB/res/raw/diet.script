@@ -15,9 +15,9 @@ question cause_meal
 end
 
 question cause_snack
-	What is the biggest cause of snacking between meals for you?#breakfast_weekday_time
+	What is the biggest cause of snacking between meals for you?#snack_where
 	-Stress#solution reward,breathe
-	-Finance
+	-Finance#solution deal
 	-Hunger
 	-Loneliness#solution reward
 	-Addiction to the food#solution avoid_buying,reduce_portion
