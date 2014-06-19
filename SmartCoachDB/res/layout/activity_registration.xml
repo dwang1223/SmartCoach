@@ -9,113 +9,127 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.wpi.smartcoach.RegistrationActivity$PlaceholderFragment" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/submit"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_card"
-        android:orientation="vertical"
-        android:padding="10dp" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp" >
-
-            <TextView
-                android:id="@+id/start_weight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="First Name:" />
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/firstName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="First Name" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp" >
-
-            <TextView
-                android:id="@+id/start_weight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Last Name:" />
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/lastName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Last Name" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp" >
-
-            <TextView
-                android:id="@+id/instructions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gender:" />
-        </LinearLayout>
-
-        <Spinner
-            android:id="@+id/gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:entries="@array/gender" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp" >
-
-            <TextView
-                android:id="@+id/height"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Birthday:" />
-
-            <TextView
-                android:id="@+id/birthdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(Click to select a date)"
-                android:textColor="#777777"
-                android:textStyle="italic" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/birthday"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="1/1/1970"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </LinearLayout>
-
     <Button
         android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/linearLayout1"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_card_highlight"
         android:text="Submit"
         android:textColor="#ffffff" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/submit"
+        android:layout_alignLeft="@+id/submit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="368dp"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="10dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp" >
+
+                    <TextView
+                        android:id="@+id/start_weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="First Name:" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/firstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="First Name" >
+
+                    <requestFocus />
+                </EditText>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp" >
+
+                    <TextView
+                        android:id="@+id/start_weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last Name:" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/lastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Last Name" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp" >
+
+                    <TextView
+                        android:id="@+id/instructions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender:" />
+                </LinearLayout>
+
+                <Spinner
+                    android:id="@+id/gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:entries="@array/gender" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp" >
+
+                    <TextView
+                        android:id="@+id/height"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Birthday:" />
+
+                    <TextView
+                        android:id="@+id/birthdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(Click to select a date)"
+                        android:textColor="#777777"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="1/1/1970"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
