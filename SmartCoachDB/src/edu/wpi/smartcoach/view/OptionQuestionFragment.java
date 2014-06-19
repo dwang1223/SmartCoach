@@ -73,9 +73,9 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		next.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				if(question.hasMinimumResponses() && nextListener != null){
-					nextListener.responseEntered(question);;
-				}
+				if(question.hasMinimumResponses() && nextListener != null){ 
+					nextListener.responseEntered(question);
+				} 
 			}
 		});
 		

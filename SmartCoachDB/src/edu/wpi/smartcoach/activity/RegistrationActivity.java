@@ -137,7 +137,7 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 	public void onDateSet(DatePicker view, int year, int monthOfYear,
 			int dayOfMonth) {
 		GregorianCalendar calendar = new GregorianCalendar(year, monthOfYear+1, dayOfMonth);
-		birthday.setText(String.format("%s/%s/%s", monthOfYear+1, dayOfMonth, year));
+		birthday.setText(String.format("%d/%d/%02d", monthOfYear+1, dayOfMonth, year%100));
 		
 	}
 

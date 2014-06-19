@@ -1,0 +1,219 @@
+question START
+	What is your biggest challenge for diet?
+	-Snacking between meals#question cause_snack
+	-Big meals#question cause_meal
+end
+
+question cause_meal
+	What is the biggest cause of big meals for you?#breakfast_weekday_time
+	-Stress#solution reward,breathe
+	-Finance#solution deal
+	-Hunger
+	-Loneliness#solution reward
+	-Addiction to the food#solution avoid_buying,reduce_portion
+	-Other
+end
+
+question cause_snack
+	What is the biggest cause of snacking between meals for you?#breakfast_weekday_time
+	-Stress#solution reward,breathe
+	-Finance
+	-Hunger
+	-Loneliness#solution reward
+	-Addiction to the food#solution avoid_buying,reduce_portion
+	-Other
+end
+
+question breakfast_weekday_time
+	When do you usually eat breakfast on weekdays?#lunch_weekday_time
+	-Before 7:00 AM
+	-7:00 AM - 8:30 AM
+	-8:30 AM - 10:00 AM
+	-After 10:00 AM
+	-I don't eat breakfast on weekdays#solution healthier_meals
+end
+
+question lunch_weekday_time
+	When do you usually eat lunch on weekdays?#dinner_weekday_time
+	-Before 11:00 AM
+	-11:00 AM - 12:00 PM
+	-12:00 PM - 1:00PM
+	-After 1:00 PM
+	-I don't eat lunch on weekdays#solution healthier_meals
+end
+
+question dinner_weekday_time
+	When do you usually eat dinner on weekdays?#track
+	-Before 5:00 PM
+	-5:00 PM - 6:00 PM
+	-6:00 PM - 7:00 PM
+	-After 7:00 PM#solution rearrange
+	-I don't eat dinner on weekdays#solution healthier_meals
+end
+
+question track
+	Do you track what you eat for meals?
+	-Yes#question track_how
+	-No#question eat_out#solution app,plan,shopping_list
+end
+
+question track_how
+	How do you track your meals?#track_when
+	-Write it down#solution app
+	-Using an app
+end
+	
+question track_when
+	How often do you track your meals?#eat_out_lunch
+	-Less than once a week
+	-1 to 3 times a week
+	-4 to 6 times a week
+	-Everyday
+end
+
+question eat_out_lunch
+	How often do you go out for lunch?#eat_out_lunch_why
+	-Less than once a week
+	-1 to 3 times a week
+	-4 to 6 times a week
+	-Everyday
+end
+
+question eat_out_lunch_why
+	Why do you eat out for lunch?#eat_out_dinner
+	-Food Preference
+	-No time to prepare lunch#solution leftover_lunch
+	-Not interested in cooking
+	-Convenience#solution leftover_lunch
+	-Other
+end
+
+question eat_out_dinner
+	How often do you go out for dinner?#eat_out_dinner_why
+	-Less than once a week
+	-1 to 3 times a week
+	-4 to 6 times a week
+	-Everyday
+end
+
+question eat_out_dinner_why
+	Why do you eat out for dinner?#do_cook
+	-Food Preference
+	-No time to prepare dinner
+	-Not interested in cooking
+	-Convenience#solution leftover_lunch
+	-Other
+end
+
+question do_cook
+	Do you cook at home?#DONE
+	-Yes#solution leftover_lunch
+	-No#solution cook
+end
+
+question snack_where
+	Where do you usually eat snacks?#snack_when
+	-At work
+	-At home
+	-Outside
+	-Social Settings
+	-Other
+end
+
+question snack_when
+	When do you usually eat snacks?#snack_activity
+	-Early morning
+	-Late morning
+	-Afternoon
+	-Evening#solution rearrange
+end
+
+question snack_activity
+	What do you usually do while snacking?#snack_type
+	-Chat#solution substitute
+	-Watch T.V.#solution substitute
+	-Work#solution substitute
+	-Read#solution substitute
+	-Listen to music#solution substitute
+	-Surf the internet#solution substitute
+	-Nothing else#solution substitute
+	-Other#solution substitute
+end
+
+question snack_type
+	What kind of snack do you usually eat?#DONE
+	-Cookies#solution reduce_portion,smaller_snacks,substitute
+	-Fruits
+	-Ice cream#solution reduce_portion,smaller_snacks,substitute
+	-Nuts
+	-Chips#solution reduce_portion,smaller_snacks
+	-Candy#solution reduce_portion,smaller_snacks
+	-Cheese#solution reduce_portion,smaller_snacks
+	-Other
+end
+
+solution substitute
+	Substitute your snack with a healthier food
+end
+		
+solution avoid_buying
+	Avoid going to the aisle where the unhealthy food is when you go shopping.
+end
+
+solution reduce_portion
+	Reduce the portion of the snack you eat. Take a small step first.
+end
+
+solution morning_snack
+	Have a snack in the morning
+end
+
+solution app
+	Find an app, such as "My fitness pal" to track what you eat.
+end
+
+solution deal
+	Go to a store like Sam's club or Costco to buy healthy food with a great deal.
+end
+
+solution smaller_snacks
+	Go somewhere where you can buy smaller snacks.
+end
+
+solution reward
+	Create a reward system to encourage less eating.
+end
+
+solution healthier_meals
+	Start to eat healthier meals.
+end
+
+solution leftover_lunch
+	Pack your lunch using leftovers.
+end
+
+solution cook
+	Start to cook meals yourself.
+end
+
+solution budget
+	Set up a budget for your grocery shopping.
+end
+
+solution shopping_list
+	Create a shopping list before you go grocery shopping.
+end
+
+solution breathe
+	Before eating, taking a deep breath when you are feeling stressed
+end
+
+solution plan
+	Make an eating plan.
+end
+
+solution rearrange
+	Rearrange your schedule for a little bit to bring dinner forward.
+end
+
+

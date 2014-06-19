@@ -1,11 +1,14 @@
 package edu.wpi.smartcoach.activity;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.exercise.ExerciseProblems;
@@ -57,7 +60,12 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 			OptionQuestionModel solution = (OptionQuestionModel)q;
 			if(solution.getSelectedResponses().size() != 0 && solution.getSelectedResponse().getId() != -1){
 				Intent intent = new Intent(getBaseContext(), SetReminderActivity.class);
-				intent.putExtra("reminder", ((ExerciseSolution)solution.getSelectedResponse().getValue()).getReminder());
+				List<OptionModel> responses = solution.getSelectedResponses();
+				String[] reminders = new String[responses.size()];
+				for(int i = 0; i < responses.size(); i++){
+					reminders[i] = ((ExerciseSolution)responses.get(i).getValue()).getReminder();
+				}
+				intent.putExtra("reminder",reminders );
 				startActivity(intent);
 			}
 			finish();

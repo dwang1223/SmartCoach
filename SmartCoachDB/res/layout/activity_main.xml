@@ -73,7 +73,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_card_disable"
+                android:background="@drawable/bg_card_button"
                 android:orientation="vertical" >
 
                 <ImageView
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Diet Problems"
+                    android:text="Social"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />

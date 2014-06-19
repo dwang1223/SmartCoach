@@ -93,7 +93,7 @@ public class ViewProfileActivity extends Activity {
 		gender.setText(profile.getGender());
 		
 		Date bDate = profile.getPatientBirthday();
-		String bds = String.format("%s/%s/%s", bDate.getMonth()+1, bDate.getDate(), bDate.getYear());
+		String bds = String.format("%d/%d/%02d", bDate.getMonth()+1, bDate.getDate(), (bDate.getYear())%100);
 		birthdate.setText(bds);
 		
 		String heightStr = String.format("%d\' %d\"", (int)metrics.getHeight()/12, (int)metrics.getHeight()%12);

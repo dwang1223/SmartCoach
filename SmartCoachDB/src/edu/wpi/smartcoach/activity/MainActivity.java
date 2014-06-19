@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
 	
 	private View exerciseButton;
 	private View profileButton;
+	private View dietButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class MainActivity extends Activity {
 		} else {
 			exerciseButton = (View)findViewById(R.id.exerciseSolver);
 			profileButton = (View)findViewById(R.id.profile);
-			
+			dietButton = (View)findViewById(R.id.dietSolver);
 			exerciseButton.setOnClickListener(new OnClickListener() {				
 				@Override
 				public void onClick(View v) {
@@ -51,6 +52,15 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(getBaseContext(), ViewProfileActivity.class);
+					startActivity(intent);					
+				}
+			});
+			
+			dietButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getBaseContext(), DietProblemActivity.class);
 					startActivity(intent);					
 				}
 			});

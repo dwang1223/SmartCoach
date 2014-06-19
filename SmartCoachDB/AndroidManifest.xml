@@ -42,6 +42,11 @@
             android:name="edu.wpi.smartcoach.activity.ExerciseProblemActivity"
             android:label="@string/title_activity_exercise_problem"
             android:screenOrientation="portrait" >
+        </activity>       
+         <activity
+            android:name="edu.wpi.smartcoach.activity.DietProblemActivity"
+            android:label="@string/title_activity_exercise_problem"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="edu.wpi.smartcoach.activity.RegistrationIntroActivity"
