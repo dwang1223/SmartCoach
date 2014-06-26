@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.exercise.ExerciseProblems;
@@ -58,12 +57,12 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		
 		if(solutionRetrieved){
 			OptionQuestionModel solution = (OptionQuestionModel)q;
-			if(solution.getSelectedResponses().size() != 0 && solution.getSelectedResponse().getId() != -1){
+			if(solution.getSelectedValues().size() != 0 && !solution.getSelectedOption().getId().equals(OptionQuestionModel.DEFAULT)){
 				Intent intent = new Intent(getBaseContext(), SetReminderActivity.class);
-				List<OptionModel> responses = solution.getSelectedResponses();
+				List<Object> responses = solution.getSelectedValues();
 				String[] reminders = new String[responses.size()];
 				for(int i = 0; i < responses.size(); i++){
-					reminders[i] = ((ExerciseSolution)responses.get(i).getValue()).getReminder();
+					reminders[i] = ((ExerciseSolution)responses.get(i)).getReminder();
 				}
 				intent.putExtra("reminder",reminders );
 				startActivity(intent);
@@ -74,7 +73,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		
 		boolean submit = true;
 		if(q == ExerciseProblems.BASE_PROBLEM){
-			solver = ExerciseProblems.getSolver((((OptionQuestionModel)q).getSelectedResponse()).getId(), this);
+			solver = ExerciseProblems.getSolver(1, this);
 			submit = false;
 		}
 		

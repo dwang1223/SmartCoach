@@ -12,7 +12,6 @@ import android.util.Log;
 import edu.wpi.smartcoach.model.exercise.Equipment;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
-import edu.wpi.smartcoach.model.exercise.ExerciseProfile;
 import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
 import edu.wpi.smartcoach.model.exercise.ExerciseTime;
@@ -406,7 +405,7 @@ public class Solutions {
 			String message = "";
 			
 			switch(groupPreference){
-				case ExerciseProfile.ALONE:
+				case 4:
 					if(state.getLocation().getLocationType().equals("Outdoor")){
 						message = String.format("Try listening to some music while you %s.",
 								state.getExercise().getFormPresent());
@@ -416,7 +415,7 @@ public class Solutions {
 								state.getLocation().getPreposition());
 					}
 					break;
-				case ExerciseProfile.FRIEND:
+				case 2:
 					message = String.format("Try to find a friend to %s with.",
 							state.getExercise().getFormPresent());
 					break;

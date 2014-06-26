@@ -3,11 +3,9 @@ package edu.wpi.smartcoach.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.DialogScriptQuestion;
 import edu.wpi.smartcoach.model.DialogScriptSolver;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoach.model.exercise.ExerciseProblems;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
@@ -27,7 +25,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 		
 		solver = DialogScriptSolver.readScript(getResources().openRawResource(R.raw.diet));
 		questionFragment = new OptionQuestionFragment();
-		questionFragment.setQuestion((DialogScriptQuestion)solver.getNextQuestion());
+		questionFragment.setQuestion((OptionQuestionModel)solver.getNextQuestion());
 		questionFragment.setNextButtonListener(this);
 		questionFragment.setBackEnabled(false);
 		getSupportFragmentManager().beginTransaction().add(R.id.container, questionFragment).commit();

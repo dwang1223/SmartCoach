@@ -13,7 +13,7 @@
 
     <question
         id="exercises"
-        type="at_least_1"
+        type="at_least_one"
         options="EXERCISES">
         <q>Which exercises are you currently doing?</q>
     </question>

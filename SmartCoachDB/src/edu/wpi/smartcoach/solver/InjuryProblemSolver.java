@@ -7,7 +7,7 @@ import android.content.Context;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoach.model.SimpleOption;
+import edu.wpi.smartcoach.view.Option;
 
 public class InjuryProblemSolver implements ProblemSolver {
 
@@ -49,22 +49,22 @@ public class InjuryProblemSolver implements ProblemSolver {
 
 	@Override
 	public void submitResponse(QuestionModel responseQuestion) {
-		OptionQuestionModel response = (OptionQuestionModel)responseQuestion;
-		backStack.push(response);
-		if(response == qGymMembership){
-			hasGymMembership = response.getSelectedResponse().getId() == SimpleOption.YES;
-			nextQuestion = qTherapist;
-		} else if (response == qTherapist){
-			hasPhysicalTherapist = response.getSelectedResponse().getId() == SimpleOption.YES;
-			if(hasPhysicalTherapist){
-				nextQuestion = qFollowedTherapist;
-			} else {
-				finished = true;
-			}
-		} else if (response == qFollowedTherapist){
-			hasConsultedTherapist = response.getSelectedResponse().getId() == SimpleOption.YES;
-			finished = true;
-		}
+//		OptionQuestionModel response = (OptionQuestionModel)responseQuestion;
+//		backStack.push(response);
+//		if(response == qGymMembership){
+//			hasGymMembership = response.getSelectedOpt().getId() == SimpleOption.YES;
+//			nextQuestion = qTherapist;
+//		} else if (response == qTherapist){
+//			hasPhysicalTherapist = response.getSelectedResponse().getId() == SimpleOption.YES;
+//			if(hasPhysicalTherapist){
+//				nextQuestion = qFollowedTherapist;
+//			} else {
+//				finished = true;
+//			}
+//		} else if (response == qFollowedTherapist){
+//			hasConsultedTherapist = response.getSelectedResponse().getId() == SimpleOption.YES;
+//			finished = true;
+//		}
 		
 	}
 	
@@ -91,24 +91,24 @@ public class InjuryProblemSolver implements ProblemSolver {
 		//no -> get advise
 		// gym, no therapist -> gym
 		
-		ArrayList<SimpleOption> solutions = new ArrayList<SimpleOption>();
+		ArrayList<Option> solutions = new ArrayList<Option>();
 		
 		if(hasPhysicalTherapist){
 			if(hasConsultedTherapist){
-				solutions.add(new SimpleOption(solutions.size(), "Make sure to follow any advise given by you physical therapist."));
+				solutions.add(new Option(solutions.size()+"", "Make sure to follow any advise given by you physical therapist."));
 			} else {
 
-				solutions.add(new SimpleOption(solutions.size(), "Try consulting your physical therapist for advise on how to proceed with your injury."));
+				solutions.add(new Option(solutions.size()+"", "Try consulting your physical therapist for advise on how to proceed with your injury."));
 			}
 		}
 		
 		if (hasGymMembership){
 
-			solutions.add(new SimpleOption(solutions.size(), "See if a professional trainer at your gym can help you continue exercise safely."));
+			solutions.add(new Option(solutions.size()+"", "See if a professional trainer at your gym can help you continue exercise safely."));
 		
 		} else if (!hasPhysicalTherapist) {
 
-			solutions.add(new SimpleOption(solutions.size(), "Consult your primary care provider for further advice, or get a referral to a physical therapist."));
+			solutions.add(new Option(solutions.size()+"", "Consult your primary care provider for further advice, or get a referral to a physical therapist."));
 		}
 		
 		return new OptionQuestionModel("solutions", "Solutions", 

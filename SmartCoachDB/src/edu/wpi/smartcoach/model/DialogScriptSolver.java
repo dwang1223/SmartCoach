@@ -10,6 +10,7 @@ import android.content.Context;
 import android.util.Log;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.solver.ProblemSolver;
+import edu.wpi.smartcoach.view.Option;
 
 public class DialogScriptSolver implements ProblemSolver {
 	
@@ -36,7 +37,7 @@ public class DialogScriptSolver implements ProblemSolver {
 	//	Log.d(TAG, script);
 		String[] items = script.split("end");
 		Log.d(TAG, items.length+" items");
-		HashMap<String, DialogScriptQuestion> questions = new HashMap<String, DialogScriptQuestion>();
+		HashMap<String, OptionQuestionModel> questions = new HashMap<String, OptionQuestionModel>();
 		HashMap<String, String> solutions = new HashMap<String, String>();
 		
 		for(String item:items){
@@ -47,7 +48,7 @@ public class DialogScriptSolver implements ProblemSolver {
 			while(item.startsWith("\n")){
 				item = item.substring(1);
 			}
-			ArrayList<DialogScriptOption> options = new ArrayList<DialogScriptOption>();
+			ArrayList<Option> options = new ArrayList<Option>();
 			if(item.startsWith("question")){
 				
 				String[] q = item.split("\n");
@@ -99,7 +100,7 @@ public class DialogScriptSolver implements ProblemSolver {
 					}
 				}
 				
-				DialogScriptQuestion newQ = new DialogScriptQuestion(id, text, options);
+				OptionQuestionModel newQ = new OptionQuestionModel(id, "", text, options, QuestionType.SINGLE, true);
 				questions.put(id, newQ);
 				
 			} else if (item.startsWith("solution")){
@@ -113,26 +114,26 @@ public class DialogScriptSolver implements ProblemSolver {
 		return new DialogScriptSolver(questions, solutions);
 	}
 	
-	private HashMap<String, DialogScriptQuestion> questions;
+	private HashMap<String, OptionQuestionModel> questions;
 	private HashMap<String, String> solutions;
 	
-	private DialogScriptQuestion current;
+	private OptionQuestionModel current;
 	
-	private Stack<DialogScriptQuestion> backStack;
+	private Stack<OptionQuestionModel> backStack;
 	
-	public DialogScriptSolver(HashMap<String, DialogScriptQuestion> questions, HashMap<String, String> solutions){
+	public DialogScriptSolver(HashMap<String, OptionQuestionModel> questions, HashMap<String, String> solutions){
 		this.questions = questions;
 		this.solutions = solutions;
 		
 		current = questions.get("START");
-		backStack = new Stack<DialogScriptQuestion>();
+		backStack = new Stack<OptionQuestionModel>();
 	}
 
 	@Override
 	public void submitResponse(QuestionModel response) {
-		DialogScriptQuestion r = (DialogScriptQuestion)response;
+		OptionQuestionModel r = (OptionQuestionModel)response;
 		
-		DialogScriptOption option = (DialogScriptOption)r.getSelectedResponse();
+		DialogScriptOption option = (DialogScriptOption)r.getSelectedValue();
 		backStack.push(r);
 		current = questions.get(option.getNext());
 		//Log.d(TAG, current.getId());
@@ -158,10 +159,10 @@ public class DialogScriptSolver implements ProblemSolver {
 	public QuestionModel getSolution(Context ctx) {
 		ArrayList<String> solutions = new ArrayList<String>();
 		
-		DialogScriptQuestion q;
+		OptionQuestionModel q;
 		while(backStack.size() > 0){
 			q = backStack.pop();
-			DialogScriptOption op = (DialogScriptOption)q.getSelectedResponse();
+			DialogScriptOption op = (DialogScriptOption)q.getSelectedValue();
 			ArrayList<String> opsolns = op.getSolutions();
 			for(String s:opsolns){
 				if(!solutions.contains(s)){
@@ -170,9 +171,9 @@ public class DialogScriptSolver implements ProblemSolver {
 			}
 		}
 		
-		ArrayList<SimpleOption> sOptions = new ArrayList<SimpleOption>();
+		ArrayList<Option> sOptions = new ArrayList<Option>();
 		for(String s:solutions){
-			sOptions.add(new SimpleOption(sOptions.size(), this.solutions.get(s)));
+			sOptions.add(new Option(sOptions.size()+"", this.solutions.get(s)));
 		}
 				
 		return new OptionQuestionModel("solution", "Solutions", "Here are some things you can try:", sOptions, QuestionType.MULTIPLE, true);

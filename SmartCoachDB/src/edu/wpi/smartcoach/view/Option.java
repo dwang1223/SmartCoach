@@ -1,35 +1,35 @@
 package edu.wpi.smartcoach.view;
 
-import edu.wpi.smartcoach.model.OptionModel;
-
 public class Option {
 	
-	private OptionModel model;
+	private String id;
+	private Object value;
 	
 	private boolean selected;
 	
-	public Option(OptionModel op){
-		this.model = op;
+	public Option(String id, Object value){
+		this.id = id;
+		this.value = value;		
 	}
 	
-	public int getId(){
-		return model.getId();
+	public String getId(){
+		return id;
 	}
 	
 	public String getText(){
-		return model.getText();
+		return value.toString();
 	}
 	
 	public boolean isSelected(){
 		return selected;
 	}
-	
-	public OptionModel getModel(){
-		return model;
-	}
-	
+		
 	public void setSelected(boolean select){
 		selected = select;
+	}
+	
+	public Object getValue(){
+		return value;
 	}
 
 }

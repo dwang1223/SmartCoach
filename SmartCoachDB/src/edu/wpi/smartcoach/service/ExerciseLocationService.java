@@ -3,8 +3,6 @@ package edu.wpi.smartcoach.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.wpi.smartcoach.model.OptionModel;
-import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoachdb.dao.ExerciseLocationDao;
 

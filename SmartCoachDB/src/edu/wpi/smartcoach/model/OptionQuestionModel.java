@@ -14,49 +14,41 @@ public class OptionQuestionModel implements QuestionModel{
 	private static final String TAG = OptionQuestionModel.class.getSimpleName();
 	
 	public enum QuestionType {
-		SINGLE, MULTIPLE
+		SINGLE, MULTIPLE, AT_LEAST_ONE
 	};
 	
-	public static final int DEFAULT = -1;
-	public static final int NO_LIMIT = -1;
+	public static final String DEFAULT = "DEFAULT";
 	
 	private String id;
 	private String title;
 	private String prompt;
-	private List<Option> responses;
+	private List<Option> options;
 	private Option defaultResponse = null;
 	
 	private boolean isSorted;
 	
 	private QuestionType type;
 	
-	
-	/**
-	 * only applies if type is multiple
-	 */
-	private int min = 0;
-	private int max = NO_LIMIT;
-	
-	public OptionQuestionModel(String id, String title, String prompt, List<? extends OptionModel> responses, QuestionType type, boolean sort){
+		
+	public OptionQuestionModel(String id, String title, String prompt, List<Option> options, QuestionType type, boolean sort){
 		this.id = id;
 		this.title = title;
 		this.prompt = prompt;
-		this.responses = new ArrayList<Option>();
+		this.options = options;
 		this.type = type;
-		for(OptionModel opm:responses){
-			Option op = new Option(opm);
-			this.responses.add(op);
-			if(opm.getId() == DEFAULT){
-				defaultResponse = op;
-				this.min = 1;
-				this.responses.remove(defaultResponse);
+		
+		for(Option opt:options){
+			if(opt.getId().equals(DEFAULT)){
+				defaultResponse = opt;
+				this.options.remove(defaultResponse);
+				break;
 			}
 		}
 		
 		this.isSorted = sort;
 		
 		if(sort){		
-			Collections.sort(this.responses, new Comparator<Option>() {
+			Collections.sort(this.options, new Comparator<Option>() {
 				
 				@Override
 				public int compare(Option a, Option b){
@@ -67,22 +59,11 @@ public class OptionQuestionModel implements QuestionModel{
 		}
 		
 		if(defaultResponse != null){
-			this.responses.add(defaultResponse);
+			this.options.add(defaultResponse);
 			defaultResponse.setSelected(true);
 		}
 		
 		
-	}
-	
-	public OptionQuestionModel(String id, String title, String prompt, List<? extends OptionModel> responses, QuestionType type, int min, int max, boolean sort){
-		this(id, title, prompt, responses, type, sort);
-		
-			this.min = Math.max(0, min);
-			this.max = max;
-			if(max < 1){
-				max = NO_LIMIT;
-			}
-
 	}
 	
 	public String getId(){
@@ -97,21 +78,14 @@ public class OptionQuestionModel implements QuestionModel{
 		return prompt;
 	}
 	
-	public List<Option> getResponses(){
-		return responses;
+	public List<Option> getOptions(){
+		return options;
 	}
 	
 	public QuestionType getType(){
 		return type;
 	}
-	
-	public int getMin() {
-		return min;
-	}
-	
-	public int getMax(){
-		return max;
-	}
+
 	
 	public boolean hasDefault(){
 		return defaultResponse != null;
@@ -121,87 +95,95 @@ public class OptionQuestionModel implements QuestionModel{
 		return defaultResponse;
 	}
 	
-	public void setPrompt(String p){
-		this.prompt = p;
-	}
+	public Option getSelectedOption(){
+		List<Option> selected = getSelectedOptions();
+		Option first = null;
 		
-	public void setOptions(List<? extends OptionModel> newOptions){
-		this.responses.clear();
-		for(OptionModel opm:newOptions){
-			Option op = new Option(opm);
-			this.responses.add(op);
-			if(opm.getId() == DEFAULT){
-				defaultResponse = op;
-			}
+		if(selected.size() > 0){
+			first = selected.get(0);
 		}
+		
+		return first;
 	}
 	
-	public List<OptionModel> getOptions(){
-		ArrayList<OptionModel> opms = new ArrayList<OptionModel>();
-		for(Option op:responses){
-			opms.add(op.getModel());
-		}
-		return opms;
-	}
+	public List<Option> getSelectedOptions(){		
+		ArrayList<Option> selected = new ArrayList<Option>();
 		
-	public OptionModel getSelectedResponse(){
-		for(Option opm:responses){
-			if(opm.isSelected()){
-				return opm.getModel();
+		for(Option option:options){
+			if(option.isSelected()){
+				selected.add(option);
 			}
 		}
-		return null;
+		
+		return selected;
 	}
 	
-	public List<OptionModel> getSelectedResponses(){
-		ArrayList<OptionModel> responseList = new ArrayList<OptionModel>();
-		for(Option opm:responses){
-			if(opm.isSelected()){
-				responseList.add(opm.getModel());
-			}
+
+	public Object getSelectedValue(){
+		List<Object> selected = getSelectedValues();		
+		Object first = null;
+		
+		if(selected.size() > 0){
+			first = selected.get(0);
 		}
-		return responseList;
+		
+		return first;
 	}
 	
 	public List<Object> getSelectedValues(){
 		ArrayList<Object> responseList = new ArrayList<Object>();
-		for(Option opm:responses){
-			if(opm.isSelected()){
-				responseList.add(opm.getModel().getValue());
+		
+		for(Option opt:options){
+			if(opt.isSelected()){
+				responseList.add(opt.getValue());
 			}
 		}
+		
 		return responseList;
 	}
 	
 	public boolean hasMinimumResponses(){
-		if(min == 0){
-			return true;
+		boolean hasMin = false;
+		
+		if(type == QuestionType.MULTIPLE){
+			hasMin =  true;
+		} else if (getSelectedValues().size() >= 1){
+			hasMin = true;
 		}
-		int count = 0;
-		for(Option opm:responses){
-			if(opm.isSelected()){
-				count++;
-			}
-		}
-		return count >= min;
+		
+		return hasMin;
 	}
 	
-	
-	@Override
-	public OptionQuestionModel clone(){
-		List<OptionModel> responseModelList = new ArrayList<OptionModel>();
-		for(Option op:responses){
-			responseModelList.add(op.getModel());
+	public void optionSelected(Option opt){
+		if(type == QuestionType.MULTIPLE){
+			opt.setSelected(!opt.isSelected());
+		} else if(type == QuestionType.SINGLE){
+			deselectAll();
+			opt.setSelected(true);
+		} else if(type == QuestionType.AT_LEAST_ONE){
+			if(hasDefault()){
+				if(opt == defaultResponse){
+					deselectAll();
+					opt.setSelected(true);
+				} else {
+					opt.setSelected(!opt.isSelected());
+					defaultResponse.setSelected(false);
+				}
+			} else {
+				opt.setSelected(!opt.isSelected());
+			}
+			if(getSelectedOptions().size() == 0){
+				opt.setSelected(true);
+			}
+			
+			
 		}
-		return new OptionQuestionModel(
-				id,
-				title,
-				prompt,
-				responseModelList,
-				type,
-				min,
-				max,
-				isSorted);
+	}
+	
+	private void deselectAll(){
+		for(Option option:options){
+			option.setSelected(false);
+		}
 	}
 	
 	@Override

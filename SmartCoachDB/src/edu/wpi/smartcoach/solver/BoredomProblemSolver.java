@@ -5,16 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
-import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
+import edu.wpi.smartcoach.view.Option;
 
 public class BoredomProblemSolver implements ProblemSolver{
 
@@ -68,8 +66,8 @@ public class BoredomProblemSolver implements ProblemSolver{
 		if(!exercisesSubmitted){
 			exercisesSubmitted = true;
 			
-			List<OptionModel> responseList = ((OptionQuestionModel)response).getSelectedResponses();
-			for (OptionModel op : responseList) {
+			List<Option> responseList = ((OptionQuestionModel)response).getSelectedOptions();
+			for (Option op : responseList) {
 				Exercise e = (Exercise)op.getValue();
 				exercises.add(e);
 				ExerciseState eState = new ExerciseState();
@@ -86,7 +84,7 @@ public class BoredomProblemSolver implements ProblemSolver{
 						
 		} else {
 			OptionQuestionModel locResponse = (OptionQuestionModel)response;
-			state.get(current).setLocation((ExerciseLocation)locResponse.getSelectedResponse().getValue());
+			state.get(current).setLocation((ExerciseLocation)locResponse.getSelectedValue());
 			last = true;
 		}
 		
@@ -143,10 +141,10 @@ public class BoredomProblemSolver implements ProblemSolver{
 		List<ExerciseSolution> solutions = Solutions.getBoredomSolutions(new ArrayList<ExerciseState>(state.values()), ctx);
 
 		solutions.addAll(Solutions.getNewExerciseRecommendation(new ArrayList<ExerciseState>(), ctx));
-		ArrayList<OptionModel> options = new ArrayList<OptionModel>();
+		ArrayList<Option> options = new ArrayList<Option>();
 		
 		for(ExerciseSolution s:solutions){
-			options.add(new SimpleOption(solutions.size(), s));
+			options.add(new Option(solutions.size()+"", s));
 		}
 				
 		return new OptionQuestionModel("solutions", "Solutions", 

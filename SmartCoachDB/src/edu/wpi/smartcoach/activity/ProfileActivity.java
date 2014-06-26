@@ -1,5 +1,6 @@
 package edu.wpi.smartcoach.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -14,12 +15,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
+import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoach.model.exercise.ExerciseProfile;
+import edu.wpi.smartcoach.view.Option;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
+import edu.wpi.smartcoachdb.db.helper.QuestionReader;
 
 public class ProfileActivity extends FragmentActivity {
 	
@@ -27,12 +29,21 @@ public class ProfileActivity extends FragmentActivity {
 	QuestionsPagerAdapter mSectionsPagerAdapter;
 
 	ViewPager mViewPager;
+	
+	List<OptionQuestionModel> questions;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
 		setTitle("Profile Information");
+		
+		questions = new ArrayList<OptionQuestionModel>();
+		List<QuestionModel> read = QuestionReader.readQuestions(R.raw.profile_questions, getBaseContext());
+		for(QuestionModel qm:read){
+			questions.add((OptionQuestionModel)qm);
+		}
+	
 		mSectionsPagerAdapter = new QuestionsPagerAdapter(
 				getSupportFragmentManager());
 
@@ -44,8 +55,8 @@ public class ProfileActivity extends FragmentActivity {
 	private void doFinish(){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor prefEdit = prefs.edit();
-		for(OptionQuestionModel qm:ExerciseProfile.questions){
-			List<OptionModel> select = qm.getSelectedResponses();
+		for(OptionQuestionModel qm:questions){
+			List<Option> select = qm.getSelectedOptions();
 			String responseStr = "";
 			for(int i = 0; i < select.size()-1; i++){
 				responseStr += select.get(i).getId();
@@ -80,7 +91,7 @@ public class ProfileActivity extends FragmentActivity {
 		@Override
 		public Fragment getItem(final int position) {
 			OptionQuestionFragment qf = new OptionQuestionFragment();
-			qf.setQuestion(ExerciseProfile.questions[position]);
+			qf.setQuestion(questions.get(position));
 			qf.setBackEnabled(position != 0);
 			qf.setLast(position == getCount()-1);
 			qf.setNextButtonListener( new QuestionResponseListener() {
@@ -107,12 +118,12 @@ public class ProfileActivity extends FragmentActivity {
 
 		@Override
 		public int getCount() {
-			return ExerciseProfile.questions.length;
+			return questions.size();
 		}
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			return ExerciseProfile.questions[position].getTitle();
+			return questions.get(position).getTitle();
 		}
 	}
 

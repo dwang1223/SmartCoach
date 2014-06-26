@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
-import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 
 public class QuestionOptionListAdapter extends BaseAdapter {
 
@@ -67,53 +66,7 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 		cb.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				boolean isChecked = !op.isSelected();
-				// if in single selection mode or the default item is selected
-				if (isChecked
-						&& (question.getType() == QuestionType.SINGLE || op
-								.getId() == OptionQuestionModel.DEFAULT)) {
-
-					for (Option opm : question.getResponses()) { // deselect
-																	// everything
-																	// else
-						opm.setSelected(false);
-					}
-				} else if (op.getId() != OptionQuestionModel.DEFAULT) { // if the
-																	// selected
-																	// item is
-																	// not the
-																	// default
-					if (question.hasDefault()) { // deselect the default
-						question.getDefault().setSelected(false);
-					}
-				}
-
-				op.setSelected(isChecked); // set the item's selection
-
-				if (!isChecked && question.hasDefault()) { // if nothing is
-															// selected
-					boolean somethingSelected = false;
-					for (Option opm : question.getResponses()) {
-						somethingSelected |= opm.isSelected();
-					}
-					if (!somethingSelected) { // select the default
-						question.getDefault().setSelected(true);
-					}
-				}
-
-				// if the max number of item has been selected
-				if (question.getType().equals(QuestionType.MULTIPLE)
-						&& question.getMax() != OptionQuestionModel.NO_LIMIT) {
-					int count = 0;
-					for (Option opm : question.getResponses()) {
-						if (opm.isSelected())
-							count++;
-					}
-					if (count > question.getMax()) {
-						op.setSelected(false); // do not allow another item to
-												// be selected
-					}
-				}
+				question.optionSelected(op);
 				
 				if(responseListener != null){
 					responseListener.responseChanged(question);
@@ -129,12 +82,12 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return question.getResponses().size();
+		return question.getOptions().size();
 	}
 
 	@Override
 	public Option getItem(int position) {
-		return question.getResponses().get(position);
+		return question.getOptions().get(position);
 	}
 
 	@Override

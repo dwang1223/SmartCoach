@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import android.content.Context;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
-import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoach.solver.BoredomProblemSolver;
 import edu.wpi.smartcoach.solver.InjuryProblemSolver;
 import edu.wpi.smartcoach.solver.MotivationProblemSolver;
 import edu.wpi.smartcoach.solver.ProblemSolver;
 import edu.wpi.smartcoach.solver.TimeProblemSolver;
+import edu.wpi.smartcoach.view.Option;
 
 
 public class ExerciseProblems {
@@ -22,11 +22,11 @@ public class ExerciseProblems {
 	
 
 	
-	public static final ArrayList<SimpleOption> problems = new  ArrayList<SimpleOption>(){{
-		add(new SimpleOption(PROBLEM_TIME, "I don't have time to exercise"));
-		add(new SimpleOption(PROBLEM_MOTIVATION, "I find it hard to get started"));
-		add(new SimpleOption(PROBLEM_BORED, "I get bored while exercising"));
-		add(new SimpleOption(PROBLEM_INJURY, "I have an injury that prevents me from exercising"));
+	public static final ArrayList<Option> problems = new  ArrayList<Option>(){{
+		add(new Option(PROBLEM_TIME+"", "I don't have time to exercise"));
+		add(new Option(PROBLEM_MOTIVATION+"", "I find it hard to get started"));
+		add(new Option(PROBLEM_BORED+"", "I get bored while exercising"));
+		add(new Option(PROBLEM_INJURY+"", "I have an injury that prevents me from exercising"));
 	}};
 	
 	public static final ProblemSolver getSolver(int problem, Context ctx){
@@ -59,6 +59,6 @@ public class ExerciseProblems {
 			"Problem",
 			"What is the biggest problem when exercising?",
 			problems,
-			QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT, false);
+			QuestionType.SINGLE, false);
 
 }

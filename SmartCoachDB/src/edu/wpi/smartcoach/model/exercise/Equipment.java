@@ -2,8 +2,6 @@ package edu.wpi.smartcoach.model.exercise;
 
 import java.util.ArrayList;
 
-import edu.wpi.smartcoach.model.OptionModel;
-
 public class Equipment {
 	
 	public static final int ID_GYM_MEMBERSHIP = 13;

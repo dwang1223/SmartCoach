@@ -1,20 +1,19 @@
 package edu.wpi.smartcoach.solver;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
-import edu.wpi.smartcoach.model.TimeQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoach.model.SimpleOption;
+import edu.wpi.smartcoach.model.TimeQuestionModel;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoach.model.exercise.ExerciseTime;
-import edu.wpi.smartcoach.service.ExerciseLocationService;
 import edu.wpi.smartcoach.service.ExerciseService;
 import edu.wpi.smartcoach.service.ExerciseTimeService;
 import edu.wpi.smartcoach.service.ExerciseToLocationService;
+import edu.wpi.smartcoach.view.Option;
 
 public class ExerciseQuestionBuilder {
 	
@@ -30,14 +29,14 @@ public class ExerciseQuestionBuilder {
 	}
 	
 	public static QuestionModel getExerciseListQuestion(){
-		ArrayList<SimpleOption> exerciseOptions = new ArrayList<SimpleOption>();
+		ArrayList<Option> exerciseOptions = new ArrayList<Option>();
 		List<Exercise> exerciseList = ExerciseService.getInstance().getAllDataFromTable();
 		for(Exercise e:exerciseList){
-			exerciseOptions.add(new SimpleOption(e.getId(), e));
+			exerciseOptions.add(new Option(e.getId()+"", e));
 		}
 		return new OptionQuestionModel("exercises", "Exercises",
 				"Which exercises are you currently doing?", exerciseOptions,
-				QuestionType.MULTIPLE, 1, OptionQuestionModel.NO_LIMIT, true);
+				QuestionType.MULTIPLE,  true);
 	}
 	
 	public static QuestionModel getLocationQuestion(Exercise e, boolean weekend){
@@ -46,44 +45,44 @@ public class ExerciseQuestionBuilder {
 		String id = "location"+(weekend?"_we":"");
 		return new OptionQuestionModel(id, "Location",
 				prompt, 
-				new ArrayList<OptionModel>(){{
+				new ArrayList<Option>(){{
 					for(ExerciseLocation el:locations){
-						add(new SimpleOption(el.getId(), el));
+						add(new Option(el.getId()+"", el));
 					}
 				}},
-				QuestionType.MULTIPLE, 1, OptionQuestionModel.NO_LIMIT, true);
+				QuestionType.MULTIPLE,  true);
 	}
 	
 	public static QuestionModel getTimeQuestion(Exercise e, boolean weekend){
 		String prompt = String.format("When do you %s%s?", e.getFormPresent(), weekend?" on weekends":"");
 		String id = "time"+(weekend?"_we":"");
 		return new OptionQuestionModel(id, "Time", prompt,
-				new ArrayList<OptionModel>(){{
+				new ArrayList<Option>(){{
 					for(ExerciseTime et:ExerciseTimeService.getInstance().getAllDataFromTable()){
-						add(new SimpleOption(et.getId(), et));
+						add(new Option(et.getId()+"", et));
 					}
 				}},
-				QuestionType.MULTIPLE,1,OptionQuestionModel.NO_LIMIT, false);		
+				QuestionType.MULTIPLE, false);		
 	}
 	
 	private static QuestionModel getFrequencyQuestion(Exercise e){
-		final ArrayList<OptionModel> frequencies = new ArrayList<OptionModel>();
-		frequencies.add(new SimpleOption(0, "Less than once per week"));
-		frequencies.add(new SimpleOption(1, "Once per week"));
+		final ArrayList<Option> frequencies = new ArrayList<Option>();
+		frequencies.add(new Option(0+"", "Less than once per week"));
+		frequencies.add(new Option(1+"", "Once per week"));
 		for(int i = 2; i < 7; i++){
-			frequencies.add(new SimpleOption(i, i + " times per week"));
+			frequencies.add(new Option(i+"", i + " times per week"));
 		}
-		frequencies.add(new SimpleOption(7, "7 times per week (daily)"));
+		frequencies.add(new Option(7+"", "7 times per week (daily)"));
 		
 		String prompt = String.format("On average, how many days do you %s in a week?", e.getFormPresent());
 		return new OptionQuestionModel("frequency", "Frequency", prompt,
 				frequencies,
-				QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT, false);
+				QuestionType.SINGLE, false);
 	}
 	
 	private static QuestionModel getCheckWeekendQuestion(Exercise e){
 		String prompt = String.format("Is your %s schedule different on weekends?", e.getName().toLowerCase());
-		return new OptionQuestionModel("checkweekend", "Weekends", prompt, SimpleOption.getYesNoOptions(), QuestionType.SINGLE,1, OptionQuestionModel.NO_LIMIT, false);
+		return new OptionQuestionModel("checkweekend", "Weekends", prompt, null, QuestionType.SINGLE, false);
 	}
 	
 	public static QuestionModel getDurationQuestion(Exercise e, boolean weekend){

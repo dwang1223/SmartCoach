@@ -91,8 +91,10 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		
 		if(question.getType() == QuestionType.SINGLE){
 			 instructions.setText("Pick one:");
-		} else {
+		} else if (question.getType() == QuestionType.MULTIPLE){
 			instructions.setText("Pick all that apply:");
+		} else if (question.getType() == QuestionType.AT_LEAST_ONE){
+			instructions.setText("Pick at least one:");
 		}
 		
 		 if(question.getOptions().size() == 0){

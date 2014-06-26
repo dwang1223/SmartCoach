@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import edu.wpi.smartcoach.model.OptionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoach.model.SimpleOption;
 import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
+import edu.wpi.smartcoach.view.Option;
 
 public class MotivationProblemSolver extends BaseProblemSolver {
 	
@@ -27,14 +26,14 @@ public class MotivationProblemSolver extends BaseProblemSolver {
 		solutions.addAll(Solutions.getNewLocationSolutions(states, ctx));
 		solutions.addAll(Solutions.getNewTimeSolutions(states, ctx));
 		solutions.addAll(Solutions.getNewExerciseRecommendation(states, ctx));
-		ArrayList<OptionModel> options = new ArrayList<OptionModel>();
+		ArrayList<Option> options = new ArrayList<Option>();
 		
 		for(ExerciseSolution soln:solutions){
-			options.add(new SimpleOption(solutions.indexOf(soln), soln));
+			options.add(new Option(solutions.indexOf(soln)+"", soln));
 		}
 		
 		if(options.isEmpty()){
-			options.add(new SimpleOption(-1, "No Solutions found..."));
+			options.add(new Option("DEFAULT", "No Solutions found..."));
 		}
 		
 		return new OptionQuestionModel("solutions", "Solutions", "Here are some things you can try:", 

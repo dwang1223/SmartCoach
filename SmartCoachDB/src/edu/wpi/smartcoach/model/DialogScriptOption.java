@@ -2,13 +2,16 @@ package edu.wpi.smartcoach.model;
 
 import java.util.ArrayList;
 
-public class DialogScriptOption implements OptionModel {
+import edu.wpi.smartcoach.view.Option;
+
+public class DialogScriptOption extends Option {
 	
 	private String text;
 	private String next;
 	private ArrayList<String> solutions;
 	
 	public DialogScriptOption(String text, String next, ArrayList<String> solns){
+		super(text, text);
 		this.text = text;
 		this.next = next;
 		this.solutions = solns;
@@ -58,12 +61,7 @@ public class DialogScriptOption implements OptionModel {
 		this.solutions = solutions;
 	}
 
-
-	@Override
-	public int getId() {
-		return 0;
-	}
-
+	
 	@Override
 	public String getText() {
 		// TODO Auto-generated method stub
@@ -73,7 +71,7 @@ public class DialogScriptOption implements OptionModel {
 	@Override
 	public Object getValue() {
 		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 	
 	
