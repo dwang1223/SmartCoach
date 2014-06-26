@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eeeeee"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp" >
 
     <TextView
         android:id="@+id/questionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
         android:background="@drawable/bg_card"
+        android:padding="10dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:padding="10dp" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/nextButton"
@@ -22,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
         android:background="@drawable/bg_card_button"
         android:text="Next"
         android:textColor="#ffffff" />
@@ -36,7 +41,10 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="0dp"
         android:divider="@null"
-        android:fadeScrollbars="false" >
+        android:fastScrollEnabled="true"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarStyle="outsideInset"
+        tools:listitem="@layout/layout_option" >
 
     </ListView>
 

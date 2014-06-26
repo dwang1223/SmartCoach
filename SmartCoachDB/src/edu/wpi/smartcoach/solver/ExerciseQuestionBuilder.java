@@ -42,7 +42,7 @@ public class ExerciseQuestionBuilder {
 	
 	public static QuestionModel getLocationQuestion(Exercise e, boolean weekend){
 		final List<ExerciseLocation> locations =  ExerciseToLocationService.getInstance().getLocationListByExercise(e.getId());
-		final String prompt = String.format("Where do you %s%s?", e.getFormInfinitive(), weekend?" on weekends":"");
+		final String prompt = String.format("Where do you %s%s?", e.getFormPresent(), weekend?" on weekends":"");
 		String id = "location"+(weekend?"_we":"");
 		return new OptionQuestionModel(id, "Location",
 				prompt, 
@@ -55,7 +55,7 @@ public class ExerciseQuestionBuilder {
 	}
 	
 	public static QuestionModel getTimeQuestion(Exercise e, boolean weekend){
-		String prompt = String.format("When do you %s%s?", e.getFormInfinitive(), weekend?" on weekends":"");
+		String prompt = String.format("When do you %s%s?", e.getFormPresent(), weekend?" on weekends":"");
 		String id = "time"+(weekend?"_we":"");
 		return new OptionQuestionModel(id, "Time", prompt,
 				new ArrayList<OptionModel>(){{
@@ -75,7 +75,7 @@ public class ExerciseQuestionBuilder {
 		}
 		frequencies.add(new SimpleOption(7, "7 times per week (daily)"));
 		
-		String prompt = String.format("On average, how many days do you %s in a week?", e.getFormInfinitive());
+		String prompt = String.format("On average, how many days do you %s in a week?", e.getFormPresent());
 		return new OptionQuestionModel("frequency", "Frequency", prompt,
 				frequencies,
 				QuestionType.SINGLE, 1, OptionQuestionModel.NO_LIMIT, false);

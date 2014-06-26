@@ -8,13 +8,13 @@ import edu.wpi.smartcoachdb.dao.ExerciseTimeDao;
 public class ExerciseTimeService {
 
 	private ExerciseTimeDao  mExerciseTimeDao = new ExerciseTimeDao();
-	private static ExerciseTimeService mExerciseTImeService = null;
+	private static ExerciseTimeService instance = null;
 	
 	public static ExerciseTimeService getInstance (){
-		if(mExerciseTImeService == null){
-			mExerciseTImeService = new ExerciseTimeService();
+		if(instance == null){
+			instance = new ExerciseTimeService();
 		}
-		return mExerciseTImeService;
+		return instance;
 	}
 	
 	public List<ExerciseTime> getAllDataFromTable() {

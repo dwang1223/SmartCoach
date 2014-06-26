@@ -1,6 +1,5 @@
 package edu.wpi.smartcoach.model.exercise;
 
-import edu.wpi.smartcoach.model.OptionModel;
 
 public class Exercise {
 	private int id;
@@ -9,7 +8,8 @@ public class Exercise {
 	private String numberOfPersons;
 	private String equipment;
 	
-	private String formInfinitive;
+	private String formPresent;
+	private String formContinuous;
 
 	public Exercise() {
 		super();
@@ -23,69 +23,115 @@ public class Exercise {
 	}
 
 	public Exercise(String exerciseName, String exerciseType,
-			String exerciseNumberOfPersons, String exerciseEquipment, String infinitive) {
+			String exerciseNumberOfPersons, String exerciseEquipment, String present) {
 		super();
 		this.name = exerciseName;
 		this.type = exerciseType;
 		this.numberOfPersons = exerciseNumberOfPersons;
 		this.equipment = exerciseEquipment;
-		this.formInfinitive = infinitive;
+		this.formPresent = present;
 	}
 
+	
+	
 	/**
-	 * @return the formInfinitive
+	 * @return the id
 	 */
-	public String getFormInfinitive() {
-		return formInfinitive;
-	}
-
-	/**
-	 * @param formInfinitive the formInfinitive to set
-	 */
-	public void setFormInfinitive(String formInfinitive) {
-		this.formInfinitive = formInfinitive;
-	}
-
 	public int getId() {
 		return id;
-	}	
+	}
 
-	public String getName(){
+	/**
+	 * @return the name
+	 */
+	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @return the numberOfPersons
+	 */
+	public String getNumberOfPersons() {
+		return numberOfPersons;
+	}
+
+	/**
+	 * @return the equipment
+	 */
+	public String getEquipment() {
+		return equipment;
+	}
+
+	/**
+	 * @return the formPresent
+	 */
+	public String getFormPresent() {
+		return formPresent;
+	}
+
+	/**
+	 * @return the formContinuous
+	 */
+	public String getFormContinuous() {
+		return formContinuous;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public void setName(String exerciseName) {
-		this.name = exerciseName;
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getExerciseType() {
-		return type;
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public void setExerciseType(String exerciseType) {
-		this.type = exerciseType;
-	}
-
-	public String getExerciseNumberOfPersons() {
-		return numberOfPersons;
-	}
-
-	public void setExerciseNumberOfPersons(String numberOfPersons) {
+	/**
+	 * @param numberOfPersons the numberOfPersons to set
+	 */
+	public void setNumberOfPersons(String numberOfPersons) {
 		this.numberOfPersons = numberOfPersons;
 	}
 
-	public String getExerciseEquipment() {
-		return equipment;
+	/**
+	 * @param equipment the equipment to set
+	 */
+	public void setEquipment(String equipment) {
+		this.equipment = equipment;
 	}
 
-	public void setExerciseEquipment(String exerciseEquipment) {
-		this.equipment = exerciseEquipment;
+	/**
+	 * @param formPresent the formPresent to set
+	 */
+	public void setFormPresent(String formPresent) {
+		this.formPresent = formPresent;
 	}
-	
+
+	/**
+	 * @param formContinuous the formContinuous to set
+	 */
+	public void setFormContinuous(String formContinuous) {
+		this.formContinuous = formContinuous;
+	}
+
 	@Override
 	public String toString(){
 		return name;

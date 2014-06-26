@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="HoloGreen" parent="@style/_HoloGreen"/>
+
+  <style name="_HoloGreen" parent="android:Theme.Holo.Light.DarkActionBar">
+
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_hologreen</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Hologreen</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Hologreen</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Hologreen</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Hologreen</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Hologreen</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_hologreen</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_hologreen</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Hologreen</item>
+        
+                <!-- Light.DarkActionBar specific -->
+        <item name="android:actionBarWidgetTheme">@style/Theme.Hologreen.Widget</item>
+    <item name="android:editTextBackground">@drawable/hologreen_edit_text_holo_light</item>
+
+    <item name="android:textColorHighlight">#9999cc00</item>
+    <item name="android:textSelectHandleLeft">@drawable/hologreen_text_select_handle_left</item>
+    <item name="android:textSelectHandleRight">@drawable/hologreen_text_select_handle_right</item>
+    <item name="android:textSelectHandle">@drawable/hologreen_text_select_handle_middle</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewHoloGreen</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/hologreen_btn_check_holo_light</item>
+
+    <item name="android:listChoiceIndicatorSingle">@drawable/hologreen_btn_radio_holo_light</item>
+
+    <item name="android:buttonStyle">@style/ButtonHoloGreen</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonHoloGreen</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerHoloGreen</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarHoloGreen</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarHoloGreen</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarHoloGreen</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigHoloGreen</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallHoloGreen</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleHoloGreen</item>
+
+    <item name="android:listChoiceBackgroundIndicator">@drawable/hologreen_list_selector_holo_light</item>
+
+    <item name="android:activatedBackgroundIndicator">@drawable/hologreen_activated_background_holo_light</item>
+
+    <item name="android:fastScrollThumbDrawable">@drawable/hologreen_fastscroll_thumb_holo</item>
+
+  </style>
+
+</resources>

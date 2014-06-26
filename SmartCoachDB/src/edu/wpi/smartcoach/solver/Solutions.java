@@ -53,14 +53,14 @@ public class Solutions {
 				
 				String durationFormat = String.format("%d:%02d", (duration/60), (duration%60));
 				String message = String.format("Continue to %s %s in the %s %d days per week, and increase the duration to %s.",
-						s.getExercise().getFormInfinitive(),
+						s.getExercise().getFormPresent(),
 						s.getLocation().getPreposition(),
 						s.getTime().getTime().toLowerCase(),
 						s.getFrequency(),
 						durationFormat);
 				
 				String reminder = String.format("%s in the %s %s", 
-						s.getExercise().getFormInfinitive(),
+						s.getExercise().getFormPresent(),
 						s.getLocation().getPreposition(),
 						s.getTime().getTime().toLowerCase());
 				
@@ -104,7 +104,7 @@ public class Solutions {
 					Exercise newExercise = liked.get((int)(Math.random()*liked.size()));
 					s.setExercise(newExercise);
 					
-					String message = String.format("Instead of %s, try to %s.", state.getExercise().getName().toLowerCase(), s.getExercise().getFormInfinitive().toLowerCase());
+					String message = String.format("Instead of %s, try to %s.", state.getExercise().getName().toLowerCase(), s.getExercise().getFormPresent().toLowerCase());
 					String reminder = String.format("Try %s", s.getExercise().getName().toLowerCase());
 					
 					s.setMessage(message);
@@ -158,13 +158,13 @@ public class Solutions {
 					s.setLocation(newLoc);
 					
 					String message = String.format("Try to %s %s instead of %s.", 
-							s.getExercise().getFormInfinitive(),
+							s.getExercise().getFormPresent(),
 							s.getLocation().getPreposition(),
 							state.getLocation().getPreposition()							
 							);
 					
 					String reminder = String.format("%s %s instead of %s.", 
-							s.getExercise().getFormInfinitive(),
+							s.getExercise().getFormPresent(),
 							s.getLocation().getPreposition(),
 							state.getLocation().getPreposition()							
 							);
@@ -211,13 +211,13 @@ public class Solutions {
 					s.setLocation(newLoc);
 					
 					String message = String.format("On weekends, Try to %s %s instead of %s.", 
-							s.getExercise().getFormInfinitive(),
+							s.getExercise().getFormPresent(),
 							s.getLocation().getPreposition(),
 							state.getWeekendLocation().getPreposition()							
 							);
 					
 					String reminder = String.format("On weekends, %s %s instead of %s.", 
-							s.getExercise().getFormInfinitive(),
+							s.getExercise().getFormPresent(),
 							s.getLocation().getPreposition(),
 							state.getWeekendLocation().getPreposition()							
 							);
@@ -263,12 +263,12 @@ public class Solutions {
 				s.setTime(newTime);
 				
 				String message = String.format("Try to %s %s in the %s instead of in the %s.",
-						s.getExercise().getFormInfinitive(),
+						s.getExercise().getFormPresent(),
 						s.getLocation().getPreposition(),
 						s.getTime().getTime().toLowerCase(),
 						state.getTime().getTime().toLowerCase());
 				
-				String reminder = String.format("%s in the %s", s.getExercise().getFormInfinitive(), s.getTime().getTime().toLowerCase());
+				String reminder = String.format("%s in the %s", s.getExercise().getFormPresent(), s.getTime().getTime().toLowerCase());
 				
 				s.setMessage(message);
 				s.setReminder(reminder);
@@ -300,12 +300,12 @@ public class Solutions {
 				s.setTime(newTime);
 				
 				String message = String.format("On weekends, try to %s %s in the %s instead of in the %s.",
-						s.getExercise().getFormInfinitive(),
+						s.getExercise().getFormPresent(),
 						state.getWeekendLocation().getPreposition(),
 						s.getTime().getTime().toLowerCase(),
 						state.getWeekendTime().getTime().toLowerCase());
 				
-				String reminder = String.format("On weekends, %s in the %s", s.getExercise().getFormInfinitive(), s.getTime().getTime().toLowerCase());
+				String reminder = String.format("On weekends, %s in the %s", s.getExercise().getFormPresent(), s.getTime().getTime().toLowerCase());
 				
 				s.setMessage(message);
 				s.setReminder(reminder);
@@ -370,17 +370,17 @@ public class Solutions {
 			newExercise = entry.getKey();
 			newEquip = entry.getValue();
 			message = String.format("Consider starting to %s using your %s.", 
-					newExercise.getFormInfinitive(),
+					newExercise.getFormPresent(),
 					newEquip.getName().toLowerCase());
 		} else if(liked.size() > 0){
 			newExercise = liked.get((int)(Math.random()*liked.size()));
-			message = String.format("Consider starting to %s.", newExercise.getFormInfinitive());
+			message = String.format("Consider starting to %s.", newExercise.getFormPresent());
 		}
 		
 		
 		if(newExercise != null){
 
-			reminder = newExercise.getFormInfinitive();
+			reminder = newExercise.getFormPresent();
 			ExerciseSolution solution = new ExerciseSolution(newExercise, null, null, 2, 30, message, reminder, 0);
 			
 			solutionList.add(solution);
@@ -409,20 +409,20 @@ public class Solutions {
 				case ExerciseProfile.ALONE:
 					if(state.getLocation().getLocationType().equals("Outdoor")){
 						message = String.format("Try listening to some music while you %s.",
-								state.getExercise().getFormInfinitive());
+								state.getExercise().getFormPresent());
 					} else {
 						message = String.format("Try watching some T.V. while you %s %s.", 
-								state.getExercise().getFormInfinitive(),
+								state.getExercise().getFormPresent(),
 								state.getLocation().getPreposition());
 					}
 					break;
 				case ExerciseProfile.FRIEND:
 					message = String.format("Try to find a friend to %s with.",
-							state.getExercise().getFormInfinitive());
+							state.getExercise().getFormPresent());
 					break;
 				default:
 					message = String.format("Try to find a group of friends to %s with.",
-							state.getExercise().getFormInfinitive());
+							state.getExercise().getFormPresent());
 					break;					
 			}
 			

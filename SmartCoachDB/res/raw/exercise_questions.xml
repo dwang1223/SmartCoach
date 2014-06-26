@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<questions>
+	
+    <question 
+        id="problem_base"
+        type="single">
+        <q>What is the biggest problem when exercising?</q>
+        <option id="time">I don't have time to exercise</option>
+        <option id="motivation">I find it hard to get started</option>
+        <option id="boredom">I get bored while exercising</option>
+        <option id="injury">I have an injury that prevents me from exercising</option>
+    </question>
+
+    <question
+        id="exercises"
+        type="at_least_1"
+        options="EXERCISES">
+        <q>Which exercises are you currently doing?</q>
+    </question>
+    
+    <question
+        id="exercise_location"
+        type="multiple"
+        options="LOCATIONS">
+        <q>Where do you [exercise-present][week]?</q>
+        
+    </question>
+    
+    <question
+        id="exercise_time"
+        type="multiple"
+        options="TIMES">
+        <q>When do you [exercise-present][week]?</q>        
+    </question>
+    
+    <question
+        id="exercise_frequency"
+        type="single"
+        options="FREQUENCY">
+        <q>On average, how many days do you [exercise-present][week]?</q>
+    </question>
+    
+    <question
+        id="exercise_duration"
+        type="time">
+        <q>On average, how long do you [exercise-present] each day[week]?</q>        
+    </question>
+    
+    <question
+        id="exercise_like"
+        type="at_least_1">
+        <q>Tell us more about how you feel [exercise-continuous][week] [time-in] [location]:</q>
+        <option id="like_like">I like it</option>
+        <option id="like_continue">I will continue doing it</option>
+        <option id="like_frequency">I would consider [exercise-continuous] more often</option>
+        <option id="like_duration">I would consider [exercise-continuous] for a longer duration </option>
+        <option id="like_exercise">I want to try a new exercise</option>
+        <option id="like_time">I want to [exercise-present] at a different time</option>
+        <option id="like_location">I want to try [exercise] in a new location</option>
+    </question>
+    
+</questions>

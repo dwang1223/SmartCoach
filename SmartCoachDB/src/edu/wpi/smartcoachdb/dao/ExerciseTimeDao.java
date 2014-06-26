@@ -12,34 +12,35 @@ import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 
 public class ExerciseTimeDao {
 
-	public void insertOne(ExerciseTime exerciseTime) {
-		// TODO Auto-generated method stub
-		String sql = "insert into " + ExerciseTimeColumns.TABLE_EXERCISE_TIME
-				+ " (" + ExerciseTimeColumns.FIELD_EXERCISE_TIME + ") "
-				+ "values ('" + exerciseTime.getTime() + "')";
-		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
-	}
+//	public void insertOne(ExerciseTime exerciseTime) {
+//		// TODO Auto-generated method stub
+//		String sql = "insert into " + ExerciseTimeColumns.TABLE_EXERCISE_TIME
+//				+ " (" + ExerciseTimeColumns.FIELD_EXERCISE_TIME + ") "
+//				+ "values ('" + exerciseTime.getTime() + "')";
+//		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
+//	}
 
 	public List<ExerciseTime> getAll() {
 		// TODO Auto-generated method stub
-		List<ExerciseTime> mExerciseTimeList = new ArrayList<ExerciseTime>();
-		ExerciseTime mExerciseTime = null;
+		List<ExerciseTime> exerciseTimeList = new ArrayList<ExerciseTime>();
+		ExerciseTime exerciseTime = null;
 		String sql = "select * from " + ExerciseTimeColumns.TABLE_EXERCISE_TIME;
-		Cursor mCursor = DatabaseHelper.getInstance().getReadableDatabase()
+		Cursor cursor = DatabaseHelper.getInstance().getReadableDatabase()
 				.rawQuery(sql, null);
 		try {
-			mCursor.moveToNext();
-			while (mCursor.getPosition() != mCursor.getCount()) {
-				mExerciseTime = new ExerciseTime();
-				mExerciseTime.setId(mCursor.getInt(0));
-				mExerciseTime.setTime(mCursor.getString(1));
-				mExerciseTimeList.add(mExerciseTime);
-				mCursor.moveToNext();
+			cursor.moveToNext();
+			while (cursor.getPosition() != cursor.getCount()) {
+				exerciseTime = new ExerciseTime();
+				exerciseTime.setId(cursor.getInt(0));
+				exerciseTime.setTime(cursor.getString(1));
+				exerciseTime.setPrepositionIn(cursor.getString(2));
+				exerciseTimeList.add(exerciseTime);
+				cursor.moveToNext();
 			}
 		} catch (Exception e) {
-			mCursor.close();
+			cursor.close();
 		}
-		return mExerciseTimeList;
+		return exerciseTimeList;
 	}
 
 	public int getID(String exerciseTime) {
@@ -60,6 +61,7 @@ public class ExerciseTimeDao {
 	
 	public ExerciseTime getTime(int id) {
 		String exerciseTime;
+		String prepositionIn;
 		String sql = "select * from " + ExerciseTimeColumns.TABLE_EXERCISE_TIME
 				+ " where " + ExerciseTimeColumns.FIELD_ID + " = "
 				+ id;
@@ -68,9 +70,10 @@ public class ExerciseTimeDao {
 		try {
 			cursor.moveToNext();
 			exerciseTime = cursor.getString(1);
+			prepositionIn = cursor.getString(2);
 		} finally {
 			cursor.close();
 		}
-		return new ExerciseTime(id, exerciseTime);
+		return new ExerciseTime(id, exerciseTime, prepositionIn);
 	}
 }

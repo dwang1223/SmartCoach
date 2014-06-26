@@ -10,18 +10,18 @@ import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
 
 public class ExerciseDao {
 
-	public void insertOne(Exercise exercise) {
-		// TODO Auto-generated method stub
-		String sql = "insert into " + ExerciseColumns.TABLE_EXERCISE + " ("
-				+ ExerciseColumns.FIELD_EXERCISE_NAME + ", "
-				+ ExerciseColumns.FIELD_EXERCISE_TYPE + ", "
-				+ ExerciseColumns.FIELD_EXERCISE_NUMBER_OF_PERSONS + ", "
-				+ ExerciseColumns.FIELD_EXERCISE_EQUIPMENT + ") " + "values ('"
-				+ exercise.getName() + "', '" + exercise.getExerciseType()
-				+ "','" + exercise.getExerciseNumberOfPersons() + "','"
-				+ exercise.getExerciseEquipment() + "')";
-		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
-	}
+//	public void insertOne(Exercise exercise) {
+//		// TODO Auto-generated method stub
+//		String sql = "insert into " + ExerciseColumns.TABLE_EXERCISE + " ("
+//				+ ExerciseColumns.FIELD_EXERCISE_NAME + ", "
+//				+ ExerciseColumns.FIELD_EXERCISE_TYPE + ", "
+//				+ ExerciseColumns.FIELD_EXERCISE_NUMBER_OF_PERSONS + ", "
+//				+ ExerciseColumns.FIELD_EXERCISE_EQUIPMENT + ") " + "values ('"
+//				+ exercise.getName() + "', '" + exercise.getType()
+//				+ "','" + exercise.getNumberOfPersons() + "','"
+//				+ exercise.getEquipment() + "')";
+//		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
+//	}
 
 	public List<Exercise> getAll() {
 		List<Exercise> exerciseList = new ArrayList<Exercise>();
@@ -35,10 +35,11 @@ public class ExerciseDao {
 				exercise = new Exercise();
 				exercise.setId(cursor.getInt(0));
 				exercise.setName(cursor.getString(1));
-				exercise.setExerciseType(cursor.getString(2));
-				exercise.setExerciseNumberOfPersons(cursor.getString(3));
-				exercise.setExerciseEquipment(cursor.getString(4));
-				exercise.setFormInfinitive(cursor.getString(5));
+				exercise.setType(cursor.getString(2));
+				exercise.setNumberOfPersons(cursor.getString(3));
+				exercise.setEquipment(cursor.getString(4));
+				exercise.setFormPresent(cursor.getString(5));
+				exercise.setFormContinuous(cursor.getString(6));
 				exerciseList.add(exercise);
 				cursor.moveToNext();
 			}
@@ -77,10 +78,11 @@ public class ExerciseDao {
 			exercise = new Exercise();
 			exercise.setId(cursor.getInt(0));
 			exercise.setName(cursor.getString(1));
-			exercise.setExerciseType(cursor.getString(2));
-			exercise.setExerciseNumberOfPersons(cursor.getString(3));
-			exercise.setExerciseEquipment(cursor.getString(4));
-			exercise.setFormInfinitive(cursor.getString(5));
+			exercise.setType(cursor.getString(2));
+			exercise.setNumberOfPersons(cursor.getString(3));
+			exercise.setEquipment(cursor.getString(4));
+			exercise.setFormPresent(cursor.getString(5));
+			exercise.setFormContinuous(cursor.getString(6));
 		} finally {
 			cursor.close();
 		}
