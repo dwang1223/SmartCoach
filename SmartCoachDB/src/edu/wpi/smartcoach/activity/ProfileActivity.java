@@ -18,10 +18,10 @@ import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.util.QuestionReader;
 import edu.wpi.smartcoach.view.Option;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
-import edu.wpi.smartcoachdb.db.helper.QuestionReader;
 
 public class ProfileActivity extends FragmentActivity {
 	

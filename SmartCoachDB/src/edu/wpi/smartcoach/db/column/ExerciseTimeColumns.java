@@ -1,4 +1,4 @@
-package edu.wpi.smartcoachdb.db.column;
+package edu.wpi.smartcoach.db.column;
 
 public interface ExerciseTimeColumns {
 			String TABLE_EXERCISE_TIME = "t_exercise_time";

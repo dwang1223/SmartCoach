@@ -1,4 +1,4 @@
-package edu.wpi.smartcoachdb.db.column;
+package edu.wpi.smartcoach.db.column;
 
 public interface PatientMetricsColumns {
 		String TABLE_PATIENT_METRICS = "t_patient_metrics";

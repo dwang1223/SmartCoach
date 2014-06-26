@@ -21,7 +21,7 @@ import android.widget.TextView;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.PatientProfile;
 import edu.wpi.smartcoach.service.PatientProfileService;
-import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
+import edu.wpi.smartcoach.util.DatabaseHelper;
 
 public class RegistrationActivity extends Activity implements OnDateSetListener {
 

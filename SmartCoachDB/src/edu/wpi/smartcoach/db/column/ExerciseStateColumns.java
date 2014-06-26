@@ -1,4 +1,4 @@
-package edu.wpi.smartcoachdb.db.column;
+package edu.wpi.smartcoach.db.column;
 
 public interface ExerciseStateColumns {
 	public static final String TABLE_EXERCISE_STATE = "t_exercise_state";

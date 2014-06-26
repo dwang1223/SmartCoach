@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoachdb.db.helper.DatabaseHelper;
+import edu.wpi.smartcoach.util.DatabaseHelper;
 
 public class MainActivity extends Activity {
 

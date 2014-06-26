@@ -1,4 +1,4 @@
-package edu.wpi.smartcoachdb.db.helper;
+package edu.wpi.smartcoach.util;
 
 import java.io.File;
 import java.io.FileOutputStream;

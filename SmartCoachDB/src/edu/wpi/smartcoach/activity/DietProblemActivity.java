@@ -3,9 +3,10 @@ package edu.wpi.smartcoach.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.DialogScriptSolver;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.solver.DialogScriptSolver;
+import edu.wpi.smartcoach.util.DialogScriptReader;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
@@ -23,7 +24,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 		setContentView(R.layout.activity_exercise_problem);
 		setTitle("Problem Solving");
 		
-		solver = DialogScriptSolver.readScript(getResources().openRawResource(R.raw.diet));
+		solver = DialogScriptReader.readScript(getResources().openRawResource(R.raw.diet));
 		questionFragment = new OptionQuestionFragment();
 		questionFragment.setQuestion((OptionQuestionModel)solver.getNextQuestion());
 		questionFragment.setNextButtonListener(this);
