@@ -36,7 +36,7 @@ public class Solutions {
 		ArrayList<ExerciseSolution> solutionList = new ArrayList<ExerciseSolution>();
 		
 		for(ExerciseState state:states){
-			if(state.isLiked() && state.wouldIncrease()){
+			if(true && true){
 				ExerciseSolution s = new ExerciseSolution(state);
 				
 				int duration = s.getDuration(); //10% increase
@@ -175,7 +175,7 @@ public class Solutions {
 							
 			}
 			
-			if(state.isWeekendDifferent() && !state.isWeekendLocationLiked()){
+			if(true){
 				ExerciseSolution s = new ExerciseSolution(state);
 				
 				String[] ids = prefs.getString("profile_exercise_location", "").split(",");
@@ -275,7 +275,7 @@ public class Solutions {
 				solutionList.add(s);
 			}
 			
-			if(state.isWeekendDifferent() && !state.isWeekendTimeLiked()){
+			if(true){
 				ExerciseSolution s = new ExerciseSolution(state);
 				
 				String[] ids = prefs.getString("profile_exercise_when", "").split(",");

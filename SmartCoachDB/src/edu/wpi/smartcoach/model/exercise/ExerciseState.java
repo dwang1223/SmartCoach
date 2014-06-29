@@ -4,147 +4,110 @@ public class ExerciseState {
 
 	private int id;
 	private Exercise exercise;
+
+	private boolean isOnWeekdays;
+	private boolean isOnWeekends;
+
 	private ExerciseLocation location;
-	private ExerciseLocation weekendLocation;
 	private ExerciseTime time;
-	private ExerciseTime weekendTime;
 	private int frequency;
 	private int duration;
-	private int weekendDuration;
-	
-	private boolean weekendDifferent;
 
 	private boolean exerciseLiked;
 	private boolean locationLiked;
 	private boolean timeLiked;
-	
+
+	private ExerciseLocation weekendLocation;
+	private ExerciseTime weekendTime;
+	private int weekendFrequency;
+	private int weekendDuration;
+
 	private boolean weekendExerciseLiked;
 	private boolean weekendLocationLiked;
 	private boolean weekendTimeLiked;
+
 	private long recordTime;
-	
-	private boolean wouldIncrease;
 
+	public ExerciseState() {
 
-	public ExerciseState(Exercise exercise, ExerciseLocation location,
-			ExerciseTime timeID, int frequency, int duration,
-			boolean exerciseLiked, boolean locationLiked, boolean timeLiked,
-			long recordTime) {
-		super();
-		this.exercise = exercise;
-		this.location = location;
-		this.time = timeID;
-		this.frequency = frequency;
-		this.duration = duration;
-		this.exerciseLiked = exerciseLiked;
-		this.locationLiked = locationLiked;
-		this.timeLiked = timeLiked;
-		this.recordTime = recordTime;
-	}
-	
-	public ExerciseState(){
-		
-	}
-	
-
-	/**
-	 * @return the wouldIncrease
-	 */
-	public boolean wouldIncrease() {
-		return wouldIncrease;
 	}
 
 	/**
-	 * @param wouldIncrease the wouldIncrease to set
+	 * @return the id
 	 */
-	public void setWouldIncrease(boolean wouldIncrease) {
-		this.wouldIncrease = wouldIncrease;
-	}
-
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	/**
+	 * @return the exercise
+	 */
 	public Exercise getExercise() {
 		return exercise;
 	}
 
-	public void setExercise(Exercise exercise) {
-		this.exercise = exercise;
+	/**
+	 * @return the isOnWeekdays
+	 */
+	public boolean isOnWeekdays() {
+		return isOnWeekdays;
 	}
 
+	/**
+	 * @return the isOnWeekends
+	 */
+	public boolean isOnWeekends() {
+		return isOnWeekends;
+	}
+
+	/**
+	 * @return the location
+	 */
 	public ExerciseLocation getLocation() {
 		return location;
 	}
 
-	public void setLocation(ExerciseLocation location) {
-		this.location = location;
-	}
-
+	/**
+	 * @return the time
+	 */
 	public ExerciseTime getTime() {
 		return time;
 	}
 
-	public void setTime(ExerciseTime time) {
-		this.time = time;
-	}
-
+	/**
+	 * @return the frequency
+	 */
 	public int getFrequency() {
 		return frequency;
 	}
 
-	public void setFrequency(int frequency) {
-		this.frequency = frequency;
-	}
-
+	/**
+	 * @return the duration
+	 */
 	public int getDuration() {
 		return duration;
 	}
 
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
-
+	/**
+	 * @return the exerciseLiked
+	 */
 	public boolean isExerciseLiked() {
 		return exerciseLiked;
 	}
 
-	public void setExerciseLiked(boolean exerciseLiked) {
-		this.exerciseLiked = exerciseLiked;
-	}
-
+	/**
+	 * @return the locationLiked
+	 */
 	public boolean isLocationLiked() {
 		return locationLiked;
 	}
 
-	public void setLocationLiked(boolean locationLiked) {
-		this.locationLiked = locationLiked;
-	}
-
+	/**
+	 * @return the timeLiked
+	 */
 	public boolean isTimeLiked() {
 		return timeLiked;
 	}
-
-	public void setTimeLiked(boolean timeLiked) {
-		this.timeLiked = timeLiked;
-	}
-
-	public long getRecordTime() {
-		return recordTime;
-	}
-
-	public void setRecordTime(long recordTime) {
-		this.recordTime = recordTime;
-	}
-	
-	public boolean isLiked(){
-		return isExerciseLiked() && isLocationLiked() && isTimeLiked();
-	}
-	
 
 	/**
 	 * @return the weekendLocation
@@ -161,31 +124,10 @@ public class ExerciseState {
 	}
 
 	/**
-	 * @return the weekendsDifferent
+	 * @return the weekendFrequency
 	 */
-	public boolean isWeekendDifferent() {
-		return weekendDifferent;
-	}
-
-	/**
-	 * @param weekendLocation the weekendLocation to set
-	 */
-	public void setWeekendLocation(ExerciseLocation weekendLocation) {
-		this.weekendLocation = weekendLocation;
-	}
-
-	/**
-	 * @param weekendTime the weekendTime to set
-	 */
-	public void setWeekendTime(ExerciseTime weekendTime) {
-		this.weekendTime = weekendTime;
-	}
-
-	/**
-	 * @param weekendsDifferent the weekendsDifferent to set
-	 */
-	public void setWeekendDifferent(boolean weekendsDifferent) {
-		this.weekendDifferent = weekendsDifferent;
+	public int getWeekendFrequency() {
+		return weekendFrequency;
 	}
 
 	/**
@@ -195,19 +137,6 @@ public class ExerciseState {
 		return weekendDuration;
 	}
 
-	/**
-	 * @param weekendDuration the weekendDuration to set
-	 */
-	public void setWeekendDuration(int weekendDuration) {
-		this.weekendDuration = weekendDuration;
-	}
-
-	@Override
-	public ExerciseState clone(){
-		return new ExerciseState(exercise, location, time, frequency, duration, false, false, false, 0);
-	}
-
-	
 	/**
 	 * @return the weekendExerciseLiked
 	 */
@@ -230,28 +159,166 @@ public class ExerciseState {
 	}
 
 	/**
-	 * @param weekendExerciseLiked the weekendExerciseLiked to set
+	 * @return the recordTime
+	 */
+	public long getRecordTime() {
+		return recordTime;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @param exercise
+	 *            the exercise to set
+	 */
+	public void setExercise(Exercise exercise) {
+		this.exercise = exercise;
+	}
+
+	/**
+	 * @param isOnWeekdays
+	 *            the isOnWeekdays to set
+	 */
+	public void setOnWeekdays(boolean isOnWeekdays) {
+		this.isOnWeekdays = isOnWeekdays;
+	}
+
+	/**
+	 * @param isOnWeekends
+	 *            the isOnWeekends to set
+	 */
+	public void setOnWeekends(boolean isOnWeekends) {
+		this.isOnWeekends = isOnWeekends;
+	}
+
+	/**
+	 * @param location
+	 *            the location to set
+	 */
+	public void setLocation(ExerciseLocation location) {
+		this.location = location;
+	}
+
+	/**
+	 * @param time
+	 *            the time to set
+	 */
+	public void setTime(ExerciseTime time) {
+		this.time = time;
+	}
+
+	/**
+	 * @param frequency
+	 *            the frequency to set
+	 */
+	public void setFrequency(int frequency) {
+		this.frequency = frequency;
+	}
+
+	/**
+	 * @param duration
+	 *            the duration to set
+	 */
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	/**
+	 * @param exerciseLiked
+	 *            the exerciseLiked to set
+	 */
+	public void setExerciseLiked(boolean exerciseLiked) {
+		this.exerciseLiked = exerciseLiked;
+	}
+
+	/**
+	 * @param locationLiked
+	 *            the locationLiked to set
+	 */
+	public void setLocationLiked(boolean locationLiked) {
+		this.locationLiked = locationLiked;
+	}
+
+	/**
+	 * @param timeLiked
+	 *            the timeLiked to set
+	 */
+	public void setTimeLiked(boolean timeLiked) {
+		this.timeLiked = timeLiked;
+	}
+
+	/**
+	 * @param weekendLocation
+	 *            the weekendLocation to set
+	 */
+	public void setWeekendLocation(ExerciseLocation weekendLocation) {
+		this.weekendLocation = weekendLocation;
+	}
+
+	/**
+	 * @param weekendTime
+	 *            the weekendTime to set
+	 */
+	public void setWeekendTime(ExerciseTime weekendTime) {
+		this.weekendTime = weekendTime;
+	}
+
+	/**
+	 * @param weekendFrequency
+	 *            the weekendFrequency to set
+	 */
+	public void setWeekendFrequency(int weekendFrequency) {
+		this.weekendFrequency = weekendFrequency;
+	}
+
+	/**
+	 * @param weekendDuration
+	 *            the weekendDuration to set
+	 */
+	public void setWeekendDuration(int weekendDuration) {
+		this.weekendDuration = weekendDuration;
+	}
+
+	/**
+	 * @param weekendExerciseLiked
+	 *            the weekendExerciseLiked to set
 	 */
 	public void setWeekendExerciseLiked(boolean weekendExerciseLiked) {
 		this.weekendExerciseLiked = weekendExerciseLiked;
 	}
 
 	/**
-	 * @param weekendLocationLiked the weekendLocationLiked to set
+	 * @param weekendLocationLiked
+	 *            the weekendLocationLiked to set
 	 */
 	public void setWeekendLocationLiked(boolean weekendLocationLiked) {
 		this.weekendLocationLiked = weekendLocationLiked;
 	}
 
 	/**
-	 * @param weekendTimeLiked the weekendTimeLiked to set
+	 * @param weekendTimeLiked
+	 *            the weekendTimeLiked to set
 	 */
 	public void setWeekendTimeLiked(boolean weekendTimeLiked) {
 		this.weekendTimeLiked = weekendTimeLiked;
 	}
 
-	@Override 
-	public String toString(){
-		return String.format("%s, %s, %s, %dx%d mins", exercise.getName(), location.getSpecificLocation(), time.getTime(), frequency, duration );
+	/**
+	 * @param recordTime
+	 *            the recordTime to set
+	 */
+	public void setRecordTime(long recordTime) {
+		this.recordTime = recordTime;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s, %s, %s, %dx%d mins", exercise.getName(), location.getSpecificLocation(), time.getTime(), frequency, duration);
 	}
 }

@@ -19,6 +19,12 @@
     </question>
     
     <question
+        id="exercises_week_grid"
+        type="week_grid">
+        <q>When do you do the following exercises?</q>
+    </question>
+    
+    <question
         id="exercise_location"
         type="multiple"
         options="LOCATIONS">

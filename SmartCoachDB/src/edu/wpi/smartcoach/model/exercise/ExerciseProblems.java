@@ -29,30 +29,7 @@ public class ExerciseProblems {
 		add(new Option(PROBLEM_INJURY+"", "I have an injury that prevents me from exercising"));
 	}};
 	
-	public static final ProblemSolver getSolver(int problem, Context ctx){
-		
-		ProblemSolver solver = null;
-		
-		switch(problem){
-			case PROBLEM_TIME:
-				solver = new TimeProblemSolver();
-				break;
-			case PROBLEM_MOTIVATION:
-				solver = new MotivationProblemSolver();
-				break;
-			case PROBLEM_BORED:
-				solver = new BoredomProblemSolver();
-				break;
-			case PROBLEM_INJURY:
-				solver = new InjuryProblemSolver(ctx);
-				break;
-			default:
-				solver =null;
-				break;
-		}
-		
-		return solver;
-	}
+
 	
 	public static final OptionQuestionModel BASE_PROBLEM = new OptionQuestionModel(
 			"problem_base",

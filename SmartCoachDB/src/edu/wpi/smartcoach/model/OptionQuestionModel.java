@@ -179,7 +179,21 @@ public class OptionQuestionModel implements QuestionModel{
 			
 		}
 	}
-	
+			
+	/**
+	 * @return the isSorted
+	 */
+	public boolean isSorted() {
+		return isSorted;
+	}
+
+	/**
+	 * @param isSorted the isSorted to set
+	 */
+	public void setSorted(boolean isSorted) {
+		this.isSorted = isSorted;
+	}
+
 	private void deselectAll(){
 		for(Option option:options){
 			option.setSelected(false);

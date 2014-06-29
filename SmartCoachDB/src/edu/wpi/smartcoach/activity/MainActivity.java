@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.util.DatabaseHelper;
 
 public class MainActivity extends Activity {
@@ -27,6 +28,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		mDatabaseHelp = DatabaseHelper.getInstance(this);
+		ExerciseQuestions.setContext(getApplicationContext());
 
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);

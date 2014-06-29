@@ -2,17 +2,23 @@ package edu.wpi.smartcoach.activity;
 
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.exercise.ExerciseProblems;
 import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
+import edu.wpi.smartcoach.solver.BoredomProblemSolver;
+import edu.wpi.smartcoach.solver.InjuryProblemSolver;
+import edu.wpi.smartcoach.solver.MotivationProblemSolver;
 import edu.wpi.smartcoach.solver.ProblemSolver;
+import edu.wpi.smartcoach.solver.TimeProblemSolver;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
@@ -36,7 +42,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		setContentView(R.layout.activity_exercise_problem);
 		setTitle("Problem Solving");
 		questionFragment = new OptionQuestionFragment();
-		questionFragment.setQuestion(ExerciseProblems.BASE_PROBLEM);
+		questionFragment.setQuestion((OptionQuestionModel)ExerciseQuestions.getInstance().getRawQuestion("problem_base"));
 		questionFragment.setNextButtonListener(this);
 		questionFragment.setBackEnabled(false);
 		getSupportFragmentManager().beginTransaction().add(R.id.container, questionFragment).commit();
@@ -72,8 +78,9 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		}
 		
 		boolean submit = true;
-		if(q == ExerciseProblems.BASE_PROBLEM){
-			solver = ExerciseProblems.getSolver(1, this);
+		if(q.getId().equals("problem_base")){
+			OptionQuestionModel base = (OptionQuestionModel)q;
+			solver = getSolver(base.getSelectedOption().getId());
 			submit = false;
 		}
 		
@@ -128,6 +135,23 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		questionFragment.setBackEnabled(solver.isBackAllowed());
 		questionFragment.setLast(solutionRetrieved);
 		getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
+	}
+	
+	private ProblemSolver getSolver(String problem){
+		
+		ProblemSolver solver = null;
+		
+		if(problem.equals("time")){
+			solver = new TimeProblemSolver();
+		} else if(problem.equals("motivation")){
+			solver = new MotivationProblemSolver();
+		} else if(problem.equals("boredom")){
+			solver = new BoredomProblemSolver();
+		} else if (problem.equals("injury")){
+			solver = new InjuryProblemSolver(getBaseContext());
+		}
+		
+		return solver;
 	}
 
 }

@@ -78,7 +78,7 @@ public class QuestionReader {
 	}
 	
 	private static TimeQuestionModel readTimeQuestion(Element e){
-		return null;
+		return new TimeQuestionModel("", "", "DEFAULT");
 	}
 	
 	private static OptionQuestionModel readOptionQuestion(Element e){
