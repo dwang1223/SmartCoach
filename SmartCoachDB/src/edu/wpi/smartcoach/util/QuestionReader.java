@@ -78,7 +78,11 @@ public class QuestionReader {
 	}
 	
 	private static TimeQuestionModel readTimeQuestion(Element e){
-		return new TimeQuestionModel("", "", "DEFAULT");
+		String id = e.getAttribute(XML_ATTR_ID);
+		String prompt = e.getElementsByTagName(XML_TAG_PROMPT).item(0).getTextContent();
+		
+		return new TimeQuestionModel(id, "", prompt);
+		
 	}
 	
 	private static OptionQuestionModel readOptionQuestion(Element e){

@@ -26,7 +26,7 @@
     
     <question
         id="exercise_location"
-        type="multiple"
+        type="single"
         options="LOCATIONS">
         <q>Where do you [exercise-present][week]?</q>
         
@@ -34,16 +34,21 @@
     
     <question
         id="exercise_time"
-        type="multiple"
+        type="single"
         options="TIMES">
         <q>When do you [exercise-present][week]?</q>        
     </question>
     
     <question
         id="exercise_frequency"
-        type="single"
-        options="FREQUENCY">
+        type="single">
         <q>On average, how many days do you [exercise-present][week]?</q>
+        <option id="0">Less than once per week</option>
+        <option id="1">Once per week</option>
+        <option id="2">2 times per week</option>
+        <option id="3">3 times per week</option>
+        <option id="4">4 times per week</option>
+        <option id="5">5 times per week</option>
     </question>
     
     <question

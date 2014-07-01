@@ -52,6 +52,10 @@ public class ExerciseLocation {
 		return formPreposition;
 	}
 	
+	public void setPreposition(String preposition){
+		this.formPreposition = preposition;
+	}
+	
 	@Override
 	public boolean equals(Object e){
 		if(e == null){

@@ -18,7 +18,7 @@ public class TimeProblemSolver extends BaseProblemSolver {
 	public QuestionModel getSolution(Context ctx) {
 		
 		ArrayList<ExerciseSolution> solutions = new ArrayList<ExerciseSolution>();
-		List<ExerciseState> states = new ArrayList<ExerciseState>(state.values());
+		List<ExerciseState> states = new ArrayList<ExerciseState>();
 		
 		solutions.addAll(Solutions.getNewExerciseSolutions(states, ctx));
 		solutions.addAll(Solutions.getNewLocationSolutions(states, ctx));

@@ -9,13 +9,13 @@ import android.widget.CheckBox;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 
-public class QuestionOptionListAdapter extends BaseAdapter {
+public class OptionListAdapter extends BaseAdapter {
 
 	public interface ResponseChangedListener{
 		public void responseChanged(OptionQuestionModel q);
 	}
 	
-	private static final String TAG = QuestionOptionListAdapter.class
+	private static final String TAG = OptionListAdapter.class
 			.getSimpleName();
 
 	private Context context;
@@ -24,7 +24,7 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 	
 	private ResponseChangedListener responseListener;
 
-	public QuestionOptionListAdapter(Context context, OptionQuestionModel qm) {
+	public OptionListAdapter(Context context, OptionQuestionModel qm) {
 		super();
 		this.context = context;
 		question = qm;
@@ -39,7 +39,7 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup group) {
-		View view;
+		View view = convertView;
 
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) context
@@ -53,8 +53,6 @@ public class QuestionOptionListAdapter extends BaseAdapter {
 						+ (int) (20.0f * scale + 0.5f), cb.getPaddingTop(),
 						cb.getPaddingRight(), cb.getPaddingBottom());
 			}
-		} else {
-			view = convertView;
 		}
 
 		final Option op = getItem(position);

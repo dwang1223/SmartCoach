@@ -20,8 +20,8 @@ public class ExerciseLocationService {
 	}
 	
 	public List<ExerciseLocation> getAllDataFromTable() {
-		List<ExerciseLocation> exerciseLocationList = new ArrayList<ExerciseLocation>();
-		ExerciseLocation exerciseLocation = null;
+		List<ExerciseLocation> locationList = new ArrayList<ExerciseLocation>();
+		ExerciseLocation location = null;
 		String sql = "select * from "
 				+ ExerciseLocationColumns.TABLE_EXERCISE_LOCATION;
 		Cursor cursor = DatabaseHelper.getInstance().getReadableDatabase()
@@ -29,17 +29,18 @@ public class ExerciseLocationService {
 		try {
 			cursor.moveToNext();
 			while (cursor.getPosition() != cursor.getCount()) {
-				exerciseLocation = new ExerciseLocation();
-				exerciseLocation.setId(cursor.getInt(0));
-				exerciseLocation.setSpecificLocation(cursor.getString(1));
-				exerciseLocation.setLocationType(cursor.getString(2));
-				exerciseLocationList.add(exerciseLocation);
+				location = new ExerciseLocation();
+				location.setId(cursor.getInt(0));
+				location.setSpecificLocation(cursor.getString(1));
+				location.setLocationType(cursor.getString(2));
+				location.setPreposition(cursor.getString(3));
+				locationList.add(location);
 				cursor.moveToNext();
 			}
 		} catch (Exception e) {
 			cursor.close();
 		}
-		return exerciseLocationList;
+		return locationList;
 	}
 	
 	public ExerciseLocation getLocation(int id){

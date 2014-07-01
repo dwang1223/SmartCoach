@@ -34,35 +34,10 @@ public class OptionQuestionModel implements QuestionModel{
 		this.id = id;
 		this.title = title;
 		this.prompt = prompt;
-		this.options = options;
 		this.type = type;
-		
-		for(Option opt:options){
-			if(opt.getId().equals(DEFAULT)){
-				defaultResponse = opt;
-				this.options.remove(defaultResponse);
-				break;
-			}
-		}
-		
 		this.isSorted = sort;
-		
-		if(sort){		
-			Collections.sort(this.options, new Comparator<Option>() {
-				
-				@Override
-				public int compare(Option a, Option b){
-					return a.getText().compareTo(b.getText());
-				}
-				
-			});
-		}
-		
-		if(defaultResponse != null){
-			this.options.add(defaultResponse);
-			defaultResponse.setSelected(true);
-		}
-		
+
+		setOptions(options);
 		
 	}
 	
@@ -154,6 +129,33 @@ public class OptionQuestionModel implements QuestionModel{
 		return hasMin;
 	}
 	
+	public void setOptions(List<Option> newOptions){
+		this.options = newOptions;
+		
+		for(Option opt:options){
+			if(opt.getId().equals(DEFAULT)){
+				defaultResponse = opt;
+				this.options.remove(defaultResponse);
+				break;
+			}
+		}
+				
+		if(isSorted){		
+			Collections.sort(this.options, new Comparator<Option>() {
+				
+				@Override
+				public int compare(Option a, Option b){
+					return a.getText().compareTo(b.getText());
+				}				
+			});
+		}
+		
+		if(defaultResponse != null){
+			this.options.add(defaultResponse);
+			defaultResponse.setSelected(true);
+		}	
+	}
+	
 	public void optionSelected(Option opt){
 		if(type == QuestionType.MULTIPLE){
 			opt.setSelected(!opt.isSelected());
@@ -203,5 +205,14 @@ public class OptionQuestionModel implements QuestionModel{
 	@Override
 	public String toString(){
 		return String.format("%s:%s", id, prompt);
+	}
+	
+	@Override
+	public OptionQuestionModel clone(){
+		List<Option> optionClone = new ArrayList<Option>();
+		for(Option opt:options){
+			optionClone.add(new Option(opt.getId(), opt.getValue()));
+		}
+		return new OptionQuestionModel(id, title, prompt, optionClone, type, isSorted);
 	}
 }

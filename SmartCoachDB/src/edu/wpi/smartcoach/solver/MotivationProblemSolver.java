@@ -19,7 +19,7 @@ public class MotivationProblemSolver extends BaseProblemSolver {
 	public QuestionModel getSolution(Context ctx) {
 		
 		ArrayList<ExerciseSolution> solutions = new ArrayList<ExerciseSolution>();
-		List<ExerciseState> states = new ArrayList<ExerciseState>(state.values());
+		List<ExerciseState> states = new ArrayList<ExerciseState>();
 		
 		solutions.addAll(Solutions.getIncreaseTimeSolutions(states));
 		solutions.addAll(Solutions.getNewExerciseSolutions(states, ctx));

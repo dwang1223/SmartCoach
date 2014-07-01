@@ -8,7 +8,9 @@ import edu.wpi.smartcoach.model.TimeQuestionModel;
 public abstract class QuestionFragment extends Fragment {
 
 	public static QuestionFragment createQuestion(QuestionModel q){
-		if(q instanceof OptionQuestionModel){
+		if (q.getId().equals("exercises_week_grid")){
+			return new WeekGridQuestionFragment().setQuestion((OptionQuestionModel)q);			
+		} else if(q instanceof OptionQuestionModel){
 			return new OptionQuestionFragment()
 				.setQuestion((OptionQuestionModel)q);
 		} else if (q instanceof TimeQuestionModel){

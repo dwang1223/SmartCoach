@@ -16,6 +16,8 @@ public class ExerciseState {
 	private boolean exerciseLiked;
 	private boolean locationLiked;
 	private boolean timeLiked;
+	private boolean increaseFrequency;
+	private boolean increaseDuration;
 
 	private ExerciseLocation weekendLocation;
 	private ExerciseTime weekendTime;
@@ -25,6 +27,8 @@ public class ExerciseState {
 	private boolean weekendExerciseLiked;
 	private boolean weekendLocationLiked;
 	private boolean weekendTimeLiked;
+	private boolean weekendIncreaseFrequency;
+	private boolean weekendIncreaseDuration;
 
 	private long recordTime;
 
@@ -315,6 +319,62 @@ public class ExerciseState {
 	 */
 	public void setRecordTime(long recordTime) {
 		this.recordTime = recordTime;
+	}
+
+	/**
+	 * @return the increaseFrequency
+	 */
+	public boolean isIncreaseFrequency() {
+		return increaseFrequency;
+	}
+
+	/**
+	 * @return the increaseDuration
+	 */
+	public boolean isIncreaseDuration() {
+		return increaseDuration;
+	}
+
+	/**
+	 * @return the weekendIncreaseFrequency
+	 */
+	public boolean isWeekendIncreaseFrequency() {
+		return weekendIncreaseFrequency;
+	}
+
+	/**
+	 * @return the weekendIncreaseDuration
+	 */
+	public boolean isWeekendIncreaseDuration() {
+		return weekendIncreaseDuration;
+	}
+
+	/**
+	 * @param increaseFrequency the increaseFrequency to set
+	 */
+	public void setIncreaseFrequency(boolean increaseFrequency) {
+		this.increaseFrequency = increaseFrequency;
+	}
+
+	/**
+	 * @param increaseDuration the increaseDuration to set
+	 */
+	public void setIncreaseDuration(boolean increaseDuration) {
+		this.increaseDuration = increaseDuration;
+	}
+
+	/**
+	 * @param weekendIncreaseFrequency the weekendIncreaseFrequency to set
+	 */
+	public void setWeekendIncreaseFrequency(boolean weekendIncreaseFrequency) {
+		this.weekendIncreaseFrequency = weekendIncreaseFrequency;
+	}
+
+	/**
+	 * @param weekendIncreaseDuration the weekendIncreaseDuration to set
+	 */
+	public void setWeekendIncreaseDuration(boolean weekendIncreaseDuration) {
+		this.weekendIncreaseDuration = weekendIncreaseDuration;
 	}
 
 	@Override

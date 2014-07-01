@@ -49,7 +49,7 @@ public class BoredomProblemSolver implements ProblemSolver{
 		QuestionModel next;
 		if (!exercisesSubmitted) {
 			
-			next = ExerciseQuestionBuilder.getExerciseListQuestion();
+			next = currentQuestion;//ExerciseQuestionBuilder.getExerciseListQuestion();
 
 		} else {
 			
@@ -76,7 +76,7 @@ public class BoredomProblemSolver implements ProblemSolver{
 				
 				ArrayList<QuestionModel> qList = new ArrayList<QuestionModel>();
 
-				qList.add(ExerciseQuestionBuilder.getLocationQuestion(e, false));
+			//	qList.add(ExerciseQuestionBuilder.getLocationQuestion(e, false));
 				
 				questions.put(e, qList);
 			}

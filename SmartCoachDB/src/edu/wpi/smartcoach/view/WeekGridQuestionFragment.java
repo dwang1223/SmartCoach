@@ -1,5 +1,7 @@
 package edu.wpi.smartcoach.view;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +12,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
-import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
-import edu.wpi.smartcoach.view.OptionListAdapter.ResponseChangedListener;
+import edu.wpi.smartcoach.model.exercise.ExerciseState;
+import edu.wpi.smartcoach.view.WeekGridListAdapter.ResponseChangedListener;
 
-public class OptionQuestionFragment extends QuestionFragment implements ResponseChangedListener {
+public class WeekGridQuestionFragment extends QuestionFragment implements ResponseChangedListener {
 	
 	private static final String TAG  = OptionQuestionFragment.class.getSimpleName();
 
 	private TextView questionView;
 	private ListView optionListView;
-	private OptionListAdapter adapter;
+	private WeekGridListAdapter adapter;
 	
 	private TextView instructions;
 	
@@ -32,19 +34,18 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 	
 	private OptionQuestionModel question;
 
-	public OptionQuestionFragment() {}
 	
-	public OptionQuestionFragment setQuestion(OptionQuestionModel q){
+	public WeekGridQuestionFragment setQuestion(OptionQuestionModel q){
 		question = q;
 		return this;
 	}
 	
-	public OptionQuestionFragment setNextButtonListener(QuestionResponseListener ocl){		
+	public WeekGridQuestionFragment setNextButtonListener(QuestionResponseListener ocl){		
 		nextListener = ocl;
 		return this;
 	}
 	
-	public OptionQuestionFragment setBackButtonListener(QuestionResponseListener ocl){
+	public WeekGridQuestionFragment setBackButtonListener(QuestionResponseListener ocl){
 		backListener = ocl;
 		return this;
 	}
@@ -73,7 +74,7 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		next.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				if(question.hasMinimumResponses() && nextListener != null){ 
+				if(nextListener != null){ 
 					nextListener.responseEntered(question);
 				} 
 			}
@@ -89,18 +90,7 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 			}
 		});
 		
-		if(question.getType() == QuestionType.SINGLE){
-			 instructions.setText("Pick one:");
-		} else if (question.getType() == QuestionType.MULTIPLE){
-			instructions.setText("Pick all that apply:");
-		} else if (question.getType() == QuestionType.AT_LEAST_ONE){
-			instructions.setText("Pick at least one:");
-		}
-		
-		 if(question.getOptions().size() == 0){
-				instructions.setText("");
-			} 
-	
+		instructions.setText("Pick at least one per exercise:");
 		
 		if(!backEnabled){
 			back.setVisibility(View.INVISIBLE);
@@ -110,7 +100,14 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 			next.setText("Finish");
 		}
 		
-		adapter = new OptionListAdapter(getActivity(), question);
+		ArrayList<ExerciseState> states = new ArrayList<ExerciseState>();
+		
+		for(Option op:question.getOptions()){
+			states.add((ExerciseState)op.getValue());
+		}
+		
+		adapter = new WeekGridListAdapter(getActivity());
+		adapter.addAll(states);
 		optionListView.setAdapter(adapter);
 		
 		
@@ -124,8 +121,17 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 	}
 
 	@Override
-	public void responseChanged(OptionQuestionModel q) {
-		if(q.hasMinimumResponses()){
+	public void responseChanged() {
+		boolean hasSelections = true;
+		for(int i  = 0; i < adapter.getCount(); i++){
+			ExerciseState state = adapter.getItem(i);
+			if(!(state.isOnWeekdays() || state.isOnWeekends())){
+				hasSelections = false;
+			}
+		}
+		
+		next.setEnabled(hasSelections);
+		if(hasSelections){
 			next.setBackgroundResource(R.drawable.bg_card_button);
 		} else {
 			next.setBackgroundResource(R.drawable.bg_card_disable);
