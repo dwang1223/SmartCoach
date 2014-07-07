@@ -6,21 +6,21 @@ end
 
 question cause_meal
 	What is the biggest cause of big meals for you?#breakfast_weekday_time
-	-Stress#solution reward,breathe
-	-Finance#solution deal
+	-Stress#solution s8,s14
+	-Finance#solution s6
 	-Hunger
-	-Loneliness#solution reward
-	-Addiction to the food#solution avoid_buying,reduce_portion
+	-Loneliness#solution s8,s22,s29
+	-Addiction to the food#solution s2,s3
 	-Other
 end
 
 question cause_snack
 	What is the biggest cause of snacking between meals for you?#snack_where
-	-Stress#solution reward,breathe
-	-Finance#solution deal
-	-Hunger
-	-Loneliness#solution reward
-	-Addiction to the food#solution avoid_buying,reduce_portion
+	-Stress#solution s8,s14,s15,s17,s22,s23,s29
+	-Finance#solution s6,s13,s24
+	-Hunger#solution s9,s19,s27
+	-Loneliness#solution s8,s22,s9
+	-Addiction to the food#solution s2,s3,s15,s17
 	-Other
 end
 
@@ -30,7 +30,7 @@ question breakfast_weekday_time
 	-7:00 AM - 8:30 AM
 	-8:30 AM - 10:00 AM
 	-After 10:00 AM
-	-I don't eat breakfast on weekdays#solution healthier_meals
+	-I don't eat breakfast on weekdays#solution s9,s27 
 end
 
 question lunch_weekday_time
@@ -39,27 +39,54 @@ question lunch_weekday_time
 	-11:00 AM - 12:00 PM
 	-12:00 PM - 1:00PM
 	-After 1:00 PM
-	-I don't eat lunch on weekdays#solution healthier_meals
+	-I don't eat lunch on weekdays#solution s9
 end
 
 question dinner_weekday_time
-	When do you usually eat dinner on weekdays?#track
+	When do you usually eat dinner on weekdays?#breakfast_weekend_time
 	-Before 5:00 PM
 	-5:00 PM - 6:00 PM
 	-6:00 PM - 7:00 PM
-	-After 7:00 PM#solution rearrange
-	-I don't eat dinner on weekdays#solution healthier_meals
+	-After 7:00 PM#solution s16,s18,s28
+	-I don't eat dinner on weekdays#solution s9,s19
+end
+
+question breakfast_weekend_time
+	When do you usually eat breakfast on weekends?#lunch_weekend_time
+	-Before 7:00 AM
+	-7:00 AM - 8:30 AM
+	-8:30 AM - 10:00 AM
+	-After 10:00 AM
+	-I don't eat breakfast on weekends#solution s9,s27 
+end
+
+question lunch_weekend_time
+	When do you usually eat lunch on weekends?#dinner_weekend_time
+	-Before 11:00 AM
+	-11:00 AM - 12:00 PM
+	-12:00 PM - 1:00PM
+	-After 1:00 PM
+	-I don't eat lunch on weekends#solution s9
+end
+
+question dinner_weekend_time
+	When do you usually eat dinner on weekends?#track
+	-Before 5:00 PM
+	-5:00 PM - 6:00 PM
+	-6:00 PM - 7:00 PM
+	-After 7:00 PM#solution s16,s18,s28
+	-I don't eat dinner on weekends#solution s9,s19
 end
 
 question track
 	Do you track what you eat for meals?
 	-Yes#question track_how
-	-No#question eat_out#solution app,plan,shopping_list
+	-No#question eat_out#solution s5,s18,s21
 end
 
 question track_how
 	How do you track your meals?#track_when
-	-Write it down#solution app
+	-Write it down#solution s5
 	-Using an app
 end
 	
@@ -82,9 +109,9 @@ end
 question eat_out_lunch_why
 	Why do you eat out for lunch?#eat_out_dinner
 	-Food Preference
-	-No time to prepare lunch#solution leftover_lunch
+	-No time to prepare lunch#solution s10,s11,s18,s19
 	-Not interested in cooking
-	-Convenience#solution leftover_lunch
+	-Convenience#solution s10,s11,s18,s19
 	-Other
 end
 
@@ -101,14 +128,14 @@ question eat_out_dinner_why
 	-Food Preference
 	-No time to prepare dinner
 	-Not interested in cooking
-	-Convenience#solution leftover_lunch
+	-Convenience#solution s10,s11,s18,s19
 	-Other
 end
 
 question do_cook
-	Do you cook at home?#DONE
-	-Yes#solution leftover_lunch
-	-No#solution cook
+	Do you cook at home?#shopping
+	-Yes#solution s20,s10
+	-No#solution s11
 end
 
 question snack_where
@@ -125,95 +152,216 @@ question snack_when
 	-Early morning
 	-Late morning
 	-Afternoon
-	-Evening#solution rearrange
+	-Evening#solution s9,s19,s25,s27
 end
 
 question snack_activity
 	What do you usually do while snacking?#snack_type
-	-Chat#solution substitute
-	-Watch T.V.#solution substitute
-	-Work#solution substitute
-	-Read#solution substitute
-	-Listen to music#solution substitute
-	-Surf the internet#solution substitute
-	-Nothing else#solution substitute
-	-Other#solution substitute
+	-Chat#solution s1
+	-Watch T.V.#solution s1
+	-Work#solution s1
+	-Read#solution s1
+	-Listen to music#solution s1
+	-Surf the internet#solution s1
+	-Nothing else#solution s1
+	-Other#solution s1
 end
 
 question snack_type
-	What kind of snack do you usually eat?#DONE
-	-Cookies#solution reduce_portion,smaller_snacks,substitute
+	What kind of snack do you usually eat?#track_snack
+	-Cookies#solution s1,s7,s3
 	-Fruits
-	-Ice cream#solution reduce_portion,smaller_snacks,substitute
+	-Ice cream#solution s1,s7,s3
 	-Nuts
-	-Chips#solution reduce_portion,smaller_snacks
-	-Candy#solution reduce_portion,smaller_snacks
-	-Cheese#solution reduce_portion,smaller_snacks
+	-Chips#solution s1,s7,s3
+	-Candy#solution s1,s7,s3
+	-Cheese#solution s1,s7,s3
 	-Other
 end
 
-solution substitute
-	Substitute your snack with a healthier food
-end
-		
-solution avoid_buying
-	Avoid going to the aisle where the unhealthy food is when you go shopping.
+question track_snack
+	Do you track what you eat for snacks?
+	-Yes#question track_snack_how
+	-No#question eat_out#solution s5,s18,s21
 end
 
-solution reduce_portion
-	Reduce the portion of the snack you eat. Take a small step first.
+question track_snack_how
+	How do you track your snacks?#track_snack_when
+	-Write it down#solution s5
+	-Using an app
+end
+	
+question track_snack_when
+	How often do you track your snacks?#shopping
+	-Less than once a week
+	-1 to 3 times a week
+	-4 to 6 times a week
+	-Everyday
 end
 
-solution morning_snack
-	Have a snack in the morning
+question shopping
+	Do you do the food shopping?
+	-Yes#question shopping_often
+	-No#question drinks
 end
 
-solution app
-	Find an app, such as "My fitness pal" to track what you eat.
+question shopping_often
+	How often do you shop for food groceries?#shopping_budget
+	-Less than once a month
+	-Once a month
+	-2-3 times a month
+	-Weekly
+	-More than once a week
 end
 
-solution deal
-	Go to a store like Sam's club or Costco to buy healthy food with a great deal.
+question shopping_budget
+	Do you have a budget for your shopping?#shopping_plan
+	-Yes
+	-No
 end
 
-solution smaller_snacks
-	Go somewhere where you can buy smaller snacks.
+question shopping_plan
+	Do you plan for your shopping list before you go?
+	-Yes#question shopping_plan_follow
+	-No#question drinks#solution s13
 end
 
-solution reward
-	Create a reward system to encourage less eating.
+question shopping_plan_follow
+	Will you buy the food exactly based on your shopping list?
+	-Yes#question drinks
+	-No#solution s13#question shopping_plan_follow_why
 end
 
-solution healthier_meals
-	Start to eat healthier meals.
-end
-
-solution leftover_lunch
-	Pack your lunch using leftovers.
-end
-
-solution cook
-	Start to cook meals yourself.
-end
-
-solution budget
-	Set up a budget for your grocery shopping.
-end
-
-solution shopping_list
-	Create a shopping list before you go grocery shopping.
-end
-
-solution breathe
-	Before eating, taking a deep breath when you are feeling stressed
-end
-
-solution plan
-	Make an eating plan.
-end
-
-solution rearrange
-	Rearrange your schedule for a little bit to bring dinner forward.
+question shopping_plan_follow_why
+	What drives you to buy the food not on your list?#drinks
+	-Discounts
+	-Advertisement
+	-Recommendation
+	-Coupon
+	-The food itself
+	-Others
 end
 
 
+question drinks
+	What do you usually have for drink?#DONE
+	-Water
+	-Tea
+	-Coffee
+	-Soft Drinks
+	-Juice
+	-Milk
+	-Other
+end
+
+solution s1
+	Replace snack with a lower calorie healthier option
+end
+
+solution s2
+	Avoid grocery store aisles with unhealthy foods
+end
+
+solution s3
+	Reduce the portion of the snack you eat by a small increment
+end
+
+solution s4
+	Change the snacking time to the morning.
+end
+
+solution s5
+	Use a paper journal or mobile app  such as "My fitness pal' to track your diet so you can find out if you are eating more than you are burning
+end
+
+solution s6
+	Go to a warehouse store like Sam's Club to save money on healthy snacks
+end
+
+solution s7
+	Buy or prepare single servings of snacks
+end
+
+solution s8
+	Reward yourself for completing a week of diet tracking 
+end
+
+solution s9
+	To prevent extreme hunger, make a plan to avoid going more than 3-4 hours without eating 
+end
+
+solution s10
+	Pack dinner leftovers for lunch.
+end
+
+solution s11
+	Start to cook meals at home.
+end
+
+solution s12
+	Set up a budget for your shopping.
+end
+
+solution s13
+	Make and stick to a shopping list  
+end
+
+solution s14
+	Before eating when stressed, take 10 deep breaths and see if craving passes
+end
+
+solution s15
+	Gradually reduce the amount of sugar in your diet
+end
+
+solution s16
+	Rearrange your schedule to eat dinner sooner.
+end
+
+solution s17
+	Increase the amount of fiber and protein in your diet to suppress your appetite
+end
+
+solution s18
+	Track your intake on at least 1-2 days per week 
+end
+
+solution s19
+	Find healthy frozen meals that are quick to prepare instead of fast food
+end
+
+solution s20
+	Only cook the exact portions needed for that meal
+end
+
+solution s21
+	Track your intake after 2pm only instead of all day
+end
+
+solution s22
+	Call a friend to talk about what's stressing you instead of eating
+end
+
+solution s23
+	Go for a short walk when you feel stressed instead of eating
+end
+
+solution s24
+	Do a Google search for "healthy canned foods" for ideas of inexpensive healthy foods
+end
+
+solution s26
+	Plan snacks at the beginning of each day. Stick to that plan.
+end
+
+solution s27
+	Buy on-the-go breakfast items (e.g., nutrition shake, nutrition bar)
+end
+
+solution s28
+	Brush and floss when you are done eating for the day to prevent further eating
+end
+
+solution s29
+	Find a weight loss buddy to get extra support
+end

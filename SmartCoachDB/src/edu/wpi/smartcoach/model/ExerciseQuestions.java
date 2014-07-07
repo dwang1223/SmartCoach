@@ -11,7 +11,6 @@ import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
 import edu.wpi.smartcoach.model.exercise.ExerciseTime;
-import edu.wpi.smartcoach.service.ExerciseLocationService;
 import edu.wpi.smartcoach.service.ExerciseToLocationService;
 import edu.wpi.smartcoach.util.QuestionReader;
 import edu.wpi.smartcoach.view.Option;
@@ -84,30 +83,6 @@ public class ExerciseQuestions {
 		
 		return optionQuestion.clone();
 	}
-	
-//	public OptionQuestionModel getOptionQuestion(String id, ExerciseState state, boolean weekend){
-//		QuestionModel qm = questions.get(id);
-//		OptionQuestionModel oqm = null;
-//		
-//		if(qm != null && qm instanceof OptionQuestionModel){
-//			oqm = prepareQuestion(((OptionQuestionModel)qm).clone(), state, weekend);
-//		}
-//		
-//		return oqm;
-//	}
-	
-//	public TimeQuestionModel getTimeQuestion(String id, ExerciseState state, boolean weekend){
-//		QuestionModel qm = questions.get(id);
-//		TimeQuestionModel tqm = null;
-//		
-//		if(qm != null && qm instanceof TimeQuestionModel){
-//			tqm = prepareQuestion(((TimeQuestionModel)qm).clone(), state, weekend);
-//		}
-//		
-//		Log.d(TAG, "qm   "+qm);
-//		
-//		return tqm;
-//	}
 	
 	public QuestionModel prepareQuestion(QuestionModel q, ExerciseState state, boolean weekend){
 		QuestionModel question = q;
