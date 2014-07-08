@@ -184,7 +184,7 @@ public class ExerciseQuestions {
 		return modified;
 	}
 	
-	private String getWeekendString(ExerciseState state, boolean weekend){
+	public String getWeekendString(ExerciseState state, boolean weekend){
 		String wkEndString = "";
 		if(state.isOnWeekdays() && state.isOnWeekends()){
 			if(weekend){
@@ -227,7 +227,13 @@ public class ExerciseQuestions {
 				state.setDuration(duration);
 			}
 		} else if (id.equals("exercise_like")){
-			List<Object> selected = ((OptionQuestionModel)response).getSelectedValues();
+			List<Option> selectedOptions = ((OptionQuestionModel)response).getSelectedOptions();
+			String selected = "";
+			for(Option o:selectedOptions){
+				selected += o.getId()+"|";
+			}
+			
+			Log.d(TAG, selected.toString());
 			
 			if(weekend){
 				if(selected.contains("like_like")){

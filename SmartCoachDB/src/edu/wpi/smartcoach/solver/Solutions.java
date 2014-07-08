@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.model.exercise.Equipment;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
@@ -31,12 +32,13 @@ public class Solutions {
 	private static final float DURATION_CHANGE_FACTOR = 0.1f; // increase by 10%
 	private static final int MIN_DURATION_CHANGE = 5; //change by at least 5 minutes
 	private static final int MAX_DURATION = 60*24; //can't exercise more than 24hrs in a day
-	
+
+	/*
 	public static List<ExerciseSolution> getIncreaseTimeSolutions(List<ExerciseState> states){
 		ArrayList<ExerciseSolution> solutionList = new ArrayList<ExerciseSolution>();
 		
 		for(ExerciseState state:states){
-			if(true && true){
+			if(state.isIncreaseDuration()){
 				ExerciseSolution s = new ExerciseSolution(state);
 				
 				int duration = s.getDuration(); //10% increase
@@ -72,6 +74,92 @@ public class Solutions {
 		return solutionList;
 		
 	}
+*/
+	
+	public static List<ExerciseSolution> getIncreaseDurationSolutions(List<ExerciseState> states){
+		List<ExerciseSolution> solutions = new ArrayList<ExerciseSolution>();
+		
+		for(ExerciseState state:states){
+			if(state.isOnWeekdays() && state.isIncreaseDuration()){
+				solutions.add(increaseDuration(state, false));
+			}
+			
+			if(state.isOnWeekends() && state.isWeekendIncreaseDuration()){
+				solutions.add(increaseDuration(state, true));
+			}
+		}
+		
+		return solutions;
+	}
+	
+	private static ExerciseSolution increaseDuration(ExerciseState state, boolean weekend){
+		int originalDuration = weekend?state.getWeekendDuration():state.getDuration();
+		int duration = originalDuration; //10% increase
+		duration += Math.max(MIN_DURATION_CHANGE, state.getDuration()*DURATION_CHANGE_FACTOR);
+		duration = Math.max(MIN_DURATION, Math.min(MAX_DURATION, duration));
+		String weekendStr = ExerciseQuestions.getInstance().getWeekendString(state, weekend);
+		
+		
+		String message = String.format("%s for %d minutes instead of %d%s.", 
+				capitalize(state.getExercise().getFormPresent()),
+				duration,
+				originalDuration,
+				weekendStr);
+		
+		String reminder = String.format("%s for %d minutes.",
+				capitalize(state.getExercise().getFormPresent()),
+				duration);
+		
+		ExerciseSolution solution = new ExerciseSolution(state);
+		solution.setDuration(duration);
+		solution.setMessage(message);
+		solution.setReminder(reminder);
+		
+		return solution;
+	}
+	
+	public static List<ExerciseSolution> getIncreaseFrequencySolutions(List<ExerciseState> states){
+		List<ExerciseSolution> solutions = new ArrayList<ExerciseSolution>();
+		
+		for(ExerciseState state:states){
+			if(state.isOnWeekdays() && state.isIncreaseDuration()){
+				solutions.add(increaseFrequency(state, false));
+			}
+			
+			if(state.isOnWeekends() && state.isWeekendIncreaseDuration()){
+				solutions.add(increaseFrequency(state, true));
+			}
+		}
+		
+		return solutions;
+	}
+	
+	private static ExerciseSolution increaseFrequency(ExerciseState state, boolean weekend){
+		int originalFrequency = weekend?state.getWeekendFrequency():state.getFrequency();
+		int frequency = originalFrequency; //10% increase
+		frequency++;
+		int max = weekend?2:5;
+		frequency = Math.max(1, Math.min(MAX_FREQUENCY, frequency));
+		String weekendStr = ExerciseQuestions.getInstance().getWeekendString(state, weekend);
+		
+		
+		String message = String.format("%s on %d days instead of %d%s.", 
+				capitalize(state.getExercise().getFormPresent()),
+				frequency,
+				originalFrequency,
+				weekendStr);
+		
+		String reminder = String.format("%s on %d days.",
+				capitalize(state.getExercise().getFormPresent()),
+				frequency);
+		
+		ExerciseSolution solution = new ExerciseSolution(state);
+		solution.setFrequency(frequency);
+		solution.setMessage(message);
+		solution.setReminder(reminder);
+		
+		return solution;
+	}
 	
 	public static List<ExerciseSolution> getNewExerciseSolutions(List<ExerciseState> states, Context ctx){
 		ArrayList<ExerciseSolution> solutionList = new ArrayList<ExerciseSolution>();
@@ -79,7 +167,7 @@ public class Solutions {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		
 		for(ExerciseState state:states){
-			if(!state.isExerciseLiked()){
+			if(!state.isExerciseLiked() || !state.isWeekendExerciseLiked()){
 				ExerciseSolution s = new ExerciseSolution(state);
 				
 				String[] ids = prefs.getString("profile_exercise_enjoy", "").split(",");
@@ -122,7 +210,7 @@ public class Solutions {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		
 		for(ExerciseState state:states){
-			if(!state.isLocationLiked()){
+			if(!state.isLocationLiked() || !state.isWeekendLocationLiked()){
 				ExerciseSolution s = new ExerciseSolution(state);
 				
 				String[] ids = prefs.getString("profile_exercise_location", "").split(",");
@@ -157,13 +245,13 @@ public class Solutions {
 					s.setLocation(newLoc);
 					
 					String message = String.format("Try to %s %s instead of %s.", 
-							s.getExercise().getFormPresent(),
+							capitalize(s.getExercise().getFormPresent()),
 							s.getLocation().getPreposition(),
 							state.getLocation().getPreposition()							
 							);
 					
 					String reminder = String.format("%s %s instead of %s.", 
-							s.getExercise().getFormPresent(),
+							capitalize(s.getExercise().getFormPresent()),
 							s.getLocation().getPreposition(),
 							state.getLocation().getPreposition()							
 							);
@@ -174,60 +262,7 @@ public class Solutions {
 				}
 							
 			}
-			
-			if(true){
-				ExerciseSolution s = new ExerciseSolution(state);
-				
-				String[] ids = prefs.getString("profile_exercise_location", "").split(",");
-				ArrayList<ExerciseLocation> liked = new ArrayList<ExerciseLocation>();
-				for(String id:ids){
-					try {
-						liked.add(ExerciseLocationService.getInstance().getLocation(Integer.parseInt(id)));
-					} catch(Exception e){
 						
-					}
-				}
-				List<ExerciseLocation> possible = ExerciseToLocationService.getInstance().getLocationListByExercise(s.getExercise().getId());					
-				
-				possible.remove(state.getWeekendLocation());
-				
-				ArrayList<ExerciseLocation> intersect = new ArrayList<ExerciseLocation>(); //locations the user likes, and can do the exercise at
-				for(ExerciseLocation l:liked){
-					if(possible.contains(l)){
-						intersect.add(l);
-					}
-				}
-				
-				ExerciseLocation newLoc = null;
-				
-				if(intersect.size() > 0){//get a liked location if possible
-					newLoc = intersect.get(0);
-				} else if(possible.size() > 0) {
-					newLoc = possible.get((int)(Math.random()*possible.size()));//get the next possible location
-				}
-				
-				if(newLoc != null){
-					s.setLocation(newLoc);
-					
-					String message = String.format("On weekends, Try to %s %s instead of %s.", 
-							s.getExercise().getFormPresent(),
-							s.getLocation().getPreposition(),
-							state.getWeekendLocation().getPreposition()							
-							);
-					
-					String reminder = String.format("On weekends, %s %s instead of %s.", 
-							s.getExercise().getFormPresent(),
-							s.getLocation().getPreposition(),
-							state.getWeekendLocation().getPreposition()							
-							);
-					
-					s.setMessage(message);
-					s.setReminder(reminder);
-					solutionList.add(s);
-				}
-							
-			}
-			
 		}		
 		return solutionList;
 	}
@@ -238,7 +273,7 @@ public class Solutions {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		
 		for(ExerciseState state:states){
-			if(!state.isTimeLiked()){
+			if(!state.isTimeLiked() || !state.isWeekendTimeLiked()){
 				ExerciseSolution s = new ExerciseSolution(state);
 				
 				String[] ids = prefs.getString("profile_exercise_when", "").split(",");
@@ -274,46 +309,6 @@ public class Solutions {
 							
 				solutionList.add(s);
 			}
-			
-			if(true){
-				ExerciseSolution s = new ExerciseSolution(state);
-				
-				String[] ids = prefs.getString("profile_exercise_when", "").split(",");
-				ArrayList<ExerciseTime> liked = new ArrayList<ExerciseTime>();
-				for(String id:ids){
-					try{
-						liked.add(ExerciseTimeService.getInstance().getExerciseTime(Integer.parseInt(id)));
-					} catch(Exception e){}
-				}
-				liked.remove(state.getWeekendTime());
-				
-				ExerciseTime newTime = null;
-				
-				if(liked.size() > 0){
-					newTime = liked.get(0);
-				} else {
-					List<ExerciseTime> allTimes = ExerciseTimeService.getInstance().getAllDataFromTable(); //pick a time that is 2 after the current one (warp around)
-					newTime = allTimes.get((allTimes.indexOf(s.getTime())+2)%allTimes.size());
-				}
-				
-				s.setTime(newTime);
-				
-				String message = String.format("On weekends, try to %s %s in the %s instead of in the %s.",
-						s.getExercise().getFormPresent(),
-						state.getWeekendLocation().getPreposition(),
-						s.getTime().getTime().toLowerCase(),
-						state.getWeekendTime().getTime().toLowerCase());
-				
-				String reminder = String.format("On weekends, %s in the %s", s.getExercise().getFormPresent(), s.getTime().getTime().toLowerCase());
-				
-				s.setMessage(message);
-				s.setReminder(reminder);
-				solutionList.add(s);
-							
-			}
-			
-			
-			
 		}		
 		return solutionList;
 	}
@@ -460,6 +455,10 @@ public class Solutions {
 			} catch(Exception e){}
 		}
 		return liked;
+	}
+	
+	private static String capitalize(String s){
+		return s.substring(0, 1).toUpperCase() + s.substring(1);
 	}
 
 }

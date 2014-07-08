@@ -28,14 +28,14 @@ public class DialogScriptReader {
 			}
 		}
 		
-		script = script.replaceAll("\t", "");
+		script = script.replaceAll("\\t", "");
 		
-		while(script.contains("\n\n")){
-			script = script.replaceAll("\n\n", "\n");
-		}
+//		while(script.contains("\n\n")){
+//			script = script.replaceAll("\n\n", "\n");
+//		}
 		
 	//	Log.d(TAG, script);
-		String[] items = script.split("end");
+		String[] items = script.split("\nend\n");
 		Log.d(TAG, items.length+" items");
 		HashMap<String, OptionQuestionModel> questions = new HashMap<String, OptionQuestionModel>();
 		HashMap<String, String> solutions = new HashMap<String, String>();
