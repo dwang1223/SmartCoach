@@ -15,5 +15,6 @@
     <string name="title_activity_registration_intro">RegistrationIntroActivity</string>
     <string name="title_activity_view_profile">Profile</string>
     <string name="title_activity_set_reminder">SetReminderActivity</string>
+    <string name="title_activity_show_reminders">ShowRemindersActivity</string>
 
 </resources>

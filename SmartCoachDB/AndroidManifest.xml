@@ -42,8 +42,8 @@
             android:name="edu.wpi.smartcoach.activity.ExerciseProblemActivity"
             android:label="@string/title_activity_exercise_problem"
             android:screenOrientation="portrait" >
-        </activity>       
-         <activity
+        </activity>
+        <activity
             android:name="edu.wpi.smartcoach.activity.DietProblemActivity"
             android:label="@string/title_activity_exercise_problem"
             android:screenOrientation="portrait" >
@@ -59,6 +59,10 @@
         <activity
             android:name="edu.wpi.smartcoach.activity.SetReminderActivity"
             android:label="@string/title_activity_set_reminder" >
+        </activity>
+        <activity
+            android:name="edu.wpi.smartcoach.ShowRemindersActivity"
+            android:label="@string/title_activity_show_reminders" >
         </activity>
     </application>
 

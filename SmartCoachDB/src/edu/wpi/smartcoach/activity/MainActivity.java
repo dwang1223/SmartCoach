@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.ShowRemindersActivity;
 import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.util.DatabaseHelper;
 
@@ -21,6 +22,7 @@ public class MainActivity extends Activity {
 	private View exerciseButton;
 	private View profileButton;
 	private View dietButton;
+	private View remindButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,17 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(getBaseContext(), DietProblemActivity.class);
+					startActivity(intent);					
+				}
+			});
+			
+			remindButton = (View)findViewById(R.id.reminder);
+			
+			remindButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getBaseContext(), ShowRemindersActivity.class);
 					startActivity(intent);					
 				}
 			});

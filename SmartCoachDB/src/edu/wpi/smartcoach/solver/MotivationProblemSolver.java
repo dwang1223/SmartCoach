@@ -33,6 +33,7 @@ public class MotivationProblemSolver extends BaseProblemSolver {
 			options.add(new Option(solutions.indexOf(soln)+"", soln));
 		}
 		
+		
 		if(options.isEmpty()){
 			options.add(new Option("DEFAULT", "No Solutions found..."));
 		}
