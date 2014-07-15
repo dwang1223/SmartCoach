@@ -40,6 +40,7 @@ public class ExerciseService {
 				cursor.moveToNext();
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			cursor.close();
 		}
 		return exerciseList;

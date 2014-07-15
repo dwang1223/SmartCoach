@@ -112,7 +112,7 @@ public class InjuryProblemSolver implements ProblemSolver {
 		}
 		
 		return new OptionQuestionModel("solutions", "Solutions", 
-				"Here are some things you can try:", solutions, QuestionType.MULTIPLE, false);
+				"Here are some things you can try:", solutions, QuestionType.MULTIPLE, false, false);
 	}
 
 }

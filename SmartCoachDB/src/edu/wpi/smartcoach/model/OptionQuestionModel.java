@@ -25,18 +25,19 @@ public class OptionQuestionModel implements QuestionModel{
 	private List<Option> options;
 	private Option defaultResponse = null;
 	
+	private boolean searchable = false;
 	private boolean isSorted;
 	
 	private QuestionType type;
 	
 		
-	public OptionQuestionModel(String id, String title, String prompt, List<Option> options, QuestionType type, boolean sort){
+	public OptionQuestionModel(String id, String title, String prompt, List<Option> options, QuestionType type, boolean sort, boolean search){
 		this.id = id;
 		this.title = title;
 		this.prompt = prompt;
 		this.type = type;
 		this.isSorted = sort;
-
+		this.searchable = search;
 		setOptions(options);
 		
 	}
@@ -50,7 +51,7 @@ public class OptionQuestionModel implements QuestionModel{
 	}
 	
 	public String getPrompt(){
-		return prompt;
+		return prompt;  
 	}
 	
 	public List<Option> getOptions(){
@@ -202,6 +203,10 @@ public class OptionQuestionModel implements QuestionModel{
 		}
 	}
 	
+	public boolean isSearchable(){
+		return searchable;
+	}
+	
 	@Override
 	public String toString(){
 		return String.format("%s:%s", id, prompt);
@@ -213,6 +218,6 @@ public class OptionQuestionModel implements QuestionModel{
 		for(Option opt:options){
 			optionClone.add(new Option(opt.getId(), opt.getValue()));
 		}
-		return new OptionQuestionModel(id, title, prompt, optionClone, type, isSorted);
+		return new OptionQuestionModel(id, title, prompt, optionClone, type, isSorted, searchable);
 	}
 }

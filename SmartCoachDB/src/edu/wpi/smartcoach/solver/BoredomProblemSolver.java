@@ -150,7 +150,7 @@ public class BoredomProblemSolver implements ProblemSolver{
 		return new OptionQuestionModel("solutions", "Solutions", 
 				"Try some of these to make exercise a little more interesting",
 				options, 
-				QuestionType.MULTIPLE, false);
+				QuestionType.MULTIPLE, false, false);
 	}
 
 }

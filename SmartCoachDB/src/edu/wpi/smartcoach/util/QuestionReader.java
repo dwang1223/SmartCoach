@@ -90,7 +90,7 @@ public class QuestionReader {
 		String title = e.getAttribute(XML_ATTR_TITLE);
 		String prompt = e.getElementsByTagName(XML_TAG_PROMPT).item(0).getTextContent();
 		String typeStr = e.getAttribute(XML_ATTR_TYPE);
-		
+		boolean search = false;
 		boolean sort = e.getAttribute(XML_ATTR_SORT).equals("true");
 		
 		QuestionType type = QuestionType.AT_LEAST_ONE;
@@ -124,7 +124,7 @@ public class QuestionReader {
 		} else {
 			
 			if(optionAttribute.equalsIgnoreCase(OPTIONS_EXERCISES)){
-				
+				search = true;
 				List<Exercise> exercises = ExerciseService.getInstance().getAllDataFromTable();
 				for(Exercise exercise:exercises){
 					options.add(new Option(Integer.toString(exercise.getId()), exercise));
@@ -145,7 +145,7 @@ public class QuestionReader {
 				}
 				
 			} else if(optionAttribute.equalsIgnoreCase(OPTION_EQUIPMENT)){
-				
+				search = true;
 				for(Equipment eq :Equipment.equipment){
 					options.add(new Option(Integer.toString(eq.getId()), eq));
 				}
@@ -153,7 +153,7 @@ public class QuestionReader {
 			}
 		}
 		
-		return new OptionQuestionModel(id, title, prompt, options, type, sort);
+		return new OptionQuestionModel(id, title, prompt, options, type, sort, search);
 	}
 
 }

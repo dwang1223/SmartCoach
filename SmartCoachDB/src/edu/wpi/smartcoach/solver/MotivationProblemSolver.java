@@ -38,7 +38,7 @@ public class MotivationProblemSolver extends BaseProblemSolver {
 		}
 		
 		return new OptionQuestionModel("solutions", "Solutions", "Here are some things you can try:", 
-				options, QuestionType.MULTIPLE, false);
+				options, QuestionType.MULTIPLE, false, false);
 	}
 
 

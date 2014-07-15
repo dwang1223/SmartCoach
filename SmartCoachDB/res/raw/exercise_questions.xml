@@ -3,7 +3,8 @@
 	
     <question 
         id="problem_base"
-        type="single">
+        type="single"
+        >
         <q>What is the biggest problem when exercising?</q>
         <option id="time">I don't have time to exercise</option>
         <option id="motivation">I find it hard to get started</option>
@@ -33,7 +34,7 @@
     </question>
     
     <question
-        id="exercise_time"
+        id="exercise_time" 
         type="single"
         options="TIMES">
         <q>When do you [exercise-present][week]?</q>        

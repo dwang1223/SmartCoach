@@ -80,7 +80,7 @@ public class DialogScriptSolver implements ProblemSolver {
 			sOptions.add(new Option(sOptions.size()+"", this.solutions.get(s)));
 		}
 				
-		return new OptionQuestionModel("solution", "Solutions", "Here are some things you can try:", sOptions, QuestionType.MULTIPLE, true);
+		return new OptionQuestionModel("solution", "Solutions", "Here are some things you can try:", sOptions, QuestionType.MULTIPLE, true, false);
 		
 	}
 

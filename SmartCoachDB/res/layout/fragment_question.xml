@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/nextButton"
         android:layout_alignLeft="@+id/questionText"
-        android:layout_below="@+id/instructions"
+        android:layout_below="@+id/search"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="0dp"
         android:divider="@null"
@@ -70,5 +70,15 @@
         android:text="Select One:"
         android:textColor="#777777"
         android:textStyle="italic" />
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/questionText"
+        android:layout_below="@+id/instructions"
+        android:ems="10"
+        android:hint="Search" />
 
 </RelativeLayout>

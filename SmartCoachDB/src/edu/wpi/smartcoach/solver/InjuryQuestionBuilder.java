@@ -36,18 +36,18 @@ public class InjuryQuestionBuilder {
 		return new OptionQuestionModel("gymmember", "Gym Membership", 
 				message, 
 				null,
-				QuestionType.SINGLE, false);
+				QuestionType.SINGLE, false, false);
 	}
 	
 	public static OptionQuestionModel getPhysicalTherapistQuestion(){
 		return new OptionQuestionModel("haspt", "Physical Therapist",
-				"Do you have a physical therapist?", null, QuestionType.SINGLE, false);
+				"Do you have a physical therapist?", null, QuestionType.SINGLE, false, false);
 	}
 	
 	public static OptionQuestionModel getFollowedTherapistQuestion(){
 		return new OptionQuestionModel("followpt", "Physical Therapist", 
 				"Have you already consulted you physical therapist about your injury?", 
-				null, QuestionType.SINGLE, false);
+				null, QuestionType.SINGLE, false, false);
 		
 	}
 	

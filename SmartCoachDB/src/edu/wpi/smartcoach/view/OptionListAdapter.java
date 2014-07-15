@@ -1,5 +1,8 @@
 package edu.wpi.smartcoach.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +26,16 @@ public class OptionListAdapter extends BaseAdapter {
 	private OptionQuestionModel question;
 	
 	private ResponseChangedListener responseListener;
+	
+	private String search = null;
+	
+	private List<Option> active;
 
 	public OptionListAdapter(Context context, OptionQuestionModel qm) {
 		super();
 		this.context = context;
 		question = qm;
+		active = new ArrayList<Option>(qm.getOptions());
 	}
 	
 	public void setResponseChangedListener(ResponseChangedListener rl){
@@ -75,22 +83,44 @@ public class OptionListAdapter extends BaseAdapter {
 			}
 		});
 
+		if(search != null && !op.getText().toLowerCase().startsWith(search)){
+			view.setVisibility(View.GONE);
+		} else {
+			view.setVisibility(View.VISIBLE);
+		}
+		
 		return view;
 	}
 
 	@Override
 	public int getCount() {
-		return question.getOptions().size();
+		return active.size();
 	}
 
 	@Override
 	public Option getItem(int position) {
-		return question.getOptions().get(position);
+		return active.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
 		return position;
+	}
+	
+	public void setFilter(String search){
+		if(search == null || search.isEmpty()){
+			this.search = null;
+			active.clear();
+			active.addAll(question.getOptions());
+		} else {
+			active.clear();
+			for(Option o:question.getOptions()){
+				if(o.getText().toLowerCase().startsWith(search.toLowerCase())){
+					active.add(o);
+				}
+			}
+		}
+		notifyDataSetChanged();
 	}
 
 }

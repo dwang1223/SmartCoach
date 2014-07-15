@@ -1,6 +1,8 @@
 package edu.wpi.smartcoach.view;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +24,8 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 	private OptionListAdapter adapter;
 	
 	private TextView instructions;
+	private TextView search;
+	
 	
 	private Button next;
 	private Button back;
@@ -29,6 +33,7 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 	private QuestionResponseListener backListener;
 	private boolean backEnabled = false;
 	private boolean isLast = false;
+	
 	
 	private OptionQuestionModel question;
 
@@ -66,6 +71,7 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		optionListView = (ListView)rootView.findViewById(R.id.optionList);
 		
 		instructions = (TextView)rootView.findViewById(R.id.instructions);
+		search = (TextView)rootView.findViewById(R.id.search);
 		
 		next = (Button)rootView.findViewById(R.id.nextButton);
 		back = (Button)rootView.findViewById(R.id.backButton);
@@ -109,6 +115,34 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		if(isLast){
 			next.setText("Finish");
 		}
+		
+		if(question.isSearchable()){
+			search.setVisibility(View.VISIBLE);
+		} else {
+			search.setVisibility(View.GONE);
+		}
+		
+		search.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {				
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				try{
+					adapter.setFilter(s.toString());
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
 		
 		adapter = new OptionListAdapter(getActivity(), question);
 		optionListView.setAdapter(adapter);

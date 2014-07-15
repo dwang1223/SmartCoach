@@ -100,7 +100,7 @@ public class DialogScriptReader {
 					}
 				}
 				
-				OptionQuestionModel newQ = new OptionQuestionModel(id, "", text, options, QuestionType.SINGLE, true);
+				OptionQuestionModel newQ = new OptionQuestionModel(id, "", text, options, QuestionType.SINGLE, true, false);
 				questions.put(id, newQ);
 				
 			} else if (item.startsWith("solution")){
