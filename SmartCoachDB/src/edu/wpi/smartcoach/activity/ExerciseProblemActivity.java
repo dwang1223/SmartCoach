@@ -1,5 +1,6 @@
 package edu.wpi.smartcoach.activity;
 
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.solver.BoredomProblemSolver;
 import edu.wpi.smartcoach.solver.InjuryProblemSolver;
@@ -64,10 +66,18 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 			if(solution.getSelectedValues().size() != 0 && !solution.getSelectedOption().getId().equals(OptionQuestionModel.DEFAULT)){
 				Intent intent = new Intent(getBaseContext(), SetReminderActivity.class);
 				List<Object> responses = solution.getSelectedValues();
-				String[] reminders = new String[responses.size()];
+				HashMap<Exercise, String> combine = new HashMap<Exercise, String>();
 				for(int i = 0; i < responses.size(); i++){
-					reminders[i] = ((ExerciseSolution)responses.get(i)).getReminder();
+					ExerciseSolution es = (ExerciseSolution)responses.get(i);
+					String reminder = combine.get(es.getExercise());
+					if(reminder == null){
+						reminder = "";
+					}
+					reminder += " "+es.getReminder();
+					combine.put(es.getExercise(), reminder);
 				}
+				
+				String[] reminders = combine.values().toArray(new String[]{});
 				intent.putExtra("reminder",reminders );
 				startActivity(intent);
 			}
@@ -112,6 +122,9 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 			});
 			questionFragment.setBackEnabled(!solutionRetrieved && solver.isBackAllowed());
 			questionFragment.setLast(solutionRetrieved);
+			if(solutionRetrieved){
+				((OptionQuestionFragment)questionFragment).setShowSocial(true);
+			}
 			getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
 		}
 		

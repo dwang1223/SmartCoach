@@ -302,7 +302,7 @@ public class Solutions {
 						s.getTime().getTime().toLowerCase(),
 						state.getTime().getTime().toLowerCase());
 				
-				String reminder = String.format("%s in the %s", s.getExercise().getFormPresent(), s.getTime().getTime().toLowerCase());
+				String reminder = String.format("%s in the %s", capitalize(s.getExercise().getFormPresent()), s.getTime().getTime().toLowerCase());
 				
 				s.setMessage(message);
 				s.setReminder(reminder);

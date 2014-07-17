@@ -33,6 +33,7 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 	private QuestionResponseListener backListener;
 	private boolean backEnabled = false;
 	private boolean isLast = false;
+	private boolean social = false;
 	
 	
 	private OptionQuestionModel question;
@@ -61,6 +62,10 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 	public void setLast(boolean last){
 		isLast = last;
 	}
+	
+	public void setShowSocial(boolean show){
+		social = show;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +80,14 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		
 		next = (Button)rootView.findViewById(R.id.nextButton);
 		back = (Button)rootView.findViewById(R.id.backButton);
+		
+		Button suggest = (Button)rootView.findViewById(R.id.suggest);
+		Button comm = (Button)rootView.findViewById(R.id.community);
+		
+		if(!social){
+			suggest.setVisibility(View.GONE);
+			comm.setVisibility(View.GONE);
+		} 
 		
 		next.setOnClickListener(new View.OnClickListener() {			
 			@Override
