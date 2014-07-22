@@ -7,7 +7,12 @@ import edu.wpi.smartcoach.model.TimeQuestionModel;
 
 public abstract class QuestionFragment extends Fragment {
 
-	public static QuestionFragment createQuestion(QuestionModel q){
+	public static QuestionFragment createQuestion(QuestionModel q, boolean solution){
+		
+		if(solution){
+			return new SolutionFragment().setQuestion((OptionQuestionModel)q);
+		}
+		
 		if (q.getId().equals("exercises_week_grid")){
 			return new WeekGridQuestionFragment().setQuestion((OptionQuestionModel)q);			
 		} else if(q instanceof OptionQuestionModel){

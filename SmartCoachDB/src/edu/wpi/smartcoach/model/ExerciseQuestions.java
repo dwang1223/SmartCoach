@@ -142,7 +142,7 @@ public class ExerciseQuestions {
 			newOptions.add(new Option(option.getId(), formatted));
 		}
 		
-		OptionQuestionModel newModel = new OptionQuestionModel(q.getId(), q.getTitle(), newPrompt, newOptions, q.getType(), q.isSorted(), false);	
+		OptionQuestionModel newModel = new OptionQuestionModel(q.getId(), q.getTitle(), newPrompt, newOptions, q.getType(), q.isSorted(), q.isSearchable());	
 		
 		return newModel;
 	}

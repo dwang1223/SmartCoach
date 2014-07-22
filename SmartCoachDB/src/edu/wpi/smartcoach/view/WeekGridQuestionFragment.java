@@ -71,6 +71,8 @@ public class WeekGridQuestionFragment extends QuestionFragment implements Respon
 		next = (Button)rootView.findViewById(R.id.nextButton);
 		back = (Button)rootView.findViewById(R.id.backButton);
 		
+			rootView.findViewById(R.id.search).setVisibility(View.GONE );
+		
 		next.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {

@@ -1,5 +1,7 @@
 package edu.wpi.smartcoach.model.exercise;
 
+import edu.wpi.smartcoach.model.Solution;
+
 
 /**
  * A solution to the problems identified during problem solving sessions.
@@ -7,8 +9,8 @@ package edu.wpi.smartcoach.model.exercise;
  * @author akshay
  *
  */
-public class ExerciseSolution {
-	
+public class ExerciseSolution extends Solution {
+			
 	private Exercise exercise;
 	private ExerciseLocation location;
 	private ExerciseTime time;
@@ -17,7 +19,6 @@ public class ExerciseSolution {
 	private int frequency;
 	private int duration;
 	
-	private String message;
 	private String reminder;
 	
 	private long timeStamp;
@@ -26,7 +27,7 @@ public class ExerciseSolution {
 	 * Default Constructor
 	 */
 	public ExerciseSolution(){
-
+		super(0, "");
 	}
 	
 	/**
@@ -39,16 +40,16 @@ public class ExerciseSolution {
 	 * @param message The message to show to the user
 	 * @param timeStamp When this object was created
 	 */
-	public ExerciseSolution(Exercise exercise, ExerciseLocation location,
+	public ExerciseSolution(int type, Exercise exercise, ExerciseLocation location,
 			ExerciseTime time, int frequency, int duration, String message,String reminder,
 			long timeStamp) {
-		this();
+		super(type, message);
+		
 		this.exercise = exercise;
 		this.location = location;
 		this.time = time;
 		this.frequency = frequency;
 		this.duration = duration;
-		this.message = message;
 		this.reminder = reminder;
 		this.timeStamp = timeStamp;
 	}
@@ -59,7 +60,7 @@ public class ExerciseSolution {
 	 * @param state
 	 */
 	public ExerciseSolution(ExerciseState state){
-		this(state.getExercise(),
+		this(0, state.getExercise(),
 			state.getLocation(),
 			state.getTime(),
 			state.getFrequency(),
@@ -139,9 +140,5 @@ public class ExerciseSolution {
 	public void setTimeStamp(long timeStamp) {
 		this.timeStamp = timeStamp;
 	}	
-	
-	@Override
-	public String toString(){
-		return message;
-	}
+
 }

@@ -52,7 +52,7 @@ public class SetReminderFragment extends Fragment {
 			}
 		}
 		s = s.substring(0, s.length()-1);
-		s+="#";
+		s+=" #";
 		
 		int hour = time.getCurrentHour();
 		String ampm = hour>12?"PM":"AM";

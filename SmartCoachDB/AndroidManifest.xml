@@ -61,7 +61,7 @@
             android:label="@string/title_activity_set_reminder" >
         </activity>
         <activity
-            android:name="edu.wpi.smartcoach.ShowRemindersActivity"
+            android:name="edu.wpi.smartcoach.activity.ShowRemindersActivity"
             android:label="@string/title_activity_show_reminders" >
         </activity>
     </application>

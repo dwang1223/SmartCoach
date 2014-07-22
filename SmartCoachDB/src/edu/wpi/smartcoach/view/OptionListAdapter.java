@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ public class OptionListAdapter extends BaseAdapter {
 
 	private Context context;
 
-	private OptionQuestionModel question;
+	protected OptionQuestionModel question;
 	
 	private ResponseChangedListener responseListener;
 	
@@ -120,7 +121,13 @@ public class OptionListAdapter extends BaseAdapter {
 				}
 			}
 		}
-		notifyDataSetChanged();
+	}
+	
+	@Override
+	public void notifyDataSetChanged(){
+		Log.d(TAG, "change");
+		setFilter(null);
+		super.notifyDataSetChanged();
 	}
 
 }

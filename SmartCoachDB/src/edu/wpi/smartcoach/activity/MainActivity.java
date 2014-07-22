@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.ShowRemindersActivity;
 import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.util.DatabaseHelper;
 

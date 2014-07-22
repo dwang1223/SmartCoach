@@ -1,5 +1,8 @@
-package edu.wpi.smartcoach;
+package edu.wpi.smartcoach.activity;
 
+import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.R.id;
+import edu.wpi.smartcoach.R.layout;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;

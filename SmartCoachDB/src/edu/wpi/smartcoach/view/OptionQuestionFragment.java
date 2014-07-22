@@ -3,6 +3,7 @@ package edu.wpi.smartcoach.view;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,9 +34,10 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 	private QuestionResponseListener backListener;
 	private boolean backEnabled = false;
 	private boolean isLast = false;
+	private boolean social = false;
+	private int layout = R.layout.fragment_question;
 	
-	
-	private OptionQuestionModel question;
+	protected OptionQuestionModel question;
 
 	public OptionQuestionFragment() {}
 	
@@ -61,11 +63,19 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 	public void setLast(boolean last){
 		isLast = last;
 	}
+	
+	public void setShowSocial(boolean show){
+		social = show;
+	}
+	
+	protected void setLayout(int layout){
+		this.layout = layout;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_question, null);
+		View rootView = inflater.inflate(layout, null);
 		
 		questionView = (TextView)rootView.findViewById(R.id.questionText);
 		optionListView = (ListView)rootView.findViewById(R.id.optionList);
@@ -75,7 +85,7 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		
 		next = (Button)rootView.findViewById(R.id.nextButton);
 		back = (Button)rootView.findViewById(R.id.backButton);
-		
+				
 		next.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
@@ -116,33 +126,38 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 			next.setText("Finish");
 		}
 		
-		if(question.isSearchable()){
-			search.setVisibility(View.VISIBLE);
-		} else {
-			search.setVisibility(View.GONE);
-		}
-		
-		search.addTextChangedListener(new TextWatcher() {
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {				
+		if(search != null){
+			if(question.isSearchable()){
+				Log.d(TAG, "showing search");
+				search.setVisibility(View.VISIBLE);
+			} else {
+				Log.d(TAG, "hiding search");
+				search.setVisibility(View.GONE);
 			}
 			
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				// TODO Auto-generated method stub
+			search.addTextChangedListener(new TextWatcher() {
 				
-			}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				try{
-					adapter.setFilter(s.toString());
-				}catch(Exception e){
-					e.printStackTrace();
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {				
 				}
-			}
-		});
+				
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void afterTextChanged(Editable s) {
+					try{
+						adapter.setFilter(s.toString());
+						adapter.notifyDataSetChanged();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+			});
+		}
 		
 		adapter = new OptionListAdapter(getActivity(), question);
 		optionListView.setAdapter(adapter);

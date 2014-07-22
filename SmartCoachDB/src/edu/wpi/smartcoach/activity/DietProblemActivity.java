@@ -58,7 +58,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 			nextQuestion = solver.getSolution(getBaseContext());
 			solved = true;
 		}
-		questionFragment = new OptionQuestionFragment();
+		questionFragment = (OptionQuestionFragment)QuestionFragment.createQuestion(nextQuestion, solved);
 		questionFragment.setQuestion((OptionQuestionModel)nextQuestion);
 		questionFragment.setNextButtonListener(this);
 		questionFragment.setBackButtonListener(new QuestionResponseListener() {
@@ -78,7 +78,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 		solver.back();
 		QuestionModel newQuestion = solver.getNextQuestion();
 		
-		QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
+		QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion, solved);
 		questionFragment.setNextButtonListener(this);
 		questionFragment.setBackButtonListener(new QuestionResponseListener() {
 			
