@@ -1,5 +1,6 @@
 package edu.wpi.smartcoach.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import edu.wpi.smartcoach.R;
@@ -37,6 +38,11 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 	public void responseEntered(QuestionModel question) {
 		
 		if(solved){
+			OptionQuestionModel sln = (OptionQuestionModel)question;
+			String[] reminder = sln.getSelectedValues().toArray(new String[]{});
+			Intent intent = new Intent(this, SetReminderActivity.class);
+			intent.putExtra("reminder", reminder);
+			startActivity(intent);
 			finish();
 			return;
 		}
