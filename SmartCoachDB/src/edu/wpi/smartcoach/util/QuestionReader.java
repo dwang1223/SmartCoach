@@ -12,6 +12,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import android.content.Context;
+import android.util.Log;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
@@ -152,7 +153,7 @@ public class QuestionReader {
 				
 			}
 		}
-		
+		Log.d(TAG, id+" search > "+search);
 		return new OptionQuestionModel(id, title, prompt, options, type, sort, search);
 	}
 

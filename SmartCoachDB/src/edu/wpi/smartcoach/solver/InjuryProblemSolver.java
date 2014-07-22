@@ -1,12 +1,19 @@
 package edu.wpi.smartcoach.solver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
+import edu.wpi.smartcoach.model.exercise.Equipment;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.util.QuestionReader;
 import edu.wpi.smartcoach.view.Option;
 
 public class InjuryProblemSolver implements ProblemSolver {
@@ -23,20 +30,40 @@ public class InjuryProblemSolver implements ProblemSolver {
 	private boolean hasConsultedTherapist = false;
 	private boolean finished = false;
 	
-	private Stack<QuestionModel> backStack;
+	private Stack<OptionQuestionModel> backStack;
 	
-	
+	private HashMap<String, QuestionModel> questions;
 	
 	QuestionModel nextQuestion;
 	
 	public InjuryProblemSolver(Context context){
 		this.context = context;		
 		
-		backStack = new Stack<QuestionModel>();
+		backStack = new Stack<OptionQuestionModel>();
 		
-		qGymMembership = InjuryQuestionBuilder.getGymMembershipQuestion(context);
-		qTherapist = InjuryQuestionBuilder.getPhysicalTherapistQuestion();
-		qFollowedTherapist = InjuryQuestionBuilder.getFollowedTherapistQuestion();
+		List<QuestionModel> qList = QuestionReader.readQuestions(R.raw.injury_questions, context);
+		questions = new HashMap<String, QuestionModel>();
+		
+		for(QuestionModel q:qList){
+			questions.put(q.getId(), q);
+		}
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		
+		boolean hadMembership = false;
+		String[] equipment = prefs.getString("profile_exercise_equip", "").split(",");
+		
+		for(String eq:equipment){
+			try{
+				if(Integer.parseInt(eq) == Equipment.ID_GYM_MEMBERSHIP){
+					hadMembership = true;
+				}
+			} catch(Exception e){}
+		}
+		
+		qGymMembership = (OptionQuestionModel)questions.get(hadMembership?"hasgymstill":"hasgym");
+		qTherapist = (OptionQuestionModel)questions.get("haspt");
+		qFollowedTherapist = (OptionQuestionModel)questions.get("followpt");
 		
 		nextQuestion = qGymMembership;
 		
@@ -49,22 +76,22 @@ public class InjuryProblemSolver implements ProblemSolver {
 
 	@Override
 	public void submitResponse(QuestionModel responseQuestion) {
-//		OptionQuestionModel response = (OptionQuestionModel)responseQuestion;
-//		backStack.push(response);
-//		if(response == qGymMembership){
-//			hasGymMembership = response.getSelectedOpt().getId() == SimpleOption.YES;
-//			nextQuestion = qTherapist;
-//		} else if (response == qTherapist){
-//			hasPhysicalTherapist = response.getSelectedResponse().getId() == SimpleOption.YES;
-//			if(hasPhysicalTherapist){
-//				nextQuestion = qFollowedTherapist;
-//			} else {
-//				finished = true;
-//			}
-//		} else if (response == qFollowedTherapist){
-//			hasConsultedTherapist = response.getSelectedResponse().getId() == SimpleOption.YES;
-//			finished = true;
-//		}
+		boolean response = ((OptionQuestionModel)responseQuestion).getSelectedOption().getId().equals("yes");
+		backStack.push((OptionQuestionModel)responseQuestion);
+		if(responseQuestion == qGymMembership){
+			hasGymMembership = response;
+			nextQuestion = qTherapist;
+		} else if (responseQuestion == qTherapist){
+			hasPhysicalTherapist = response;
+			if(hasPhysicalTherapist){
+				nextQuestion = qFollowedTherapist;
+			} else {
+				finished = true;
+			}
+		} else if (responseQuestion == qFollowedTherapist){
+			hasConsultedTherapist = response;
+			finished = true;
+		}
 		
 	}
 	

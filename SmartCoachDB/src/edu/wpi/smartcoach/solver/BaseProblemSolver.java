@@ -96,7 +96,7 @@ public class BaseProblemSolver implements ProblemSolver {
 		}
 	}
 	
-	private void addStateQuestions(ExerciseState state, boolean weekend){
+	protected void addStateQuestions(ExerciseState state, boolean weekend){
 		OptionQuestionModel location = ExerciseQuestions.getInstance().getOptionQuestion("exercise_location");
 		OptionQuestionModel time = ExerciseQuestions.getInstance().getOptionQuestion("exercise_time");
 		OptionQuestionModel frequency = ExerciseQuestions.getInstance().getOptionQuestion("exercise_frequency");

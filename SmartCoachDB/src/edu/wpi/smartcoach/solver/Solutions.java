@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import edu.wpi.smartcoach.model.ExerciseQuestions;
+import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.model.exercise.Equipment;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
@@ -375,7 +376,7 @@ public class Solutions {
 		if(newExercise != null){
 
 			reminder = newExercise.getFormPresent();
-			ExerciseSolution solution = new ExerciseSolution(newExercise, null, null, 2, 30, message, reminder, 0);
+			ExerciseSolution solution = new ExerciseSolution(Solution.TYPE_DEFAULT, newExercise, null, null, 2, 30, message, reminder, 0);
 			
 			solutionList.add(solution);
 		}

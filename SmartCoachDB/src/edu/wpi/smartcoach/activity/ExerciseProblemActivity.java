@@ -68,13 +68,17 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 				List<Object> responses = solution.getSelectedValues();
 				HashMap<Exercise, String> combine = new HashMap<Exercise, String>();
 				for(int i = 0; i < responses.size(); i++){
-					ExerciseSolution es = (ExerciseSolution)responses.get(i);
-					String reminder = combine.get(es.getExercise());
-					if(reminder == null){
-						reminder = "";
+					if(responses.get(i) instanceof ExerciseSolution){
+						ExerciseSolution es = (ExerciseSolution)responses.get(i);
+						String reminder = combine.get(es.getExercise());
+						if(reminder == null){
+							reminder = "";
+						}
+						reminder += " "+es.getReminder();
+						combine.put(es.getExercise(), reminder);
+					} else {
+						combine.put(new Exercise(), responses.get(i).toString());
 					}
-					reminder += " "+es.getReminder();
-					combine.put(es.getExercise(), reminder);
 				}
 				
 				String[] reminders = combine.values().toArray(new String[]{});
@@ -111,7 +115,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		}
 		
 		if(newQuestion != null){
-			QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
+			QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion, solutionRetrieved);
 			questionFragment.setNextButtonListener(this);
 			questionFragment.setBackButtonListener(new QuestionResponseListener() {
 				
@@ -134,7 +138,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		solver.back();
 		QuestionModel newQuestion = solver.getNextQuestion();
 		
-		QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
+		QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion, solutionRetrieved);
 		questionFragment.setNextButtonListener(this);
 		questionFragment.setBackButtonListener(new QuestionResponseListener() {
 			

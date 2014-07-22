@@ -22,7 +22,7 @@ public class OptionQuestionModel implements QuestionModel{
 	private String id;
 	private String title;
 	private String prompt;
-	private List<Option> options;
+	public List<Option> options;
 	private Option defaultResponse = null;
 	
 	private boolean searchable = false;

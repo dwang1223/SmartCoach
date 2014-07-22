@@ -39,6 +39,9 @@ public class ExerciseToLocationService {
 		} finally {
 			cursor.close();
 		}
+		if(locationList.isEmpty()){
+			return ExerciseLocationService.getInstance().getAllDataFromTable();
+		}
 		return locationList;
 	}
 }

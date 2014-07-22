@@ -81,26 +81,4 @@
         android:ems="10"
         android:hint="Search" />
 
-    <Button
-        android:id="@+id/suggest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/optionList"
-        android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/nextButton"
-        android:background="@drawable/bg_card_button_social"
-        android:text="Community"
-        android:textColor="#ffffff" />
-
-    <Button
-        android:id="@+id/community"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/optionList"
-        android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/suggest"
-        android:background="@drawable/bg_card_button_social"
-        android:text="Suggest"
-        android:textColor="#ffffff" />
-
 </RelativeLayout>
