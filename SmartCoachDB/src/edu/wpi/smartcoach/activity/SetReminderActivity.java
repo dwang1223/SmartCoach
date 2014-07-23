@@ -29,7 +29,7 @@ public class SetReminderActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		setTitle("Set Reminders");
+		setTitle("SmartCoach Set Reminders");
 		
 		reminders = getIntent().getExtras().getStringArray("reminder");
 		

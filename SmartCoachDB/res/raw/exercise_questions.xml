@@ -10,7 +10,11 @@
         <option id="motivation">I find it hard to get started</option>
         <option id="boredom">I get bored while exercising</option>
         <option id="injury">I have an injury that prevents me from exercising</option>
+        <option id="tired"> I am too tired to exercise</option>
+        <option id="weather">The weather gets in the way of exercising</option>
     </question>
+    
+    
 
     <question
         id="exercises"
@@ -23,6 +27,16 @@
         id="exercises_week_grid"
         type="week_grid">
         <q>When do you do the following exercises?</q>
+    </question>
+    
+    <question
+        id="weather"
+        type="single"
+        >
+        <q>What is the problem with the weather?</q>
+        <option id="hot">Too hot</option>
+        <option id="cold">Too Cold</option>
+        <option id="rain">Precipitation (rain, snow)</option>
     </question>
     
     <question

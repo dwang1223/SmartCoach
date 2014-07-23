@@ -28,6 +28,8 @@ public class BoredomProblemSolver extends BaseProblemSolver{
 		questions.add(new QuestionStateEntry(like, state, weekend));
 	}
 	
+	
+	
 	@Override
 	public QuestionModel getSolution(Context ctx) {
 		List<ExerciseSolution> solutions = Solutions.getBoredomSolutions(states, ctx);

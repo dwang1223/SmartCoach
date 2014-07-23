@@ -23,7 +23,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_exercise_problem);
-		setTitle("Problem Solving");
+		setTitle("SmartCoach Problem Solving");
 		
 		solver = DialogScriptReader.readScript(getResources().openRawResource(R.raw.diet));
 		questionFragment = new OptionQuestionFragment();

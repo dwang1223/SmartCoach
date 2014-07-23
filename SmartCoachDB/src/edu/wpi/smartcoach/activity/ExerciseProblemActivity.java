@@ -19,6 +19,8 @@ import edu.wpi.smartcoach.solver.InjuryProblemSolver;
 import edu.wpi.smartcoach.solver.MotivationProblemSolver;
 import edu.wpi.smartcoach.solver.ProblemSolver;
 import edu.wpi.smartcoach.solver.TimeProblemSolver;
+import edu.wpi.smartcoach.solver.TiredProblemSolver;
+import edu.wpi.smartcoach.solver.WeatherProblemSolver;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
@@ -40,7 +42,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_exercise_problem);
-		setTitle("Problem Solving");
+		setTitle("SmartCoach Problem Solving");
 		questionFragment = new OptionQuestionFragment();
 		questionFragment.setQuestion((OptionQuestionModel)ExerciseQuestions.getInstance().getRawQuestion("problem_base"));
 		questionFragment.setNextButtonListener(this);
@@ -164,6 +166,10 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 			solver = new BoredomProblemSolver();
 		} else if (problem.equals("injury")){
 			solver = new InjuryProblemSolver(getBaseContext());
+		} else if (problem.equals("tired")){
+			solver = new TiredProblemSolver();
+		} else if (problem.equals("weather")){
+			solver = new WeatherProblemSolver();
 		}
 		
 		return solver;

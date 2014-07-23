@@ -19,7 +19,7 @@ public class ShowRemindersActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle("Reminders");
+		setTitle("SmartCoach Reminders");
 		setContentView(R.layout.activity_show_reminders);
 		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);

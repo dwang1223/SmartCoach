@@ -39,7 +39,7 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registration);
 		
-		setTitle("Registration");
+		setTitle("SmartCoach Registration");
 		
 		if(getIntent().getExtras() != null){
 			editing = getIntent().getExtras().getBoolean("edit", false);

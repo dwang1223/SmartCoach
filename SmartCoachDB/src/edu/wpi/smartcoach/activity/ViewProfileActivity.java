@@ -31,6 +31,8 @@ public class ViewProfileActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_profile);
 
+		setTitle("SmartCoach Profile");
+		
 		name = (TextView)findViewById(R.id.name);
 		gender = (TextView)findViewById(R.id.gender);
 		birthdate = (TextView)findViewById(R.id.birthdate);

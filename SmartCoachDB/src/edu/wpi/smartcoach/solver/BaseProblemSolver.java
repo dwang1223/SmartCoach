@@ -55,37 +55,40 @@ public class BaseProblemSolver implements ProblemSolver {
 
 	@Override
 	public void submitResponse(QuestionModel response) {
-		String id = response.getId();
 		
-		if(id.equals("exercises")){
-			List<Object> selected = ((OptionQuestionModel)response).getSelectedValues();
-			List<Option> options = new ArrayList<Option>();
-			for(Object ob:selected){
-				if(ob instanceof Exercise){
-					ExerciseState newState = new ExerciseState();
-					newState.setExercise((Exercise)ob);
-					states.add(newState);
-					options.add(new Option(newState.getExercise().getName(), newState));
+		if(response != null){
+			String id = response.getId();
+			
+			if(id.equals("exercises")){
+				List<Object> selected = ((OptionQuestionModel)response).getSelectedValues();
+				List<Option> options = new ArrayList<Option>();
+				for(Object ob:selected){
+					if(ob instanceof Exercise){
+						ExerciseState newState = new ExerciseState();
+						newState.setExercise((Exercise)ob);
+						states.add(newState);
+						options.add(new Option(newState.getExercise().getName(), newState));
+					}
 				}
-			}
-			weekQuestion.setOptions(options);
-		} else if(id.equals("exercises_week_grid")){
-			
-			while(questions.size() > questions.indexOf(current)+1){
-				questions.remove(questions.indexOf(current)+1);
-			}
-			
-			for(ExerciseState state:states){
-				if(state.isOnWeekdays()){
-					addStateQuestions(state, false);
+				weekQuestion.setOptions(options);
+			} else if(id.equals("exercises_week_grid")){
+				
+				while(questions.size() > questions.indexOf(current)+1){
+					questions.remove(questions.indexOf(current)+1);
 				}
 				
-				if(state.isOnWeekends()){
-					addStateQuestions(state, true);
+				for(ExerciseState state:states){
+					if(state.isOnWeekdays()){
+						addStateQuestions(state, false);
+					}
+					
+					if(state.isOnWeekends()){
+						addStateQuestions(state, true);
+					}
 				}
+			} else {
+				ExerciseQuestions.getInstance().doResponse(response, current.getState(), current.isWeekend());
 			}
-		} else {
-			ExerciseQuestions.getInstance().doResponse(response, current.getState(), current.isWeekend());
 		}
 		
 		int nextIndex = questions.indexOf(current)+1;

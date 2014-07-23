@@ -36,7 +36,7 @@ public class ProfileActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		setTitle("Profile Information");
+		setTitle("SmartCoach Profile Information");
 		
 		questions = new ArrayList<OptionQuestionModel>();
 		List<QuestionModel> read = QuestionReader.readQuestions(R.raw.profile_questions, getBaseContext());
