@@ -46,11 +46,23 @@
         android:textColor="#777777"
         android:textStyle="italic" />
 
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/time"
+        android:layout_below="@+id/time"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="38dp" >
+
+    </ScrollView>
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/reminderText"
+        android:layout_alignBottom="@+id/finish"
+        android:layout_alignLeft="@+id/exercise"
         android:layout_below="@+id/exercise"
         android:orientation="vertical" >
 
