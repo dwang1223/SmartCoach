@@ -60,7 +60,7 @@ public class SetReminderFragment extends Fragment {
 		
 		int hour = time.getCurrentHour();
 		String ampm = hour>12?"PM":"AM";
-		s += (time.getCurrentHour()%12)+":"+time.getCurrentMinute();
+		s += (time.getCurrentHour()%12)+":"+String.format("%02d",time.getCurrentMinute());
 		return s;
 	}
 

@@ -67,7 +67,9 @@
         </activity>
         <activity
             android:name="edu.wpi.smartcoach.activity.ShowRemindersActivity"
-            android:label="@string/title_activity_show_reminders" >
+            android:label="@string/title_activity_show_reminders" 
+            
+            android:parentActivityName="edu.wpi.smartcoach.activity.MainActivity">
         </activity>
     </application>
 

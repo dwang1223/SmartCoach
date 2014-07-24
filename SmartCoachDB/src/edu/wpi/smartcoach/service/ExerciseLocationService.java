@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.database.Cursor;
+import android.util.Log;
 import edu.wpi.smartcoach.db.column.ExerciseLocationColumns;
 import edu.wpi.smartcoach.model.exercise.ExerciseLocation;
 import edu.wpi.smartcoach.util.DatabaseHelper;
 
 public class ExerciseLocationService {
-
+	private static final String TAG = ExerciseLocationService.class.getSimpleName();
 	private static ExerciseLocationService mExerciseLocationService = null;
 	
 	public static ExerciseLocationService getInstance(){
@@ -34,6 +35,7 @@ public class ExerciseLocationService {
 				location.setSpecificLocation(cursor.getString(1));
 				location.setLocationType(cursor.getString(2));
 				location.setPreposition(cursor.getString(3));
+				Log.d(TAG, location.getSpecificLocation()+"->"+location.getPreposition());
 				locationList.add(location);
 				cursor.moveToNext();
 			}

@@ -1,9 +1,9 @@
 package edu.wpi.smartcoach.view;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -79,6 +79,10 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		
 		questionView = (TextView)rootView.findViewById(R.id.questionText);
 		optionListView = (ListView)rootView.findViewById(R.id.optionList);
+		
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//		    optionListView.setFastScrollAlwaysVisible(true);
+//		}
 		
 		instructions = (TextView)rootView.findViewById(R.id.instructions);
 		search = (TextView)rootView.findViewById(R.id.search);

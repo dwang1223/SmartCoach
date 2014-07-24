@@ -17,8 +17,11 @@ public class TiredProblemSolver extends BaseProblemSolver {
 	public QuestionModel getSolution(Context ctx) {
 		
 		ArrayList<Solution> solutions = new ArrayList<Solution>();
-
-		solutions.addAll(Solutions.getNewTimeSolutions(states, ctx));
+		try{
+			solutions.addAll(Solutions.getNewTimeSolutions(states, ctx));
+		}catch(Exception e){
+			
+		}
 		
 		solutions.add(new Solution("Download an app such as MyFitnessPal to track your exercises."));
 		solutions.add(new Solution("Start by finding just 1 day that you can exercise over the next week for 10 minutes."));

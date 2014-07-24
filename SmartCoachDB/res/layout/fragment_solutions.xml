@@ -85,7 +85,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/bg_card_button_social"
-            android:text="Community"
+            android:text="Ask Community"
             android:textColor="#ffffff" />
 
         <Button

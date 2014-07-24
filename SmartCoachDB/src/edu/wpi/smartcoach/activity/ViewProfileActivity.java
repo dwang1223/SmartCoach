@@ -101,6 +101,6 @@ public class ViewProfileActivity extends Activity {
 		String heightStr = String.format("%d\' %d\"", (int)metrics.getHeight()/12, (int)metrics.getHeight()%12);
 		height.setText(heightStr);
 		weight.setText((int)(metrics.getWeight())+" lbs");
-		goal.setText((int)(metrics.getGoalWeight())+"");
+		goal.setText((int)(metrics.getGoalWeight())+" lbs");
 	}
 }
