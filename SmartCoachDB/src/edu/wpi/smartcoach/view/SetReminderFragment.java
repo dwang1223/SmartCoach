@@ -46,12 +46,16 @@ public class SetReminderFragment extends Fragment {
 	public String getSaveString(){
 		String s = reminder;
 		s += "#";
+		boolean dayChecked = false;
 		for(int i = 0; i < days.length; i++){
 			if(dayButtons[i].isChecked()){
 				s += days[i]+",";
+				dayChecked = true;
 			}
 		}
-		s = s.substring(0, s.length()-1);
+		if(dayChecked){
+			s = s.substring(0, s.length()-1);
+		}
 		s+=" #";
 		
 		int hour = time.getCurrentHour();
@@ -72,7 +76,7 @@ public class SetReminderFragment extends Fragment {
 			dayButtons[i] = (ToggleButton)root.findViewById(getActivity().getResources().getIdentifier(days[i], "id", "edu.wpi.smartcoach"));
 		}
 		
-		if (position != total - 1) {
+		if (position != total - 1) { 
 			finish.setText("Next");
 		}
 		finish.setOnClickListener(new OnClickListener() {

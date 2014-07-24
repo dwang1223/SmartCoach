@@ -43,12 +43,18 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_exercise_problem);
 		setTitle("SmartCoach Problem Solving");
+		showBaseProblemQuestion();
+		
+	}
+	
+	private void showBaseProblemQuestion(){
 		questionFragment = new OptionQuestionFragment();
 		questionFragment.setQuestion((OptionQuestionModel)ExerciseQuestions.getInstance().getRawQuestion("problem_base"));
 		questionFragment.setNextButtonListener(this);
 		questionFragment.setBackEnabled(false);
-		getSupportFragmentManager().beginTransaction().add(R.id.container, questionFragment).commit();
+		getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();
 		
+		solver = null;
 	}
 
 	
@@ -63,11 +69,13 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	public void responseEntered(QuestionModel q) {;
 		Log.d(TAG, "responseEntered "+q.toString());
 		
-		if(solutionRetrieved){
+		if(solutionRetrieved){ 
+			
 			OptionQuestionModel solution = (OptionQuestionModel)q;
 			if(solution.getSelectedValues().size() != 0 && !solution.getSelectedOption().getId().equals(OptionQuestionModel.DEFAULT)){
 				Intent intent = new Intent(getBaseContext(), SetReminderActivity.class);
 				List<Object> responses = solution.getSelectedValues();
+				Log.d(TAG, responses.toString());
 				HashMap<Exercise, String> combine = new HashMap<Exercise, String>();
 				for(int i = 0; i < responses.size(); i++){
 					if(responses.get(i) instanceof ExerciseSolution){
@@ -119,14 +127,20 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		if(newQuestion != null){
 			QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion, solutionRetrieved);
 			questionFragment.setNextButtonListener(this);
+			final boolean first =  solver.isFirstQuestion();
 			questionFragment.setBackButtonListener(new QuestionResponseListener() {
 				
 				@Override
 				public void responseEntered(QuestionModel question) {
-					navigateBack();
+					if(first){
+						showBaseProblemQuestion();
+							
+					} else {
+						navigateBack();
+					}
 				}
 			});
-			questionFragment.setBackEnabled(!solutionRetrieved && solver.isBackAllowed());
+			questionFragment.setBackEnabled(first || (!solutionRetrieved && solver.isBackAllowed()));
 			questionFragment.setLast(solutionRetrieved);
 			if(solutionRetrieved){
 				((OptionQuestionFragment)questionFragment).setShowSocial(true);

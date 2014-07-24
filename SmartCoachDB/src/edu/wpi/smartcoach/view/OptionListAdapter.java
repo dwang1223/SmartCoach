@@ -122,12 +122,6 @@ public class OptionListAdapter extends BaseAdapter {
 			}
 		}
 	}
-	
-	@Override
-	public void notifyDataSetChanged(){
-		Log.d(TAG, "change");
-		setFilter(null);
-		super.notifyDataSetChanged();
-	}
+
 
 }

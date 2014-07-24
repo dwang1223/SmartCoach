@@ -8,6 +8,10 @@ public class Solution {
 	protected int type;
 	protected String message;
 	
+	public Solution(String message){
+		this(TYPE_DEFAULT, message);
+	}
+	
 	public Solution(int type, String message){
 		this.type = type;
 		this.message = message;

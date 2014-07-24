@@ -1,8 +1,9 @@
 package edu.wpi.smartcoach.activity;
 
-import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.R.id;
-import edu.wpi.smartcoach.R.layout;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,9 +14,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import edu.wpi.smartcoach.R;
 
 public class ShowRemindersActivity extends Activity {
 
+	private static final String TAG = ShowRemindersActivity.class.getSimpleName();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,17 +26,18 @@ public class ShowRemindersActivity extends Activity {
 		setContentView(R.layout.activity_show_reminders);
 		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		String reminders = prefs.getString("reminders", "");
-		
-		final String[] reminder = reminders.split("\\|");
-		final boolean empty;
-		if(reminder[0].split("#").length == 0){
-			empty = true;
-		} else {
-			empty = false;
-		}
+		Set<String> rSet = prefs.getStringSet("reminders", new HashSet<String>());
+
+		final ArrayList<String> reminders = new ArrayList<String>();
+		reminders.addAll(rSet);
 		
 		ListView list = (ListView)findViewById(R.id.list);
+		
+		if(reminders.size() == 0){
+			TextView emptyHeader = new TextView(this);
+			emptyHeader.setText("No current reminders");
+			list.addHeaderView(emptyHeader);
+		}
 		
 		list.setAdapter(new BaseAdapter() {
 			
@@ -44,6 +48,8 @@ public class ShowRemindersActivity extends Activity {
 					LayoutInflater inflater = LayoutInflater.from(getBaseContext());
 					view = inflater.inflate(R.layout.item_reminder, null);					
 				}
+				
+				SharedPreferences prefs;
 				
 				TextView reminder =(TextView) view.findViewById(R.id.reminder);
 				TextView days = (TextView)view.findViewById(R.id.days);
@@ -65,15 +71,12 @@ public class ShowRemindersActivity extends Activity {
 			
 			@Override
 			public String getItem(int position) {
-				return reminder[position];
+				return reminders.get(position);
 			}
 			
 			@Override
 			public int getCount() {
-				if(empty){
-					return 0;
-				}
-				return reminder.length;
+				return reminders.size();
 			}
 		});
 		

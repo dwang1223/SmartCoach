@@ -42,8 +42,9 @@ public class SolutionFragment extends OptionQuestionFragment {
 					question.options.add(0, new Option("com"+i, new Solution(Solution.TYPE_COMMUNITY, "[Community suggested solution "+(i+1)+"]")));		
 
 				} 
-				
+				adapter.setFilter(null);
 				adapter.notifyDataSetChanged();
+				comm.setEnabled(false);
 				comm.setBackgroundResource(R.drawable.bg_card_disable); 
 				
 			}
@@ -66,6 +67,7 @@ public class SolutionFragment extends OptionQuestionFragment {
 							text = "Your custom solution";
 						}
 						question.options.add(0, new Option("custom"+question.options.size(), new Solution(Solution.TYPE_COMMUNITY, text)));
+						adapter.setFilter(null);
 						adapter.notifyDataSetChanged();
 					}
 

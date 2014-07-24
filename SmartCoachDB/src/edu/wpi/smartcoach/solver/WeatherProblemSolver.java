@@ -31,6 +31,7 @@ public class WeatherProblemSolver extends BaseProblemSolver{
 		OptionQuestionModel weatherQuestion = ExerciseQuestions.getInstance().getOptionQuestion("weather");
 		
 		questions.add(new QuestionStateEntry(weatherQuestion, null, false));
+		customQuestion = 1;
 		Log.d(TAG, questions.toString());
 	}
 	
@@ -40,6 +41,10 @@ public class WeatherProblemSolver extends BaseProblemSolver{
 			String weatherString = ((OptionQuestionModel)response).getSelectedOption().getId();
 			if(weatherString.equals("cold")){
 				weather = WEATHER_COLD;
+			} else if (weatherString.equals("hot")){
+				weather = WEATHER_HOT;
+			} else {
+				weather = WEATHER_RAIN;
 			}
 		}
 		
@@ -63,7 +68,7 @@ public class WeatherProblemSolver extends BaseProblemSolver{
 	
 	@Override
 	public QuestionModel getSolution(Context ctx) {
-		List<ExerciseSolution> solutions = new ArrayList<ExerciseSolution>();
+		List<Solution> solutions = new ArrayList<Solution>();
 
 		
 		solutions.addAll(Solutions.getNewLocationSolutions(new ArrayList<ExerciseState>(), ctx));
@@ -71,9 +76,15 @@ public class WeatherProblemSolver extends BaseProblemSolver{
 		
 		if(weather == WEATHER_COLD){
 			options.add(new Option("warmup", new Solution(Solution.TYPE_DEFAULT, "Try doing some warm ups before going out")));
+		} else if (weather == WEATHER_HOT){
+			
 		}
 		
-		for(ExerciseSolution s:solutions){
+		solutions.add(new Solution("Try to exercise at home when you are watching TV."));
+		solutions.add(new Solution("Find some free videos online to guide your exercise."));
+		solutions.add(new Solution("Get a treadmill to use at home."));
+		
+		for(Solution s:solutions){
 			options.add(new Option(solutions.size()+"", s));
 		}
 				

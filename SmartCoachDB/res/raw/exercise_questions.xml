@@ -35,7 +35,7 @@
         >
         <q>What is the problem with the weather?</q>
         <option id="hot">Too hot</option>
-        <option id="cold">Too Cold</option>
+        <option id="cold">Too cold</option>
         <option id="rain">Precipitation (rain, snow)</option>
     </question>
     

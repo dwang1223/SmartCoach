@@ -38,10 +38,10 @@ public class WeekGridListAdapter extends ArrayAdapter<ExerciseState>{
 		
 		View view = convertView;
 		
-		if(convertView == null){
-			LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-			view = inflater.inflate(R.layout.layout_option_week_grid, null);
-		}
+		
+		LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Service.LAYOUT_INFLATER_SERVICE);
+		view = inflater.inflate(R.layout.layout_option_week_grid, null);
+		
 		
 		TextView exerciseName = (TextView)view.findViewById(R.id.exercise);
 		CheckBox weekdayCheck = (CheckBox)view.findViewById(R.id.weekdays);

@@ -27,6 +27,8 @@ public class BaseProblemSolver implements ProblemSolver {
 
 	private boolean isDone = false;
 	
+	protected int customQuestion = 0;
+	
 	public BaseProblemSolver(){
 		init();
 	}
@@ -73,8 +75,8 @@ public class BaseProblemSolver implements ProblemSolver {
 				weekQuestion.setOptions(options);
 			} else if(id.equals("exercises_week_grid")){
 				
-				while(questions.size() > questions.indexOf(current)+1){
-					questions.remove(questions.indexOf(current)+1);
+				while(questions.size() > questions.indexOf(current)+1+customQuestion){
+					questions.remove(questions.indexOf(current)+1+customQuestion);
 				}
 				
 				for(ExerciseState state:states){
@@ -112,6 +114,11 @@ public class BaseProblemSolver implements ProblemSolver {
 		questions.add(new QuestionStateEntry(duration, state, weekend));
 		questions.add(new QuestionStateEntry(like, state, weekend));
 		
+	}
+	
+	@Override
+	public boolean isFirstQuestion(){
+		return current.getQuestion().getId().equals("exercises");
 	}
 	
 	@Override

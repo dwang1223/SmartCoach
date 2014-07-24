@@ -1,8 +1,11 @@
 package edu.wpi.smartcoach.activity;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -48,16 +51,18 @@ public class SetReminderActivity extends FragmentActivity {
 	}
 	
 	private void doFinish(){
-		String save = "";
+	
+
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		Set<String> reminders = new HashSet<String>();
 		for(int i = 0; i < mSectionsPagerAdapter.getCount(); i++){
 			SetReminderFragment f = (SetReminderFragment)mSectionsPagerAdapter.getItem(i);
-			save += f.getSaveString()+"|";
+			reminders.add(f.getSaveString());
 		}
 		
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		prefs.edit().putString("reminders", save).commit();
+		prefs.edit().putStringSet("reminders", reminders).commit();
 		
-		Toast.makeText(getBaseContext(), reminders.length+" new reminder(s) set.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getBaseContext(), reminders.size()+" new reminder(s) set.", Toast.LENGTH_SHORT).show();
 		finish();
 	}
 

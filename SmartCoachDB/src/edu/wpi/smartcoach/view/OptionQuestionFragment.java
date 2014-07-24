@@ -128,10 +128,8 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		
 		if(search != null){
 			if(question.isSearchable()){
-				Log.d(TAG, "showing search");
 				search.setVisibility(View.VISIBLE);
 			} else {
-				Log.d(TAG, "hiding search");
 				search.setVisibility(View.GONE);
 			}
 			

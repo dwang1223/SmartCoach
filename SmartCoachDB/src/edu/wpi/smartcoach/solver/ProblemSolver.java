@@ -8,6 +8,7 @@ public interface ProblemSolver {
 	public QuestionModel getNextQuestion();
 	public void submitResponse(QuestionModel response);
 
+	public boolean isFirstQuestion();
 	public boolean hasNextQuestion();
 	public boolean isBackAllowed();
 	public void back();

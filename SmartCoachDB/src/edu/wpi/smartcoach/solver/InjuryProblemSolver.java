@@ -101,6 +101,11 @@ public class InjuryProblemSolver implements ProblemSolver {
 	}
 	
 	@Override
+	public boolean isFirstQuestion(){
+		return nextQuestion.getId().startsWith("hasgym");
+	}
+	
+	@Override
 	public boolean isBackAllowed(){
 		return !(nextQuestion == qGymMembership);
 	}

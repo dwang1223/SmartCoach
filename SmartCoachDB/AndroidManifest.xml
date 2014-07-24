@@ -41,12 +41,16 @@
         <activity
             android:name="edu.wpi.smartcoach.activity.ExerciseProblemActivity"
             android:label="@string/title_activity_exercise_problem"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" 
+            
+            android:parentActivityName="edu.wpi.smartcoach.activity.MainActivity">
         </activity>
         <activity
             android:name="edu.wpi.smartcoach.activity.DietProblemActivity"
             android:label="@string/title_activity_exercise_problem"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" 
+            
+            android:parentActivityName="edu.wpi.smartcoach.activity.MainActivity">
         </activity>
         <activity
             android:name="edu.wpi.smartcoach.activity.RegistrationIntroActivity"
@@ -54,7 +58,8 @@
         </activity>
         <activity
             android:name="edu.wpi.smartcoach.activity.ViewProfileActivity"
-            android:label="@string/title_activity_view_profile" >
+            android:label="@string/title_activity_view_profile" 
+            android:parentActivityName="edu.wpi.smartcoach.activity.MainActivity">
         </activity>
         <activity
             android:name="edu.wpi.smartcoach.activity.SetReminderActivity"

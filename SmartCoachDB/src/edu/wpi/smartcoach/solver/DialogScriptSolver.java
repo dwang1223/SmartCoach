@@ -78,12 +78,21 @@ public class DialogScriptSolver implements ProblemSolver {
 		ArrayList<Option> sOptions = new ArrayList<Option>();
 		for(String s:solutions){
 			sOptions.add(new Option(sOptions.size()+"", this.solutions.get(s)));
+			if(this.solutions.get(s) == null){
+				Log.d(TAG, "null ! "+ s);
+			}
 		}
-				
+		
 		return new OptionQuestionModel("solution", "Solutions", "Here are some things you can try:", sOptions, QuestionType.MULTIPLE, true, false);
 		
 	}
 
+	@Override
+	public boolean isFirstQuestion(){
+		return current.getId().equals("START");
+		
+	}
+	
 	@Override
 	public QuestionModel getNextQuestion() {
 		// TODO Auto-generated method stub

@@ -40,9 +40,11 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 		if(solved){
 			OptionQuestionModel sln = (OptionQuestionModel)question;
 			String[] reminder = sln.getSelectedValues().toArray(new String[]{});
-			Intent intent = new Intent(this, SetReminderActivity.class);
-			intent.putExtra("reminder", reminder);
-			startActivity(intent);
+			if(reminder.length > 0){
+				Intent intent = new Intent(this, SetReminderActivity.class);
+				intent.putExtra("reminder", reminder);
+				startActivity(intent);
+			}
 			finish();
 			return;
 		}
