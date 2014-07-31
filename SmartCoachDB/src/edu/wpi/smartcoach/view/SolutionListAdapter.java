@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.activity.SetReminderActivity;
 import edu.wpi.smartcoach.model.Solution;
 
 public class SolutionListAdapter extends BaseAdapter {
@@ -29,7 +32,7 @@ public class SolutionListAdapter extends BaseAdapter {
 	}
 	
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent){
+	public View getView(final int position, View convertView, ViewGroup parent){
 		View view = convertView;
 		
 		if(view == null){
@@ -41,6 +44,17 @@ public class SolutionListAdapter extends BaseAdapter {
 		
 		Button info = (Button)view.findViewById(R.id.info);
 		Button set = (Button)view.findViewById(R.id.set);
+		
+		set.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, SetReminderActivity.class);
+				intent.putExtra("reminder", new String[]{solutions.get(position).toString()});
+				context.startActivity(intent);
+				
+			}
+		});
 		
 		solutionText.setText(solutions.get(position).toString());
 		
