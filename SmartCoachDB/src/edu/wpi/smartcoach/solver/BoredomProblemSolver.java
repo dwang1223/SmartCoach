@@ -34,7 +34,7 @@ public class BoredomProblemSolver extends BaseProblemSolver{
 	
 	
 	@Override
-	public QuestionModel getSolution(Context ctx) {
+	public List<Solution> getSolution(Context ctx) {
 		List<Solution> solutions = new ArrayList<Solution>();
 		solutions.addAll(Solutions.getBoredomSolutions(states, ctx));
 
@@ -48,10 +48,7 @@ public class BoredomProblemSolver extends BaseProblemSolver{
 			options.add(new Option(solutions.size()+"", s));
 		}
 				
-		return new OptionQuestionModel("solutions", "Solutions", 
-				"Try some of these to make exercise a little more interesting",
-				options, 
-				QuestionType.MULTIPLE, false, false);
+		return solutions;
 	}
 
 }

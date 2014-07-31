@@ -16,7 +16,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/bg_card"
         android:padding="10dp"
-        android:text="Large Text"
+        android:text="Here are some things you can try:"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold" />
 
@@ -26,9 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/buttons"
         android:layout_alignLeft="@+id/questionText"
-        android:layout_below="@+id/instructions"
+        android:layout_below="@+id/questionText"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:divider="@null"
         android:fastScrollEnabled="true"
         android:scrollbarAlwaysDrawVerticalTrack="true"
@@ -36,18 +36,6 @@
         tools:listitem="@layout/layout_option" >
 
     </ListView>
-
-    <TextView
-        android:id="@+id/instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/questionText"
-        android:layout_below="@+id/questionText"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:text="Select One:"
-        android:textColor="#777777"
-        android:textStyle="italic" />
 
     <LinearLayout
         android:id="@+id/buttons"
@@ -59,18 +47,9 @@
         android:layout_marginTop="5dp" >
 
         <Button
-            android:id="@+id/backButton"
-            android:layout_width="6dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/bg_card_button"
-            android:textColor="#ffffff" />
-
-        <Button
             android:id="@+id/suggest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/bg_card_button_social"

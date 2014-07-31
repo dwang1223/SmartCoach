@@ -12,6 +12,7 @@ import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.solver.BoredomProblemSolver;
@@ -24,6 +25,7 @@ import edu.wpi.smartcoach.solver.WeatherProblemSolver;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
+import edu.wpi.smartcoach.view.SolutionFragment;
 
 public class ExerciseProblemActivity extends FragmentActivity implements QuestionResponseListener{
 	
@@ -117,15 +119,15 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 				newQuestion = solver.getNextQuestion();
 				Log.d(TAG, "next: "+newQuestion.getId());
 			} else {
-				newQuestion = solver.getSolution(this);
-				
+				List<Solution> solutions = solver.getSolution(getBaseContext());
+				showSolution(solutions);
 				solutionRetrieved = true;
 				Log.d(TAG, "get solution");
 			}
 		}
 		
-		if(newQuestion != null){
-			QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion, solutionRetrieved);
+		if(!solutionRetrieved && newQuestion != null){
+			QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
 			questionFragment.setNextButtonListener(this);
 			final boolean first =  solver.isFirstQuestion();
 			questionFragment.setBackButtonListener(new QuestionResponseListener() {
@@ -150,11 +152,19 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		
 	}
 	
+	private void showSolution(List<Solution> solutions){
+		SolutionFragment solutionFragment = new SolutionFragment();
+		solutionFragment.setSolutions(solutions);
+		solutionFragment.setNextButtonListener(this);
+		getSupportFragmentManager().beginTransaction().replace(R.id.container, solutionFragment).commit();	
+		
+	}
+	
 	private void navigateBack(){
 		solver.back();
 		QuestionModel newQuestion = solver.getNextQuestion();
 		
-		QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion, solutionRetrieved);
+		QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
 		questionFragment.setNextButtonListener(this);
 		questionFragment.setBackButtonListener(new QuestionResponseListener() {
 			

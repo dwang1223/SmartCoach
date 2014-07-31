@@ -1,6 +1,10 @@
 package edu.wpi.smartcoach.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,23 +18,40 @@ import android.widget.ListView;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.Solution;
 
-public class SolutionFragment extends OptionQuestionFragment {
+public class SolutionFragment extends QuestionFragment {
 	
 	private static final String TAG = SolutionFragment.class.getSimpleName();
+	
+	private List<Solution> solutions;
+	
+	private QuestionResponseListener listener;
+	private Button next;
+	
+	
+	public SolutionFragment(){
+		solutions = new ArrayList<Solution>();
+	}
+	
+	public void setSolutions(List<Solution> solutions){
+		this.solutions = solutions;
+	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		setLayout(R.layout.fragment_solutions);
-		View view = super.onCreateView(inflater, container, savedInstanceState);
+			
+		View view = inflater.inflate(R.layout.fragment_solutions, null);
+		
+		next = (Button)view.findViewById(R.id.nextButton);
 		
 		Button suggest = (Button)view.findViewById(R.id.suggest);
 		final Button comm = (Button)view.findViewById(R.id.community);
 		ListView list = (ListView)view.findViewById(R.id.optionList);
 		
-		final SolutionListAdapter adapter = new SolutionListAdapter(getActivity(), question);
+		final SolutionListAdapter adapter = new SolutionListAdapter(getActivity(), solutions);
+		
 		list.setAdapter(adapter);
-		Log.d(TAG, "asdfasdsjfgdfghserb");
+		
 		comm.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -39,10 +60,9 @@ public class SolutionFragment extends OptionQuestionFragment {
 				int amount = 2 + (int)(Math.random()*2);
 				
 				for(int i = amount; i > 0; i--){
-					question.options.add(0, new Option("com"+i, new Solution(Solution.TYPE_COMMUNITY, "[Community suggested solution "+(i+1)+"]")));		
+					solutions.add(new Solution(Solution.TYPE_COMMUNITY, "[Community suggested solution "+(i+1)+"]"));		
 
 				} 
-				adapter.setFilter(null);
 				adapter.notifyDataSetChanged();
 				comm.setEnabled(false);
 				comm.setBackgroundResource(R.drawable.bg_card_disable); 
@@ -66,8 +86,7 @@ public class SolutionFragment extends OptionQuestionFragment {
 						if(text.isEmpty()){
 							text = "Your custom solution";
 						}
-						question.options.add(0, new Option("custom"+question.options.size(), new Solution(Solution.TYPE_COMMUNITY, text)));
-						adapter.setFilter(null);
+						solutions.add(new Solution(Solution.TYPE_COMMUNITY, text));
 						adapter.notifyDataSetChanged();
 					}
 
@@ -85,8 +104,42 @@ public class SolutionFragment extends OptionQuestionFragment {
 				
 			}
 		});
+		
+		next.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(listener != null){
+					listener.responseEntered(null);
+				}
+				
+			}
+		});
 	
 		return view;
+	}
+
+	@Override
+	public void setBackEnabled(boolean first) {
+			
+	}
+
+	@Override
+	public void setLast(boolean isLast) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public QuestionFragment setNextButtonListener(final QuestionResponseListener listener) {
+		this.listener = listener;
+
+		return this;
+	}
+
+	@Override
+	public QuestionFragment setBackButtonListener(QuestionResponseListener listener) {
+		return this;
 	}
 
 }

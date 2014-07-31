@@ -16,7 +16,7 @@ import edu.wpi.smartcoach.view.Option;
 public class TimeProblemSolver extends BaseProblemSolver {
 
 	@Override
-	public QuestionModel getSolution(Context ctx) {
+	public List<Solution> getSolution(Context ctx) {
 		
 		ArrayList<Solution> solutions = new ArrayList<Solution>();
 		List<ExerciseState> states = new ArrayList<ExerciseState>();
@@ -59,19 +59,7 @@ public class TimeProblemSolver extends BaseProblemSolver {
 		solutions.add(new Solution(Solution.TYPE_DEFAULT, "Wake up early to exercise."));
 		solutions.add(new Solution(Solution.TYPE_DEFAULT, "Be physically active while doing chores (squats, stretching, situps)"));
 		
-		
-		ArrayList<Option> options = new ArrayList<Option>();
-		
-		for(Solution soln:solutions){
-			options.add(new Option(solutions.indexOf(soln)+"", soln));
-		}
-		
-		if(options.isEmpty()){
-			options.add(new Option("DEFAULT", "No Solutions found..."));
-		}
-		
-		return new OptionQuestionModel("solutions", "Solutions", "Here are some things you can try:", 
-				options, QuestionType.MULTIPLE, false, false);
+		return solutions;
 	}
 	
 }

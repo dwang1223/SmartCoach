@@ -1,17 +1,17 @@
 package edu.wpi.smartcoach.solver;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
+import java.util.List;
 import java.util.Stack;
 
 import android.content.Context;
 import android.util.Log;
 import edu.wpi.smartcoach.model.DialogScriptOption;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
-import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
+import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.view.Option;
 
 public class DialogScriptSolver implements ProblemSolver {
@@ -60,8 +60,8 @@ public class DialogScriptSolver implements ProblemSolver {
 	}
 
 	@Override
-	public QuestionModel getSolution(Context ctx) {
-		ArrayList<String> solutions = new ArrayList<String>();
+	public List<Solution> getSolution(Context ctx) {
+		ArrayList<Solution> solutions = new ArrayList<Solution>();
 		
 		OptionQuestionModel q;
 		while(backStack.size() > 0){
@@ -70,20 +70,13 @@ public class DialogScriptSolver implements ProblemSolver {
 			ArrayList<String> opsolns = op.getSolutions();
 			for(String s:opsolns){
 				if(!solutions.contains(s)){
-					solutions.add(s);
+					solutions.add(new Solution(s));
 				}
 			}
 		}
 		
-		ArrayList<Option> sOptions = new ArrayList<Option>();
-		for(String s:solutions){
-			sOptions.add(new Option(sOptions.size()+"", this.solutions.get(s)));
-			if(this.solutions.get(s) == null){
-				Log.d(TAG, "null ! "+ s);
-			}
-		}
+		return solutions;
 		
-		return new OptionQuestionModel("solution", "Solutions", "Here are some things you can try:", sOptions, QuestionType.MULTIPLE, true, false);
 		
 	}
 

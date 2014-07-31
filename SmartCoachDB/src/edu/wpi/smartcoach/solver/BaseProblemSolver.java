@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
@@ -145,7 +145,7 @@ public class BaseProblemSolver implements ProblemSolver {
 	}
 	
 	@Override
-	public QuestionModel getSolution(Context ctx) {
+	public List<Solution> getSolution(Context ctx) {
 		return null;
 	}
 }

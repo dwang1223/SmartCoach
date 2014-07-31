@@ -1,7 +1,10 @@
 package edu.wpi.smartcoach.solver;
 
+import java.util.List;
+
 import android.content.Context;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.Solution;
 
 public interface ProblemSolver {
 	
@@ -13,5 +16,5 @@ public interface ProblemSolver {
 	public boolean isBackAllowed();
 	public void back();
 
-	public QuestionModel getSolution(Context ctx);
+	public List<Solution> getSolution(Context ctx);
 }

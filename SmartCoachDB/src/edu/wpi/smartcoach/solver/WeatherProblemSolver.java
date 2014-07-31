@@ -10,7 +10,6 @@ import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.Solution;
-import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.model.exercise.ExerciseState;
 import edu.wpi.smartcoach.view.Option;
 
@@ -67,7 +66,7 @@ public class WeatherProblemSolver extends BaseProblemSolver{
 	}
 	
 	@Override
-	public QuestionModel getSolution(Context ctx) {
+	public List<Solution> getSolution(Context ctx) {
 		List<Solution> solutions = new ArrayList<Solution>();
 
 		
@@ -84,14 +83,8 @@ public class WeatherProblemSolver extends BaseProblemSolver{
 		solutions.add(new Solution("Find some free videos online to guide your exercise."));
 		solutions.add(new Solution("Get a treadmill to use at home."));
 		
-		for(Solution s:solutions){
-			options.add(new Option(solutions.size()+"", s));
-		}
-				
-		return new OptionQuestionModel("solutions", "Solutions", 
-				"Try some of these to make exercise a little more interesting",
-				options, 
-				QuestionType.MULTIPLE, false, false);
+		
+		return solutions;
 	}
 
 }

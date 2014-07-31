@@ -1,6 +1,7 @@
 package edu.wpi.smartcoach.solver;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
@@ -14,7 +15,7 @@ public class MotivationProblemSolver extends BaseProblemSolver {
 	private static final String TAG = MotivationProblemSolver.class.getSimpleName();
 	
 	@Override
-	public QuestionModel getSolution(Context ctx) {
+	public List<Solution> getSolution(Context ctx) {
 		
 		ArrayList<Solution> solutions = new ArrayList<Solution>();
 		//List<ExerciseState> states = new ArrayList<ExerciseState>();
@@ -30,17 +31,7 @@ public class MotivationProblemSolver extends BaseProblemSolver {
 		
 		ArrayList<Option> options = new ArrayList<Option>();
 		
-		for(Solution soln:solutions){
-			options.add(new Option(solutions.indexOf(soln)+"", soln));
-		}
-		
-		
-		if(options.isEmpty()){
-			options.add(new Option("DEFAULT", "No Solutions found..."));
-		}
-		
-		return new OptionQuestionModel("solutions", "Solutions", "Here are some things you can try:", 
-				options, QuestionType.MULTIPLE, false, false);
+		return solutions;
 	}
 
 

@@ -11,8 +11,9 @@ import android.preference.PreferenceManager;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
-import edu.wpi.smartcoach.model.exercise.Equipment;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.Solution;
+import edu.wpi.smartcoach.model.exercise.Equipment;
 import edu.wpi.smartcoach.util.QuestionReader;
 import edu.wpi.smartcoach.view.Option;
 
@@ -116,35 +117,34 @@ public class InjuryProblemSolver implements ProblemSolver {
 	}
 
 	@Override
-	public QuestionModel getSolution(Context ctx) {
+	public List<Solution> getSolution(Context ctx) {
 		//no gym no therapist -> store, doctor
 		//therapist -> got advise?
 		//yes -> ok do that
 		//no -> get advise
 		// gym, no therapist -> gym
 		
-		ArrayList<Option> solutions = new ArrayList<Option>();
+		ArrayList<Solution> solutions = new ArrayList<Solution>();
 		
 		if(hasPhysicalTherapist){
 			if(hasConsultedTherapist){
-				solutions.add(new Option(solutions.size()+"", "Make sure to follow any advise given by you physical therapist."));
+				solutions.add(new Solution("Make sure to follow any advice given by you physical therapist."));
 			} else {
 
-				solutions.add(new Option(solutions.size()+"", "Try consulting your physical therapist for advise on how to proceed with your injury."));
+				solutions.add(new Solution("Try consulting your physical therapist for advise on how to proceed with your injury."));
 			}
 		}
 		
 		if (hasGymMembership){
 
-			solutions.add(new Option(solutions.size()+"", "See if a professional trainer at your gym can help you continue exercise safely."));
+			solutions.add(new Solution("See if a professional trainer at your gym can help you continue exercise safely."));
 		
 		} else if (!hasPhysicalTherapist) {
 
-			solutions.add(new Option(solutions.size()+"", "Consult your primary care provider for further advice, or get a referral to a physical therapist."));
+			solutions.add(new Solution("Consult your primary care provider for further advice, or get a referral to a physical therapist."));
 		}
 		
-		return new OptionQuestionModel("solutions", "Solutions", 
-				"Here are some things you can try:", solutions, QuestionType.MULTIPLE, false, false);
+		return solutions;
 	}
 
 }
