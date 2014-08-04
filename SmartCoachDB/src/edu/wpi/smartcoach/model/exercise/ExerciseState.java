@@ -1,6 +1,10 @@
 package edu.wpi.smartcoach.model.exercise;
 
+import android.util.Log;
+
 public class ExerciseState {
+	
+	private static final String TAG = ExerciseState.class.getSimpleName();
 
 	private int id;
 	private Exercise exercise;
@@ -262,6 +266,7 @@ public class ExerciseState {
 	 *            the weekendLocation to set
 	 */
 	public void setWeekendLocation(ExerciseLocation weekendLocation) {
+		//Log.d(TAG, "set wkend location "+ weekendLocation);
 		this.weekendLocation = weekendLocation;
 	}
 

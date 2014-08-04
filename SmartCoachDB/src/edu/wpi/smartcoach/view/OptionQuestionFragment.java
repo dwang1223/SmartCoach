@@ -80,9 +80,9 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		questionView = (TextView)rootView.findViewById(R.id.questionText);
 		optionListView = (ListView)rootView.findViewById(R.id.optionList);
 		
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//		    optionListView.setFastScrollAlwaysVisible(true);
-//		}
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+		    optionListView.setFastScrollAlwaysVisible(true);
+		}
 		
 		instructions = (TextView)rootView.findViewById(R.id.instructions);
 		search = (TextView)rootView.findViewById(R.id.search);

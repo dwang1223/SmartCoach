@@ -211,61 +211,87 @@ public class Solutions {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		
 		for(ExerciseState state:states){
-			if(!state.isLocationLiked() || !state.isWeekendLocationLiked()){
-				ExerciseSolution s = new ExerciseSolution(state);
-				
-				String[] ids = prefs.getString("profile_exercise_location", "").split(",");
-				ArrayList<ExerciseLocation> liked = new ArrayList<ExerciseLocation>();
-				for(String id:ids){
-					try {
-						liked.add(ExerciseLocationService.getInstance().getLocation(Integer.parseInt(id)));
-					} catch(Exception e){
-						
-					}
-				}
-				List<ExerciseLocation> possible = ExerciseToLocationService.getInstance().getLocationListByExercise(s.getExercise().getId());					
-				
-				possible.remove(s.getLocation());
-				
-				ArrayList<ExerciseLocation> intersect = new ArrayList<ExerciseLocation>(); //locations the user likes, and can do the exercise at
-				for(ExerciseLocation l:liked){
-					if(possible.contains(l)){
-						intersect.add(l);
-					}
-				}
-				
-				ExerciseLocation newLoc = null;
-				
-				if(intersect.size() > 0){//get a liked location if possible
-					newLoc = intersect.get(0);
-				} else if(possible.size() > 0) {
-					newLoc = possible.get((int)(Math.random()*possible.size()));//get the next possible location
-				}
-				
-				if(newLoc != null){
-					s.setLocation(newLoc);
-					
-					String message = String.format("Try to %s %s instead of %s.", 
-							capitalize(s.getExercise().getFormPresent()),
-							s.getLocation().getPreposition(),
-							state.getLocation().getPreposition()							
-							);
-					
-					String reminder = String.format("%s %s instead of %s.", 
-							capitalize(s.getExercise().getFormPresent()),
-							s.getLocation().getPreposition(),
-							state.getLocation().getPreposition()							
-							);
-					
-					s.setMessage(message);
-					s.setReminder(reminder);
+			
+			if(state.isOnWeekdays()  && !state.isLocationLiked()){
+				ExerciseSolution s = newLocation(state, false, prefs);
+				if(s != null){
 					solutionList.add(s);
 				}
-							
 			}
-						
-		}		
+			
+			if(state.isOnWeekends() && !state.isWeekendLocationLiked()){
+				ExerciseSolution s = newLocation(state, true, prefs);
+				if(s != null){
+					solutionList.add(s);
+				}
+			}
+		}
 		return solutionList;
+	}
+	
+	private static ExerciseSolution newLocation(ExerciseState state, boolean weekend, SharedPreferences prefs){
+		ExerciseLocation location = weekend?state.getWeekendLocation():state.getLocation();
+		Log.d(TAG, "location="+location);
+		ExerciseSolution solution = new ExerciseSolution(state);
+		
+		String[] ids = prefs.getString("profile_exercise_location", "").split(",");
+		ArrayList<ExerciseLocation> liked = new ArrayList<ExerciseLocation>();
+		for(String id:ids){
+			try {
+				liked.add(ExerciseLocationService.getInstance().getLocation(Integer.parseInt(id)));
+			} catch(Exception e){
+				
+			}
+		}
+		List<ExerciseLocation> possible = ExerciseToLocationService.getInstance().getLocationListByExercise(state.getExercise().getId());					
+		
+		possible.remove(location);
+		
+		ArrayList<ExerciseLocation> intersect = new ArrayList<ExerciseLocation>(); //locations the user likes, and can do the exercise at
+		for(ExerciseLocation l:liked){
+			if(possible.contains(l)){
+				intersect.add(l);
+			}
+		}
+		
+		ExerciseLocation newLoc = null;
+		
+		if(intersect.size() > 0){//get a liked location if possible
+			newLoc = intersect.get(0);
+		} else if(possible.size() > 0) {
+			newLoc = possible.get((int)(Math.random()*possible.size()));//get the next possible location
+		}
+		
+		if(newLoc != null){
+			solution.setLocation(newLoc);
+			
+			String weekendStr = ExerciseQuestions.getInstance().getWeekendString(state, weekend);
+			
+			String message = String.format("Try to %s %s instead of %s%s.", 
+					capitalize(solution.getExercise().getFormPresent()),
+					solution.getLocation().getPreposition(),
+					location.getPreposition(),
+					weekendStr
+					);
+			
+			String reminder = String.format("%s %s instead of %s%s.", 
+					capitalize(solution.getExercise().getFormPresent()),
+					solution.getLocation().getPreposition(),
+					location.getPreposition(),
+					weekendStr
+					);
+			
+			
+			
+			solution.setMessage(message);
+			solution.setReminder(reminder);
+			
+			return solution;
+		} else {
+			return null;
+		}
+		
+		
 	}
 	
 	public static List<ExerciseSolution> getNewTimeSolutions(List<ExerciseState> states, Context ctx){
@@ -274,44 +300,60 @@ public class Solutions {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		
 		for(ExerciseState state:states){
-			if(!state.isTimeLiked() || !state.isWeekendTimeLiked()){
-				ExerciseSolution s = new ExerciseSolution(state);
-				
-				String[] ids = prefs.getString("profile_exercise_when", "").split(",");
-				ArrayList<ExerciseTime> liked = new ArrayList<ExerciseTime>();
-				for(String id:ids){
-					try{
-						liked.add(ExerciseTimeService.getInstance().getExerciseTime(Integer.parseInt(id)));
-					} catch(Exception e){}
+			if(state.isOnWeekdays() && !state.isTimeLiked()){
+				ExerciseSolution s = newTime(state, false, prefs);
+				if(s != null){
+					solutionList.add(s);
 				}
-				liked.remove(s.getTime());
-				
-				ExerciseTime newTime = null;
-				
-				if(liked.size() > 0){
-					newTime = liked.get(0);
-				} else {
-					List<ExerciseTime> allTimes = ExerciseTimeService.getInstance().getAllDataFromTable(); //pick a time that is 2 after the current one (warp around)
-					newTime = allTimes.get((allTimes.indexOf(s.getTime())+2)%allTimes.size());
-				}
-				
-				s.setTime(newTime);
-				
-				String message = String.format("Try to %s %s in the %s instead of in the %s.",
-						s.getExercise().getFormPresent(),
-						s.getLocation().getPreposition(),
-						s.getTime().getTime().toLowerCase(),
-						state.getTime().getTime().toLowerCase());
-				
-				String reminder = String.format("%s in the %s", capitalize(s.getExercise().getFormPresent()), s.getTime().getTime().toLowerCase());
-				
-				s.setMessage(message);
-				s.setReminder(reminder);
-							
-				solutionList.add(s);
 			}
+			
+			if(state.isOnWeekdays() && !state.isWeekendTimeLiked()){
+				ExerciseSolution s = newTime(state, false, prefs);
+				if(s != null){
+					solutionList.add(s);
+				}
+			}
+			
 		}		
 		return solutionList;
+	}
+	
+	private static ExerciseSolution newTime(ExerciseState state, boolean weekend, SharedPreferences prefs){
+		ExerciseTime time = weekend?state.getWeekendTime():state.getTime();
+		ExerciseSolution s = new ExerciseSolution(state);
+		
+		String[] ids = prefs.getString("profile_exercise_when", "").split(",");
+		ArrayList<ExerciseTime> liked = new ArrayList<ExerciseTime>();
+		for(String id:ids){
+			try{
+				liked.add(ExerciseTimeService.getInstance().getExerciseTime(Integer.parseInt(id)));
+			} catch(Exception e){}
+		}
+		liked.remove(time);
+		
+		ExerciseTime newTime = null;
+		
+		if(liked.size() > 0){
+			newTime = liked.get(0);
+		} else {
+			List<ExerciseTime> allTimes = ExerciseTimeService.getInstance().getAllDataFromTable(); //pick a time that is 2 after the current one (warp around)
+			newTime = allTimes.get((allTimes.indexOf(time)+2)%allTimes.size());
+		
+			s.setTime(newTime);
+			
+			String message = String.format("Try to %s %s in the %s instead of in the %s.",
+					s.getExercise().getFormPresent(),
+					s.getLocation().getPreposition(),
+					s.getTime().getTime().toLowerCase(),
+					time.getTime().toLowerCase());
+			
+			String reminder = String.format("%s in the %s", capitalize(s.getExercise().getFormPresent()), time.getTime().toLowerCase());
+			
+			s.setMessage(message);
+			s.setReminder(reminder);	
+		}			
+		return s;
+		
 	}
 	
 	public static List<ExerciseSolution> getNewExerciseRecommendation(List<ExerciseState> states, Context ctx){
