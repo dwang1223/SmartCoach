@@ -59,11 +59,40 @@
     </question>
     
     <question
+        id="profile_kids"
+        type="single"
+        title="Children">
+        <q>Are you currently taking care of children in your family?</q>
+        <option id="yes">Yes</option>
+        <option id="no">No</option>        
+    </question>
+    
+    <question
+        id="profile_store"
+        type="single"
+        title="Mall/Store">
+        <q>Is there a shopping mall or grocery store within walking distance of your home?</q>
+        <option id="yes">Yes</option>
+        <option id="no">No</option>        
+    </question>
+    
+    <question
+        id="profile_yard"
+        type="single"
+        title="Yard">
+        <q>Does your house have a yard?</q>
+        <option id="yes">Yes</option>
+        <option id="no">No</option>        
+    </question>
+    
+    <question
         id="complete"
         type="multiple"
         title="Profile Complete">
         <q>You have created your profile successfully, now you are ready to do some problem solving.</q>
         
     </question>
+    
+    
         
 </questions>

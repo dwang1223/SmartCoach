@@ -77,6 +77,21 @@ public class Solutions {
 	}
 */
 	
+	public static List<Solution> getAddToWeekendSolutions(List<ExerciseState> states){
+		ArrayList<Solution> solutions = new ArrayList<Solution>();
+		
+		for(ExerciseState state:states){
+			if(!state.isOnWeekends()){
+				String message	= String.format("Add %s to your weekend activity plan.", 
+						state.getExercise().getFormContinuous().toLowerCase());
+				solutions.add(new Solution(message));
+			}
+		}
+		
+		
+		return solutions;
+	}
+	
 	public static List<ExerciseSolution> getIncreaseDurationSolutions(List<ExerciseState> states){
 		List<ExerciseSolution> solutions = new ArrayList<ExerciseSolution>();
 		

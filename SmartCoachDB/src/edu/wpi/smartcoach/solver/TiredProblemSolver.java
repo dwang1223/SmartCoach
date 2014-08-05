@@ -18,10 +18,13 @@ public class TiredProblemSolver extends BaseProblemSolver {
 		}catch(Exception e){
 			
 		}
+
+		solutions.addAll(Solutions.getAddToWeekendSolutions(states));
 		
 		solutions.add(new Solution("Download an app such as MyFitnessPal to track your exercises."));
 		solutions.add(new Solution("Start by finding just 1 day that you can exercise over the next week for 10 minutes."));
 		solutions.add(new Solution("Be physically active while doing chores (squats, stretching, situps)."));
+		solutions.add(new Solution("Reward yourself with money or a gift when you achieve a goal for your exercise."));
 		ArrayList<Option> options = new ArrayList<Option>();
 				
 		return solutions;

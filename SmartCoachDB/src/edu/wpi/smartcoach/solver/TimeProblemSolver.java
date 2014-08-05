@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
@@ -18,6 +20,9 @@ public class TimeProblemSolver extends BaseProblemSolver {
 	@Override
 	public List<Solution> getSolution(Context ctx) {
 		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		boolean children = prefs.getString("profile_kids", "no").equalsIgnoreCase("yes");
+		
 		ArrayList<Solution> solutions = new ArrayList<Solution>();
 		List<ExerciseState> states = new ArrayList<ExerciseState>();
 		
@@ -26,11 +31,13 @@ public class TimeProblemSolver extends BaseProblemSolver {
 		solutions.addAll(Solutions.getNewTimeSolutions(states, ctx));
 
 		solutions.addAll(Solutions.getNewExerciseRecommendation(states, ctx));
+		solutions.addAll(Solutions.getAddToWeekendSolutions(states));
 		//solutions.addAll(Solutions.getWeekendIncreaseRecommendation(states, ctx));
 		
 		for(Solution s:solutions){
 			if(s instanceof ExerciseSolution){
 				ExerciseSolution es = (ExerciseSolution)s;
+				
 				String message = es.getMessage();
 				String newMessage = String.format("%s Increase the intensity of the %s to help reduce time.", 
 						message,
@@ -52,6 +59,13 @@ public class TimeProblemSolver extends BaseProblemSolver {
 					state.getExercise().getName().toLowerCase());
 			solution.setMessage(message);
 			solutions.add(solution);
+		}
+		
+		if(children){
+			solutions.add(new Solution("Play with the children when you go out with them"));
+			solutions.add(new Solution("Ask your partner or a sitter to watch your child while you exercise."));
+			solutions.add(new Solution("Exercise at night once your child goes to bed."));
+
 		}
 		
 		solutions.add(new Solution(Solution.TYPE_DEFAULT, "Try using the stairs instead of the elevator."));

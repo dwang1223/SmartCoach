@@ -28,6 +28,7 @@ public class MotivationProblemSolver extends BaseProblemSolver {
 		solutions.addAll(Solutions.getNewExerciseRecommendation(states, ctx));
 		
 		solutions.add(new Solution("Download an app such as MyFitnessPal to track your exercises."));
+		solutions.add(new Solution("Reward yourself with money or a gift when you achieve a goal for your exercise."));
 		
 		ArrayList<Option> options = new ArrayList<Option>();
 		
