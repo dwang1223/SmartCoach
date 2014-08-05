@@ -19,13 +19,13 @@ public class DialogScriptSolver implements ProblemSolver {
 	private static final String TAG = DialogScriptSolver.class.getSimpleName();
 			
 	private HashMap<String, OptionQuestionModel> questions;
-	private HashMap<String, String> solutions;
+	private HashMap<String, Solution> solutions;
 	
 	private OptionQuestionModel current;
 	
 	private Stack<OptionQuestionModel> backStack;
 	
-	public DialogScriptSolver(HashMap<String, OptionQuestionModel> questions, HashMap<String, String> solutions){
+	public DialogScriptSolver(HashMap<String, OptionQuestionModel> questions, HashMap<String, Solution> solutions){
 		this.questions = questions;
 		this.solutions = solutions;
 		
@@ -61,7 +61,7 @@ public class DialogScriptSolver implements ProblemSolver {
 
 	@Override
 	public List<Solution> getSolution(Context ctx) {
-		ArrayList<Solution> solutions = new ArrayList<Solution>();
+		HashMap<String, Solution> selectedSolutions = new HashMap<String, Solution>();
 		
 		OptionQuestionModel q;
 		while(backStack.size() > 0){
@@ -69,13 +69,13 @@ public class DialogScriptSolver implements ProblemSolver {
 			DialogScriptOption op = (DialogScriptOption)q.getSelectedValue();
 			ArrayList<String> opsolns = op.getSolutions();
 			for(String s:opsolns){
-				if(!solutions.contains(s)){
-					solutions.add(new Solution(s));
-				}
+				selectedSolutions.put(s, solutions.get(s));
 			}
 		}
 		
-		return solutions;
+		ArrayList<Solution> solutionList = new ArrayList<Solution>(selectedSolutions.values());
+		
+		return solutionList;
 		
 		
 	}

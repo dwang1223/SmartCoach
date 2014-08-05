@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.view.Option;
 
@@ -11,6 +13,9 @@ public class TiredProblemSolver extends BaseProblemSolver {
 	
 	@Override
 	public List<Solution> getSolution(Context ctx) {
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		boolean children = prefs.getString("profile_kids", "no").equalsIgnoreCase("yes");
 		
 		ArrayList<Solution> solutions = new ArrayList<Solution>();
 		try{
@@ -20,6 +25,12 @@ public class TiredProblemSolver extends BaseProblemSolver {
 		}
 
 		solutions.addAll(Solutions.getAddToWeekendSolutions(states));
+		
+		
+		if(children){
+			solutions.add(new Solution("Ask your partner or a sitter to watch your child while you exercise."));
+
+		}
 		
 		solutions.add(new Solution("Download an app such as MyFitnessPal to track your exercises."));
 		solutions.add(new Solution("Start by finding just 1 day that you can exercise over the next week for 10 minutes."));

@@ -9,14 +9,14 @@ question cause_meal
 	-Stress#solution s8,s14
 	-Finance#solution s6
 	-Hunger
-	-Loneliness#solution s8,s22,s29
+	-Loneliness#solution s8,s22
 	-Addiction to the food#solution s2,s3
 	-Other
 end
 
 question cause_snack
 	What is the biggest cause of snacking between meals for you?#snack_where
-	-Stress#solution s8,s14,s15,s17,s22,s23,s29
+	-Stress#solution s8,s14,s15,s17,s22,s23
 	-Finance#solution s6,s13,s24
 	-Hunger#solution s9,s19,s27
 	-Loneliness#solution s8,s22,s9
@@ -260,10 +260,12 @@ end
 
 solution s2
 	Avoid grocery store aisles with unhealthy foods
+	info|http://www.diabeticlivingonline.com/food-to-eat/nutrition/tips-healthy-shopping-grocery-store
 end
 
 solution s3
 	Reduce the portion of the snack you eat by a small increment
+	info|http://www.fudiet.com/2012/02/overcoming-emotional-eating/
 end
 
 solution s4
@@ -272,6 +274,7 @@ end
 
 solution s5
 	Use a paper journal or mobile app  such as "My fitness pal' to track your diet so you can find out if you are eating more than you are burning
+	info|http://www.fudiet.com/2014/02/why-do-i-need-to-track-calories-to-lose-weight/
 end
 
 solution s6
@@ -283,7 +286,8 @@ solution s7
 end
 
 solution s8
-	Reward yourself for completing a week of diet tracking 
+	Reward yourself for completing a week of diet tracking
+	info|http://www.fudiet.com/2012/08/5-ways-to-make-diet-journaling-easier/
 end
 
 solution s9
@@ -296,10 +300,12 @@ end
 
 solution s11
 	Start to cook meals at home.
+	info|http://www.choosemyplate.gov/weight-management-calories/weight-management/better-choices/cook-home.html
 end
 
 solution s12
 	Set up a budget for your shopping.
+	info|http://www.eatright.org/Public/content.aspx?id=6442463962
 end
 
 solution s13
@@ -308,10 +314,12 @@ end
 
 solution s14
 	Before eating when stressed, take 10 deep breaths and see if craving passes
+	info|http://www.fudiet.com/2012/02/overcoming-emotional-eating/
 end
 
 solution s15
 	Gradually reduce the amount of sugar in your diet
+	info|http://www.fudiet.com/2011/07/how-to-get-over-your-sugar-addiction/
 end
 
 solution s16
@@ -320,14 +328,17 @@ end
 
 solution s17
 	Increase the amount of fiber and protein in your diet to suppress your appetite
+	info|http://healthyeating.sfgate.com/protein-fiber-work-together-1317.html
 end
 
 solution s18
 	Track your intake on at least 1-2 days per week 
+	info|http://www.fudiet.com/2012/08/5-ways-to-make-diet-journaling-easier/
 end
 
 solution s19
 	Find healthy frozen meals that are quick to prepare instead of fast food
+	info|http://www.webmd.com/food-recipes/features/best-frozen-dinners
 end
 
 solution s20
@@ -336,22 +347,21 @@ end
 
 solution s21
 	Track your intake after 2pm only instead of all day
+	info|http://www.fudiet.com/2012/08/5-ways-to-make-diet-journaling-easier/
 end
 
 solution s22
 	Call a friend to talk about what's stressing you instead of eating
+	info|http://www.fudiet.com/2012/02/overcoming-emotional-eating/
 end
 
 solution s23
 	Go for a short walk when you feel stressed instead of eating
+	info|http://www.fudiet.com/2012/02/overcoming-emotional-eating/
 end
 
 solution s24
 	Do a Google search for "healthy canned foods" for ideas of inexpensive healthy foods
-end
-
-solution s26
-	Plan snacks at the beginning of each day. Stick to that plan.
 end
 
 solution s27
@@ -362,6 +372,109 @@ solution s28
 	Brush and floss when you are done eating for the day to prevent further eating
 end
 
-solution s29
-	Find a weight loss buddy to get extra support
+solution s30
+	Go online to find some recipes which are healthy and easy to get started.
+	info|http://www.cookinglight.com/
+end
+
+solution s31
+	Drink water instead of sugary beverages.
+end
+
+solution s32
+	Do an activity that would be difficult to eat during (e.g., knitting, light exercise, anything that occupies hands)
+end
+
+solution s33
+	Don't keep foods that generate cravings in the home.
+end
+
+solution s34 
+	Distract yourself for 15 minutes to allow time for the craving to pass
+end
+
+solution s35
+	Try a healthy food to satisfy your craving (for example have berries if craving sweets)
+end
+
+solution s36
+	Ask the person who cooks to make healthy dishes/provide them with healthy recipes
+	info|http://www.cookinglight.com/
+end	
+
+solution s37
+	Talk a walk when you talk on the phone
+end
+
+solution s38
+	Set specific times that you can have a snack to prevent snacking outside of those times
+end
+
+solution s39
+	Plan to have healthy snacks in the car, especially during commute or long drives
+end
+
+solution s40
+	Bring one day of healthy snacks to work with you each day
+end
+
+solution s41
+	Bring healthy snacks to parties and other social gatherings
+end
+
+solution s42
+	Make a list of healthy lunch options to add to the grocery list (e.g., frozen meals, salads, sandwiches)
+end
+
+solution s43
+	Bring something quick to eat for lunch (e.g., protein shake, meal bar) to prevent yourself from skipping it
+end
+
+solution s44
+	Take a healthy cooking class via community center or Whole Foods Market
+end
+
+solution s45
+	Set a regular time each week to go grocery shopping
+end
+
+solution s46
+	If family members insist on buying junk food, ask them to buy kinds you do not like
+	info|http://www.fudiet.com/2012/03/help-im-surrounded-by-people-who-eat-junk-food/
+end
+
+solution s47
+	Go grocery shopping directly after a meal so you are better able to resist temptations
+end
+
+solution s48
+	Reduce amount of cream, milk and sugar in your coffee/tea
+end
+
+solution s49
+	Bring a veggie tray or other healthy dish to parties 
+end
+
+solution s50
+	Eat something small before going out to eat or to a party to control appetite
+end
+
+solution s51
+	Drink a glass of water in between alcoholic beverages to limit alcohol intake and additional eating
+end
+
+solution s52
+	Makeover unhealthy holiday/party foods that you tend to overeat every time
+end
+
+solution s53
+	Avoid restaurants where you always overeat. Go to ones where you have shown better control.
+end
+
+solution s54
+	During social events, make sure you have a low cal food like fruit or veggies to graze on.
+end
+
+solution s55
+	Track your diet on weekends to become more aware of your weekend intake
 end

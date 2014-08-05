@@ -43,6 +43,7 @@ public class BoredomProblemSolver extends BaseProblemSolver{
 
 		solutions.add(new Solution("Try to exercise at home when you are watching TV."));
 		solutions.add(new Solution("Schedule a different exercise each week to change things up."));
+		solutions.add(new Solution("Join a gym that also offers physical training services to add variety to workout."));
 		
 		for(Solution s:solutions){
 			options.add(new Option(solutions.size()+"", s));

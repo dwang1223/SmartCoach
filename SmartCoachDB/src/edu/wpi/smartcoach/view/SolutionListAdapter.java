@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,6 +40,8 @@ public class SolutionListAdapter extends BaseAdapter {
 			LayoutInflater inflater = LayoutInflater.from(context);
 			view = inflater.inflate(R.layout.layout_option_solution, null);
 		}
+		
+		final Solution item = getItem(position);
 		
 		TextView solutionText = (TextView)view.findViewById(R.id.solution);
 		
@@ -74,6 +77,20 @@ public class SolutionListAdapter extends BaseAdapter {
 			sep.setBackgroundColor(0xffcccccc);
 		}
 		
+		if(item.getInfo() != null){
+			info.setVisibility(View.VISIBLE);
+			info.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getInfo()));
+					context.startActivity(intent);
+				}
+			});
+		} else {
+			info.setVisibility(View.GONE);
+		}
+		
 		return view;
 		
 	}
@@ -84,7 +101,7 @@ public class SolutionListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public Solution getItem(int position) {
 		return solutions.get(position);
 	}
 

@@ -3,12 +3,14 @@ package edu.wpi.smartcoach.util;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import android.util.Log;
 import edu.wpi.smartcoach.model.DialogScriptOption;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
+import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.solver.DialogScriptSolver;
 import edu.wpi.smartcoach.view.Option;
 
@@ -38,7 +40,7 @@ public class DialogScriptReader {
 		String[] items = script.split("\nend\n");
 		Log.d(TAG, items.length+" items");
 		HashMap<String, OptionQuestionModel> questions = new HashMap<String, OptionQuestionModel>();
-		HashMap<String, String> solutions = new HashMap<String, String>();
+		HashMap<String, Solution> solutions = new HashMap<String, Solution>();
 		
 		for(String item:items){
 			Log.d(TAG,".\n"+item);
@@ -63,7 +65,7 @@ public class DialogScriptReader {
 								
 					} else if (s.startsWith("-")){
 						
-						DialogScriptOption dso = new DialogScriptOption();
+						DialogScriptOption dso = new DialogScriptOption(); 
 						dso.setNext(defaultNext);
 						
 						String[] tokens = s.substring(1).split("#");
@@ -105,10 +107,19 @@ public class DialogScriptReader {
 				
 			} else if (item.startsWith("solution")){
 				String[] parts = item.split("\n");
-				id = parts[0].split(" ")[1];
-				text = parts[1];
-				Log.d(TAG, "solution="+id+", \""+text+"\"");
-				solutions.put(id, text);
+				String message = null;
+				String info = null;
+				for(String part:parts){
+					if(part.startsWith("solution")){
+						id = part.split(" ")[1];
+					} else if (part.startsWith("info")){
+						info = part.split("\\|")[1];
+					} else if (!part.startsWith("end")){
+						message = part;
+					}
+				}
+				solutions.put(id, new Solution(Solution.TYPE_DEFAULT, message, info));
+				Log.d(TAG, String.format("solution %s: %s - %s", id, message, info));
 			}
 		}		
 		return new DialogScriptSolver(questions, solutions);

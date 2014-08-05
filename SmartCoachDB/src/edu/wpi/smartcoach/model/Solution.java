@@ -7,14 +7,20 @@ public class Solution {
 	
 	protected int type;
 	protected String message;
+	protected String info;
 	
 	public Solution(String message){
 		this(TYPE_DEFAULT, message);
 	}
 	
 	public Solution(int type, String message){
+		this(type, message, null);
+	}
+	
+	public Solution(int type, String message, String info){
 		this.type = type;
 		this.message = message;
+		this.info = info;
 	}
 	
 	public void setType(int type){
@@ -23,6 +29,10 @@ public class Solution {
 	
 	public int getType(){
 		return type;
+	}
+	
+	public String getInfo(){
+		return info;
 	}
 	
 	public String toString(){
