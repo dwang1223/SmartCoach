@@ -77,7 +77,7 @@ question cook_why
 end
 
 question family_cook
-	Does someone else in your family cook?
+	Does someone else in your family cook?#pack
 	-Yes#solution s36
 	-No#solution s30
 end

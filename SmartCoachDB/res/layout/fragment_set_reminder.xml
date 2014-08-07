@@ -11,67 +11,47 @@
            android:layout_alignParentLeft="true"
            android:layout_alignParentRight="true"
            android:layout_alignParentTop="true"
+           android:layout_marginBottom="5dp"
            android:fillViewport="true" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#eeeeee"
+            android:orientation="vertical" 
+            >
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/reminderText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#eeeeee"
-                android:padding="10dp" >
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_card"
+                android:padding="10dp"
+                android:text="Set up reminder: Reminder text here"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/reminderText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/bg_card"
-                    android:padding="10dp"
-                    android:text="Set up reminder: Reminder text here"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Pick the days and time you want to see this reminder"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#777777"
+                android:textStyle="italic" />
 
-                <TimePicker
-                    android:id="@+id/time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignRight="@+id/reminderText"
-                    android:layout_centerVertical="true" />
-
-                <Button
-                    android:id="@+id/finish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignRight="@+id/time"
-                    android:background="@drawable/bg_card_button"
-                    android:text="Finish"
-                    android:textColor="#ffffff" />
-
-                <TextView
-                    android:id="@+id/exercise"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/reminderText"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Pick the days and time you want to see this reminder"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#777777"
-                    android:textStyle="italic" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" >
 
                 <LinearLayout
                     android:id="@+id/linearLayout1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/finish"
-                    android:layout_alignLeft="@+id/exercise"
-                    android:layout_below="@+id/exercise"
                     android:orientation="vertical" >
 
                     <ToggleButton
@@ -125,9 +105,26 @@
                         android:textOff="SAT"
                         android:textOn="SAT" />
                 </LinearLayout>
-            </RelativeLayout>
 
-    </LinearLayout>
+                <TimePicker
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:background="@drawable/bg_card_button"
+                android:text="Finish"
+                android:textColor="#ffffff" />
+
+        </LinearLayout>
 
     </ScrollView>
 </RelativeLayout>
