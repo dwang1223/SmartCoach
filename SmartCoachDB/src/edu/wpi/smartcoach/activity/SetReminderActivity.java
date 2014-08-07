@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -17,6 +16,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.service.ReminderService;
 import edu.wpi.smartcoach.view.SetReminderFragment;
 
 public class SetReminderActivity extends FragmentActivity {
@@ -54,15 +54,18 @@ public class SetReminderActivity extends FragmentActivity {
 	
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		Set<String> reminders = new HashSet<String>();
+
+		 Set<String> reminders = prefs.getStringSet("reminders", new HashSet<String>());		
+		
 		for(int i = 0; i < mSectionsPagerAdapter.getCount(); i++){
 			SetReminderFragment f = (SetReminderFragment)mSectionsPagerAdapter.getItem(i);
 			reminders.add(f.getSaveString());
+			//ReminderService.getInstance().addReminder(f.getSaveString());
 		}
 		
 		prefs.edit().putStringSet("reminders", reminders).commit();
 		
-		Toast.makeText(getBaseContext(), reminders.size()+" new reminder(s) set.", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getBaseContext(), reminders.size()+" new reminder(s) set.", Toast.LENGTH_SHORT).show();
 		finish();
 	}
 

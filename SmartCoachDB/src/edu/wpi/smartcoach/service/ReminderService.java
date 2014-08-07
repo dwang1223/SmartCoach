@@ -32,7 +32,8 @@ public class ReminderService {
 	}
 	
 	public void addReminder(String reminder){
-		
+		String sql = "insert into t_reminders (message) values ("+reminder+")";
+		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
 	}
 
 }

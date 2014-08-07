@@ -1,121 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#eeeeee"
-    android:padding="10dp" >
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/reminderText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/bg_card"
-        android:padding="10dp"
-        android:text="Set up reminder: Reminder text here"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+       <ScrollView
+           android:id="@+id/scrollView1"
+           android:layout_width="357dp"
+           android:layout_height="516dp"
+           android:layout_alignParentBottom="true"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentRight="true"
+           android:layout_alignParentTop="true"
+           android:fillViewport="true" >
 
-    <TimePicker
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/reminderText"
-        android:layout_centerVertical="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/finish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/time"
-        android:background="@drawable/bg_card_button"
-        android:text="Finish"
-        android:textColor="#ffffff" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#eeeeee"
+                android:padding="10dp" >
 
-    <TextView
-        android:id="@+id/exercise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/reminderText"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Pick the days and time you want to see this reminder"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#777777"
-        android:textStyle="italic" />
+                <TextView
+                    android:id="@+id/reminderText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/bg_card"
+                    android:padding="10dp"
+                    android:text="Set up reminder: Reminder text here"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/time"
-        android:layout_below="@+id/time"
-        android:layout_marginLeft="34dp"
-        android:layout_marginTop="38dp" >
+                <TimePicker
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/reminderText"
+                    android:layout_centerVertical="true" />
 
-    </ScrollView>
+                <Button
+                    android:id="@+id/finish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignRight="@+id/time"
+                    android:background="@drawable/bg_card_button"
+                    android:text="Finish"
+                    android:textColor="#ffffff" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/finish"
-        android:layout_alignLeft="@+id/exercise"
-        android:layout_below="@+id/exercise"
-        android:orientation="vertical" >
+                <TextView
+                    android:id="@+id/exercise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/reminderText"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Pick the days and time you want to see this reminder"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#777777"
+                    android:textStyle="italic" />
 
-        <ToggleButton
-            android:id="@+id/sun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:padding="0dp"
-            android:textOff="SUN"
-            android:textOn="SUN" />
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/finish"
+                    android:layout_alignLeft="@+id/exercise"
+                    android:layout_below="@+id/exercise"
+                    android:orientation="vertical" >
 
-        <ToggleButton
-            android:id="@+id/mon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="MON"
-            android:textOn="MON" />
+                    <ToggleButton
+                        android:id="@+id/sun"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:padding="0dp"
+                        android:textOff="SUN"
+                        android:textOn="SUN" />
 
-        <ToggleButton
-            android:id="@+id/tue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="TUE"
-            android:textOn="TUE" />
+                    <ToggleButton
+                        android:id="@+id/mon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textOff="MON"
+                        android:textOn="MON" />
 
-        <ToggleButton
-            android:id="@+id/wed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="WED"
-            android:textOn="WED" />
+                    <ToggleButton
+                        android:id="@+id/tue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textOff="TUE"
+                        android:textOn="TUE" />
 
-        <ToggleButton
-            android:id="@+id/thu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="THU"
-            android:textOn="THU" />
+                    <ToggleButton
+                        android:id="@+id/wed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textOff="WED"
+                        android:textOn="WED" />
 
-        <ToggleButton
-            android:id="@+id/fri"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="FRI"
-            android:textOn="FRI" />
+                    <ToggleButton
+                        android:id="@+id/thu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textOff="THU"
+                        android:textOn="THU" />
 
-        <ToggleButton
-            android:id="@+id/sat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="SAT"
-            android:textOn="SAT" />
+                    <ToggleButton
+                        android:id="@+id/fri"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textOff="FRI"
+                        android:textOn="FRI" />
+
+                    <ToggleButton
+                        android:id="@+id/sat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textOff="SAT"
+                        android:textOn="SAT" />
+                </LinearLayout>
+            </RelativeLayout>
+
     </LinearLayout>
 
+    </ScrollView>
 </RelativeLayout>

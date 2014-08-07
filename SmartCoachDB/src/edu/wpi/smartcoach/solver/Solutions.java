@@ -335,6 +335,9 @@ public class Solutions {
 	
 	private static ExerciseSolution newTime(ExerciseState state, boolean weekend, SharedPreferences prefs){
 		ExerciseTime time = weekend?state.getWeekendTime():state.getTime();
+		if(time == null){
+			return null;
+		}
 		ExerciseSolution s = new ExerciseSolution(state);
 		
 		String[] ids = prefs.getString("profile_exercise_when", "").split(",");
