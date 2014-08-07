@@ -283,7 +283,7 @@ public class Solutions {
 			String weekendStr = ExerciseQuestions.getInstance().getWeekendString(state, weekend);
 			
 			String message = String.format("Try to %s %s instead of %s%s.", 
-					capitalize(solution.getExercise().getFormPresent()),
+					solution.getExercise().getFormPresent(),
 					solution.getLocation().getPreposition(),
 					location.getPreposition(),
 					weekendStr
@@ -323,7 +323,7 @@ public class Solutions {
 			}
 			
 			if(state.isOnWeekdays() && !state.isWeekendTimeLiked()){
-				ExerciseSolution s = newTime(state, false, prefs);
+				ExerciseSolution s = newTime(state, true, prefs);
 				if(s != null){
 					solutionList.add(s);
 				}
@@ -348,17 +348,23 @@ public class Solutions {
 		
 		ExerciseTime newTime = null;
 		
-		if(liked.size() > 0){
+		if(liked.size() > 0 && !liked.get(0).equals(time)){
 			newTime = liked.get(0);
 		} else {
 			List<ExerciseTime> allTimes = ExerciseTimeService.getInstance().getAllDataFromTable(); //pick a time that is 2 after the current one (warp around)
 			newTime = allTimes.get((allTimes.indexOf(time)+2)%allTimes.size());
+		}
 		
 			s.setTime(newTime);
-			
-			String message = String.format("Try to %s %s in the %s instead of in the %s.",
+			String weekendStr = ExerciseQuestions.getInstance().getWeekendString(state, weekend);
+			if(!weekendStr.isEmpty()){
+				weekendStr = capitalize(weekendStr.substring(1))+", t";
+			} else {
+				weekendStr = "T";
+			}
+			String message = String.format("%sry to %s in the %s instead of in the %s.",
+					weekendStr,
 					s.getExercise().getFormPresent(),
-					s.getLocation().getPreposition(),
 					s.getTime().getTime().toLowerCase(),
 					time.getTime().toLowerCase());
 			
@@ -366,7 +372,7 @@ public class Solutions {
 			
 			s.setMessage(message);
 			s.setReminder(reminder);	
-		}			
+					
 		return s;
 		
 	}

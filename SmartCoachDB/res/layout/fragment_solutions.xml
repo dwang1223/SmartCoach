@@ -75,7 +75,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@drawable/bg_card_button"
-            android:text="Next"
+            android:text="Finish"
             android:textColor="#ffffff" />
 
     </LinearLayout>

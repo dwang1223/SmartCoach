@@ -197,8 +197,8 @@ public class ExerciseQuestions {
 	}
 	
 	public void doResponse(QuestionModel response, ExerciseState state, boolean weekend){ 
-		Log.d(TAG,"response="+response.getId()+","+weekend);
-		Log.d(TAG, "location is now "+state.getWeekendLocation());
+//		Log.d(TAG,"response="+response.getId()+","+weekend);
+//		Log.d(TAG, "location is now "+state.getWeekendLocation());
 		String id = response.getId();
 		if(id.equals("exercise_location")){
 			ExerciseLocation location = (ExerciseLocation)((OptionQuestionModel)response).getSelectedValue();

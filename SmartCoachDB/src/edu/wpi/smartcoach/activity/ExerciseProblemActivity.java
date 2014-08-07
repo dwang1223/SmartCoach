@@ -69,34 +69,34 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 
 	@Override
 	public void responseEntered(QuestionModel q) {;
-		Log.d(TAG, "responseEntered "+q.toString());
+		//Log.d(TAG, "responseEntered "+q.toString());
 		
 		if(solutionRetrieved){ 
 			
-			OptionQuestionModel solution = (OptionQuestionModel)q;
-			if(solution.getSelectedValues().size() != 0 && !solution.getSelectedOption().getId().equals(OptionQuestionModel.DEFAULT)){
-				Intent intent = new Intent(getBaseContext(), SetReminderActivity.class);
-				List<Object> responses = solution.getSelectedValues();
-				Log.d(TAG, responses.toString());
-				HashMap<Exercise, String> combine = new HashMap<Exercise, String>();
-				for(int i = 0; i < responses.size(); i++){
-					if(responses.get(i) instanceof ExerciseSolution){
-						ExerciseSolution es = (ExerciseSolution)responses.get(i);
-						String reminder = combine.get(es.getExercise());
-						if(reminder == null){
-							reminder = "";
-						}
-						reminder += " "+es.getReminder();
-						combine.put(es.getExercise(), reminder);
-					} else {
-						combine.put(new Exercise(), responses.get(i).toString());
-					}
-				}
-				
-				String[] reminders = combine.values().toArray(new String[]{});
-				intent.putExtra("reminder",reminders );
-				startActivity(intent);
-			}
+//			OptionQuestionModel solution = (OptionQuestionModel)q;
+//			if(solution.getSelectedValues().size() != 0 && !solution.getSelectedOption().getId().equals(OptionQuestionModel.DEFAULT)){
+//				Intent intent = new Intent(getBaseContext(), SetReminderActivity.class);
+//				List<Object> responses = solution.getSelectedValues();
+//				Log.d(TAG, responses.toString());
+//				HashMap<Exercise, String> combine = new HashMap<Exercise, String>();
+//				for(int i = 0; i < responses.size(); i++){
+//					if(responses.get(i) instanceof ExerciseSolution){
+//						ExerciseSolution es = (ExerciseSolution)responses.get(i);
+//						String reminder = combine.get(es.getExercise());
+//						if(reminder == null){
+//							reminder = "";
+//						}
+//						reminder += " "+es.getReminder();
+//						combine.put(es.getExercise(), reminder);
+//					} else {
+//						combine.put(new Exercise(), responses.get(i).toString());
+//					}
+//				}
+//				
+//				String[] reminders = combine.values().toArray(new String[]{});
+//				intent.putExtra("reminder",reminders );
+//				startActivity(intent);
+//			}
 			finish();
 			return;
 		}

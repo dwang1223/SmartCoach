@@ -50,5 +50,18 @@ public class ExerciseTime {
 	public String toString(){
 		return getTime();
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o == null){
+			return false;
+		} else if (o == this){
+			return true;
+		} else if (o instanceof ExerciseTime && ((ExerciseTime)o).getTime().equals(time)){
+			return true;			
+		}
+		
+		return false;
+	}
 
 }

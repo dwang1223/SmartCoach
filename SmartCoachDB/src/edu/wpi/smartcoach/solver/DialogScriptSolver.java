@@ -69,6 +69,9 @@ public class DialogScriptSolver implements ProblemSolver {
 			DialogScriptOption op = (DialogScriptOption)q.getSelectedValue();
 			ArrayList<String> opsolns = op.getSolutions();
 			for(String s:opsolns){
+				if(solutions.get(s) == null){
+					Log.d(TAG, s+" is NULL");
+				}
 				selectedSolutions.put(s, solutions.get(s));
 			}
 		}

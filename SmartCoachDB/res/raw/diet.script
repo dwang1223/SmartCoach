@@ -1,214 +1,146 @@
 question START
-	What is your biggest challenge for diet?
-	-Snacking between meals#question cause_snack
-	-Big meals#question cause_meal
+	Do you track what you eat?#problem_meal
+	-Yes#solution s8
+	-No#solution s5,s18,s21
 end
 
-question cause_meal
-	What is the biggest cause of big meals for you?#breakfast_weekday_time
-	-Stress#solution s8,s14
-	-Finance#solution s6
-	-Hunger
-	-Loneliness#solution s8,s22
-	-Addiction to the food#solution s2,s3
-	-Other
+question problem_meal
+	Do you eat too much and/or make unhealthy choices at meals?#problem_snack
+	-Yes#question meal_why
+	-No#question problem_snack
 end
 
-question cause_snack
-	What is the biggest cause of snacking between meals for you?#snack_where
-	-Stress#solution s8,s14,s15,s17,s22,s23
-	-Finance#solution s6,s13,s24
-	-Hunger#solution s9,s19,s27
-	-Loneliness#solution s8,s22,s9
-	-Addiction to the food#solution s2,s3,s15,s17
-	-Other
+question meal_why
+	What makes you eat too much at meals?#problem_snack
+	-Stress#solution s3,s14,s22
+	-Junk food is cheap#solution s24
+	-Hunger#solution s9,s17
+	-Boredom
 end
 
-question breakfast_weekday_time
-	When do you usually eat breakfast on weekdays?#lunch_weekday_time
-	-Before 7:00 AM
-	-7:00 AM - 8:30 AM
-	-8:30 AM - 10:00 AM
-	-After 10:00 AM
-	-I don't eat breakfast on weekdays#solution s9,s27 
+question problem_snack
+	Do you snack too much and/or make unhealthy snack choices?#overeat_when
+	-Yes#question snack_why
+	-No#question overeat_when
 end
 
-question lunch_weekday_time
-	When do you usually eat lunch on weekdays?#dinner_weekday_time
-	-Before 11:00 AM
-	-11:00 AM - 12:00 PM
-	-12:00 PM - 1:00PM
-	-After 1:00 PM
-	-I don't eat lunch on weekdays#solution s9
+question snack_why
+	What makes you snack too much?#overeat_when
+	-Stress#solution s3,s14,s22
+	-Junk food is cheap#solution s6,s24
+	-Hunger#solution s9,s17
+	-Boredom
 end
 
-question dinner_weekday_time
-	When do you usually eat dinner on weekdays?#breakfast_weekend_time
-	-Before 5:00 PM
-	-5:00 PM - 6:00 PM
-	-6:00 PM - 7:00 PM
-	-After 7:00 PM#solution s16,s18,s28
-	-I don't eat dinner on weekdays#solution s9,s19
+question overeat_when
+	On which occasions do you overeat on mainly?#weekday_breakfast
+	-Parties#solution s49,s52
+	-Restaurants#solution s53
+	-Social Events#solution s54
+	-Weekends#solution s55
+	-None
 end
 
-question breakfast_weekend_time
-	When do you usually eat breakfast on weekends?#lunch_weekend_time
-	-Before 7:00 AM
-	-7:00 AM - 8:30 AM
-	-8:30 AM - 10:00 AM
-	-After 10:00 AM
-	-I don't eat breakfast on weekends#solution s9,s27 
+question weekday_breakfast
+	On weekdays,#weekend_breakfast
+	-I always have breakfast
+	-I never have breakfast#solution s27
+	-I mostly have breakfast
+	-I rarely have  breakfast#solution s27
 end
 
-question lunch_weekend_time
-	When do you usually eat lunch on weekends?#dinner_weekend_time
-	-Before 11:00 AM
-	-11:00 AM - 12:00 PM
-	-12:00 PM - 1:00PM
-	-After 1:00 PM
-	-I don't eat lunch on weekends#solution s9
+question weekend_breakfast
+	On weekends,#cravings
+	-I always have breakfast
+	-I never have breakfast#solution s27
+	-I mostly have breakfast
+	-I rarely have  breakfast#solution s27
 end
 
-question dinner_weekend_time
-	When do you usually eat dinner on weekends?#track
-	-Before 5:00 PM
-	-5:00 PM - 6:00 PM
-	-6:00 PM - 7:00 PM
-	-After 7:00 PM#solution s16,s18,s28
-	-I don't eat dinner on weekends#solution s9,s19
+question cravings
+	Do you have food cravings?#cook
+	-Yes#solution s15,s33,s34,s35
+	-No
 end
 
-question track
-	Do you track what you eat for meals?
-	-Yes#question track_how
-	-No#question eat_out_lunch#solution s5,s18,s21
+question cook
+	Do you cook dinner at home?
+	-Yes#solution s20#question pack
+	-No#solution s11,s19#question cook_why
 end
 
-question track_how
-	How do you track your meals?#track_when
-	-Write it down#solution s5
-	-Using an app
-end
-	
-question track_when
-	How often do you track your meals?#eat_out_lunch
-	-Less than once a week
-	-1 to 3 times a week
-	-4 to 6 times a week
-	-Everyday
+question cook_why
+	Why do you not cook?#family_cook
+	-No time for cooking#solution s19
+	-I don't know how#solution s39,s44
+	-I don't have food at home to cook#solution s11,s13,s4
 end
 
-question eat_out_lunch
-	How often do you go out for lunch?#eat_out_lunch_why
-	-Less than once a week
-	-1 to 3 times a week
-	-4 to 6 times a week
-	-Everyday
+question family_cook
+	Does someone else in your family cook?
+	-Yes#solution s36
+	-No#solution s30
 end
 
-question eat_out_lunch_why
-	Why do you eat out for lunch?#eat_out_dinner
-	-Food Preference
-	-No time to prepare lunch#solution s10,s11,s18,s19
-	-Not interested in cooking
-	-Convenience#solution s10,s11,s18,s19
-	-Other
+question pack
+	Do you pack your lunch for lunch or school?#snack_where
+	-Yes#solution s42
+	-No#solution s10
 end
 
-question eat_out_dinner
-	How often do you go out for dinner?#eat_out_dinner_why
-	-Less than once a week
-	-1 to 3 times a week
-	-4 to 6 times a week
-	-Everyday
-end
-
-question eat_out_dinner_why
-	Why do you eat out for dinner?#do_cook
-	-Food Preference
-	-No time to prepare dinner
-	-Not interested in cooking
-	-Convenience#solution s10,s11,s18,s19
-	-Other
-end
-
-question do_cook
-	Do you cook at home?#shopping
-	-Yes#solution s20,s10
-	-No#solution s11
-end
 
 question snack_where
 	Where do you usually eat snacks?#snack_when
-	-At work
-	-At home
-	-Outside
-	-Social Settings
+	-At work#solution s40
+	-At home#solution s32
+	-In the car#solution s39
+	-Social Settings#solution s41
 	-Other
 end
 
 question snack_when
 	When do you usually eat snacks?#snack_activity
-	-Early morning
-	-Late morning
-	-Afternoon
-	-Evening#solution s9,s19,s27
+	-Early morning#solution s38
+	-Late morning#solution s38
+	-Afternoon#solution s4,s38
+	-Evening#solution s4,s9,s19,s27,s28,s38
+	-Late at night#solution s4,28,s38
 end
 
 question snack_activity
 	What do you usually do while snacking?#snack_type
-	-Chat#solution s1
-	-Watch T.V.#solution s1
-	-Work#solution s1
-	-Read#solution s1
-	-Listen to music#solution s1
-	-Surf the internet#solution s1
-	-Nothing else#solution s1
-	-Other#solution s1
+	-Chat#solution s37
+	-Watch T.V.#solution s32
+	-Work#solution s38
+	-Read#solution s38
+	-Listen to music#solution s38
+	-Surf the internet#solution s38
+	-Drive#solution s38
+	-Other#solution s39
 end
 
 question snack_type
-	What kind of snack do you usually eat?#track_snack
-	-Cookies#solution s1,s7,s3
-	-Fruits
-	-Ice cream#solution s1,s7,s3
+	What kind of snack do you usually eat?#shopping
+	-Cookies#solution s1,s7,s3,s15
+	-Fruits#solution s15
+	-Ice cream#solution s1,s7,s3,s15
 	-Nuts
-	-Chips#solution s1,s7,s3
-	-Candy#solution s1,s7,s3
-	-Cheese#solution s1,s7,s3
+	-Chips#solution s1,s7,s3,s15
+	-Candy#solution s1,s7,s3,s15
+	-Cheese#solution s1,s7,s3,s15
 	-Other
-end
-
-question track_snack
-	Do you track what you eat for snacks?
-	-Yes#question track_snack_how
-	-No#question shopping#solution s5,s18,s21
-end
-
-question track_snack_how
-	How do you track your snacks?#track_snack_when
-	-Write it down#solution s5
-	-Using an app
-end
-	
-question track_snack_when
-	How often do you track your snacks?#shopping
-	-Less than once a week
-	-1 to 3 times a week
-	-4 to 6 times a week
-	-Everyday
 end
 
 question shopping
 	Do you do the food shopping?
-	-Yes#question shopping_often
+	-Yes#solution s13#question shopping_often
 	-No#question drinks
 end
 
 question shopping_often
 	How often do you shop for food groceries?#shopping_budget
-	-Less than once a month
-	-Once a month
+	-Less than once a month#solution s25
+	-Once a month#solution s25
 	-2-3 times a month
 	-Weekly
 	-More than once a week
@@ -217,7 +149,7 @@ end
 question shopping_budget
 	Do you have a budget for your shopping?#shopping_plan
 	-Yes
-	-No
+	-No#solution s12
 end
 
 question shopping_plan
@@ -229,26 +161,25 @@ end
 question shopping_plan_follow
 	Will you buy the food exactly based on your shopping list?
 	-Yes#question drinks
-	-No#solution s13#question shopping_plan_follow_why
+	-No#solution s13,s2#question shopping_plan_follow_why
 end
 
 question shopping_plan_follow_why
 	What drives you to buy the food not on your list?#drinks
-	-Discounts
-	-Advertisement
-	-Recommendation
-	-Coupon
-	-The food itself
-	-Others
+	-Discounts#solution s12
+	-Forgot to put on my list
+	-Recommendations from others
+	-Family members#solution s46
+	-Food looks tempting#solution s47,s2
+	-Other
 end
-
 
 question drinks
 	What do you usually have for drink?#DONE
 	-Water
-	-Tea
-	-Coffee
-	-Soft Drinks
+	-Tea#solution s48
+	-Coffee#solution s31
+	-Soft Drinks#solution s31
 	-Juice
 	-Milk
 	-Other
@@ -364,6 +295,10 @@ solution s24
 	Do a Google search for "healthy canned foods" for ideas of inexpensive healthy foods
 end
 
+solution s25
+	Don't buy snack items in bulk, get them in smaller portions at the store
+end
+
 solution s27
 	Buy on-the-go breakfast items (e.g., nutrition shake, nutrition bar)
 end
@@ -403,7 +338,7 @@ solution s36
 end	
 
 solution s37
-	Talk a walk when you talk on the phone
+	Take a walk when you talk on the phone
 end
 
 solution s38
