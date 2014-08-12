@@ -9,10 +9,9 @@ http.createServer(function (req, res) {
   	res.write(submissions[i]+"<br/>");
   }
   res.end();
-}).listen(80, '127.0.0.1');
+}).listen(80, 'localhost');
 
 var net = require("net");
-
 net.createServer(function(socket){
 
 	socket.on("data", function(data){
@@ -22,6 +21,6 @@ net.createServer(function(socket){
 		})
 	});
 
-}).listen(1337, '120.0.0.1');
+}).listen(1337, 'localhost');
 
 console.log('Server running at http://127.0.0.1:1337/');
