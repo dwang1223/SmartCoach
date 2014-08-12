@@ -9,18 +9,18 @@ http.createServer(function (req, res) {
   	res.write(submissions[i]+"<br/>");
   }
   res.end();
-}).listen(80, 'localhost');
+}).listen(80, '162.243.254.35');
 
 var net = require("net");
 net.createServer(function(socket){
 
 	socket.on("data", function(data){
-		var s = data.split("\n");
-		s.forEach(function(str){
-			submissions[submissions.length] = str;
-		})
+//		var s = data.split("\n");
+		
+		submissions[submissions.length] = data;
+		
 	});
 
-}).listen(1337, 'localhost');
+}).listen(1337, '162.243.254.35');
 
 console.log('Server running at http://127.0.0.1:1337/');
