@@ -1,5 +1,7 @@
 package edu.wpi.smartcoach.view;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -74,6 +76,23 @@ public class SetReminderFragment extends Fragment {
 		dayButtons = new ToggleButton[days.length];
 		for(int i = 0; i < days.length;i++){
 			dayButtons[i] = (ToggleButton)root.findViewById(getActivity().getResources().getIdentifier(days[i], "id", "edu.wpi.smartcoach"));
+			final int index = i;
+			final Drawable bg = dayButtons[i].getBackground();
+			dayButtons[i].setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					if(dayButtons[index].isChecked()){
+						dayButtons[index].setTextColor(Color.WHITE);
+						dayButtons[index].setBackgroundResource(R.drawable.hologreen_btn_default_holo_light);
+					} else {
+						dayButtons[index].setTextColor(Color.BLACK);
+						dayButtons[index].setBackgroundDrawable(bg);
+						
+					}
+					
+				}
+			});
 		}
 		
 		if (position != total - 1) { 

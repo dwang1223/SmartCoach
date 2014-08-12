@@ -28,12 +28,10 @@
         android:layout_alignLeft="@+id/questionText"
         android:layout_below="@+id/questionText"
         android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         android:divider="@null"
-        android:fastScrollEnabled="true"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:scrollbarStyle="outsideInset"
-        tools:listitem="@layout/layout_option" >
+        tools:listitem="@layout/layout_option_solution" >
 
     </ListView>
 

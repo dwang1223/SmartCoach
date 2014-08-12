@@ -397,6 +397,10 @@ public class Solutions {
 			
 		}
 		
+		for(ExerciseState state:states){
+			liked.remove(state.getExercise());
+		}
+		
 		ArrayList<Equipment> equip = new ArrayList<Equipment>();
 		for(String sId:eqIds){
 			try {

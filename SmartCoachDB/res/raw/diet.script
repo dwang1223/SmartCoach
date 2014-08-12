@@ -77,13 +77,13 @@ question cook_why
 end
 
 question family_cook
-	Does someone else in your family cook?
+	Does someone else in your family cook?#pack
 	-Yes#solution s36
 	-No#solution s30
 end
 
 question pack
-	Do you pack your lunch for lunch or school?#snack_where
+	Do you pack your lunch for work or school?#snack_where
 	-Yes#solution s42
 	-No#solution s10
 end

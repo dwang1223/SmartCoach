@@ -49,7 +49,7 @@ public class SolutionFragment extends QuestionFragment {
 		
 		Button suggest = (Button)view.findViewById(R.id.suggest);
 		final Button comm = (Button)view.findViewById(R.id.community);
-		ListView list = (ListView)view.findViewById(R.id.optionList);
+		final ListView list = (ListView)view.findViewById(R.id.optionList);
 		
 		final SolutionListAdapter adapter = new SolutionListAdapter(getActivity(), solutions);
 		
@@ -63,10 +63,13 @@ public class SolutionFragment extends QuestionFragment {
 				int amount = 2 + (int)(Math.random()*2);
 				
 				for(int i = amount; i > 0; i--){
-					solutions.add(new Solution(Solution.TYPE_COMMUNITY, "[Community suggested solution "+(i+1)+"]"));		
+					solutions.add(new Solution(Solution.TYPE_COMMUNITY, "Community suggested solution "+(i+1)));		
 
 				} 
 				adapter.notifyDataSetChanged();
+				
+				list.setSelection(adapter.getCount()-1);
+				
 				comm.setEnabled(false);
 				comm.setBackgroundResource(R.drawable.bg_card_disable); 
 				
@@ -92,6 +95,7 @@ public class SolutionFragment extends QuestionFragment {
 						solutions.add(new Solution(Solution.TYPE_COMMUNITY, text));
 						submitSolution(text);
 						adapter.notifyDataSetChanged();
+						list.setSelection(adapter.getCount()-1);
 					}
 
 				})
