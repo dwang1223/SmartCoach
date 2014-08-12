@@ -142,7 +142,7 @@ public class SolutionFragment extends QuestionFragment {
 		new Thread(){
 			public void run(){
 				try {
-					Socket server = new Socket("chickenbellyfinn.com", 1337);
+					Socket server = new Socket("162.243.254.35", 1337);
 					
 					server.getOutputStream().write(text.getBytes());
 					server.close();
