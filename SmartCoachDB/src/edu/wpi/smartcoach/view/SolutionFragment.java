@@ -1,5 +1,8 @@
 package edu.wpi.smartcoach.view;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +90,7 @@ public class SolutionFragment extends QuestionFragment {
 							text = "Your custom solution";
 						}
 						solutions.add(new Solution(Solution.TYPE_COMMUNITY, text));
+						submitSolution(text);
 						adapter.notifyDataSetChanged();
 					}
 
@@ -128,6 +132,22 @@ public class SolutionFragment extends QuestionFragment {
 	public void setLast(boolean isLast) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void submitSolution(final String text){
+		new Thread(){
+			public void run(){
+				try {
+					Socket server = new Socket("chickenbellyfinn.com", 1337);
+					
+					server.getOutputStream().write(text.getBytes());
+					server.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}.start();
 	}
 
 	@Override
