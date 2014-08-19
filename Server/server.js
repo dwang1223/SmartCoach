@@ -2,17 +2,18 @@
 global.submissions = submissons = ["test1", "test2", "test3"];
 
 var addr = "162.243.254.35"
-var addr = "localhost"; 
+//var addr = "localhost"; 
 
 var http = require('http');
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
 
   if(submissons.length > 0){
-  	res.write("<table width='100%' border='1'>");
+	res.write("<h1>SmartCoach Social Features Manager</h1><br/>");
+  	res.write("<table width='80%' align='center' border='1'>");
 	  for(var i = 0; i < submissons.length; i++){
-	  	res.write("<tr><td><input type='checkbox'>Approve</input></td><td><input type='checkbox'>Reject</input></td>");
-	  	res.write("<td width='80%'>"+submissions[i]+"<br/></td></tr>");
+	  	res.write("<tr><td><input type='checkbox'></td>");
+	  	res.write("<td width='90%'>"+submissions[i]+"<br/></td></tr>");
 	  }
 	  res.write("</table><br/><br/><input type='submit' value='Approve'/><input type='submit' value='Reject'>");
 	}
