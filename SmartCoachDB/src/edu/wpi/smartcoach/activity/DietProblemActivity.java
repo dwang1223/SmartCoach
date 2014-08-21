@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.SocialNetworkSubmission;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.solver.DialogScriptSolver;
 import edu.wpi.smartcoach.util.DialogScriptReader;
@@ -86,6 +87,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 	private void showSolution(List<Solution> solutions){
 		SolutionFragment solutionFragment = new SolutionFragment();
 		solutionFragment.setSolutions(solutions);
+		solutionFragment.setSolver(SocialNetworkSubmission.DIET, solver);
 		solutionFragment.setNextButtonListener(this);
 		getSupportFragmentManager().beginTransaction().replace(R.id.container, solutionFragment).commit();	
 		

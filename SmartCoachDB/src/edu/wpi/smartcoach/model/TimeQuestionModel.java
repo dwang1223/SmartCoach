@@ -63,4 +63,9 @@ public class TimeQuestionModel implements QuestionModel {
 	public TimeQuestionModel clone(){
 		return new TimeQuestionModel(id, title, prompt);
 	}
+	@Override
+	public QuestionResponseOutline getOutline() {
+		// TODO Auto-generated method stub
+		return new QuestionResponseOutline(id, new String[]{response+""});
+	}
 }

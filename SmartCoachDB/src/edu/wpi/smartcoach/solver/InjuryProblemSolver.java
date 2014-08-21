@@ -12,6 +12,7 @@ import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.QuestionResponseOutline;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.model.exercise.Equipment;
 import edu.wpi.smartcoach.util.QuestionReader;
@@ -145,6 +146,17 @@ public class InjuryProblemSolver implements ProblemSolver {
 		}
 		
 		return solutions;
+	}
+
+	@Override
+	public QuestionResponseOutline[] getOutline() {
+		QuestionResponseOutline[] outline = new QuestionResponseOutline[backStack.size()];
+		
+		for(int i = 0; i < backStack.size(); i++){
+			outline[i] = backStack.get(i).getOutline();
+		}
+		
+		return outline;
 	}
 
 }

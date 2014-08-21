@@ -74,6 +74,11 @@ public class DialogScriptOption extends Option {
 		return this;
 	}
 	
+	@Override
+	public String toString(){
+		return text;
+	}
+	
 	
 
 }

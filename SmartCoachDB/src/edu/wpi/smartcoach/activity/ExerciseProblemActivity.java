@@ -1,9 +1,7 @@
 package edu.wpi.smartcoach.activity;
 
-import java.util.HashMap;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -12,9 +10,8 @@ import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.SocialNetworkSubmission;
 import edu.wpi.smartcoach.model.Solution;
-import edu.wpi.smartcoach.model.exercise.Exercise;
-import edu.wpi.smartcoach.model.exercise.ExerciseSolution;
 import edu.wpi.smartcoach.solver.BoredomProblemSolver;
 import edu.wpi.smartcoach.solver.InjuryProblemSolver;
 import edu.wpi.smartcoach.solver.MotivationProblemSolver;
@@ -35,7 +32,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	
 	
 	private ProblemSolver solver  = null;
-	
+	private String socialCategory = null;
 	private boolean solutionRetrieved;
 	
 	
@@ -155,6 +152,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	private void showSolution(List<Solution> solutions){
 		SolutionFragment solutionFragment = new SolutionFragment();
 		solutionFragment.setSolutions(solutions);
+		solutionFragment.setSolver(socialCategory, solver);
 		solutionFragment.setNextButtonListener(this);
 		getSupportFragmentManager().beginTransaction().replace(R.id.container, solutionFragment).commit();	
 		
@@ -184,16 +182,22 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		
 		if(problem.equals("time")){
 			solver = new TimeProblemSolver();
+			socialCategory = SocialNetworkSubmission.EXERCISE_TIME;
 		} else if(problem.equals("motivation")){
 			solver = new MotivationProblemSolver();
+			socialCategory = SocialNetworkSubmission.EXERCISE_MOTIVATION;
 		} else if(problem.equals("boredom")){
 			solver = new BoredomProblemSolver();
+			socialCategory = SocialNetworkSubmission.EXERCISE_BOREDOM;
 		} else if (problem.equals("injury")){
 			solver = new InjuryProblemSolver(getBaseContext());
+			socialCategory = SocialNetworkSubmission.EXERCISE_INJURY;
 		} else if (problem.equals("tired")){
 			solver = new TiredProblemSolver();
+			socialCategory = SocialNetworkSubmission.EXERCISE_TIRED;
 		} else if (problem.equals("weather")){
 			solver = new WeatherProblemSolver();
+			socialCategory = SocialNetworkSubmission.EXERCISE_WEATHER;
 		}
 		
 		return solver;

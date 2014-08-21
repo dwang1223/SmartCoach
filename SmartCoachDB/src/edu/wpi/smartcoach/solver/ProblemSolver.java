@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.QuestionResponseOutline;
 import edu.wpi.smartcoach.model.Solution;
 
 public interface ProblemSolver {
@@ -17,4 +18,6 @@ public interface ProblemSolver {
 	public void back();
 
 	public List<Solution> getSolution(Context ctx);
+	
+	public QuestionResponseOutline[] getOutline();
 }

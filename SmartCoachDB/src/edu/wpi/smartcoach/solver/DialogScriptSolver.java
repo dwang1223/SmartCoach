@@ -11,6 +11,7 @@ import edu.wpi.smartcoach.model.DialogScriptOption;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.QuestionResponseOutline;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.view.Option;
 
@@ -63,9 +64,7 @@ public class DialogScriptSolver implements ProblemSolver {
 	public List<Solution> getSolution(Context ctx) {
 		HashMap<String, Solution> selectedSolutions = new HashMap<String, Solution>();
 		
-		OptionQuestionModel q;
-		while(backStack.size() > 0){
-			q = backStack.pop();
+		for(OptionQuestionModel q:backStack){
 			DialogScriptOption op = (DialogScriptOption)q.getSelectedValue();
 			ArrayList<String> opsolns = op.getSolutions();
 			for(String s:opsolns){
@@ -93,6 +92,17 @@ public class DialogScriptSolver implements ProblemSolver {
 	public QuestionModel getNextQuestion() {
 		// TODO Auto-generated method stub
 		return current;
+	}
+
+	@Override
+	public QuestionResponseOutline[] getOutline() { 
+		QuestionResponseOutline[] outline = new QuestionResponseOutline[backStack.size()];
+		
+		for(int i = 0; i < backStack.size(); i++){
+			outline[i] = backStack.get(i).getOutline();
+		}
+		
+		return outline;
 	}
 	
 }

@@ -91,6 +91,14 @@ public class ExerciseQuestions {
 		} else if (question instanceof OptionQuestionModel){
 			question = prepareQuestion((OptionQuestionModel)question, state, weekend);
 		}
+		
+		if(state != null && state.getExercise() != null){
+			question.setId(question.getId()+"_"+state.getExercise().getName().toLowerCase().replaceAll(" ", "_"));
+			if(weekend){
+				question.setId(question.getId()+"_weekend");
+			}
+		}
+		
 		return question;
 	}
 	
@@ -200,7 +208,7 @@ public class ExerciseQuestions {
 //		Log.d(TAG,"response="+response.getId()+","+weekend);
 //		Log.d(TAG, "location is now "+state.getWeekendLocation());
 		String id = response.getId();
-		if(id.equals("exercise_location")){
+		if(id.startsWith("exercise_location")){
 			ExerciseLocation location = (ExerciseLocation)((OptionQuestionModel)response).getSelectedValue();
 			if(weekend){
 				Log.d(TAG,"setting location "+ location);
@@ -208,28 +216,28 @@ public class ExerciseQuestions {
 			} else {
 				state.setLocation(location);
 			}
-		} else if (id.equals("exercise_time")){
+		} else if (id.startsWith("exercise_time")){
 			ExerciseTime time = (ExerciseTime)((OptionQuestionModel)response).getSelectedValue();
 			if(weekend){
 				state.setWeekendTime(time);
 			} else {
 				state.setTime(time);
 			}
-		} else if(id.equals("exercise_frequency")){
+		} else if(id.startsWith("exercise_frequency")){
 			int frequency = Integer.parseInt(((OptionQuestionModel)response).getSelectedOption().getId());
 			if(weekend){
 				state.setWeekendFrequency(frequency);
 			} else {
 				state.setFrequency(frequency);
 			}
-		} else if(id.equals("exercise_duration")){
+		} else if(id.startsWith("exercise_duration")){
 			int duration = ((TimeQuestionModel)response).getResponse();
 			if(weekend){
 				state.setWeekendDuration(duration);
 			} else {
 				state.setDuration(duration);
 			}
-		} else if (id.equals("exercise_like")){
+		} else if (id.startsWith("exercise_like")){
 			List<Option> selectedOptions = ((OptionQuestionModel)response).getSelectedOptions();
 			String selected = "";
 			for(Option o:selectedOptions){

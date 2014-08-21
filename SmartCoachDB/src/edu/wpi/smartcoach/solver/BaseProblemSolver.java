@@ -2,11 +2,13 @@ package edu.wpi.smartcoach.solver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import android.content.Context;
 import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.QuestionResponseOutline;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
 import edu.wpi.smartcoach.model.exercise.Exercise;
@@ -20,6 +22,8 @@ public class BaseProblemSolver implements ProblemSolver {
 	//protected ArrayList<Exercise> exercises;
 	protected ArrayList<ExerciseState> states;
 	protected ArrayList<QuestionStateEntry> questions;
+
+	protected Stack<QuestionModel> backStack;
 
 	protected QuestionStateEntry current = null;
 	
@@ -37,6 +41,9 @@ public class BaseProblemSolver implements ProblemSolver {
 		//exercises = new ArrayList<Exercise>();
 		states = new ArrayList<ExerciseState>();
 		questions = new ArrayList<QuestionStateEntry>();
+		
+
+		backStack = new Stack<QuestionModel>();
 		
 		OptionQuestionModel exercisesQuestion = ExerciseQuestions.getInstance().getOptionQuestion("exercises");
 		QuestionStateEntry exerciseEntry = new QuestionStateEntry(exercisesQuestion, null, false);
@@ -59,6 +66,7 @@ public class BaseProblemSolver implements ProblemSolver {
 	public void submitResponse(QuestionModel response) {
 		
 		if(response != null){
+			backStack.push(response);
 			String id = response.getId();
 			
 			if(id.equals("exercises")){
@@ -107,7 +115,7 @@ public class BaseProblemSolver implements ProblemSolver {
 		OptionQuestionModel frequency = ExerciseQuestions.getInstance().getOptionQuestion("exercise_frequency");
 		TimeQuestionModel duration = ExerciseQuestions.getInstance().getTimeQuestion("exercise_duration");
 		OptionQuestionModel like = ExerciseQuestions.getInstance().getOptionQuestion("exercise_like");
-
+		
 		questions.add(new QuestionStateEntry(location, state, weekend));
 		questions.add(new QuestionStateEntry(time, state, weekend));
 		questions.add(new QuestionStateEntry(frequency, state, weekend));
@@ -126,6 +134,7 @@ public class BaseProblemSolver implements ProblemSolver {
 		int prevIndex = questions.indexOf(current)-1;
 		
 		if(prevIndex >= 0){
+			backStack.pop();
 			current = questions.get(prevIndex);
 		}
 		
@@ -148,4 +157,17 @@ public class BaseProblemSolver implements ProblemSolver {
 	public List<Solution> getSolution(Context ctx) {
 		return null;
 	}
+
+	@Override
+	public QuestionResponseOutline[] getOutline() {
+		QuestionResponseOutline[] outline = new QuestionResponseOutline[questions.size()];
+		
+		for(int i = 0; i < backStack.size(); i++){
+			outline[i] = backStack.get(i).getOutline();
+		}
+		
+		return outline;
+	}
+	
+	
 }

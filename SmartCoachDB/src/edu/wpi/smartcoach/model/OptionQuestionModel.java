@@ -42,6 +42,10 @@ public class OptionQuestionModel implements QuestionModel{
 		
 	}
 	
+	public void setId(String newID){
+		this.id = newID;
+	}
+	
 	public String getId(){
 		return id;
 	}
@@ -210,6 +214,17 @@ public class OptionQuestionModel implements QuestionModel{
 	@Override
 	public String toString(){
 		return String.format("%s:%s", id, prompt);
+	}
+	
+	@Override
+	public QuestionResponseOutline getOutline(){
+		List<Object> selected = getSelectedValues();
+		String[] responseStrings = new String[selected.size()];
+		for(int i = 0; i < selected.size(); i++){
+			responseStrings[i] = selected.get(i).toString();		
+		}
+		
+		return new QuestionResponseOutline(id, responseStrings);
 	}
 	
 	@Override

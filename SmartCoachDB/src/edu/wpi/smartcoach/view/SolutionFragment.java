@@ -1,13 +1,9 @@
 package edu.wpi.smartcoach.view;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,24 +15,37 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.QuestionResponseOutline;
+import edu.wpi.smartcoach.model.SocialNetworkSubmission;
 import edu.wpi.smartcoach.model.Solution;
+import edu.wpi.smartcoach.solver.ProblemSolver;
+import edu.wpi.smartcoach.util.SocialHelper;
+import edu.wpi.smartcoach.util.SocialHelper.SuggestionListener;
 
-public class SolutionFragment extends QuestionFragment {
+public class SolutionFragment extends QuestionFragment implements SuggestionListener {
 	
 	private static final String TAG = SolutionFragment.class.getSimpleName();
+	
+	private String category;
+	private ProblemSolver solver;
 	
 	private List<Solution> solutions;
 	
 	private QuestionResponseListener listener;
 	private Button next;
-	
-	
+
+	SolutionListAdapter adapter;
 	public SolutionFragment(){
 		solutions = new ArrayList<Solution>();
 	}
 	
 	public void setSolutions(List<Solution> solutions){
 		this.solutions = solutions;
+	}
+	
+	public void setSolver(String category, ProblemSolver solver){
+		this.category = category;
+		this.solver = solver;
 	}
 	
 	@Override
@@ -51,7 +60,7 @@ public class SolutionFragment extends QuestionFragment {
 		final Button comm = (Button)view.findViewById(R.id.community);
 		final ListView list = (ListView)view.findViewById(R.id.optionList);
 		
-		final SolutionListAdapter adapter = new SolutionListAdapter(getActivity(), solutions);
+	 adapter = new SolutionListAdapter(getActivity(), solutions);
 		
 		list.setAdapter(adapter);
 		
@@ -60,15 +69,9 @@ public class SolutionFragment extends QuestionFragment {
 			@Override
 			public void onClick(View v) {
 				Log.d(TAG, "click");
-				int amount = 2 + (int)(Math.random()*2);
-				
-				for(int i = amount; i > 0; i--){
-					solutions.add(new Solution(Solution.TYPE_COMMUNITY, "Community suggested solution "+(i+1)));		
 
-				} 
-				adapter.notifyDataSetChanged();
-				
-				list.setSelection(adapter.getCount()-1);
+				SocialHelper.getSuggestions(category, solver.getOutline(), SolutionFragment.this);								
+				//list.setSelection(adapter.getCount()-1);
 				
 				comm.setEnabled(false);
 				comm.setBackgroundResource(R.drawable.bg_card_disable); 
@@ -93,7 +96,14 @@ public class SolutionFragment extends QuestionFragment {
 							text = "Your custom solution";
 						}
 						solutions.add(new Solution(Solution.TYPE_COMMUNITY, text));
-						submitSolution(text);
+						
+
+						QuestionResponseOutline[] outline = solver.getOutline();
+						
+						SocialNetworkSubmission submission = new SocialNetworkSubmission(category, text, solver.getOutline());
+						
+						SocialHelper.submitSolution(submission);
+						
 						adapter.notifyDataSetChanged();
 						list.setSelection(adapter.getCount()-1);
 					}
@@ -137,22 +147,6 @@ public class SolutionFragment extends QuestionFragment {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	private void submitSolution(final String text){
-		new Thread(){
-			public void run(){
-				try {
-					Socket server = new Socket("162.243.254.35", 1337);
-					
-					server.getOutputStream().write(text.getBytes());
-					server.close();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}.start();
-	}
 
 	@Override
 	public QuestionFragment setNextButtonListener(final QuestionResponseListener listener) {
@@ -164,6 +158,21 @@ public class SolutionFragment extends QuestionFragment {
 	@Override
 	public QuestionFragment setBackButtonListener(QuestionResponseListener listener) {
 		return this;
+	}
+
+	@Override
+	public void suggestionsRecieved(final String[] solutions) {
+		getActivity().runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				for(String s:solutions){
+					adapter.solutions.add(new Solution(Solution.TYPE_COMMUNITY, s));
+				}
+				adapter.notifyDataSetChanged();
+			}
+		});
+		
 	}
 
 }
