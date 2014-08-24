@@ -28,7 +28,7 @@ public class SocialHelper {
 	private static final String TAG = SocialHelper.class.getSimpleName();
 	
 	private static final int PORT = 1337;
-	private static final String SERVER_ADDRESS = "http://192.168.1.152";//"chickenbellyfinn.com";
+	private static final String SERVER_ADDRESS = "http://130.215.79.136";//"http://192.168.1.152";//"chickenbellyfinn.com";
 	
 	public static void submitSolution(final SocialNetworkSubmission submission){
 		new Thread(){
