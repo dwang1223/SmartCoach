@@ -1,9 +1,14 @@
 package edu.wpi.smartcoach.activity;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,13 +19,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Toast;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.reminders.Reminder;
+import edu.wpi.smartcoach.reminders.ReminderReciever;
 import edu.wpi.smartcoach.service.ReminderService;
 import edu.wpi.smartcoach.view.SetReminderFragment;
 
 public class SetReminderActivity extends FragmentActivity {
 	
+	private static final String TAG = SetReminderActivity.class.getSimpleName();
 
 	ReminderPagerAdapter mSectionsPagerAdapter;
 
@@ -51,8 +58,7 @@ public class SetReminderActivity extends FragmentActivity {
 	}
 	
 	private void doFinish(){
-	
-
+		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		 Set<String> reminders = prefs.getStringSet("reminders", new HashSet<String>());		
@@ -60,6 +66,19 @@ public class SetReminderActivity extends FragmentActivity {
 		for(int i = 0; i < mSectionsPagerAdapter.getCount(); i++){
 			SetReminderFragment f = (SetReminderFragment)mSectionsPagerAdapter.getItem(i);
 			reminders.add(f.getSaveString());
+			
+			Reminder r = f.createReminder();
+			Integer[] reminderDays = f.getDayInts();
+			ReminderService.getInstance().addReminder(r);
+			
+			for(Integer d:reminderDays){
+				setAlarm(d, r.getHour(), r.getMinute(), r.getId());
+			}
+			
+			
+			
+			//Log.d(TAG, ReminderService.getInstance().getAllDataFromTable().toString());
+			
 			//ReminderService.getInstance().addReminder(f.getSaveString());
 		}
 		
@@ -67,6 +86,25 @@ public class SetReminderActivity extends FragmentActivity {
 		
 		//Toast.makeText(getBaseContext(), reminders.size()+" new reminder(s) set.", Toast.LENGTH_SHORT).show();
 		finish();
+	}
+	
+	public void setAlarm(int dayOfWeek, int hour, int minute, long id) {
+		Calendar alarm = new GregorianCalendar();
+        alarm.set(Calendar.DAY_OF_WEEK, dayOfWeek);
+
+        alarm.set(Calendar.HOUR_OF_DAY, hour);
+        alarm.set(Calendar.MINUTE, minute);
+        alarm.set(Calendar.SECOND, 0);
+
+        long alarmTime = alarm.getTimeInMillis();
+        //Also change the time to 24 hours.
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        
+        Intent intent = new Intent(this, ReminderReciever.class);
+        intent.putExtra("id", id);
+        PendingIntent pending = PendingIntent.getBroadcast(this, 0, intent, 0);
+        
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, (long)(7*24*60*60*1000) , pending); 
 	}
 
 	@Override

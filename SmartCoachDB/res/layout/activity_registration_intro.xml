@@ -42,4 +42,14 @@
         android:text="Next"
         android:textColor="#ffffff" />
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/exerciselabel"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30dp"
+        android:src="@drawable/android" />
+
 </RelativeLayout>

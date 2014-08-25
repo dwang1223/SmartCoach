@@ -13,6 +13,7 @@
         android:id="@+id/questionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
         android:layout_marginRight="10dp"
         android:background="@drawable/bg_card"
         android:padding="10dp"
@@ -80,5 +81,11 @@
         android:layout_below="@+id/instructions"
         android:ems="10"
         android:hint="Search" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:src="@drawable/android_head" />
 
 </RelativeLayout>

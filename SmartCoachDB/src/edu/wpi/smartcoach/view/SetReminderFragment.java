@@ -1,5 +1,8 @@
 package edu.wpi.smartcoach.view;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.reminders.Reminder;
 
 public class SetReminderFragment extends Fragment {
 
@@ -24,6 +28,16 @@ public class SetReminderFragment extends Fragment {
 			"thu",
 			"fri",
 			"sat",};
+	
+	private final int[] calendarDays = {
+			Calendar.SUNDAY,
+			Calendar.MONDAY,
+			Calendar.TUESDAY,
+			Calendar.WEDNESDAY,
+			Calendar.THURSDAY,
+			Calendar.FRIDAY,
+			Calendar.SATURDAY,
+	};
 	
 	int position;
 	int total;
@@ -64,6 +78,48 @@ public class SetReminderFragment extends Fragment {
 		String ampm = hour>12?"PM":"AM";
 		s += (time.getCurrentHour()%12)+":"+String.format("%02d",time.getCurrentMinute());
 		return s;
+	}
+	
+	public String getMessage(){
+		return reminder;
+	}
+	
+	public String getDays(){
+		String s = "";
+		boolean dayChecked = false;
+		for(int i = 0; i < days.length; i++){
+			if(dayButtons[i].isChecked()){
+				s += days[i]+",";
+				dayChecked = true;
+			}
+		}
+		if(dayChecked){
+			s = s.substring(0, s.length()-1);
+		}
+		
+		return s;
+	}
+	
+	public int getHour(){
+		return time.getCurrentHour();
+	}
+	
+	public int getMinute(){
+		return time.getCurrentMinute();
+	}
+	
+	public Integer[] getDayInts(){
+		ArrayList<Integer> dayList = new ArrayList<Integer>();
+		for(int i = 0; i < days.length; i++){
+			if(dayButtons[i].isChecked()){
+				dayList.add(calendarDays[i]);
+			}
+		}
+		return dayList.toArray(new Integer[]{});
+	}
+	
+	public Reminder createReminder(){
+		return new Reminder(System.currentTimeMillis(), reminder, getDays(), getHour(), getMinute());
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

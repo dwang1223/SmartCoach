@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.database.Cursor;
+import edu.wpi.smartcoach.reminders.Reminder;
 import edu.wpi.smartcoach.util.DatabaseHelper;
 
 public class ReminderService {
@@ -18,21 +19,43 @@ public class ReminderService {
 		return instance;
 	}
 	
-	public List<String> getAllDataFromTable(){
-		List<String> reminders = new ArrayList<String>();
+	public Reminder getReminder(long id){
+		List<Reminder> all = getAllDataFromTable();
+		Reminder reminder = null;
+		for(Reminder r:all){
+			if(r.getId() == id){
+				reminder = r;
+				break;
+			}
+		}
+		return reminder;
+	}
+	
+	public List<Reminder> getAllDataFromTable(){
+		List<Reminder> reminders = new ArrayList<Reminder>();
 		
 		String sql = "select * from t_reminders";
 		Cursor cursor = DatabaseHelper.getInstance().getReadableDatabase().rawQuery(sql, null);
 		
 		while(cursor.moveToNext()){
-			reminders.add(cursor.getString(1));
+			reminders.add(new Reminder(
+					cursor.getLong(0),
+					cursor.getString(1),
+					cursor.getString(2),
+					cursor.getInt(3),
+					cursor.getInt(4)));
 		}
 		
 		return reminders;
 	}
 	
-	public void addReminder(String reminder){
-		String sql = "insert into t_reminders (message) values ("+reminder+")";
+	public void addReminder(Reminder rem){
+		String sql = "insert into t_reminders (id, message, days, hour, minute) values ("+
+			rem.getId()+", "+
+			"\""+rem.getMessage()+"\", "+
+			"\""+rem.getDays()+"\", "+
+			rem.getHour()+", "+
+			rem.getMinute()+")";
 		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
 	}
 

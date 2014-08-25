@@ -8,147 +8,145 @@
     tools:context="edu.wpi.smartcoach.activity.MainActivity"
     tools:ignore="MergeRootFrame" >
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" >
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/android_head" />
 
         <LinearLayout
+            android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content" >
 
             <LinearLayout
-                android:id="@+id/linearLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:id="@+id/exerciseSolver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="28dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_button"
+                android:orientation="vertical" >
 
-                <LinearLayout
-                    android:id="@+id/exerciseSolver"
+                <ImageView
+                    android:id="@+id/exerciseicon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="28dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_card_button"
-                    android:orientation="vertical" >
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_run" />
 
-                    <ImageView
-                        android:id="@+id/exerciseicon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_run" />
-
-                    <TextView
-                        android:id="@+id/exerciselabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Exercise Problems"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/dietSolver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_card_button"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        android:id="@+id/dieticon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0"
-                        android:src="@drawable/ic_diet" />
-
-                    <TextView
-                        android:id="@+id/dietlabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Diet Problems"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/exerciselabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Exercise Problems"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:id="@+id/dietSolver"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_button"
+                android:orientation="vertical" >
 
-                <LinearLayout
-                    android:id="@+id/profile"
+                <ImageView
+                    android:id="@+id/dieticon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="28dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_card_button"
-                    android:orientation="vertical" >
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_diet" />
 
-                    <ImageView
-                        android:id="@+id/profileicon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_action_person" />
-
-                    <TextView
-                        android:id="@+id/profilelabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Profile"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/reminder"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/dietlabel"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="28dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_card_button"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        android:id="@+id/ImageView01"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_action_time" />
-
-                    <TextView
-                        android:id="@+id/reminders"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Reminders"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
+                    android:gravity="center"
+                    android:text="Diet Problems"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
             </LinearLayout>
-
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="28dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_button"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/profileicon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_action_person" />
+
+                <TextView
+                    android:id="@+id/profilelabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Profile"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="28dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_card_button"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/ImageView01"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_action_time" />
+
+                <TextView
+                    android:id="@+id/reminders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Reminders"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
