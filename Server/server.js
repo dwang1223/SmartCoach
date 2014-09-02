@@ -149,8 +149,23 @@ function getSuggestions(category, path){
 		}
 	});
 
+	if(category.indexOf('exercise') == 0){
+		selected = filterExercise(selected, path);
+	} else {
+		selected = filterDiet(selected, path);
+	}
+	
 	return selected;
 }
 
+function filterExercise(list, path){
+
+
+	return list;
+}
+
+function filterDiet(list, path){
+	return list;
+}
 httpApp.listen(80);
 console.log('Server running');
