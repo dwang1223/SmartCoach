@@ -130,19 +130,27 @@ public class InjuryProblemSolver implements ProblemSolver {
 		if(hasPhysicalTherapist){
 			if(hasConsultedTherapist){
 				solutions.add(new Solution("Make sure to follow any advice given by you physical therapist."));
+				solutions.add(new Solution(Solution.TYPE_DEFAULT,
+						"Make an appointment with a physical therapist to learn about safe exercises",
+						"http://www.fudiet.com/2012/02/on-pain-and-injury/"));
 			} else {
 
-				solutions.add(new Solution("Try consulting your physical therapist for advise on how to proceed with your injury."));
+				solutions.add(new Solution(Solution.TYPE_DEFAULT, 
+						"Get a referral for a physical therapist for advice on how to proceed with your injury.",
+						"http://www.fudiet.com/2012/02/on-pain-and-injury/"));
 			}
 		}
 		
 		if (hasGymMembership){
 
-			solutions.add(new Solution("See if a professional trainer at your gym can help you continue exercise safely."));
-		
+			solutions.add(new Solution(Solution.TYPE_DEFAULT,
+					"Make an appointment with a personal trainer to learn about safe exercises",
+					"http://www.fudiet.com/2012/02/on-pain-and-injury/"));
+			
 		} else if (!hasPhysicalTherapist) {
 
-			solutions.add(new Solution("Consult your primary care provider for further advice, or get a referral to a physical therapist."));
+			solutions.add(new Solution("Consult your primary care provider for further advice, or get a referral to a physical therapist."
+					,"http://www.fudiet.com/2012/02/on-pain-and-injury/"));
 		}
 		
 		return solutions;

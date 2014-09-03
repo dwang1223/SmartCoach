@@ -28,9 +28,16 @@ public class MotivationProblemSolver extends BaseProblemSolver {
 		solutions.addAll(Solutions.getNewExerciseRecommendation(states, ctx));
 		solutions.addAll(Solutions.getAddToWeekendSolutions(states));
 		
-		solutions.add(new Solution("Download an app such as MyFitnessPal to track your exercises."));
+		solutions.add(new Solution("Download an app such as MyFitnessPal to track your exercises.","http://www.cnn.com/2014/02/18/health/health-fitness-apps/"));
+		solutions.add(new Solution("Plan a fun goal that will motivate you to start training  (e.g., climb a mountain, bike to a certain destination, etc)"));
 		solutions.add(new Solution("Reward yourself with money or a gift when you achieve a goal for your exercise."));
-		
+		solutions.add(new Solution("Find a buddy to report your exercise to each week, and he/she will do the same to you for accountability"));
+		solutions.add(new Solution("Find some free exercise videos on Youtube", "https://www.youtube.com/watch?v=OQ6NfFIr2jw"));
+		solutions.add(new Solution("Start with very light exercise that doesn't feel overwhelming or exhausting, e.g., leisurely walk, light yoga"));
+		solutions.add(new Solution("Plan your exercise with a schedule. Write it in your calendar at the beginning of the week.",
+				"http://www.fudiet.com/2012/04/four-words-we-should-never-say-again-i-dont-have-time/"));
+		solutions.add(new Solution("Start a Couch to 5K plan to have a goal to strive for.",
+				"http://www.coolrunning.com/engine/2/2_3/181.shtml"));
 		ArrayList<Option> options = new ArrayList<Option>();
 		
 		return solutions;

@@ -71,10 +71,14 @@ public class WeatherProblemSolver extends BaseProblemSolver{
 
 		
 		solutions.addAll(Solutions.getNewLocationSolutions(new ArrayList<ExerciseState>(), ctx));
+		
+		solutions.add(new Solution("Develop an indoor exercise plan that you can use as a backup plan","http://www.fudiet.com/2011/12/baby-its-cold-outside/"));
 		ArrayList<Option> options = new ArrayList<Option>(); 
 		
 		if(weather == WEATHER_COLD){
 			options.add(new Option("warmup", new Solution(Solution.TYPE_DEFAULT, "Try doing some warm ups before going out")));
+			options.add(new Option("clothes", new Solution(Solution.TYPE_DEFAULT, "Go to a sporting goods store to buy rain gear and/or warm workout clothes","http://www.fudiet.com/2011/12/baby-its-cold-outside/")));
+			
 		} else if (weather == WEATHER_HOT){
 			
 		}

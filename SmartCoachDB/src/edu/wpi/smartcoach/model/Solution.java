@@ -23,8 +23,16 @@ public class Solution {
 		this.info = info;
 	}
 	
+	public Solution(String message, String info){
+		this(TYPE_DEFAULT, message, info);
+	}
+	
 	public void setType(int type){
 		this.type = type;
+	}
+	
+	public void setInfo(String info){
+		this.info = info;
 	}
 	
 	public int getType(){
