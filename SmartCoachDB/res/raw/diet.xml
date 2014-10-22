@@ -1,0 +1,364 @@
+<questions>
+
+	<question id='1'>
+		<prompt>What would you say is your biggest challenge with diet?</prompt>
+		<option id='A' condition='stress_eating'>I eat when I am stressed</option>
+		<option id='B' condition='weak_willpower'>Weak willpower</option>
+		<option id='C' condition='hungry'>I am hungry all the time</option>
+		<option id='D' condition='bored'>I eat when I am bored</option>
+		<option id='E' condition='restaurants'>Restaurants</option>		
+	</question>
+
+	<question id='2'>
+		<prompt>Do you track what you eat?</prompt>
+		<option id='A'>Yes</option>
+		<option id='B' condition='not_tracking'>No</option>
+	</question>
+
+	<question id='3'>
+		<prompt>Do you often feel tired, fatigued, or sleepy during daytime?</prompt>
+		<option id='A'>Yes</option>
+		<option id='B'>No</option>
+	</question>
+
+
+	<question id='4' type='multiple'>
+		<prompt>What is the major source of your stress?</prompt>
+		<option id='A' condition='stress_eating.beacuse_work'>Work</option>
+		<option id='B' condition='stress_eating.beacuse_school'>School</option>
+		<option id='C' condition='stress_eating.beacuse_family'>Family</option>
+		<option id='D' condition='stress_eating.beacuse_friends'>Friends</option>
+	</question>
+
+	<question id='5' type='multiple'>
+		<prompt>Where do you do the majority of your stress eating?</prompt>
+		<option id='A' condition='[2].at_home'>Home</option>
+		<option id='B' condition='[2].at_work'>Work</option>
+		<option id='C' condition='[2].at_restaurant'>Restaurants</option>
+		<option id='D' condition='[2].at_school'>School</option>
+		<option id='E' condition='[2].at_parties'>Parties, holidays, events</option>
+	</question>
+
+	<question id='7' type='multiple'>
+		<prompt>Where do you experience the most temptations or the greatest willpower challenges?</prompt>
+		<option id='A' condition='weak_willpower.at_home'>Home</option>
+		<option id='B' condition='weak_willpower.at_work'>Work</option>
+		<option id='C' condition='weak_willpower.at_restaurant'>Restaurants</option>
+		<option id='D' condition='weak_willpower.at_school'>School</option>
+		<option id='E' condition='weak_willpower.at_parties'>Parties, holidays, events</option>
+		<option id='F' condition='weak_willpower.at_car'>In the car</option>
+		<option id='G' condition='weak_willpower.at_store'>Grocery stores</option>
+	</question>
+
+	<question id='9'>
+		<prompt>How many days a week do you skip one or more meals?</prompt>
+		<option id='A'>0</option>
+		<option id='B' condition='hungry.skip_1to5'>1 to 5</option>
+		<option id='C' condition='hungry.skip_6to7'>6 to 7</option>
+	</question>
+
+	<question id='10' type='multiple'>
+		<prompt>Where do you experience the most hunger?</prompt>
+		<option id='A' condition='hungry.at_home'>Home</option>
+		<option id='B' condition='hungry.at_work'>Work</option>
+		<option id='C' >Restaurants</option>
+		<option id='D' condition='hungry.at_school'>School</option>
+		<option id='E'>Parties, holidays, events</option>
+		<option id='F'>In the car</option>
+	</question>
+
+	<question id='11' type='multiple'>
+		<prompt>Where do you eat when you are bored?</prompt>		
+		<option id='A' condition='bored.at_home' >Home</option>
+		<option id='B' condition='bored.at_work' >Work</option>
+		<option id='C' >Restaurants</option>
+		<option id='D' >School</option>
+		<option id='E' >Parties, holidays, events</option>
+		<option id='F' >In the car</option>
+	</question>
+
+	<question id='12' type='multiple'>
+		<prompt>Which one would best describe your lifestyle?</prompt>
+		<option id='A' condition='[11].retired'>I am retired</option>
+		<option id='B' condition='[11].job_downtime'>I have a job which has a lot of downtime</option>
+		<option id='C' condition='[11].homemaker'>I am a homemaker</option>
+		<option id='D' condition='[11].live_alone'>I live alone</option>
+		<option id='E' condition='[11].busy'>I am busy during the day, but I'm home in the evening</option>
+		<option id='F' condition='[11].long_commute'>I have a long commute</option>
+	</question>
+
+	<question id='13'>
+		<prompt>On average, how many days a week do you cook dinner at home?</prompt>
+		<option id='A'>Never</option>
+		<option id='B'>1 to 5</option>
+		<option id='C'>6 to 7</option>
+	</question>
+
+	<question id='14'>
+		<prompt>How many meals a week do you eat in restaurant or carry-out?</prompt>
+		<option id='A'>None</option>
+		<option id='B'>1 to 5 meals per week</option>
+		<option id='C'>6 to 7 meals per week</option>
+	</question>
+
+	<question id='15'>
+		<prompt>How many times do you eat out between Friday night and Sunday night?</prompt>
+		<option id='A'>Never</option>
+		<option id='B'>Only once</option>
+		<option id='C'>Two or more times</option>
+	</question>
+
+	<question id='16'>
+		<prompt>How many servings of alcohol do you have between Friday night and Sunday night?</prompt>
+		<option id='A'>None</option>
+		<option id='B'>One or two servings</option>
+		<option id='C'>Three or more servings</option>
+	</question>
+
+	<question id='17'>
+		<prompt>In a given month, how many weekends do you have or attend parties?</prompt>
+		<option id='A'>None</option>
+		<option id='B'>Once</option>
+		<option id='C'>Two or more</option>
+	</question>
+
+	<question id='18'>
+		<prompt>Do you have larger meals at home on the weekends?</prompt>
+		<option id='A'>Yes</option>
+		<option id='B'>No</option>
+	</question>
+
+	<question id='19' type='multiple'>
+		<prompt>Which of these are your challenges at parties?</prompt>
+		<option id='A'>Alchohol</option>
+		<option id='B'>Desserts</option>
+		<option id='C'>Leftovers</option>
+		<option id='D'>Feel pressure from others to eat</option>
+		<option id='E'>A large variety of food to try</option>
+	</question>	
+
+	<question id='20' type='multiple'>
+		<prompt>Which of the following sugary beverages do you drink?</prompt>
+		<option id='A'>Soda</option>
+		<option id='B'>Juice</option>
+		<option id='C'>Coffee drinks</option>
+		<option id='D'>Lemonade</option>
+		<option id='E'>Flavored milk</option>
+		<option id='F'>Energy drinks</option>
+		<option id='G'>Sweet tea</option>
+		<option id='H'>Other</option>
+	</question>	
+
+	<question id='21' type='multiple'>
+		<prompt>Which of the following alchoholic beverages do you drink the most</prompt>
+		<option id='A'>Regular beer</option>
+		<option id='B'>Light beer</option>
+		<option id='C'>Wine</option>
+		<option id='D'>Fruity cocktails</option>
+		<option id='E'>Hard liquor</option>
+		<option id='F'>Wine cooler/hard cider</option>
+	</question>
+
+	<question id='22'>
+		<prompt>Do you feel like you make unhealthy food choices when you drink?</prompt>
+		<option id='A'>Yes</option>
+		<option id='B'>No</option>
+	</question>
+
+</questions>
+
+<conditions>
+	<condition name='not_tracking'>
+		<solutions>200</solutions>
+	</condition>
+
+	<condition name='stress_eating'>
+
+		<condition name='because_work'>
+			<solutions>188,65,90,4,191,44,157,48,34</solutions>
+
+			<condition name='at_home'>
+				<solutions>25</solutions>
+			</condition>
+			<condition name='at_work'>
+				<solutions>29</solutions>
+			</condition>
+			<condition name='at_restaurant'>
+				<solutions>29,152,153,38</solutions>
+			</condition>
+			<condition name='at_school'>
+				<solutions>29,28</solutions>
+			</condition>
+			<condition name='at_parties'>
+				<solutions>22,61</solutions>
+			</condition>
+			<condition name='at_car'>
+				<solutions>26,115,39</solutions>
+			</condition>
+
+		</condition>
+
+		<condition name='because_school'>
+			<solutions>187,64,90,4,132,44,156</solutions>
+
+			<condition name='at_home'>
+				<solutions>25</solutions>
+			</condition>
+			<condition name='at_work'>
+				<solutions>29</solutions>
+			</condition>
+			<condition name='at_restaurant'>
+				<solutions>29,152,153,38</solutions>
+			</condition>
+			<condition name='at_school'>
+				<solutions>29,28</solutions>
+			</condition>
+			<condition name='at_parties'>
+				<solutions>22,61</solutions>
+			</condition>
+			<condition name='at_car'>
+				<solutions>26,115,39</solutions>
+			</condition>
+		</condition>
+
+		<condition name='because_family'>
+			<solutions>172,129,43,157,89</solutions>
+
+			<condition name='at_home'>
+				<solutions>150</solutions>
+			</condition>
+			<condition name='at_work'>
+				<solutions>33,28</solutions>
+			</condition>
+			<condition name='at_restaurant'>
+				<solutions>151,152,37</solutions>
+			</condition>
+			<condition name='at_school'>
+				<solutions>33,28</solutions>
+			</condition>
+			<condition name='at_parties'>
+				<solutions>60,93,20</solutions>
+			</condition>
+			<condition name='at_car'>
+				<solutions>26,150,38,113</solutions>
+			</condition>
+
+		</condition>
+
+		<condition name='because_friends'>
+			<solutions>123,86,44,120,157,89</solutions>
+
+			<condition name='at_home'>
+				<solutions>150</solutions>
+			</condition>
+			<condition name='at_work'>
+				<solutions>33,28</solutions>
+			</condition>
+			<condition name='at_restaurant'>
+				<solutions>151,152,37</solutions>
+			</condition>
+			<condition name='at_school'>
+				<solutions>33,28</solutions>
+			</condition>
+			<condition name='at_parties'>
+				<solutions>60,93,20</solutions>
+			</condition>
+			<condition name='at_car'>
+				<solutions>26,150,38,113</solutions>
+			</condition>
+		</condition>
+
+
+
+	</condition>
+
+	<condition name='weak_willpower'>
+		<solutions>74,90,103,10</solutions>
+
+		<condition name='at_home'>
+			<solutions>88,11,106</solutions>
+		</condition>
+		<condition name='at_work'>
+			<solutions>32,122,22,125,7</solutions>
+		</condition>
+		<condition name='at_restaurant'>
+			<solutions>115,119,121,14,15,174,141,197,104,213</solutions>
+		</condition>
+		<condition name='at_school'>
+			<solutions>31,22,196,147,55,185</solutions>
+		</condition>
+		<condition name='at_parties'>
+			<solutions>29,96,140,70,178,56,145,173,6,192</solutions>
+		</condition>
+		<condition name='at_car'>
+			<solutions>23,110,144,39</solutions>
+		</condition>
+		<condition name='at_store'>
+			<solutions>35,75,200,117,191,12,202,203,42,160</solutions>
+		</condition>
+
+	</condition>
+
+	<condition name='hungry'>
+		<solutions>198,176,84,101,100,182,211,62,158,73</solutions>
+
+	<condition name='at_home'>
+			<solutions>79</solutions>
+		</condition>
+		<condition name='at_work'>
+			<solutions>80</solutions>
+		</condition>
+		<condition name='at_school'>
+			<solutions>34,184</solutions>
+		</condition>
+
+		<condition name='skip_1to5'>
+			<solutions>1</solutions>
+		</condition>
+		<condition name='skip_6to7'>
+			<solutions>87,1</solutions>
+		</condition>
+
+	</condition>
+
+	<condition name='bored'>
+
+		<condition name='at_home'>
+			<solutions>189,162,76,120,82</solutions>
+
+			<condition name='retired'>
+				<solutions>195,128,45,124,68</solutions>
+			</condition>
+
+			<condition name='job_downtime'>
+				<solutions>109,148,126</solutions>
+			</condition>
+
+			<condition name='homemaker'>
+				<solutions></solutions>
+			</condition>
+
+			<condition name='live_alone'>
+				<solutions>109,148,126,136</solutions>
+			</condition>
+
+			<condition name='busy'>
+				<solutions>109,148,126,183</solutions>
+			</condition>
+
+		</condition>
+
+		<condition name='at_work'>
+			<solutions>188,161,195,81,216,127,98,16</solutions>
+
+			<condition name='long_commute'>
+				<solutions>23,110,39</solutions>
+			</condition>
+
+		</condition>
+	</condition>
+
+	<condition name='restaurants'>
+
+</conditions>
+
