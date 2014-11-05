@@ -11,12 +11,14 @@
 				<condition id='[1].[profile.1]'/>
 				<if id='profile.7' response='C,D'>
 					<question id='4'/>
-					<question id='5'/>
+					<question id='5'/>					
+					<question id='6'/>
+					<if id='6' response='B'>					
+						<condition id='[1].[profile.6].days_off'/>
+					</if>
 				</if>
-				<question id='6'/>
-				<if id='6' response='B'>					
-					<condition id='[1].[profile.6].days_off'/>
-				</if>
+				<question id='7'/>
+
 			</if>
 			<if id='1' response='C'>
 				<condition id='[1].[profile.2]'/>
