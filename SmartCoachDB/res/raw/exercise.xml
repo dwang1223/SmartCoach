@@ -9,8 +9,10 @@
 				<condition id='[1].[profile.7]'/>
 				<condition id='[1].[profile.6]'/>
 				<condition id='[1].[profile.1]'/>
-				<question id='4'/>
-				<question id='5'/>
+				<if id='profile.7' response='C,D'>
+					<question id='4'/>
+					<question id='5'/>
+				</if>
 				<question id='6'/>
 				<if id='6' response='B'>					
 					<condition id='[1].[profile.6].days_off'/>

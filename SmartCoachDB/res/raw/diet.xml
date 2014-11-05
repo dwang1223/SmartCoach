@@ -1,4 +1,3 @@
-red highlited stuff, add it
 <script>
 <questions>
 
@@ -81,7 +80,7 @@ red highlited stuff, add it
 
 	<question id='3'>
 		<prompt>Do you often feel tired, fatigued, or sleepy during daytime?</prompt>
-		<option id='A'>Yes</option>
+		<option id='A' condition='fatigued'>Yes</option>
 		<option id='B'>No</option>
 	</question>
 
@@ -214,7 +213,7 @@ red highlited stuff, add it
 	</question>	
 
 	<question id='21' type='multiple'>
-		<prompt>Which of the following alchoholic beverages do you drink the most</prompt>
+		<prompt>Which of the following alchoholic beverages do you drink the most?</prompt>
 		<option id='A' condition='alchohol.beer'>Regular beer</option>
 		<option id='B' condition='alchohol.light_beer'>Light beer</option>
 		<option id='C' condition='alchohol.wine'>Wine</option>
@@ -289,7 +288,7 @@ red highlited stuff, add it
 		<condition name='bored.at_home'>189,162,76,120,82</condition>
 			<condition name='bored.at_home.retired'>195,128,45,124,68</condition>
 			<condition name='bored.at_home.job_downtime'>109,148,126</condition>
-			<condition name='bored.at_home.homemaker'></condition>
+			<condition name='bored.at_home.homemaker'>82,195,228,229,230,231,232</condition>
 			<condition name='boerd.at_home.live_alone'>109,148,126,136</condition>
 			<condition name='bored.at_home.busy'>109,148,126,183</condition>
 
@@ -330,6 +329,8 @@ red highlited stuff, add it
 		<condition name='alchohol.liquor'>51,111,205,204,112,142</condition>
 		<condition name='alchohol.cider'>172,139,137</condition>
 
+
+	<condition name='fatigued'>218,219,220,221,222,223,224,225,226,227</condition>
 
 
 
@@ -553,5 +554,24 @@ red highlited stuff, add it
 	<solution id='215'>When making large recipes, immediately freeze extras to save for weekday meals.</solution>
 	<solution id='216'>When one task is getting boring, switch to something new to mix things up.</solution>
 	<solution id='217'>When ordering food in for parties, make healthy choices (e.g., turkey sub sandwiches, hummus platter, Boston Market)</solution>
+
+	<solution id='218'>If sleeping less than 7 hours per night, talk to your doctor about your sleep.</solution>
+	<solution id='219'>If you don't feel rested even when you sleep 7-8 hours, talk to your doctor about your sleep.</solution>
+	<solution id='220'>If you skip meals, add the skipped meal back to help control your appetite.</solution>
+	<solution id='221'>When fatigue strikes, try a short brisk walk before snacking.</solution>	
+	<solution id='222'>When hunger strikes, wait 15 minutes to see if it passes. </solution>	
+	<solution id='223'>Stress may be making you feel exhausted, delegate a few key tasks that will open up some free time for you.</solution>
+	<solution id='224'>Identify a source of stress that you can eliminate.</solution> 
+	<solution id='225'>Try a deep breathing or other stress reduction exercise when you are feeling fatigued.</solution>	
+	<solution id='226'>Track the time of day you feel fatigued and make sure you only have healthy low calorie options available for snacking.</solution>
+	<solution id='227'>Track your hunger to get a better understanding of and control over the triggers.</solution>				
+	
+	<solution id='228'>Make plans to spend time with other moms and their kids/babies during the day	</solution>
+	<solution id='229'>Track the foods you overeat when bored and then ban them from your home.</solution>		
+	<solution id='230'>Find new activities with your kids outside of the house (e.g., library, playground, museum)</solution>	
+	<solution id='231'>Write down a schedule for each day to add structure and reduce downtime for snacking.</solution>	
+	<solution id='232'>Track the time of day you are mostly likely to snack and then make a plan for changing how you spend that time (e.g., exercise at that time, run errands)</solution>							
+
+
 </solutions>
 </script>

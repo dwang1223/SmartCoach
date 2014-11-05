@@ -70,6 +70,7 @@ public class ProfileActivity extends FragmentActivity {
 			}
 			prefEdit.putStringSet(String.format("responses.profile.%s", qm.getId()), optionIds);
 			prefEdit.putStringSet(String.format("conditions.profile.%s", qm.getId()),  conditions);
+			
 		}
 		prefEdit.commit();	
 		

@@ -2,14 +2,13 @@
 	<questions>
 		<flow>
 			<question id='1'/>
-			<question id='2'/>
 			<question id='3'/>
 			<question id='4'/>
 			<question id='5'/>
 		</flow>
 
 		<question id='1'>
-			<prompt>Do you snore loudly (louder that talking or loud enough to be heard through closed doors)?</prompt>
+			<prompt>Do you snore loudly (louder than talking or loud enough to be heard through closed doors)?</prompt>
 			<option id='A' condition='+'>Yes</option>
 			<option id='B' condition=''>No</option>
 		</question>
@@ -41,9 +40,9 @@
 	</questions>
 
 	<conditions>
+		<condition name='++'>positive</condition>
 		<condition name='+++'>positive</condition>
 		<condition name='++++'>positive</condition>
-		<condition name='+++++'>positive</condition>
 	</conditions>
 
 	<solutions>

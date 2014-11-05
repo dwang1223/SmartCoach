@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
 
@@ -23,8 +24,11 @@ public class TimeQuestionFragment extends QuestionFragment {
 	private boolean backEnabled = false;
 	
 	private TextView questionView;
-	private NumberPicker hourPicker;
-	private NumberPicker minutePicker;
+//	private NumberPicker hourPicker;
+//	private NumberPicker minutePicker;
+	
+	private TimePicker timePicker;
+	
 	private Button next;
 	private Button back;
 	
@@ -69,23 +73,23 @@ public class TimeQuestionFragment extends QuestionFragment {
 		
 		questionView = (TextView)root.findViewById(R.id.questionText);
 		
-		hourPicker = (NumberPicker)root.findViewById(R.id.hour);
-		minutePicker = (NumberPicker)root.findViewById(R.id.minute);
+//		hourPicker = (NumberPicker)root.findViewById(R.id.hour);
+//		minutePicker = (NumberPicker)root.findViewById(R.id.minute);
+//		
+//		hourPicker.setMinValue(0);
+//		hourPicker.setMaxValue(23);
+//		hourPicker.setValue(0);
+//		
+//		minutes = new String[12];
+//		for(int i = 0; i < minutes.length; i++){
+//			minutes[i] = String.format("%02d", i * (60/minutes.length));
+//		}
+//		minutePicker.setDisplayedValues(minutes);
+//		minutePicker.setMinValue(0);
+//		minutePicker.setMaxValue(minutes.length-1);
+//		minutePicker.setValue(minutes.length/2);
 		
-		hourPicker.setMinValue(0);
-		hourPicker.setMaxValue(23);
-		hourPicker.setValue(0);
-		
-		minutes = new String[12];
-		for(int i = 0; i < minutes.length; i++){
-			minutes[i] = String.format("%02d", i * (60/minutes.length));
-		}
-		minutePicker.setDisplayedValues(minutes);
-		minutePicker.setMinValue(0);
-		minutePicker.setMaxValue(minutes.length-1);
-		minutePicker.setValue(minutes.length/2);
-		
-
+		timePicker = (TimePicker)root.findViewById(R.id.timePicker);
 
 		next = (Button)root.findViewById(R.id.nextButton);
 		back = (Button)root.findViewById(R.id.backButton);
@@ -97,10 +101,12 @@ public class TimeQuestionFragment extends QuestionFragment {
 		next.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Log.d(TAG, String.format("time picked %d:%d", hourPicker.getValue(),
-						Integer.parseInt(minutes[minutePicker.getValue()])));
-				question.setResponse(hourPicker.getValue(),
-						Integer.parseInt(minutes[minutePicker.getValue()]));
+				//Log.d(TAG, String.format("time picked %d:%d", hourPicker.getValue(),Integer.parseInt(minutes[minutePicker.getValue()])));
+				//question.setResponse(hourPicker.getValue(), Integer.parseInt(minutes[minutePicker.getValue()]));
+				int hour = timePicker.getCurrentHour();
+				int minute = timePicker.getCurrentMinute();
+				Log.d(TAG, String.format("Time picked %d:%d", hour, minute));
+				question.setResponse(hour, minute);
 				nextListener.responseEntered(question);
 				
 			}

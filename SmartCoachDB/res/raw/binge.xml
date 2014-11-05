@@ -15,7 +15,7 @@
 		</question>
 
 		<question id='2'>
-			<prompt>Do you often eat, within any 2-hour period, what most poeple would regard as an unusually large amount of food?</prompt>
+			<prompt>Do you often eat, within any 2-hour period, what most people would regard as an unusually large amount of food?</prompt>
 			<option id='A' condition='[1].large_portion'>Yes</option>
 			<option id='B'>No</option>
 		</question>

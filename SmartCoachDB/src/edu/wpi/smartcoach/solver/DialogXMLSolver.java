@@ -162,14 +162,30 @@ public class DialogXMLSolver implements ProblemSolver {
 			cElement = (Element)currentNode;
 			if(cElement.getTagName().equals("if")){
 				String ifId = cElement.getAttribute("id");
-				String ifResponse = cElement.getAttribute("response");
-				OptionQuestionModel testQuestion = (OptionQuestionModel)getQuestion(ifId);
-				for(Option op:testQuestion.getSelectedOptions()){
-					if(op.getId().equals(ifResponse)){
-						currentNode = cElement.getFirstChild();
-						return;
+				String[] ifResponse = cElement.getAttribute("response").split(",");
+				if(ifId.startsWith("profile")){
+					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);					
+					Set<String> responseSet = prefs.getStringSet("responses."+ifId, new HashSet<String>());
+					
+					for(String ifRes:ifResponse){
+						if(responseSet.contains(ifRes)){
+							currentNode = cElement.getFirstChild();
+							return;
+						}
 					}
-				}	
+				} else {
+					OptionQuestionModel testQuestion = (OptionQuestionModel)getQuestion(ifId);
+					for(Option op:testQuestion.getSelectedOptions()){
+						for(String ifRes:ifResponse){
+							if(op.getId().equals(ifRes)){
+								currentNode = cElement.getFirstChild();
+								return;
+							}	
+						}
+					}
+					
+				}
+	
 			}
 			
 		} else {
