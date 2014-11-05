@@ -3,9 +3,10 @@
 
 		<flow>
 			<question id='1'/>
-			<question id='2'/>
-			<question id='3'/>
 			<if id='1' response='A'>
+			    
+				<question id='2'/>
+				<question id='3'/>
 				<condition id='[1].[profile.7]'/>
 				<condition id='[1].[profile.6]'/>
 				<condition id='[1].[profile.1]'/>
