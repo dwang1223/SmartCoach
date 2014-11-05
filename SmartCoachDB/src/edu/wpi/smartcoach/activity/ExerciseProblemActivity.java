@@ -4,155 +4,89 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.Menu;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.SocialNetworkSubmission;
 import edu.wpi.smartcoach.model.Solution;
-import edu.wpi.smartcoach.solver.BoredomProblemSolver;
-import edu.wpi.smartcoach.solver.InjuryProblemSolver;
-import edu.wpi.smartcoach.solver.MotivationProblemSolver;
-import edu.wpi.smartcoach.solver.ProblemSolver;
-import edu.wpi.smartcoach.solver.TimeProblemSolver;
-import edu.wpi.smartcoach.solver.TiredProblemSolver;
-import edu.wpi.smartcoach.solver.WeatherProblemSolver;
+import edu.wpi.smartcoach.solver.DialogXMLSolver;
+import edu.wpi.smartcoach.util.DialogXMLReader;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
 import edu.wpi.smartcoach.view.SolutionFragment;
 
-public class ExerciseProblemActivity extends FragmentActivity implements QuestionResponseListener{
-	
-	private static final String TAG = ExerciseProblemActivity.class.getSimpleName();
+public class ExerciseProblemActivity extends FragmentActivity implements QuestionResponseListener {
 
-	private OptionQuestionFragment questionFragment;
-	
-	
-	private ProblemSolver solver  = null;
-	private String socialCategory = null;
-	private boolean solutionRetrieved;
-	
-	
+	private DialogXMLSolver solver;
+	private QuestionFragment questionFragment;
+		
+	private boolean solved;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_exercise_problem);
 		setTitle("SmartCoach Problem Solving");
-		showBaseProblemQuestion();
 		
-	}
-	
-	private void showBaseProblemQuestion(){
+		solver = DialogXMLReader.readXML(R.raw.exercise, this);
 		questionFragment = new OptionQuestionFragment();
-		questionFragment.setQuestion((OptionQuestionModel)ExerciseQuestions.getInstance().getRawQuestion("problem_base"));
+		((OptionQuestionFragment)questionFragment).setQuestion((OptionQuestionModel)solver.getNextQuestion());
 		questionFragment.setNextButtonListener(this);
 		questionFragment.setBackEnabled(false);
-		getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();
+		getSupportFragmentManager().beginTransaction().add(R.id.container, questionFragment).commit();
 		
-		solver = null;
 	}
-
-	
+	 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.exercise_problem, menu);
-		return true;
-	}
-
-	@Override
-	public void responseEntered(QuestionModel q) {;
-		//Log.d(TAG, "responseEntered "+q.toString());
+	public void responseEntered(QuestionModel question) {
 		
-		if(solutionRetrieved){ 
-			
-//			OptionQuestionModel solution = (OptionQuestionModel)q;
-//			if(solution.getSelectedValues().size() != 0 && !solution.getSelectedOption().getId().equals(OptionQuestionModel.DEFAULT)){
-//				Intent intent = new Intent(getBaseContext(), SetReminderActivity.class);
-//				List<Object> responses = solution.getSelectedValues();
-//				Log.d(TAG, responses.toString());
-//				HashMap<Exercise, String> combine = new HashMap<Exercise, String>();
-//				for(int i = 0; i < responses.size(); i++){
-//					if(responses.get(i) instanceof ExerciseSolution){
-//						ExerciseSolution es = (ExerciseSolution)responses.get(i);
-//						String reminder = combine.get(es.getExercise());
-//						if(reminder == null){
-//							reminder = "";
-//						}
-//						reminder += " "+es.getReminder();
-//						combine.put(es.getExercise(), reminder);
-//					} else {
-//						combine.put(new Exercise(), responses.get(i).toString());
-//					}
-//				}
-//				
-//				String[] reminders = combine.values().toArray(new String[]{});
-//				intent.putExtra("reminder",reminders );
+		if(solved){
+//			OptionQuestionModel sln = (OptionQuestionModel)question;
+//			String[] reminder = sln.getSelectedValues().toArray(new String[]{});
+//			if(reminder.length > 0){
+//				Intent intent = new Intent(this, SetReminderActivity.class);
+//				intent.putExtra("reminder", reminder);
 //				startActivity(intent);
 //			}
 			finish();
 			return;
 		}
 		
-		boolean submit = true;
-		if(q.getId().equals("problem_base")){
-			OptionQuestionModel base = (OptionQuestionModel)q;
-			solver = getSolver(base.getSelectedOption().getId());
-			submit = false;
+		solver.submitResponse(question);
+		
+		QuestionModel nextQuestion = null;
+		
+		
+		if(solver.hasNextQuestion()){
+			nextQuestion = solver.getNextQuestion();
+		} else {
+			List<Solution> solutions = solver.getSolution(getBaseContext());
+			showSolution(solutions);
+			solved = true;
 		}
 		
-		QuestionModel newQuestion = null;
-		if(solver != null){
-		
-			if(submit){
-				solver.submitResponse(q);
-			}
-			
-			if(solver.hasNextQuestion()){
-				newQuestion = solver.getNextQuestion();
-				Log.d(TAG, "next: "+newQuestion.getId());
-			} else {
-				List<Solution> solutions = solver.getSolution(getBaseContext());
-				showSolution(solutions);
-				solutionRetrieved = true;
-				Log.d(TAG, "get solution");
-			}
-		}
-		
-		if(!solutionRetrieved && newQuestion != null){
-			QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
+		if(!solved){ 
+			questionFragment = QuestionFragment.createQuestion(nextQuestion);
+			//questionFragment.setQuestion((QuestionModel)nextQuestion);
 			questionFragment.setNextButtonListener(this);
-			final boolean first =  solver.isFirstQuestion();
 			questionFragment.setBackButtonListener(new QuestionResponseListener() {
 				
 				@Override
 				public void responseEntered(QuestionModel question) {
-					if(first){
-						showBaseProblemQuestion();
-							
-					} else {
-						navigateBack();
-					}
+					navigateBack();
 				}
 			});
-			questionFragment.setBackEnabled(first || (!solutionRetrieved && solver.isBackAllowed()));
-			questionFragment.setLast(solutionRetrieved);
-			if(solutionRetrieved){
-				((OptionQuestionFragment)questionFragment).setShowSocial(true);
-			}
+			questionFragment.setBackEnabled(solver.isBackAllowed());
+			questionFragment.setLast(false);
 			getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
 		}
-		
 	}
 	
 	private void showSolution(List<Solution> solutions){
 		SolutionFragment solutionFragment = new SolutionFragment();
 		solutionFragment.setSolutions(solutions);
-		solutionFragment.setSolver(socialCategory, solver);
+		solutionFragment.setSolver(SocialNetworkSubmission.DIET, solver);
 		solutionFragment.setNextButtonListener(this);
 		getSupportFragmentManager().beginTransaction().replace(R.id.container, solutionFragment).commit();	
 		
@@ -172,35 +106,9 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 			}
 		});
 		questionFragment.setBackEnabled(solver.isBackAllowed());
-		questionFragment.setLast(solutionRetrieved);
+		questionFragment.setLast(false);
 		getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
-	}
-	
-	private ProblemSolver getSolver(String problem){
-		
-		ProblemSolver solver = null;
-		
-		if(problem.equals("time")){
-			solver = new TimeProblemSolver();
-			socialCategory = SocialNetworkSubmission.EXERCISE_TIME;
-		} else if(problem.equals("motivation")){
-			solver = new MotivationProblemSolver();
-			socialCategory = SocialNetworkSubmission.EXERCISE_MOTIVATION;
-		} else if(problem.equals("boredom")){
-			solver = new BoredomProblemSolver();
-			socialCategory = SocialNetworkSubmission.EXERCISE_BOREDOM;
-		} else if (problem.equals("injury")){
-			solver = new InjuryProblemSolver(getBaseContext());
-			socialCategory = SocialNetworkSubmission.EXERCISE_INJURY;
-		} else if (problem.equals("tired")){
-			solver = new TiredProblemSolver();
-			socialCategory = SocialNetworkSubmission.EXERCISE_TIRED;
-		} else if (problem.equals("weather")){
-			solver = new WeatherProblemSolver();
-			socialCategory = SocialNetworkSubmission.EXERCISE_WEATHER;
-		}
-		
-		return solver;
+
 	}
 
 }

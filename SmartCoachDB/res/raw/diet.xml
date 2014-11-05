@@ -1,4 +1,63 @@
+red highlited stuff, add it
+<script>
 <questions>
+
+	<flow>
+		<question id='1'/>
+		<question id='2'/>
+			<if id='1' response='A'>
+				<question id='4'/>
+				<question id='5'/>
+				<screen id='binge'/>
+				<question id='3'/>
+				<if id='3' response='A'>
+					<screen id='stop'/>
+					<screen id='phq2'/>
+				</if>
+			</if>
+			<if id='1' response='B'>
+				<question id='7'/>
+				<screen id="binge"/>
+				<question id='3'/>
+				<if id='3' response='A'>
+					<screen id='stop'/>
+				</if>
+			</if>
+			<if id='1' response='C'>
+				<question id='9'/>
+				<question id='10'/>
+				<question id='3'/>
+				<screen id='binge'/>
+				<if id='3' response='A'>					
+					<screen id='stop'/>
+					<screen id='phq2'/>
+				</if>
+			</if>
+			<if id='1' response='D'>
+				<question id='11'/>
+				<question id='12'/>
+			</if>
+			<if id='1' response='E'>
+				<question id='13'/>
+				<question id='14'/>
+			</if>
+			<if id='1' response='F'>
+				<question id='15'/>
+				<question id='16'/>
+				<question id='17'/>
+				<question id='18'/>
+			</if>
+			<if id='1' response='G'>
+				<question id='19'/>
+			</if>
+			<if id='1' response='H'>
+				<question id='20'/>
+			</if>
+			<if id='1' response='I'>
+				<question id='21'/>
+				<question id='22'/>
+			</if>
+	</flow>
 
 	<question id='1'>
 		<prompt>What would you say is your biggest challenge with diet?</prompt>
@@ -6,7 +65,12 @@
 		<option id='B' condition='weak_willpower'>Weak willpower</option>
 		<option id='C' condition='hungry'>I am hungry all the time</option>
 		<option id='D' condition='bored'>I eat when I am bored</option>
-		<option id='E' condition='restaurants'>Restaurants</option>		
+		<option id='E' condition='restaurants'>Restaurants</option>	
+		<option id='F' condition='weekends'>Weekends</option>
+		<option id='G' condition='parties'>Parties/Holidays</option>	
+		<option id='H' condition='beverage'>Sugary Beverages</option>
+		<option id='I' condition='alchohol'>Alchohol</option>	
+
 	</question>
 
 	<question id='2'>
@@ -24,19 +88,19 @@
 
 	<question id='4' type='multiple'>
 		<prompt>What is the major source of your stress?</prompt>
-		<option id='A' condition='stress_eating.beacuse_work'>Work</option>
-		<option id='B' condition='stress_eating.beacuse_school'>School</option>
-		<option id='C' condition='stress_eating.beacuse_family'>Family</option>
-		<option id='D' condition='stress_eating.beacuse_friends'>Friends</option>
+		<option id='A' condition='stress_eating.because_work'>Work</option>
+		<option id='B' condition='stress_eating.because_school'>School</option>
+		<option id='C' condition='stress_eating.because_family'>Family</option>
+		<option id='D' condition='stress_eating.because_friends'>Friends</option>
 	</question>
 
 	<question id='5' type='multiple'>
 		<prompt>Where do you do the majority of your stress eating?</prompt>
-		<option id='A' condition='[2].at_home'>Home</option>
-		<option id='B' condition='[2].at_work'>Work</option>
-		<option id='C' condition='[2].at_restaurant'>Restaurants</option>
-		<option id='D' condition='[2].at_school'>School</option>
-		<option id='E' condition='[2].at_parties'>Parties, holidays, events</option>
+		<option id='A' condition='[4].at_home'>Home</option>
+		<option id='B' condition='[4].at_work'>Work</option>
+		<option id='C' condition='[4].at_restaurant'>Restaurants</option>
+		<option id='D' condition='[4].at_school'>School</option>
+		<option id='E' condition='[4].at_parties'>Parties, holidays, events</option>
 	</question>
 
 	<question id='7' type='multiple'>
@@ -98,65 +162,65 @@
 		<prompt>How many meals a week do you eat in restaurant or carry-out?</prompt>
 		<option id='A'>None</option>
 		<option id='B'>1 to 5 meals per week</option>
-		<option id='C'>6 to 7 meals per week</option>
+		<option id='C' condition="restaurants.6to7">6 to 7 meals per week</option>
 	</question>
 
 	<question id='15'>
 		<prompt>How many times do you eat out between Friday night and Sunday night?</prompt>
 		<option id='A'>Never</option>
-		<option id='B'>Only once</option>
-		<option id='C'>Two or more times</option>
+		<option id='B' condition='weekends.eat_out'>Only once</option>
+		<option id='C' condition='weekends.eat_out'>Two or more times</option>
 	</question>
 
 	<question id='16'>
 		<prompt>How many servings of alcohol do you have between Friday night and Sunday night?</prompt>
 		<option id='A'>None</option>
-		<option id='B'>One or two servings</option>
-		<option id='C'>Three or more servings</option>
+		<option id='B' condition='weekends.alchohol_1to2'>One or two servings</option>
+		<option id='C' condition='weekends.alchohol_3+'>Three or more servings</option>
 	</question>
 
 	<question id='17'>
 		<prompt>In a given month, how many weekends do you have or attend parties?</prompt>
 		<option id='A'>None</option>
-		<option id='B'>Once</option>
-		<option id='C'>Two or more</option>
+		<option id='B' condition='weekends.party'>Once</option>
+		<option id='C' condition='weekends.party'>Two or more</option>
 	</question>
 
 	<question id='18'>
 		<prompt>Do you have larger meals at home on the weekends?</prompt>
-		<option id='A'>Yes</option>
-		<option id='B'>No</option>
+		<option id='A' condition='weekends.large_meals'>Yes</option>
+		<option id='B' condition='weekends.no_large_meals'>No</option>
 	</question>
 
 	<question id='19' type='multiple'>
 		<prompt>Which of these are your challenges at parties?</prompt>
-		<option id='A'>Alchohol</option>
-		<option id='B'>Desserts</option>
-		<option id='C'>Leftovers</option>
-		<option id='D'>Feel pressure from others to eat</option>
-		<option id='E'>A large variety of food to try</option>
+		<option id='A' condition='parties.alchohol'>Alchohol</option>
+		<option id='B' condition='parties.desserts'>Desserts</option>
+		<option id='C' condition='parties.leftovers'>Leftovers</option>
+		<option id='D' condition='parties.pressure'>Feel pressure from others to eat</option>
+		<option id='E' condition='parties.variety'>A large variety of food to try</option>
 	</question>	
 
 	<question id='20' type='multiple'>
 		<prompt>Which of the following sugary beverages do you drink?</prompt>
-		<option id='A'>Soda</option>
-		<option id='B'>Juice</option>
-		<option id='C'>Coffee drinks</option>
-		<option id='D'>Lemonade</option>
-		<option id='E'>Flavored milk</option>
-		<option id='F'>Energy drinks</option>
-		<option id='G'>Sweet tea</option>
-		<option id='H'>Other</option>
+		<option id='A' condition='beverage.soda'>Soda</option>
+		<option id='B' condition='beverage.juice'>Juice</option>
+		<option id='C' condition='beverage.coffee'>Coffee drinks</option>
+		<option id='D' condition='beverage.lemonade'>Lemonade</option>
+		<option id='E' condition='beverage.milk'>Flavored milk</option>
+		<option id='F' condition='beverage.energy_drinks'>Energy drinks</option>
+		<option id='G' condition='beverage.sweet_tea'>Sweet tea</option>
+		<option id='H' condition='beverage.other'>Other</option>
 	</question>	
 
 	<question id='21' type='multiple'>
 		<prompt>Which of the following alchoholic beverages do you drink the most</prompt>
-		<option id='A'>Regular beer</option>
-		<option id='B'>Light beer</option>
-		<option id='C'>Wine</option>
-		<option id='D'>Fruity cocktails</option>
-		<option id='E'>Hard liquor</option>
-		<option id='F'>Wine cooler/hard cider</option>
+		<option id='A' condition='alchohol.beer'>Regular beer</option>
+		<option id='B' condition='alchohol.light_beer'>Light beer</option>
+		<option id='C' condition='alchohol.wine'>Wine</option>
+		<option id='D' condition='alchohol.cocktail'>Fruity cocktails</option>
+		<option id='E' condition='alchohol.liquor'>Hard liquor</option>
+		<option id='F' condition='alchohol.cider'>Wine cooler/hard cider</option>
 	</question>
 
 	<question id='22'>
@@ -168,197 +232,326 @@
 </questions>
 
 <conditions>
-	<condition name='not_tracking'>
-		<solutions>200</solutions>
-	</condition>
+    	<condition name='not_tracking'>199</condition>
 
-	<condition name='stress_eating'>
+	<condition name='stress_eating'></condition>
 
-		<condition name='because_work'>
-			<solutions>188,65,90,4,191,44,157,48,34</solutions>
+		<condition name='stress_eating.because_work'>187,64,89,3,190,43,156,47,33</condition>
+			<condition name='stress_eating.because_work.at_home'>24</condition>
+			<condition name='stress_eating.because_work.at_work'>28</condition>
+			<condition name='stress_eating.because_work.at_restaurant'>28,151,152,37</condition>
+			<condition name='stress_eating.because_work.at_school'>28,27</condition>
+			<condition name='stress_eating.because_work.at_parties'>21,60</condition>
+			<condition name='stress_eating.because_work.at_car'>25,114,38</condition>
 
-			<condition name='at_home'>
-				<solutions>25</solutions>
-			</condition>
-			<condition name='at_work'>
-				<solutions>29</solutions>
-			</condition>
-			<condition name='at_restaurant'>
-				<solutions>29,152,153,38</solutions>
-			</condition>
-			<condition name='at_school'>
-				<solutions>29,28</solutions>
-			</condition>
-			<condition name='at_parties'>
-				<solutions>22,61</solutions>
-			</condition>
-			<condition name='at_car'>
-				<solutions>26,115,39</solutions>
-			</condition>
+		<condition name='stress_eating.because_school'>186,63,89,3,131,43,155</condition>
+			<condition name='stress_eating.because_school.at_home'>23</condition>
+			<condition name='stress_eating.because_school.at_work'>28</condition>
+			<condition name='stress_eating.because_school.at_restaurant'>28,151,152,37</condition>
+			<condition name='stress_eating.because_school.at_school'>27,28</condition>
+			<condition name='stress_eating.because_school.at_parties'>21,60</condition>
+			<condition name='stress_eating.because_school.at_car'>25,114,38</condition>
 
-		</condition>
+		<condition name='stress_eating.because_family'>175,129,43,157,89</condition>
+			<condition name='stress_eating.because_family.at_home'>150</condition>
+			<condition name='stress_eating.because_family.at_work'>33,28</condition>
+			<condition name='stress_eating.because_family.at_restaurant'>151,152,37</condition>
+			<condition name='stress_eating.because_family.at_school'>33,28</condition>
+			<condition name='stress_eating.because_family.at_parties'>60,93,20</condition>
+			<condition name='stress_eating.because_family.at_car'>26,150,38,113</condition>
 
-		<condition name='because_school'>
-			<solutions>187,64,90,4,132,44,156</solutions>
+		<condition name='stress_eating.because_friends'>123,86,44,120,157,89</condition>
+			<condition name='stress_eating.because_friends.at_home'>150</condition>	
+			<condition name='stress_eating.because_friends.at_work'>33,28</condition>	
+			<condition name='stress_eating.because_friends.at_restaurant'>151,152,37</condition>
+			<condition name='stress_eating.because_friends.at_school'>33,28</condition>
+			<condition name='stress_eating.because_friends.at_parties'>60,93,20</condition>
+			<condition name='stress_eating.because_friends.at_car'>26,150,38,113</condition>
 
-			<condition name='at_home'>
-				<solutions>25</solutions>
-			</condition>
-			<condition name='at_work'>
-				<solutions>29</solutions>
-			</condition>
-			<condition name='at_restaurant'>
-				<solutions>29,152,153,38</solutions>
-			</condition>
-			<condition name='at_school'>
-				<solutions>29,28</solutions>
-			</condition>
-			<condition name='at_parties'>
-				<solutions>22,61</solutions>
-			</condition>
-			<condition name='at_car'>
-				<solutions>26,115,39</solutions>
-			</condition>
-		</condition>
+	<condition name='weak_willpower'>74,90,103,10</condition>
+		<condition name='weak_willpower.at_home'>88,11,106</condition>
+		<condition name='weak_willpower.at_work'>32,122,22,125,7</condition>
+		<condition name='weak_willpower.at_restaurant'>115,119,121,14,15,174,141,197,104,213</condition>
+		<condition name='weak_willpower.at_school'>31,22,196,147,55,185</condition>
+		<condition name='weak_willpower.at_parties'>29,96,140,70,178,56,145,173,6,192</condition>
+		<condition name='weak_willpower.at_car'>23,110,144,39</condition>
+		<condition name='weak_willpower.at_store'>35,75,200,117,191,12,202,203,42,160</condition>
 
-		<condition name='because_family'>
-			<solutions>172,129,43,157,89</solutions>
 
-			<condition name='at_home'>
-				<solutions>150</solutions>
-			</condition>
-			<condition name='at_work'>
-				<solutions>33,28</solutions>
-			</condition>
-			<condition name='at_restaurant'>
-				<solutions>151,152,37</solutions>
-			</condition>
-			<condition name='at_school'>
-				<solutions>33,28</solutions>
-			</condition>
-			<condition name='at_parties'>
-				<solutions>60,93,20</solutions>
-			</condition>
-			<condition name='at_car'>
-				<solutions>26,150,38,113</solutions>
-			</condition>
+	<condition name='hungry'>198,176,84,101,100,182,211,62,158,73</condition>
+		<condition name='hungry.at_home'>79</condition>
+		<condition name='hungry.at_work'>80</condition>
+		<condition name='hungry.at_school'>34,184</condition>
+		<condition name='hungry.skip_1to5'>1</condition>
+		<condition name='hungry.skip_6to7'>87,1</condition>
 
-		</condition>
+	<condition name='bored'></condition>		
+		<condition name='bored.at_home'>189,162,76,120,82</condition>
+			<condition name='bored.at_home.retired'>195,128,45,124,68</condition>
+			<condition name='bored.at_home.job_downtime'>109,148,126</condition>
+			<condition name='bored.at_home.homemaker'></condition>
+			<condition name='boerd.at_home.live_alone'>109,148,126,136</condition>
+			<condition name='bored.at_home.busy'>109,148,126,183</condition>
 
-		<condition name='because_friends'>
-			<solutions>123,86,44,120,157,89</solutions>
+		<condition name='bored.at_work'>188,161,195,81,216,127,98,16</condition>
+			<condition name='bored.at_work.long_commute'>23,110,39</condition>
 
-			<condition name='at_home'>
-				<solutions>150</solutions>
-			</condition>
-			<condition name='at_work'>
-				<solutions>33,28</solutions>
-			</condition>
-			<condition name='at_restaurant'>
-				<solutions>151,152,37</solutions>
-			</condition>
-			<condition name='at_school'>
-				<solutions>33,28</solutions>
-			</condition>
-			<condition name='at_parties'>
-				<solutions>60,93,20</solutions>
-			</condition>
-			<condition name='at_car'>
-				<solutions>26,150,38,113</solutions>
-			</condition>
-		</condition>
+	<condition name='restaurants'>115,119,121,14,15,174,141,197,104,213</condition>
+		<condition name="restaurants.6to7">164,69,78,118</condition>
+
+	<condition name='weekends'>54,67,66</condition>
+		<condition name='weekends.eat_out'>119121,14,15,174,141,197,104,213</condition>
+		<condition name='weekends.alchohol_1to2'>108,41</condition>
+		<condition name='weekends.alchohol_3+'>108,41,57</condition>
+		<condition name='weekends.party'>145,173,6,192,29,96,140,70,178</condition>
+		<condition name='weekends.large_meals'>4,215</condition>
+		<condition name='weekends.no_large_meals'>18,149</condition>
+
+	<condition name='parties.alchohol'>107,57,40,17,212</condition>
+	<condition name='parties.desserts'>30,116,2,105</condition>
+	<condition name='parties.leftovers'>214,153,97,163,135,217</condition>
+	<condition name='parties.pressure'>159,92,91,194,154,105,61</condition>
+	<condition name='parties.variety'>5,46,9,65,29,105</condition>
+
+	<condition name='beverage.soda'>166,170,177,165,170,59</condition>
+	<condition name='beverage.juice'>165,171,170,49,59</condition>
+	<condition name='beverage.coffee'>209,206,77,207</condition>
+	<condition name='beverage.lemonade'>48,171,134,133,59</condition>
+	<condition name='beverage.milk'>132,36,85,50</condition>
+	<condition name='beverage.energy_drinks'>170,94,171,201,53</condition>
+	<condition name='beverage.sweet_tea'>169,77,170,171,53</condition>
+	<condition name='beverage.other'>170,171,77,169,165,53,59</condition>
+
+	<condition name='alchohol'>168,181,179,58,72,71</condition>
+		<condition name='alchohol.beer'>167,139</condition>
+		<condition name='alchohol.light_beer'>139</condition>
+		<condition name='alchohol.wine'>180,210,138</condition>
+		<condition name='alchohol.cocktail'>208,193,52,8,95,142,13,99</condition>
+		<condition name='alchohol.liquor'>51,111,205,204,112,142</condition>
+		<condition name='alchohol.cider'>172,139,137</condition>
 
 
 
-	</condition>
-
-	<condition name='weak_willpower'>
-		<solutions>74,90,103,10</solutions>
-
-		<condition name='at_home'>
-			<solutions>88,11,106</solutions>
-		</condition>
-		<condition name='at_work'>
-			<solutions>32,122,22,125,7</solutions>
-		</condition>
-		<condition name='at_restaurant'>
-			<solutions>115,119,121,14,15,174,141,197,104,213</solutions>
-		</condition>
-		<condition name='at_school'>
-			<solutions>31,22,196,147,55,185</solutions>
-		</condition>
-		<condition name='at_parties'>
-			<solutions>29,96,140,70,178,56,145,173,6,192</solutions>
-		</condition>
-		<condition name='at_car'>
-			<solutions>23,110,144,39</solutions>
-		</condition>
-		<condition name='at_store'>
-			<solutions>35,75,200,117,191,12,202,203,42,160</solutions>
-		</condition>
-
-	</condition>
-
-	<condition name='hungry'>
-		<solutions>198,176,84,101,100,182,211,62,158,73</solutions>
-
-	<condition name='at_home'>
-			<solutions>79</solutions>
-		</condition>
-		<condition name='at_work'>
-			<solutions>80</solutions>
-		</condition>
-		<condition name='at_school'>
-			<solutions>34,184</solutions>
-		</condition>
-
-		<condition name='skip_1to5'>
-			<solutions>1</solutions>
-		</condition>
-		<condition name='skip_6to7'>
-			<solutions>87,1</solutions>
-		</condition>
-
-	</condition>
-
-	<condition name='bored'>
-
-		<condition name='at_home'>
-			<solutions>189,162,76,120,82</solutions>
-
-			<condition name='retired'>
-				<solutions>195,128,45,124,68</solutions>
-			</condition>
-
-			<condition name='job_downtime'>
-				<solutions>109,148,126</solutions>
-			</condition>
-
-			<condition name='homemaker'>
-				<solutions></solutions>
-			</condition>
-
-			<condition name='live_alone'>
-				<solutions>109,148,126,136</solutions>
-			</condition>
-
-			<condition name='busy'>
-				<solutions>109,148,126,183</solutions>
-			</condition>
-
-		</condition>
-
-		<condition name='at_work'>
-			<solutions>188,161,195,81,216,127,98,16</solutions>
-
-			<condition name='long_commute'>
-				<solutions>23,110,39</solutions>
-			</condition>
-
-		</condition>
-	</condition>
-
-	<condition name='restaurants'>
 
 </conditions>
 
+<solutions>
+	<solution id='1'>Add a meal where you are used to skipping to prevent hunger.</solution>
+	<solution id='2'>Add extra exercise the day of a party to offset added intake. Record it all in your mobile app.</solution>
+	<solution id='3'>Add some yoga to your week to reduce stress.</solution>
+	<solution id='4'>Adjust recipes so that you only make one serving per person</solution>
+	<solution id='5'>Allow yourself one plate. Serve small portions. </solution>
+	<solution id='6'>Ask a friend or family member at the party to help you control your intake.</solution>
+	<solution id='7'>Ask coworkers to bring in healthy snacks to share rather than unhealthy treats. </solution>
+	<solution id='8'>Ask for drinks on the rocks so it slowly dilutes. </solution>
+	<solution id='9'>Ask for recipes instead of leftovers so you don't feel like you are missing out.</solution>
+	<solution id='10'>Ask someone in the house to help you avoid tempting foods.</solution>
+	<solution id='11'>Ask someone to join you for grocery shopping to help you avoid buying tempting foods.</solution>
+	<solution id='12'>Ask someone with good willpower to do some of the grocery shopping  so it doesn't always fall on you. </solution>
+	<solution id='13'>Ask the bartender to make your cocktail "skinny"</solution>
+	<solution id='14'>Ask the server to not bring bread to the table.</solution>
+	<solution id='15'>Ask the server to split the portion and box the second half before bringing it to table.</solution>
+	<solution id='16'>Ask your supervisor for additonal tasks during downtimes.</solution>
+	<solution id='17'>Avoid drinking on an empty stomach at parties. Drink after you've eaten.</solution>
+	<solution id='18'>Avoid impulse snacking on the weekend by planning snacks ahead of time. </solution>
+	<solution id='19'>Avoid sitting next to snack dishes at parties while drinking.</solution>
+	<solution id='20'>Before a party, ask your partner or a friend attending the party to help you deal with family members or friends that cause you stress.</solution>
+	<solution id='21'>Bring a healthy dish or snack to parties so you have at least one healthy option.</solution>
+	<solution id='22'>Bring a healthy lunch to work if cafeteria or restaurants lead you to make unhealthy choices.</solution>
+	<solution id='23'>Bring a healthy snack in the car for the commute/long rides.</solution>
+	<solution id='24'>Bring a healthy snack to eat on your commute home to prevent stress eating at home.</solution>
+	<solution id='25'>Bring a healthy snack to eat on your commute home to prevent stress eating.</solution>
+	<solution id='26'>Bring a healthy snack to eat on your commute to prevent stress eating.</solution>
+	<solution id='27'>Bring a lunch to work or school to avoid making food decisions while under stress.</solution>
+	<solution id='28'>Bring a lunch with you to avoid making food decisions while under stress.</solution>
+	<solution id='29'>Bring a veggie or fruit tray to all parties so you have something to overeat guilt-free.</solution>
+	<solution id='30'>Bring fresh fruit and yogurt dip to pass as a low calorie dessert </solution>
+	<solution id='31'>Bring healthy snacks to school so you have them on hand when hungry.</solution>
+	<solution id='32'>Bring healthy snacks to work so you have them on hand when hungry.</solution>
+	<solution id='33'>Bring healthy snacks with you to avoid stress eating junk food.</solution>
+	<solution id='34'>Bring healthy snacks with you to school each day.</solution>
+	<solution id='35'>Bring someone grocery shopping with you to help you keep to your list.</solution>
+	<solution id='36'>Buy non-fat milk versions</solution>
+	<solution id='37'>Calculate the number of times you eat out each week and eliminate at least one.</solution>
+	<solution id='38'>Call a friend on your commute when stressed to help calm down.</solution>
+	<solution id='39'>Change your route if you pass many tempting restaurants on your usual route.</solution>
+	<solution id='40'>Choose low calorie alcoholic drinks (e.g., light beer)</solution>
+	<solution id='41'>Choose low calorie alcoholic drinks (e.g., light beer, hard liquor and soda)</solution>
+	<solution id='42'>Come up with a way to reward yourself for every trip in which you stuck to a healthy list. </solution>
+	<solution id='43'>Confide in a friend when stressed instead of reaching for food.</solution>
+	<solution id='44'>Confide in a good friend when stressed instead of reaching for food.</solution>
+	<solution id='45'>Consider volunteer work.</solution>
+	<solution id='46'>Decide which food is your favorite and enjoy a full portion of that. </solution>
+	<solution id='47'>Delegate tasks at work to reduce your load and the stress that comes with it. </solution>
+	<solution id='48'>Dilute juice 1 part water to 3 parts lemonade. Gradually increase parts water over a few weeks. </solution>
+	<solution id='49'>Dilute juice with 1 part water to 3 parts juice. Gradually increase parts water over a few weeks. </solution>
+	<solution id='50'>Dilute premade versions with skim milk. </solution>
+	<solution id='51'>Dilute with club soda and ice.</solution>
+	<solution id='52'>Dilute with club soda.</solution>
+	<solution id='53'>Dilute with water.</solution>
+	<solution id='54'>Do diet tracking on weekend days to help reduce your intake.</solution>
+	<solution id='55'>Drink a coffee, tea, water or other low cal beverage during class instead of snacking.</solution>
+	<solution id='56'>Drink a glass of water in between alcoholic drinks to limit intake.</solution>
+	<solution id='57'>Drink a glass of water in between alcoholic drinks to slow you down and fill you up.</solution>
+	<solution id='58'>Drink a glass of water in between each drink to slow you down and fill you up.</solution>
+	<solution id='59'>Drink non-caloric flavored seltzers instead.</solution>
+	<solution id='60'>Eat prior to parties so you have less appetite at the party.</solution>
+	<solution id='61'>Email host in advance to let them know you are trying hard not to overeat. </solution>
+	<solution id='62'>Engage in an activity that distracts you from hunger to see if feeling passes.</solution>
+	<solution id='63'>Exercise after school to reduce stress from the day.</solution>
+	<solution id='64'>Exercise after work to reduce stress from the workday.</solution>
+	<solution id='65'>Fill up on raw veggies or salad before dinner so your appetite is more under control.</solution>
+	<solution id='66'>Find healthier versions of recipes for weekend family dinners</solution>
+	<solution id='67'>Find healthier versions of recipes for your favorite weekend breakfast foods</solution>
+	<solution id='68'>Find healthy recipes on the internet and compile a schedule of meals for the month.</solution>
+	<solution id='69'>Find quick healthy dinner ideas and plan to eat at home more often.</solution>
+	<solution id='70'>Freeze party leftovers and use for a meal later in the week.</solution>
+	<solution id='71'>Give yourself a limit for how many drinks you can have on one occasion/night and this will force you to spread them out. </solution>
+	<solution id='72'>Give yourself a limit for how many drinks you consume each week and keep track.</solution>
+	<solution id='73'>Go for a short walk to suppress appetite.</solution>
+	<solution id='74'>When willpower feels weak, go for a short walk to let the craving pass.</solution>
+	<solution id='75'>Go to the grocery store directly after a meal.</solution>
+	<solution id='76'>Go to the library to read or work on the computer.</solution>
+	<solution id='77'>Gradually reduce the amount of sugar added by 1/2 packet every 2 weeks.</solution>
+	<solution id='78'>Grocery shop on the weekend so you have ingredients for meals all week</solution>
+	<solution id='79'>Have fresh fruit washed and ready to eat at home at all times.</solution>
+	<solution id='80'>Have fresh fruit washed and ready to eat at work at all times.</solution>
+	<solution id='81'>Have healthy low calorie snacks available at work.</solution>
+	<solution id='82'>Have healthy low calorie snacks available in the home.</solution>
+	<solution id='83'>Have low calorie snacks (e.g., cut up veggies or fruit, air popcorn) available for snacking when drinking at a party.</solution>
+	<solution id='84'>Have low calorie snacks like popcorn, cut up veggies, or rice cakes around when hunger strikes.</solution>
+	<solution id='85'>Have unflavored milk occasionally to reaquaint your palate with plain milk.</solution>
+	<solution id='86'>Hide or "unfollow" Facebook updates from friends who upset or annoy you.</solution>
+	<solution id='87'>Identify exactly when you are skipping meals and plan a quick convenient snack at those times (e.g., Slimfast Shake, breakfast bar)</solution>
+	<solution id='88'>Identify foods in the home that tempt you and eliminate them from the grocery list. </solution>
+	<solution id='89'>Identify the foods you munch on when stressed and keep them off your grocery list. </solution>
+	<solution id='90'>Identify what you are doing when your willpower is weakest and switch to an activity that is incompatible with snacking (e.g., exercising, knitting) </solution>
+	<solution id='91'>If a persistent host, offer to take leftovers home and then dispose of them.</solution>
+	<solution id='92'>If a persistent host, tell him/her you are eating light because you don't feel well.</solution>
+	<solution id='93'>If catering the party, avoid high calorie foods on the menu. Find healthy party recipes.</solution>
+	<solution id='94'>If drinking for the caffiene, try non-caloric caffienated beverages (tea, coffee)</solution>
+	<solution id='95'>If having 2 drinks on one occasion, switch to a lower calorie drink for your second drink.</solution>
+	<solution id='96'>If host insists you eat more than you want, agree instead to take it home for later.</solution>
+	<solution id='97'>If the host insists you take unwanted leftovers home, take them and throw away on your way home.</solution>
+	<solution id='98'>If your job has a lot of downtime, bring a book to occupy your mind.</solution>
+	<solution id='99'>In making your own blended drinks, use extra ice.</solution>
+	<solution id='100'>Increase fiber content of meals to increase sense of fullness after eating.</solution>
+	<solution id='101'>Increase protein content o f meals to increase sense of fullness after eating.</solution>
+	<solution id='102'>Increase the duration and/or intensity of your workout earlier in the day to make up for extra calorie later.</solution>
+	<solution id='103'>Increase your exercise because exercise has been shown to strengthen willpower.</solution>
+	<solution id='104'>Increase your seafood intake and reduce calories by routinely ordering broiled or grilled seafood when dining out.</solution>
+	<solution id='105'>Initiate a fun activity away from the food to distract yourself from eating (e.g., active video game, lawn sport, cards)</solution>
+	<solution id='106'>Keep healthy low calorie snacks at home. </solution>
+	<solution id='107'>Limit alcohol to one drink at parties</solution>
+	<solution id='108'>Limit alcohol to one drink at restaurants. </solution>
+	<solution id='109'>Limit TV to 1 show per evening. Fill the remaining time with a new activity (e.g., exercise, housecleaning, reading)</solution>
+	<solution id='110'>Limit visits to drive thrus to a certain number per month. Keep track.</solution>
+	<solution id='111'>Limit yourself to 1 oz. Tell bartender to limit to 1 oz.</solution>
+	<solution id='112'>Liqueurs are higher in calories, substitute with liquor (e.g., scotch, vodka)</solution>
+	<solution id='113'>Listen to a book on tape or relaxing music to help calm down during the commute.</solution>
+	<solution id='114'>Listen to a book on tape or relaxing music to help calm down from work stress during the commute.</solution>
+	<solution id='115'>Look up menus online and decide what you will order before going. </solution>
+	<solution id='116'>Look up the calorie amounts of each dessert in a mobile app. Select the one that is most reasonable.</solution>
+	<solution id='117'>Make a DO NOT BUY list and bring that along with your usual grocery list.</solution>
+	<solution id='118'>Make a large meal on Sunday so you have leftovers for a couple of days.</solution>
+	<solution id='119'>Make a list of restaurants that you know have healthy choices and stick to those restaurants.</solution>
+	<solution id='120'>Make a list of the snacks you overeat when bored and avoid buying those at grocery store.</solution>
+	<solution id='121'>Make a list of the top 3 restaurants you are mostly likely to overeat at. Limit your visits to these restaurants.</solution>
+	<solution id='122'>Make a pact to only allow yourself one treat at work a month and keep track in calendar  (e.g., bday cake, donut in conference room)</solution>
+	<solution id='123'>Make a plan to limit time spent with friends who are a source of stress.</solution>
+	<solution id='124'>Make a reading list and work your way through it.</solution>
+	<solution id='125'>Make a sign or post a picture in your workspace that reminds you why you want to live a healthy lifestyle.</solution>
+	<solution id='126'>Make a to do list for home and post on fridge. Work your way through it during times you are bored.</solution>
+	<solution id='127'>Make a to do list to keep you focused.</solution>
+	<solution id='128'>Make active social plans with friends (e.g., water aerobics class, visit a park)</solution>
+	<solution id='129'>Make an appointment with a therapist to learn ways you can cope with stress from family.</solution>
+	<solution id='130'>Make an appointment with a therapist to learn ways you can cope with stress from friends.</solution>
+	<solution id='131'>Make appointment with a school counselor for help reducing the stress of your school load</solution>
+	<solution id='132'>Make at home to control the amount of flavor going in. Gradually reduce the amount in small increments</solution>
+	<solution id='133'>Make homemade and use non-caloric sweeteners </solution>
+	<solution id='134'>Make homemade so you can control amount of sugar</solution>
+	<solution id='135'>Make lower calorie, healthy recipes when catering parties. </solution>
+	<solution id='136'>Make social plans during times you are bored alone at home.</solution>
+	<solution id='137'>Make your own wine cooler by mixing wine with club soda or diet tonic. Add fresh fruit for flavor.</solution>
+	<solution id='138'>Never buy more than 1 bottle at a time.</solution>
+	<solution id='139'>Never buy more than a 6-pack at a time.</solution>
+	<solution id='140'>Only prepare the amount of food you will need for the number of guests to avoid leftovers.</solution>
+	<solution id='141'>Order a healthy appetizer for your meal instead of an entrée.</solution>
+	<solution id='142'>Order a smaller meal when having a higher calorie drink to make up the calories.</solution>
+	<solution id='143'>Order your drinks after eating your meal, rather than before or during.</solution>
+	<solution id='144'>Pack a cooler of healthy choices for long trips to eliminate restaurant food and to cut driving time.</solution>
+	<solution id='145'>Plan a healthy potluck by asking guests to bring their favorite healthy dish (with recipe!)</solution>
+	<solution id='146'>Plan ahead what you will eat before the event in which you will be drinking.</solution>
+	<solution id='147'>Plan ahead what you will eat for meals and snacks to avoid impulsive, in the moment unhealthy decisions</solution>
+	<solution id='148'>Plan an evening exercise routine in the house.</solution>
+	<solution id='149'>Plan exercise on the weekends if you have these days off of work.</solution>
+	<solution id='150'>Plan healthy dinners for the week on the weekend to reduce the effort of meal planning each day</solution>
+	<solution id='151'>Plan in advance what you will order at restaurants on stressful days.</solution>
+	<solution id='152'>Plan on only going to healthy restaurants on stressful days to reduce opportunity to overeat.</solution>
+	<solution id='153'>Politely decline the offer to take leftovers home.</solution>
+	<solution id='154'>Politely decline to eat more when urged. </solution>
+	<solution id='155'>Practice a deep breathing exercise at least once a day at school to calm down. </solution>
+	<solution id='156'>Practice a deep breathing exercise at least once a day at work to calm down. </solution>
+	<solution id='157'>Practice a deep breathing exercise at least once a day to calm down. </solution>
+	<solution id='158'>Practice tolerating the feeling of hunger for slightly longer periods than you are used to. </solution>
+	<solution id='159'>Privately mention to the host that you are trying to watch your weight and will need to control your portions.</solution>
+	<solution id='160'>Put a limit on how many snack foods you can purchase so that you are more selective (e.g., 1 per trip).</solution>
+	<solution id='161'>Put dumbbells in the office so you can do strength training during down time.</solution>
+	<solution id='162'>Put dumbbells next to the couch so you can do strength training while watching TV.</solution>
+	<solution id='163'>Put leftovers in single serving containers and pop in the freezer.</solution>
+	<solution id='164'>Reduce your restaurant outings to less than 3 per week</solution>
+	<solution id='165'>Replace with Crystal Light or similar non-caloric drink</solution>
+	<solution id='166'>Replace with diet soda</solution>
+	<solution id='167'>Replace with light beer</solution>
+	<solution id='168'>Replace with seltzer water</solution>
+	<solution id='169'>Replace with unsweetened tea</solution>
+	<solution id='170'>Replace with water</solution>
+	<solution id='171'>Replace with water with fresh lemon or lime</solution>
+	<solution id='172'>Select light (low-calorie) versions.</solution>
+	<solution id='173'>Serve all the food you will have all at once on one plate to avoid continous munching.</solution>
+	<solution id='174'>Set a specific limit on desserts per month and keep track. This will help you decide whether you can have one.</solution>
+	<solution id='175'>Set a time to talk to partner about ways you need help with childcare/family/home responsibilities. </solution>
+	<solution id='176'>Sip on herbal tea, coffee, water with fresh lemon or other low calorie beverage.</solution>
+	<solution id='177'>Slowly reduce the number of sodas you drink per week.</solution>
+	<solution id='178'>Start a fun activity at parties (e.g., active video game or lawn sport) to keep yourself occupied and away from food.</solution>
+	<solution id='179'>Subtract one drink from your current usual intake.</solution>
+	<solution id='180'>Switch to a lower calorie wine (e.g., Skinny Girl).</solution>
+	<solution id='181'>Switch to an alcoholic beverage that you tend to show better self-control. </solution>
+	<solution id='182'>Switch your snacks to high protein or high fiber to increase sense of fullness.</solution>
+	<solution id='183'>Take a hot bath to relax from long day.</solution>
+	<solution id='184'>Take notes during class to keep your mind focused and off of your tummy.</solution>
+	<solution id='185'>Take notes to prevent from snacking during class.</solution>
+	<solution id='186'>Take short walk breaks at school to reduce stress.</solution>
+	<solution id='187'>Take short walk breaks at work to reduce stress on the job.</solution>
+	<solution id='188'>Take short walks to break up down time and re-energize your brain.</solution>
+	<solution id='189'>Take short walks to break up too much time in the house.</solution>
+	<solution id='190'>Talk to your boss about ways you can reduce the stress of your job.</solution>
+	<solution id='191'>Tell family members you will only purchase junk food for them if it is a kind you do not like.</solution>
+	<solution id='192'>Tell host you are watching your weight so he/she doesn't push extra food on you.</solution>
+	<solution id='193'>Tell the bartender to hold (or go light) the simple syrup or sour mix.</solution>
+	<solution id='194'>Tell those pressuring you that this is already your third serving (when it is your first)</solution>
+	<solution id='195'>To give your day structure, make a schedule of your activities of each day in your calendar.</solution>
+	<solution id='196'>To prevent use of vending machines, don't carry cash. </solution>
+	<solution id='197'>To reduce calories, substitute starches (e.g., potato, rice, pasta) for steamed or grilled vegetables.</solution>
+	<solution id='198'>Track your hunger for a few days to help you better space your meals and snacks.</solution>
+	<solution id='199'>Track your intake with an app or food diary on high stress days to curb overeating.</solution>
+	<solution id='200'>Use a grocery service like Peapod to avoid all the temptations at the store.</solution>
+	<solution id='201'>Use a powder mix to control the amount you mix into water. Make a diluted version.</solution>
+	<solution id='202'>Use a small basket or no basket when you only need a few things so you aren't tempted to add unplanned purchases.</solution>
+	<solution id='203'>Use an app like Fooducate to identify healthier choices.</solution>
+	<solution id='204'>Use club soda instead of tonic.</solution>
+	<solution id='205'>Use diet sodas instead of full-sugar sodas when mixing with soda.</solution>
+	<solution id='206'>Use non-caloric sweeteners</solution>
+	<solution id='207'>Use non-dairy creamers</solution>
+	<solution id='208'>Use only muddled fresh fruit instead of juice or fruit mixes.</solution>
+	<solution id='209'>Use skim milk instead of whole or 2%</solution>
+	<solution id='210'>Use small glasses.</solution>
+	<solution id='211'>Wait 15 minutes to see if hunger passes or intensifies. If it intensifies, have a light snack.</solution>
+	<solution id='212'>Water drinks down with club soda or water. </solution>
+	<solution id='213'>When at fast food, use a mobile app like My Fitness Pal to look up calories of menu choices. </solution>
+	<solution id='214'>When catering a party, be sure to accurately estimate how many servings you will need to avoid a lot of leftovers.</solution>
+	<solution id='215'>When making large recipes, immediately freeze extras to save for weekday meals.</solution>
+	<solution id='216'>When one task is getting boring, switch to something new to mix things up.</solution>
+	<solution id='217'>When ordering food in for parties, make healthy choices (e.g., turkey sub sandwiches, hummus platter, Boston Market)</solution>
+</solutions>
+</script>

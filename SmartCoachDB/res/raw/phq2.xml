@@ -1,0 +1,43 @@
+<script>
+	<questions>
+		<flow>
+			<question id='1'/>
+			<question id='2'/>
+		</flow>
+
+		<question id='1'>
+			<prompt>Over the past 2 weeks, how often have you had little interest or pleasure in doing things?</prompt>
+			<option id='A' condition='0'>Not at all</option>
+			<option id='B' condition='1'>Several days</option>
+			<option id='C' condition='2'>More than half the days</option>
+			<option id='D' condition='3'>Nearly every day</option>
+		</question>		
+
+		<question id='2'>
+			<prompt>Over the past 2 weeks, how often have you felt down, depressed, or hopeless</prompt>
+			<option id='A' condition='[1].0'>Not at all</option>
+			<option id='B' condition='[1].1'>Several days</option>
+			<option id='C' condition='[1].2'>More than half the days</option>
+			<option id='D' condition='[1].3'>Nearly every day</option>
+		</question>
+
+	</questions>
+
+	<conditions>
+		<condition name='0.3'>positive</condition>
+		<condition name='1.2'>positive</condition>
+		<condition name='1.3'>positive</condition>
+		<condition name='2.1'>positive</condition>
+		<condition name='2.2'>positive</condition>
+		<condition name='2.3'>positive</condition>
+		<condition name='3.0'>positive</condition>
+		<condition name='3.1'>positive</condition>
+		<condition name='3.2'>positive</condition>
+		<condition name='3.3'>positive</condition>
+	</conditions>
+
+	<solutions>
+		<solution id='positive'>You may be at risk for depression. Talk to your doctor or a mental health professional to find out if you have depression.</solution>
+	</solutions>
+
+</script>

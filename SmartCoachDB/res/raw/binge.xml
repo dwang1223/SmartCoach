@@ -1,0 +1,39 @@
+<script>
+	<questions>
+		<flow>
+			<question id='1'/>
+			<question id='2'/>
+			<if id='2' response='A'>
+				<question id='3'/>
+			</if>
+		</flow>
+		
+		<question id='1'>
+			<prompt>Do you often feel that you can't control what or how much you eat?</prompt>
+			<option id='A' condition='no_control'>Yes</option>
+			<option id='B'>No</option>
+		</question>
+
+		<question id='2'>
+			<prompt>Do you often eat, within any 2-hour period, what most poeple would regard as an unusually large amount of food?</prompt>
+			<option id='A' condition='[1].large_portion'>Yes</option>
+			<option id='B'>No</option>
+		</question>
+
+		<question id='3'>
+			<prompt>Has this happened once a week for the past 3 months?</prompt>
+			<option id='A' condition='[2].frequent'>Yes</option>
+			<option id='B'>No</option>
+		</question>
+
+	</questions>
+
+	<conditions>
+		<condition name='no_control.large_portion.frequent'>positive</condition>
+	</conditions>
+
+	<solutions>
+		<solution id='positive'>You may be at risk for an eating disorder, see a mental health professional with this expertise for an evaluation.</solution>
+	</solutions>
+
+</script>

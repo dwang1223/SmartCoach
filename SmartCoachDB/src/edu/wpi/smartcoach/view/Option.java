@@ -32,4 +32,12 @@ public class Option {
 		return value;
 	}
 
+	public String toString(){
+		try {
+			return value.toString();
+		} catch(Exception e){
+			return "Option "+id;
+		}
+	}
+	
 }

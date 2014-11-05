@@ -9,10 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.util.DatabaseHelper;
+import edu.wpi.smartcoach.util.DialogXMLReader;
 
 public class MainActivity extends Activity {
 
@@ -24,13 +24,13 @@ public class MainActivity extends Activity {
 	private View remindButton;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		setTitle("SmartCoach");
 		mDatabaseHelp = DatabaseHelper.getInstance(this);
 		ExerciseQuestions.setContext(getApplicationContext());
-
+		
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		// let it run just once
@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 			profileButton = (View)findViewById(R.id.profile);
 			dietButton = (View)findViewById(R.id.dietSolver);
 			exerciseButton.setOnClickListener(new OnClickListener() {				
-				@Override
+				@Override 
 				public void onClick(View v) {
 					Intent intent = new Intent(getBaseContext(), ExerciseProblemActivity.class);
 					startActivity(intent);

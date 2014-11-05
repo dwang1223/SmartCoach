@@ -1,0 +1,65 @@
+<script>
+	<questions>
+
+		<flow>
+			<question id='1'/>
+			<question id='2'/>
+			<question id='3'/>
+			<question id='4'/>
+			<question id='5'/>
+			<question id='6'/>
+			<question id='7'/>
+		</flow>
+
+		<question id='1' type='multiple'>
+			<prompt>Which exercises are you doing at least once a week for 15 minutes or more?</prompt>
+			<options src='EXERCISES'/>
+		</question>
+
+		<question id='2' type='multiple'>
+			<prompt>With whom do you prefer to exercise?</prompt>
+			<option id='A' condition='alone'>Alone</option>
+			<option id='B' condition='friend'>With a friend</option>
+			<option id='C' condition='group'>With a group</option>
+			<option id='D' condition='any'>It doesn't matter</option>
+			<option id='E' condition='trainer'>With a trainer</option>
+		</question>
+
+		<question id='3' type='multiple'>
+			<prompt>Which exercises have you tried and liked?</prompt>			
+			<options src='EXERCISES'/>
+		</question>
+
+		<question id='4' type='multiple'>
+			<prompt>Which exercises have you never tried but would be interested in trying?</prompt>			
+			<options src='EXERCISES'/>
+		</question>
+
+		<question id='5' type='multiple'>
+			<prompt>Please check all that you own</prompt>
+			<options src='EQUIPMENT'/>
+		</question>
+
+		<question id='6'>
+			<prompt>Do you have childcare responsibilities that make it difficult to free up time to exercise?</prompt>
+			<option id='A' condition='children'>Yes</option>
+			<option id='B'>No</option>
+		</question>
+
+		<question id='7' type='multiple'>
+			<prompt>Which one of these describes your life style</prompt>
+			<option id='A' condition='retired'>Retired</option>
+			<option id='B' condition='homemaker'>Homemaker</option>
+			<option id='C' condition='work_student'>I work full time</option>
+			<option id='D' condition='work_student'>I am a student</option>
+			<option id='E' condition='unemployed'>Unemployed</option>
+		</question>
+
+	</questions>
+
+	<conditions>
+	</conditions>
+
+	<solutions>
+	</solutions>
+</script>

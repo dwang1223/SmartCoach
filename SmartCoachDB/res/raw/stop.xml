@@ -1,0 +1,52 @@
+<script>
+	<questions>
+		<flow>
+			<question id='1'/>
+			<question id='2'/>
+			<question id='3'/>
+			<question id='4'/>
+			<question id='5'/>
+		</flow>
+
+		<question id='1'>
+			<prompt>Do you snore loudly (louder that talking or loud enough to be heard through closed doors)?</prompt>
+			<option id='A' condition='+'>Yes</option>
+			<option id='B' condition=''>No</option>
+		</question>
+
+		<question id='2'>
+			<prompt>Do you often feel tired, fatigued, or sleepy during daytime?</prompt>
+			<option id='A' condition='[1]+'>Yes</option>
+			<option id='B' condition='[1]'>No</option>
+		</question>
+
+		<question id='3'>
+			<prompt>Has anyone observed you stop breathing during your sleep?</prompt>
+			<option id='A' condition='[2]+'>Yes</option>
+			<option id='B' condition='[2]'>No</option>
+		</question>
+
+		<question id='4'>
+			<prompt>Do you have or are you being treated for high blood pressure?</prompt>
+			<option id='A' condition='[3]+'>Yes</option>
+			<option id='B' condition='[3]'>No</option>
+		</question>
+
+		<question id='5'>
+			<prompt>Is your neck circumference greater than greater than 40cm (15.75 in)?</prompt>
+			<option id='A' condition='[4]+'>Yes</option>
+			<option id='B' condition='[4]'>No</option>
+		</question>
+		
+	</questions>
+
+	<conditions>
+		<condition name='+++'>positive</condition>
+		<condition name='++++'>positive</condition>
+		<condition name='+++++'>positive</condition>
+	</conditions>
+
+	<solutions>
+		<solution id='positive'>You may be at risk for sleep apnea. Talk to your doctor about getting evaluated.</solution>
+	</solutions>
+</script>

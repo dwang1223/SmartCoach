@@ -2,7 +2,6 @@ package edu.wpi.smartcoach.activity;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import edu.wpi.smartcoach.R;
@@ -10,8 +9,8 @@ import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.SocialNetworkSubmission;
 import edu.wpi.smartcoach.model.Solution;
-import edu.wpi.smartcoach.solver.DialogScriptSolver;
-import edu.wpi.smartcoach.util.DialogScriptReader;
+import edu.wpi.smartcoach.solver.DialogXMLSolver;
+import edu.wpi.smartcoach.util.DialogXMLReader;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
@@ -19,7 +18,7 @@ import edu.wpi.smartcoach.view.SolutionFragment;
 
 public class DietProblemActivity extends FragmentActivity implements QuestionResponseListener {
 
-	private DialogScriptSolver solver;
+	private DialogXMLSolver solver;
 	private OptionQuestionFragment questionFragment;
 		
 	private boolean solved;
@@ -30,7 +29,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 		setContentView(R.layout.activity_exercise_problem);
 		setTitle("SmartCoach Problem Solving");
 		
-		solver = DialogScriptReader.readScript(getResources().openRawResource(R.raw.diet));
+		solver = DialogXMLReader.readXML(R.raw.diet, this);
 		questionFragment = new OptionQuestionFragment();
 		questionFragment.setQuestion((OptionQuestionModel)solver.getNextQuestion());
 		questionFragment.setNextButtonListener(this);
