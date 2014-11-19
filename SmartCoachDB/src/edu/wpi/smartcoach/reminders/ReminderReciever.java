@@ -20,7 +20,7 @@ public class ReminderReciever extends BroadcastReceiver {
 			Reminder r = ReminderService.getInstance().getReminder(id);
 			if(r != null){
 				NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-				Notification n = builder.setSmallIcon(R.drawable.android_head)
+				Notification n = builder.setSmallIcon(R.drawable.coach_head)
 				.setContentTitle("SmartCoach Reminder")
 				.setContentText(r.getMessage()).build();
 				
