@@ -81,29 +81,6 @@
                 android:text="Male"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/bg_card" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Birthdate:"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#777777" />
-
-            <TextView
-                android:id="@+id/birthdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:text="1/1/1970"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </RelativeLayout>
     </LinearLayout>
 
              <Button

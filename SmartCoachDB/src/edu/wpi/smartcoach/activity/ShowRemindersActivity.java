@@ -53,7 +53,7 @@ public class ShowRemindersActivity extends Activity {
 				
 				TextView reminder =(TextView) view.findViewById(R.id.reminder);
 				TextView days = (TextView)view.findViewById(R.id.days);
-				TextView time =(TextView) view.findViewById(R.id.time);
+				TextView time =(TextView) view.findViewById(R.id.timePicker);
 				
 				String[] parts = getItem(position).split("#");
 				reminder.setText(parts[0]);

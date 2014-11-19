@@ -20,7 +20,7 @@ public class RegistrationIntroActivity extends Activity {
 		
 		
 		Button next = (Button)findViewById(R.id.next);
-		
+		next.bringToFront();
 		next.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -47,9 +47,9 @@ public class RegistrationIntroActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.time) {
-			return true;
-		}
+//		if (id == R.id.time) {
+//			return true;
+//		}
 		return super.onOptionsItemSelected(item);
 	}
 

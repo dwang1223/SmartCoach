@@ -4,7 +4,7 @@
     tools:context="edu.wpi.smartcoach.RegistrationIntroActivity" >
 
     <item
-        android:id="@+id/time"
+        android:id="@+id/timePicker"
         android:orderInCategory="100"
         android:title="@string/action_settings"/>
 

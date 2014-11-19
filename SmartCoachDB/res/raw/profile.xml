@@ -9,6 +9,7 @@
 			<question id='5'/>
 			<question id='6'/>
 			<question id='7'/>
+			<question id='8'/>
 		</flow>
 
 		<question id='1' type='multiple'>
@@ -54,6 +55,14 @@
 			<option id='D' condition='work_student'>I am a student</option>
 			<option id='E' condition='unemployed'>Unemployed</option>
 		</question>
+		
+		<question id='8'>
+		    <prompt>How often would you like a reminder to weigh in if I haven't heard from you?</prompt>
+		    <option id='A' condition='1w'>1 Week</option>
+		    <option id='B' condition='2w'>2 Weeks</option>
+		    <option id='C' condition='3w'>3 Weeks</option>
+		    <option id='D' condition='4w'>1 Month</option>
+	    </question>
 
 	</questions>
 

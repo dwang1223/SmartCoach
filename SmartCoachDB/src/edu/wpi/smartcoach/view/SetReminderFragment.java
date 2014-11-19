@@ -128,7 +128,7 @@ public class SetReminderFragment extends Fragment {
 		TextView rt = (TextView) root.findViewById(R.id.reminderText);
 		rt.setText("Set up reminder : " + reminder);
 		Button finish = (Button) root.findViewById(R.id.finish);
-		time = (TimePicker)root.findViewById(R.id.time);
+		time = (TimePicker)root.findViewById(R.id.timePicker);
 		dayButtons = new ToggleButton[days.length];
 		for(int i = 0; i < days.length;i++){
 			dayButtons[i] = (ToggleButton)root.findViewById(getActivity().getResources().getIdentifier(days[i], "id", "edu.wpi.smartcoach"));

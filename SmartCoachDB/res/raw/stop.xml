@@ -21,8 +21,8 @@
 
 		<question id='3'>
 			<prompt>Has anyone observed you stop breathing during your sleep?</prompt>
-			<option id='A' condition='[2]+'>Yes</option>
-			<option id='B' condition='[2]'>No</option>
+			<option id='A' condition='[1]+'>Yes</option>
+			<option id='B' condition='[1]'>No</option>
 		</question>
 
 		<question id='4'>

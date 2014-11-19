@@ -28,7 +28,7 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 	private EditText first, last;
 	//private EditText address, occupation;
 	private Spinner gender;
-	private TextView birthday;
+	//private TextView birthday;
 	
 	private Button submit;
 	
@@ -57,16 +57,16 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 //		occupation = (EditText) findViewById(R.id.occupation);
 
 		gender = (Spinner) findViewById(R.id.gender);
-		birthday = (TextView) findViewById(R.id.birthday);
-
-		birthday.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Calendar c = Calendar.getInstance();
-				new DatePickerDialog(RegistrationActivity.this,
-						RegistrationActivity.this, 1970, 0, 1).show();
-			}
-		});
+//		birthday = (TextView) findViewById(R.id.birthday);
+//
+//		birthday.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Calendar c = Calendar.getInstance();
+//				new DatePickerDialog(RegistrationActivity.this,
+//						RegistrationActivity.this, 1970, 0, 1).show();
+//			}
+//		});
 		
 		if(editing){
 			PatientProfile profile = PatientProfileService.getInstance().getProfile();
@@ -105,14 +105,14 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
  
 		String genderStr = gender.getSelectedItem().toString();
 		
-		Date bd = null;
-		try{
-			bd = new Date(Date.parse(birthday.getText().toString()));
-		}catch(Exception e){
-			return;
-		}
+//		Date bd = null;
+//		try{
+//			bd = new Date(Date.parse(birthday.getText().toString()));
+//		}catch(Exception e){
+//			return;
+//		}
 		
-		PatientProfileService.getInstance().initPatientProfile(new PatientProfile(firstName, lastName, genderStr, bd, "address", "occupation"));
+		PatientProfileService.getInstance().initPatientProfile(new PatientProfile(firstName, lastName, genderStr, null, "address", "occupation"));
 
 		if(!editing){
 			Intent intent = new Intent(this, PatientMetricsActivity.class);
@@ -127,7 +127,7 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.time) {
+		if (id == R.id.timePicker) {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -137,7 +137,7 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 	public void onDateSet(DatePicker view, int year, int monthOfYear,
 			int dayOfMonth) {
 		GregorianCalendar calendar = new GregorianCalendar(year, monthOfYear+1, dayOfMonth);
-		birthday.setText(String.format("%d/%d/%02d", monthOfYear+1, dayOfMonth, year%100));
+		//birthday.setText(String.format("%d/%d/%02d", monthOfYear+1, dayOfMonth, year%100));
 		
 	}
 

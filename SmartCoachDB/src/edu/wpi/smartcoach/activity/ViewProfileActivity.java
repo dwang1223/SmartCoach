@@ -35,7 +35,7 @@ public class ViewProfileActivity extends Activity {
 		
 		name = (TextView)findViewById(R.id.name);
 		gender = (TextView)findViewById(R.id.gender);
-		birthdate = (TextView)findViewById(R.id.birthdate);
+		//birthdate = (TextView)findViewById(R.id.birthdate);
 		
 
 		height = (TextView)findViewById(R.id.height);
@@ -94,9 +94,9 @@ public class ViewProfileActivity extends Activity {
 		name.setText(profile.getFirstName() + " "+ profile.getLastName());
 		gender.setText(profile.getGender());
 		
-		Date bDate = profile.getPatientBirthday();
-		String bds = String.format("%d/%d/%02d", bDate.getMonth()+1, bDate.getDate(), (bDate.getYear())%100);
-		birthdate.setText(bds);
+		//Date bDate = profile.getPatientBirthday();
+		//String bds = String.format("%d/%d/%02d", bDate.getMonth()+1, bDate.getDate(), (bDate.getYear())%100);
+		//birthdate.setText(bds);
 		
 		String heightStr = String.format("%d\' %d\"", (int)metrics.getHeight()/12, (int)metrics.getHeight()%12);
 		height.setText(heightStr);

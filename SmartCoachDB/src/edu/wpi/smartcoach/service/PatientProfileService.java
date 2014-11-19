@@ -52,7 +52,7 @@ public class PatientProfileService{
 			profile.setPatientFirstName(mCursor.getString(1));
 			profile.setPatientLastName(mCursor.getString(2));
 			profile.setPatientGender(mCursor.getString(3));
-			profile.setPatientBirthday(new Date(Date.parse(mCursor.getString(4))));
+			//profile.setPatientBirthday(new Date(Date.parse(mCursor.getString(4))));
 		} finally {
 			mCursor.close();
 		}

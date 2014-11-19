@@ -10,9 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.ExerciseQuestions;
 import edu.wpi.smartcoach.util.DatabaseHelper;
-import edu.wpi.smartcoach.util.DialogXMLReader;
 
 public class MainActivity extends Activity {
 
@@ -29,7 +27,6 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		setTitle("SmartCoach");
 		mDatabaseHelp = DatabaseHelper.getInstance(this);
-		ExerciseQuestions.setContext(getApplicationContext());
 		
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
@@ -97,9 +94,9 @@ public class MainActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.time) {
-			return true;
-		}
+//		if (id == R.id.time) {
+//			return true;
+//		}
 		return super.onOptionsItemSelected(item);
 	}
 }
