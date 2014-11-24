@@ -4,9 +4,7 @@ import edu.wpi.smartcoach.view.Option;
 
 public class DialogXMLOption extends Option {
 	
-	String condition;
-
-	
+	String condition;	
 
 	public DialogXMLOption(String id, String text, String condition) {
 		super(id, text);

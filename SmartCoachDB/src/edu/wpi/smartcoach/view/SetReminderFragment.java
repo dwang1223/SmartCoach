@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 import android.widget.ToggleButton;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.reminders.Reminder;
+import edu.wpi.smartcoach.service.ReminderService;
 
 public class SetReminderFragment extends Fragment {
 
@@ -119,7 +120,7 @@ public class SetReminderFragment extends Fragment {
 	}
 	
 	public Reminder createReminder(){
-		return new Reminder(System.currentTimeMillis(), reminder, getDays(), getHour(), getMinute());
+		return new Reminder(ReminderService.getInstance().getNewId(), reminder, getDays(), getHour(), getMinute());
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

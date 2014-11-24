@@ -8,6 +8,11 @@ public class TimeQuestionModel implements QuestionModel {
 	
 	private int response = 0;
 	
+	public static String formatTime(int time){
+		time = time % (60*24);
+		return String.format("%d:%02d %s", time/60, time%60, time < 12*60 ? "AM":"PM");
+	}
+	
 	public TimeQuestionModel(String id, String title, String prompt) {
 		super();
 		this.id = id;

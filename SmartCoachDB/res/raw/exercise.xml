@@ -3,8 +3,7 @@
 
 		<flow>
 			<question id='1'/>
-			<if id='1' response='A'>
-			    
+			<if id='1' response='A'>			    
 				<question id='2'/>
 				<question id='3'/>
 				<condition id='[1].[profile.7]'/>
@@ -81,7 +80,7 @@
 
 		<question id='6'>
 			<prompt>How many days a week do you have off from work and school?</prompt>
-			<option id='A'>None</option>
+			<option id='A' condition='[1].no_days_off'>None</option>
 			<option id='B'>1 or more</option>
 		</question>
 		<question id='7'>
@@ -168,7 +167,7 @@
 		<solution id='5'>Ask your doctor to be tested for sleep apnea</solution>
 		<solution id='6'>Ask your PT to develop an exercise plan for you that will not cause pain and help your injury heal. </solution>
 		<solution id='7'>Ask your spouse to watch children during your exercise time and do the same for him/her/</solution>
-		<solution id='8'>Between [time] and [time] you could plan some physical activity.</solution>
+		<solution id='8'>Between [start] and [end] you could plan some physical activity.</solution>
 		<solution id='9'>Chat with a friend on the phone while you workout.</solution>
 		<solution id='10'>Connect with friends on fitness mobile apps so you can motivate each other.</solution>
 		<solution id='11'>Download an app to track your exercise (e.g., MapMyWalk, Fitbit)</solution>

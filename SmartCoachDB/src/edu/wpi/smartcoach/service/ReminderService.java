@@ -39,7 +39,7 @@ public class ReminderService {
 		
 		while(cursor.moveToNext()){
 			reminders.add(new Reminder(
-					cursor.getLong(0),
+					(int)cursor.getLong(0),
 					cursor.getString(1),
 					cursor.getString(2),
 					cursor.getInt(3),
@@ -57,6 +57,17 @@ public class ReminderService {
 			rem.getHour()+", "+
 			rem.getMinute()+")";
 		DatabaseHelper.getInstance().getWritableDatabase().execSQL(sql);
+	}
+
+	public int getNewId() {
+		long max = 0;
+		for(Reminder r:getAllDataFromTable()){
+			if(r.getId() > max){
+				max = r.getId();
+			}
+		}
+		
+		return (int)max;
 	}
 
 }

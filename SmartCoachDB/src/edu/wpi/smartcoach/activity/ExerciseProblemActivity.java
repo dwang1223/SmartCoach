@@ -9,6 +9,7 @@ import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.SocialNetworkSubmission;
 import edu.wpi.smartcoach.model.Solution;
+import edu.wpi.smartcoach.model.TimeQuestionModel;
 import edu.wpi.smartcoach.solver.DialogXMLSolver;
 import edu.wpi.smartcoach.util.DialogXMLReader;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
@@ -18,6 +19,10 @@ import edu.wpi.smartcoach.view.SolutionFragment;
 
 public class ExerciseProblemActivity extends FragmentActivity implements QuestionResponseListener {
 
+	private final static String TAG = ExerciseProblemActivity.class.getSimpleName();
+	
+	private final static int TWO_HOURS = 60*60*2;
+	
 	private DialogXMLSolver solver;
 	private QuestionFragment questionFragment;
 		
@@ -61,7 +66,8 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		if(solver.hasNextQuestion()){
 			nextQuestion = solver.getNextQuestion();
 		} else {
-			List<Solution> solutions = solver.getSolution(getBaseContext());
+			
+			List<Solution> solutions = getExerciseSolutions();
 			showSolution(solutions);
 			solved = true;
 		}
@@ -109,6 +115,48 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		questionFragment.setLast(false);
 		getSupportFragmentManager().beginTransaction().replace(R.id.container, questionFragment).commit();	
 
+	}
+	
+	private List<Solution> getExerciseSolutions(){
+		List<Solution> solutions = solver.getSolution(this);
+		
+		int timeSleep = ((TimeQuestionModel)solver.getQuestionById("2")).getResponse();
+		int timeWakeup = ((TimeQuestionModel)solver.getQuestionById("3")).getResponse();
+		int timeLeave = ((TimeQuestionModel)solver.getQuestionById("4")).getResponse();
+		int timeReturn = ((TimeQuestionModel)solver.getQuestionById("5")).getResponse();
+		
+		
+		int morningGap = timeLeave - timeWakeup;
+		int eveningGap = timeSleep - timeReturn;
+		
+		if(morningGap >= TWO_HOURS || eveningGap >= TWO_HOURS){
+			//has gap, which gap?
+			String start = "";
+			String end = "";
+			if(morningGap > eveningGap){
+				start = TimeQuestionModel.formatTime(timeWakeup);
+				end = TimeQuestionModel.formatTime(timeLeave);
+			} else {
+				start = TimeQuestionModel.formatTime(timeReturn);
+				end = TimeQuestionModel.formatTime(timeSleep);				
+			}
+			Solution gapSolution = solver.getSolutionById("8").clone();
+			gapSolution.setMessage(
+					gapSolution.getMessage()
+					.replace("[start]", start)
+					.replace("[end]", end)
+					);
+			
+			solutions.add(gapSolution);
+			
+		} else if (solver.hasCondition("time.no_days_off")){
+			solutions.add(solver.getSolutionById("43"));
+			solutions.add(solver.getSolutionById("36"));
+			//no gap
+		}
+		
+		return solutions;
+				
 	}
 
 }

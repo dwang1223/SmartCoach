@@ -37,7 +37,7 @@ public class DialogXMLSolver implements ProblemSolver {
 	private List<QuestionModel> questions;
 	private HashMap<String, String> conditions;
 	private HashMap<String, Solution> solutions;
-	
+		
 	private List<String> setConditions;
 	
 	private ArrayList<DialogXMLSolver> screens;
@@ -86,8 +86,6 @@ public class DialogXMLSolver implements ProblemSolver {
 		screens = new ArrayList<DialogXMLSolver>();
 		currentNode = flow.getFirstChild();
 		setConditions = new ArrayList<String>();
-		
-
 	}
 
 	@Override
@@ -99,18 +97,17 @@ public class DialogXMLSolver implements ProblemSolver {
 			}
 		} else {
 			Log.d(TAG, currentElement.getAttribute("id")); 
-			return getQuestion(currentElement.getAttribute("id"));
+			return getQuestionById(currentElement.getAttribute("id"));
 		}
 		
-		return null;
-		
+		return null;		
 	} 
+	
 
 	@Override
 	public void submitResponse(QuestionModel response) {
 		//OptionQuestionModel q = (OptionQuestionModel)response;
-		
-		
+				
 		if(!flowFinished){
 			do {
 				advanceFlow();
@@ -174,7 +171,7 @@ public class DialogXMLSolver implements ProblemSolver {
 						}
 					}
 				} else {
-					OptionQuestionModel testQuestion = (OptionQuestionModel)getQuestion(ifId);
+					OptionQuestionModel testQuestion = (OptionQuestionModel)getQuestionById(ifId);
 					for(Option op:testQuestion.getSelectedOptions()){
 						for(String ifRes:ifResponse){
 							if(op.getId().equals(ifRes)){
@@ -210,7 +207,7 @@ public class DialogXMLSolver implements ProblemSolver {
 	}
 
 
-	private QuestionModel getQuestion(String id){
+	public QuestionModel getQuestionById(String id){
 		QuestionModel question = null;
 		for(QuestionModel oom:questions){
 			if(oom.getId().equals(id)){
@@ -219,6 +216,14 @@ public class DialogXMLSolver implements ProblemSolver {
 			}
 		}
 		return question;
+	}
+	
+	public Solution getSolutionById(String id){
+		return solutions.get(id);
+	}
+	
+	public boolean hasCondition(String condition){
+		return setConditions.contains(condition);
 	}
 	
 	@Override
@@ -250,6 +255,8 @@ public class DialogXMLSolver implements ProblemSolver {
 	public int getResource(){
 		return resource;
 	}
+	
+	
 
 	@Override
 	public List<Solution> getSolution(Context ctx) {
@@ -301,8 +308,8 @@ public class DialogXMLSolver implements ProblemSolver {
 			if( condition.startsWith("[")){
 				String prefixId = condition.substring(condition.indexOf('[')+1, condition.indexOf(']'));
 				OptionQuestionModel prefixQuestion = null;
-				if(getQuestion(prefixId) instanceof OptionQuestionModel){
-					prefixQuestion = (OptionQuestionModel)getQuestion(prefixId);
+				if(getQuestionById(prefixId) instanceof OptionQuestionModel){
+					prefixQuestion = (OptionQuestionModel)getQuestionById(prefixId);
 				}
 				
 				if(prefixQuestion != null){

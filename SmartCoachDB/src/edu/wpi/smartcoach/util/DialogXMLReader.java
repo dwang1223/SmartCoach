@@ -107,18 +107,14 @@ public class DialogXMLReader {
 							String condition = null;
 							if(op.hasAttribute("condition")){
 								condition = op.getAttribute("condition");
-								//Log.d(TAG, condition);
 							}
 							String text = op.getTextContent();  
-							//Log.d(TAG, id+""+oId+" => "+condition);
 							options.add(new DialogXMLOption(oId, text, condition));
 							
 						}
 						questions.add(new OptionQuestionModel(id, "", prompt, options, type, false, false));
-					}
-					
-				}
-				
+					}					
+				}				
 			}			
 			
 			for(int i = 0; i < conditionList.getLength(); i++){
@@ -133,9 +129,16 @@ public class DialogXMLReader {
 			for(int i = 0; i < solutionList.getLength(); i++){
 				Element solution = (Element)solutionList.item(i);
 				String id = solution.getAttribute("id");
-				String text = solution.getTextContent();
-				solutions.put(id, new Solution(text));
 				
+				String link = null;
+				
+				if(solution.hasAttribute("link")){
+					link = solution.getAttribute("link");
+				}
+				
+				String text = solution.getTextContent();
+				
+				solutions.put(id, new Solution(Solution.TYPE_DEFAULT, text, link));				
 			}
 			
 			

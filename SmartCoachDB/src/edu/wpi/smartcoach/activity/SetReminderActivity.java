@@ -88,7 +88,7 @@ public class SetReminderActivity extends FragmentActivity {
 		finish();
 	}
 	
-	public void setAlarm(int dayOfWeek, int hour, int minute, long id) {
+	public void setAlarm(int dayOfWeek, int hour, int minute, int id) {
 		Calendar alarm = new GregorianCalendar();
         alarm.set(Calendar.DAY_OF_WEEK, dayOfWeek);
 
@@ -102,7 +102,7 @@ public class SetReminderActivity extends FragmentActivity {
         
         Intent intent = new Intent(this, ReminderReciever.class);
         intent.putExtra("id", id);
-        PendingIntent pending = PendingIntent.getBroadcast(this, 0, intent, 0);
+        PendingIntent pending = PendingIntent.getBroadcast(this, id, intent, 0);
         
         manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, (long)(7*24*60*60*1000) , pending); 
 	}

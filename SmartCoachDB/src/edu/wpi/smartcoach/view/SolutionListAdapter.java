@@ -77,13 +77,13 @@ public class SolutionListAdapter extends BaseAdapter {
 			sep.setBackgroundColor(0xffcccccc);
 		}
 		
-		if(item.getInfo() != null){
+		if(item.getLink() != null){
 			info.setVisibility(View.VISIBLE);
 			info.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getInfo()));
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLink()));
 					context.startActivity(intent);
 				}
 			});

@@ -2,12 +2,12 @@ package edu.wpi.smartcoach.reminders;
 
 public class Reminder {
 	
-	long id;
+	int id;
 	String message;
 	String days;
 	int hour;
 	int minute;
-	public Reminder(long id, String message, String days, int hour, int minute) {
+	public Reminder(int id, String message, String days, int hour, int minute) {
 		super();
 		this.id  = id;
 		this.message = message;
@@ -18,7 +18,7 @@ public class Reminder {
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	/**
@@ -48,7 +48,7 @@ public class Reminder {
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	/**

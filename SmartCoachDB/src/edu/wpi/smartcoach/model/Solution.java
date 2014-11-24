@@ -7,7 +7,7 @@ public class Solution {
 	
 	protected int type;
 	protected String message;
-	protected String info;
+	protected String link;
 	
 	public Solution(String message){
 		this(TYPE_DEFAULT, message);
@@ -20,31 +20,45 @@ public class Solution {
 	public Solution(int type, String message, String info){
 		this.type = type;
 		this.message = message;
-		this.info = info;
+		this.link = info;
 	}
 	
 	public Solution(String message, String info){
 		this(TYPE_DEFAULT, message, info);
 	}
 	
+	
+	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	public void setType(int type){
 		this.type = type;
 	}
 	
-	public void setInfo(String info){
-		this.info = info;
+	public void setLink(String info){
+		this.link = info;
 	}
 	
 	public int getType(){
 		return type;
 	}
 	
-	public String getInfo(){
-		return info;
+	public String getLink(){
+		return link;
 	}
 	
 	public String toString(){
 		return message;
+	}
+	
+	public Solution clone(){
+		return new Solution(type, message, link);
 	}
 
 }
