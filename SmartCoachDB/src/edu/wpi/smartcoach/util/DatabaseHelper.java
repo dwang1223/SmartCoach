@@ -1,12 +1,14 @@
 package edu.wpi.smartcoach.util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import edu.wpi.smartcoach.R;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -50,6 +52,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		try {
 			
 			FileOutputStream dbOut = new FileOutputStream(dbFile);
+			byte[] buffer = new byte[1024];
+			int len = 0;
+			while((len = dbSource.read(buffer)) > 0){
+				dbOut.write(buffer, 0, len);
+			}
+			
+			dbSource.close();
+			dbOut.close();			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void copyToStorage(Context ctx){
+		File dbFile = new File(getWritableDatabase().getPath());
+		File outFile = new File(ctx.getExternalFilesDir(null), "smartcoachdb.db");
+		Log.d(DatabaseHelper.class.getSimpleName(), outFile.getAbsolutePath());
+		try {
+
+			FileInputStream dbSource = new FileInputStream(dbFile);
+			FileOutputStream dbOut = new FileOutputStream(outFile);
+			
 			byte[] buffer = new byte[1024];
 			int len = 0;
 			while((len = dbSource.read(buffer)) > 0){

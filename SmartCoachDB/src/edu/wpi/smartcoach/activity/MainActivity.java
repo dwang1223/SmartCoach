@@ -1,6 +1,11 @@
 package edu.wpi.smartcoach.activity;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import edu.wpi.smartcoach.CheckinActivity;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.reminders.ReminderReciever;
 import edu.wpi.smartcoach.util.DatabaseHelper;
 
 public class MainActivity extends Activity {
@@ -27,6 +34,27 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		setTitle("SmartCoach");
 		mDatabaseHelp = DatabaseHelper.getInstance(this);
+		
+		
+		
+		Calendar alarm = new GregorianCalendar();
+        alarm.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+
+        alarm.set(Calendar.HOUR_OF_DAY, 20);
+        alarm.set(Calendar.MINUTE, 0);
+
+        long alarmTime = alarm.getTimeInMillis();
+        //Also change the time to 24 hours.
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        
+        Intent intent = new Intent(this, ReminderReciever.class);
+        intent.putExtra("id", 9001);
+        PendingIntent pending = PendingIntent.getBroadcast(this, 9001, intent, 0);
+        
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, (long)(7*24*60*60*1000) , pending); 
+	
+		
+		
 		
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
@@ -78,6 +106,9 @@ public class MainActivity extends Activity {
 			
 			
 		}
+		
+		
+		
 	}
 
 	@Override
@@ -97,6 +128,8 @@ public class MainActivity extends Activity {
 //		if (id == R.id.time) {
 //			return true;
 //		}
+		startActivity(new Intent(this, CheckinActivity.class));
+		DatabaseHelper.getInstance().copyToStorage(this);
 		return super.onOptionsItemSelected(item);
 	}
 }

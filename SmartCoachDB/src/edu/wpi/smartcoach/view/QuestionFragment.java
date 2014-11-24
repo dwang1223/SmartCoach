@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
+import edu.wpi.smartcoach.model.WeightQuestionModel;
 
 public abstract class QuestionFragment extends Fragment {
 
@@ -15,6 +16,8 @@ public abstract class QuestionFragment extends Fragment {
 		} else if (q instanceof TimeQuestionModel){
 			return new TimeQuestionFragment().setQuestion((TimeQuestionModel)q);
 			
+		} else if(q instanceof WeightQuestionModel){
+			return new WeightQuestionFragment().setQuestion((WeightQuestionModel)q);
 		}
 		return null;
 	}

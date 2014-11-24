@@ -130,7 +130,6 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		int eveningGap = timeSleep - timeReturn;
 		
 		if(morningGap >= TWO_HOURS || eveningGap >= TWO_HOURS){
-			//has gap, which gap?
 			String start = "";
 			String end = "";
 			if(morningGap > eveningGap){
