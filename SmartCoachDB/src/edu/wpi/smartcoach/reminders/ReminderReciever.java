@@ -7,8 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
-import edu.wpi.smartcoach.CheckinActivity;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.activity.CheckinActivity;
 import edu.wpi.smartcoach.service.ReminderService;
 
 public class ReminderReciever extends BroadcastReceiver {

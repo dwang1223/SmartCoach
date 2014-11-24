@@ -55,9 +55,10 @@ public class WeightQuestionFragment extends QuestionFragment {
 						weightText.setText((Float.parseFloat(s.toString())*-1)+"");
 					}
 					setButtonEnabledState(next, true);
+					question.setWeight(Float.parseFloat(weightText.getText().toString()));
 				} catch(Exception e){
 					setButtonEnabledState(next, false);
-				}				
+				}		
 			}
 		});
 		

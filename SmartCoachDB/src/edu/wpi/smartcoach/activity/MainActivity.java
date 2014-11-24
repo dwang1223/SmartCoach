@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import edu.wpi.smartcoach.CheckinActivity;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.reminders.ReminderReciever;
 import edu.wpi.smartcoach.util.DatabaseHelper;

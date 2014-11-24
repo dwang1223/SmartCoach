@@ -180,18 +180,44 @@
                 android:text="150"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/graphContainer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:orientation="vertical" >
+
+        </LinearLayout>
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/editMetrics"
-        style="?android:attr/buttonStyleSmall"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_margin="5dp"
-        android:background="@drawable/bg_card_button"
-        android:text="Edit Metrics"
-        android:textColor="#ffffff" />
+        android:layout_gravity="right" >
+
+        <Button
+            android:id="@+id/weigh_in"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/bg_card_button"
+            android:text="Weigh In"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/editMetrics"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/bg_card_button"
+            android:text="Edit Metrics"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/TextView04"
