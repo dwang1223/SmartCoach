@@ -29,11 +29,13 @@
 	</questions>
 
 	<conditions>
-		<condition name='no_control.large_portion.frequent'>positive</condition>
+		<condition name='no_control.large_portion.frequent'>positive,1,2</condition>
 	</conditions>
 
 	<solutions>
 		<solution id='positive'>You may be at risk for an eating disorder, see a mental health professional with this expertise for an evaluation.</solution>
+		<solution id='1'>When hunger strikes, wait 15 minutes to see if it passes. </solution>
+		<solution id='2'>Track your hunger to get a better understanding of and control over the triggers.</solution>
 	</solutions>
 
 </script>

@@ -32,7 +32,7 @@
 		</question>
 
 		<question id='5'>
-			<prompt>Is your neck circumference greater than greater than 40cm (15.75 in)?</prompt>
+			<prompt>Is your neck circumference greater than 40cm (15.75 in)?</prompt>
 			<option id='A' condition='[4]+'>Yes</option>
 			<option id='B' condition='[4]'>No</option>
 		</question>

@@ -10,6 +10,7 @@
 				<screen id='binge'/>
 				<question id='3'/>
 				<if id='3' response='A'>
+					<condition id='[1].fatigued'/>
 					<screen id='stop'/>
 					<screen id='phq2'/>
 				</if>
@@ -18,6 +19,7 @@
 				<question id='7'/>
 				<screen id="binge"/>
 				<question id='3'/>
+				<condition id='fatigued'/>
 				<if id='3' response='A'>
 					<screen id='stop'/>
 				</if>
@@ -27,7 +29,8 @@
 				<question id='10'/>
 				<question id='3'/>
 				<screen id='binge'/>
-				<if id='3' response='A'>					
+				<if id='3' response='A'>
+					<condition id='fatigued'/>					
 					<screen id='stop'/>
 					<screen id='phq2'/>
 				</if>
@@ -99,6 +102,7 @@
 		<option id='B' condition='[4].at_work'>Work</option>
 		<option id='C' condition='[4].at_restaurant'>Restaurants</option>
 		<option id='D' condition='[4].at_school'>School</option>
+		<option id='F' condition='[4].at_car'>In the car</option>
 		<option id='E' condition='[4].at_parties'>Parties, holidays, events</option>
 	</question>
 
@@ -244,7 +248,7 @@
 			<condition name='stress_eating.because_work.at_car'>25,114,38</condition>
 
 		<condition name='stress_eating.because_school'>186,63,89,3,131,43,155</condition>
-			<condition name='stress_eating.because_school.at_home'>23</condition>
+			<condition name='stress_eating.because_school.at_home'></condition>
 			<condition name='stress_eating.because_school.at_work'>28</condition>
 			<condition name='stress_eating.because_school.at_restaurant'>28,151,152,37</condition>
 			<condition name='stress_eating.because_school.at_school'>27,28</condition>
@@ -259,7 +263,7 @@
 			<condition name='stress_eating.because_family.at_parties'>60,93,20</condition>
 			<condition name='stress_eating.because_family.at_car'>26,150,38,113</condition>
 
-		<condition name='stress_eating.because_friends'>123,86,44,120,157,89</condition>
+		<condition name='stress_eating.because_friends'>123,86,44,129,157,89</condition>
 			<condition name='stress_eating.because_friends.at_home'>150</condition>	
 			<condition name='stress_eating.because_friends.at_work'>33,28</condition>	
 			<condition name='stress_eating.because_friends.at_restaurant'>151,152,37</condition>
@@ -271,7 +275,7 @@
 		<condition name='weak_willpower.at_home'>88,11,106</condition>
 		<condition name='weak_willpower.at_work'>32,122,22,125,7</condition>
 		<condition name='weak_willpower.at_restaurant'>115,119,121,14,15,174,141,197,104,213</condition>
-		<condition name='weak_willpower.at_school'>31,22,196,147,55,185</condition>
+		<condition name='weak_willpower.at_school'>31,196,147,55,185</condition>
 		<condition name='weak_willpower.at_parties'>29,96,140,70,178,56,145,173,6,192</condition>
 		<condition name='weak_willpower.at_car'>23,110,144,39</condition>
 		<condition name='weak_willpower.at_store'>35,75,200,117,191,12,202,203,42,160</condition>
@@ -299,7 +303,7 @@
 		<condition name="restaurants.6to7">164,69,78,118</condition>
 
 	<condition name='weekends'>54,67,66</condition>
-		<condition name='weekends.eat_out'>119121,14,15,174,141,197,104,213</condition>
+		<condition name='weekends.eat_out'>119,121,14,15,174,141,197,104,213</condition>
 		<condition name='weekends.alchohol_1to2'>108,41</condition>
 		<condition name='weekends.alchohol_3+'>108,41,57</condition>
 		<condition name='weekends.party'>145,173,6,192,29,96,140,70,178</condition>
@@ -330,8 +334,8 @@
 		<condition name='alchohol.cider'>172,139,137</condition>
 
 
-	<condition name='fatigued'>218,219,220,221,222,223,224,225,226,227</condition>
-
+	<condition name='fatigued'>218,219,220,221,223,224,225,226</condition>
+	<condition name='stress_eating.fatigued'>218,219,220,221,223,226</condition>
 
 
 </conditions>
@@ -437,7 +441,7 @@
 	<solution id='98'>If your job has a lot of downtime, bring a book to occupy your mind.</solution>
 	<solution id='99'>In making your own blended drinks, use extra ice.</solution>
 	<solution id='100'>Increase fiber content of meals to increase sense of fullness after eating.</solution>
-	<solution id='101'>Increase protein content o f meals to increase sense of fullness after eating.</solution>
+	<solution id='101'>Increase protein content of meals to increase sense of fullness after eating.</solution>
 	<solution id='102'>Increase the duration and/or intensity of your workout earlier in the day to make up for extra calorie later.</solution>
 	<solution id='103'>Increase your exercise because exercise has been shown to strengthen willpower.</solution>
 	<solution id='104'>Increase your seafood intake and reduce calories by routinely ordering broiled or grilled seafood when dining out.</solution>
@@ -559,12 +563,12 @@
 	<solution id='219'>If you don't feel rested even when you sleep 7-8 hours, talk to your doctor about your sleep.</solution>
 	<solution id='220'>If you skip meals, add the skipped meal back to help control your appetite.</solution>
 	<solution id='221'>When fatigue strikes, try a short brisk walk before snacking.</solution>	
-	<solution id='222'>When hunger strikes, wait 15 minutes to see if it passes. </solution>	
+		
 	<solution id='223'>Stress may be making you feel exhausted, delegate a few key tasks that will open up some free time for you.</solution>
 	<solution id='224'>Identify a source of stress that you can eliminate.</solution> 
 	<solution id='225'>Try a deep breathing or other stress reduction exercise when you are feeling fatigued.</solution>	
 	<solution id='226'>Track the time of day you feel fatigued and make sure you only have healthy low calorie options available for snacking.</solution>
-	<solution id='227'>Track your hunger to get a better understanding of and control over the triggers.</solution>				
+				
 	
 	<solution id='228'>Make plans to spend time with other moms and their kids/babies during the day	</solution>
 	<solution id='229'>Track the foods you overeat when bored and then ban them from your home.</solution>		
