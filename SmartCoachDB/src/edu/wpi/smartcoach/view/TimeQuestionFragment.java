@@ -89,7 +89,7 @@ public class TimeQuestionFragment extends QuestionFragment {
 //		minutePicker.setMaxValue(minutes.length-1);
 //		minutePicker.setValue(minutes.length/2);
 		
-		timePicker = (TimePicker)root.findViewById(R.id.timePicker);
+		timePicker = (TimePicker)root.findViewById(R.id.numSolutions);
 
 		next = (Button)root.findViewById(R.id.nextButton);
 		back = (Button)root.findViewById(R.id.backButton);

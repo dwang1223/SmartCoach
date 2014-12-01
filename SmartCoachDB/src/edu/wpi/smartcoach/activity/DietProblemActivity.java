@@ -1,5 +1,6 @@
 package edu.wpi.smartcoach.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
@@ -7,8 +8,10 @@ import android.support.v4.app.FragmentActivity;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.model.Session;
 import edu.wpi.smartcoach.model.SocialNetworkSubmission;
 import edu.wpi.smartcoach.model.Solution;
+import edu.wpi.smartcoach.service.SessionService;
 import edu.wpi.smartcoach.solver.DialogXMLSolver;
 import edu.wpi.smartcoach.util.DialogXMLReader;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
@@ -20,7 +23,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 
 	private DialogXMLSolver solver;
 	private OptionQuestionFragment questionFragment;
-		
+	private List<Solution> solutions;
 	private boolean solved;
 	
 	@Override
@@ -35,7 +38,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 		questionFragment.setNextButtonListener(this);
 		questionFragment.setBackEnabled(false);
 		getSupportFragmentManager().beginTransaction().add(R.id.container, questionFragment).commit();
-		
+		solutions = new ArrayList<Solution>();
 	}
 	
 	@Override
@@ -49,6 +52,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 //				intent.putExtra("reminder", reminder);
 //				startActivity(intent);
 //			}
+			SessionService.getInstance().addSession(new Session(System.currentTimeMillis(), "Diet", solutions), getApplicationContext());
 			finish();
 			return;
 		}
@@ -61,7 +65,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 		if(solver.hasNextQuestion()){
 			nextQuestion = solver.getNextQuestion();
 		} else {
-			List<Solution> solutions = solver.getSolution(getBaseContext());
+			solutions = solver.getSolution(getBaseContext());
 			showSolution(solutions);
 			solved = true;
 		}

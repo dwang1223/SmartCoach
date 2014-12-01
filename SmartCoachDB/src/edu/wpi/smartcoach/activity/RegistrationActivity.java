@@ -127,7 +127,7 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.timePicker) {
+		if (id == R.id.numSolutions) {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

@@ -92,13 +92,13 @@ public class MainActivity extends Activity {
 				}
 			});
 			
-			remindButton = (View)findViewById(R.id.reminder);
+			remindButton = (View)findViewById(R.id.type);
 			
 			remindButton.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(getBaseContext(), ShowRemindersActivity.class);
+					Intent intent = new Intent(getBaseContext(), RemindersActivity.class);
 					startActivity(intent);					
 				}
 			});
@@ -128,7 +128,9 @@ public class MainActivity extends Activity {
 //			return true;
 //		}
 		startActivity(new Intent(this, CheckinActivity.class));
+		
 		DatabaseHelper.getInstance().copyToStorage(this);
+				
 		return super.onOptionsItemSelected(item);
 	}
 }

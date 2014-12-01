@@ -50,8 +50,7 @@ public class ReminderService {
 	}
 	
 	public void addReminder(Reminder rem){
-		String sql = "insert into t_reminders (id, message, days, hour, minute) values ("+
-			rem.getId()+", "+
+		String sql = "insert into t_reminders (message, days, hour, minute) values ("+		
 			"\""+rem.getMessage()+"\", "+
 			"\""+rem.getDays()+"\", "+
 			rem.getHour()+", "+

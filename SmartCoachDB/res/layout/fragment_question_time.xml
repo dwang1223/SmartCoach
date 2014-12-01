@@ -58,7 +58,7 @@
         android:src="@drawable/coach_head" />
 
     <edu.wpi.smartcoach.view.IntervalTimePicker
-        android:id="@+id/timePicker"
+        android:id="@+id/numSolutions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

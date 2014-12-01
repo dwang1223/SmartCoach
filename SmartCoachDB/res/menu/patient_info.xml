@@ -4,7 +4,7 @@
     tools:context="edu.wpi.smartcoachdb.PatientInfoActivity" >
 
     <item
-        android:id="@+id/timePicker"
+        android:id="@+id/numSolutions"
         android:orderInCategory="100"
         android:title="@string/action_settings"/>
 

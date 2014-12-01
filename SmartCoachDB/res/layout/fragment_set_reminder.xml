@@ -107,7 +107,7 @@
                 </LinearLayout>
 
                 <TimePicker
-                    android:id="@+id/timePicker"
+                    android:id="@+id/numSolutions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|center_horizontal" />
