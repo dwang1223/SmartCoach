@@ -73,8 +73,8 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 			first.setText(profile.getFirstName());
 			last.setText(profile.getLastName());
 			gender.setSelection(profile.getGender().equals("Male")?0:1);
-			Date d = profile.getPatientBirthday();
-			onDateSet(null, d.getYear(),d.getMonth(), d.getDate());
+			//Date d = profile.getPatientBirthday();
+			//onDateSet(null, d.getYear(),d.getMonth(), d.getDate());
 		}
 
 		submit = (Button) findViewById(R.id.submit);

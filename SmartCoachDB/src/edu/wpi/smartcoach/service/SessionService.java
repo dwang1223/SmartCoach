@@ -8,12 +8,15 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
 import edu.wpi.smartcoach.model.Session;
 
 public class SessionService {
+	
+	private static final String TAG= SessionService.class.getSimpleName();
 	
 	private static final String PREF_SESSION = "sessions";
 	private static final String PREF_SOLUTION = "solutions";
@@ -33,6 +36,7 @@ public class SessionService {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		
 		String sessionJSON = prefs.getString(PREF_SESSION, "");
+		Log.d(TAG, sessionJSON);
 		Session[] sessions = new Gson().fromJson(sessionJSON, new Session[]{}.getClass());
 		
 		if(sessions == null){
@@ -61,6 +65,5 @@ public class SessionService {
 		String json = new Gson().toJson(sessions.toArray(new Session[]{}));		
 		prefs.edit().putString(PREF_SESSION, json).commit();
 	}
-	
 
 }

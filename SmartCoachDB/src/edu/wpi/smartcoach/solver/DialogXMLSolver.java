@@ -119,7 +119,7 @@ public class DialogXMLSolver implements ProblemSolver {
 					}
 					
 				} else if(((Element)currentNode).getTagName().equals("condition")){
-					String id = ((Element)currentNode).getAttribute("id");
+					String id = ((Element)currentNode).getAttribute("name");
 					List<String> firstList = evaluateCondition(id);
 					for(String s:firstList){
 						String storedId = s.substring(s.indexOf('[')+1, s.indexOf(']'));

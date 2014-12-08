@@ -10,7 +10,7 @@
 				<screen id='binge'/>
 				<question id='3'/>
 				<if id='3' response='A'>
-					<condition id='[1].fatigued'/>
+					<condition name='[1].fatigued'/>
 					<screen id='stop'/>
 					<screen id='phq2'/>
 				</if>
@@ -19,7 +19,7 @@
 				<question id='7'/>
 				<screen id="binge"/>
 				<question id='3'/>
-				<condition id='fatigued'/>
+				<condition name='fatigued'/>
 				<if id='3' response='A'>
 					<screen id='stop'/>
 				</if>
@@ -30,7 +30,7 @@
 				<question id='3'/>
 				<screen id='binge'/>
 				<if id='3' response='A'>
-					<condition id='fatigued'/>					
+					<condition name='fatigued'/>					
 					<screen id='stop'/>
 					<screen id='phq2'/>
 				</if>
@@ -105,6 +105,8 @@
 		<option id='F' condition='[4].at_car'>In the car</option>
 		<option id='E' condition='[4].at_parties'>Parties, holidays, events</option>
 	</question>
+
+	
 
 	<question id='7' type='multiple'>
 		<prompt>Where do you experience the most temptations or the greatest willpower challenges?</prompt>

@@ -55,7 +55,7 @@ public class SolutionListAdapter extends BaseAdapter {
 				Intent intent = new Intent(context, SetReminderActivity.class);
 				intent.putExtra("reminder", new String[]{solutions.get(position).toString()});
 				context.startActivity(intent);
-				
+								
 			}
 		});
 		

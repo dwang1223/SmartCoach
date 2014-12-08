@@ -86,6 +86,7 @@ public class SetReminderActivity extends FragmentActivity {
 		
 		//Toast.makeText(getBaseContext(), reminders.size()+" new reminder(s) set.", Toast.LENGTH_SHORT).show();
 		finish();
+		
 	}
 	
 	public void setAlarm(int dayOfWeek, int hour, int minute, int id) {
