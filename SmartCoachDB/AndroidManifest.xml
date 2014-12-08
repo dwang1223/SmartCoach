@@ -67,7 +67,6 @@
             android:label="@string/title_activity_set_reminder" >
         </activity>
 
-
         <receiver
             android:name=".reminders.ReminderReciever"
             android:enabled="true"
@@ -79,8 +78,12 @@
             android:label="@string/title_activity_checkin" >
         </activity>
         <activity
-            android:name="edu.wpi.smartcoach.activity.RemindersActivity"
+            android:name=".activity.RemindersActivity"
             android:label="@string/title_activity_reminders" >
+        </activity>
+        <activity
+            android:name=".SessionActivity"
+            android:label="@string/title_activity_session" >
         </activity>
     </application>
 

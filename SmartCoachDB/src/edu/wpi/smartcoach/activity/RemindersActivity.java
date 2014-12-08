@@ -7,6 +7,7 @@ import edu.wpi.smartcoach.R.id;
 import edu.wpi.smartcoach.R.layout;
 import edu.wpi.smartcoach.R.menu;
 import edu.wpi.smartcoach.R.string;
+import edu.wpi.smartcoach.view.RemindersFragment;
 import edu.wpi.smartcoach.view.SessionHistoryFragment;
 import android.app.Activity;
 import android.app.ActionBar;
@@ -78,12 +79,12 @@ public class RemindersActivity extends Activity implements ActionBar.TabListener
 		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.reminders, menu);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		//getMenuInflater().inflate(R.menu.reminders, menu);
+//		return true;
+//	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

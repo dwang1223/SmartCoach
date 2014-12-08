@@ -1,4 +1,4 @@
-package edu.wpi.smartcoach.activity;
+package edu.wpi.smartcoach.view;
 
 import java.util.List;
 
@@ -14,7 +14,6 @@ import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
 import edu.wpi.smartcoach.reminders.Reminder;
 import edu.wpi.smartcoach.service.ReminderService;
-import edu.wpi.smartcoach.view.TimeQuestionFragment;
 
 public class RemindersFragment extends Fragment {
 
@@ -49,7 +48,7 @@ public class RemindersFragment extends Fragment {
 				
 				Reminder item = getItem(position);
 				reminder.setText(item.getMessage());
-				days.setText(item.getDays());
+				days.setText(item.getDays().toUpperCase());
 				time.setText(TimeQuestionModel.formatTime(item.getHour()*60+item.getMinute()));
 				
 				return view;

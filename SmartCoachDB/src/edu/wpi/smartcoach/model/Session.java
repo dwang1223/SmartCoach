@@ -1,5 +1,6 @@
 package edu.wpi.smartcoach.model;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -8,6 +9,8 @@ import java.util.List;
  *
  */
 public class Session {
+	
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM d, yyyy h:mm a");
 	
 	private long time;
 	private String type;

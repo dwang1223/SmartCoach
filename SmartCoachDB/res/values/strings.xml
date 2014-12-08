@@ -19,5 +19,6 @@
     <string name="title_activity_show_reminders">ShowRemindersActivity</string>
     <string name="title_activity_checkin">CheckinActivity</string>
     <string name="title_activity_reminders">RemindersActivity</string>
+    <string name="title_activity_session">SessionActivity</string>
 
 </resources>

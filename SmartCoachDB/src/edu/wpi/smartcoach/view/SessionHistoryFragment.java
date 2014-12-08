@@ -3,16 +3,22 @@ package edu.wpi.smartcoach.view;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.content.Context;
-import android.os.Bundle;
+import com.google.gson.Gson;
+
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.SessionActivity;
 import edu.wpi.smartcoach.model.Session;
 import edu.wpi.smartcoach.service.SessionService;
 
@@ -37,13 +43,22 @@ public class SessionHistoryFragment extends Fragment {
 			none.setVisibility(View.GONE);
 		}
 		
+		list.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				String sessionJson = new Gson().toJson(adapter.getItem(position));
+				Intent intent = new Intent(getActivity(), SessionActivity.class);
+				intent.putExtra("session", sessionJson);
+				startActivity(intent);
+			}
+		});
+		
 		return view;
 	}
 	
 	class SessionAdapter extends ArrayAdapter<Session>{
 
-		final SimpleDateFormat df = new SimpleDateFormat("MMM d, yyyy h:mm a");
-		
+				
 		public SessionAdapter(Context context) {
 			super(context, R.layout.item_session_history);
 		}
@@ -65,7 +80,7 @@ public class SessionHistoryFragment extends Fragment {
 			Session s = getItem(position);
 			
 			type.setText(s.getType());
-			date.setText(df.format(new Date(s.getTime())));
+			date.setText(Session.DATE_FORMAT.format(new Date(s.getTime())));
 			count.setText(String.format("%d Solutions", s.getSolutions().size()));
 			
 			return view;

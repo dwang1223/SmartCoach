@@ -1,6 +1,8 @@
 package edu.wpi.smartcoach.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import android.content.Context;
@@ -40,6 +42,13 @@ public class SessionService {
 		for(Session s:sessions){
 			sessionList.add(s);
 		}
+		
+		Collections.sort(sessionList, new Comparator<Session>(){
+
+			@Override
+			public int compare(Session lhs, Session rhs) {
+				return (int)(rhs.getTime()-lhs.getTime());
+			}});
 		
 		return sessionList;		
 	}
