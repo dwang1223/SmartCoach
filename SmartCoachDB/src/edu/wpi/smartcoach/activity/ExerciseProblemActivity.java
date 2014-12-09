@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
@@ -24,7 +25,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 
 	private final static String TAG = ExerciseProblemActivity.class.getSimpleName();
 	
-	private final static int TWO_HOURS = 60*60*2;
+	private final static int TWO_HOURS = 60*2;
 	
 	private DialogXMLSolver solver;
 	private QuestionFragment questionFragment;
@@ -151,7 +152,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 					.replace("[start]", start)
 					.replace("[end]", end)
 					);
-			
+			Log.d(TAG, gapSolution.getMessage());
 			solutions.add(gapSolution);
 			
 		} else if (solver.hasCondition("time.no_days_off")){

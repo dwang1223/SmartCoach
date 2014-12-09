@@ -1,7 +1,5 @@
 package edu.wpi.smartcoach.view;
 
-import java.util.List;
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,21 +18,26 @@ public class RemindersFragment extends Fragment {
 
 	private static final String TAG = RemindersFragment.class.getSimpleName();
 
+	private TextView none;
+	private ArrayAdapter<Reminder> adapter;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup vg, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.activity_show_reminders, null);
 		
-		List<Reminder> reminders = ReminderService.getInstance().getAllDataFromTable();
+//		List<Reminder> reminders = ReminderService.getInstance().getAllDataFromTable();
 		
 		Button checkin = (Button)view.findViewById(R.id.checkin);
 		ListView list = (ListView)view.findViewById(R.id.list);
 		
-		if(reminders.size() > 0){
-			TextView none = (TextView)view.findViewById(R.id.none);
-			none.setVisibility(View.GONE);
-		}
+
+		none = (TextView)view.findViewById(R.id.none);
 		
-		ArrayAdapter<Reminder> adapter = new ArrayAdapter<Reminder>(getActivity(), R.layout.item_reminder) {
+//		if(reminders.size() > 0){
+//			none.setVisibility(View.GONE);
+//		}
+		
+		adapter = new ArrayAdapter<Reminder>(getActivity(), R.layout.item_reminder) {
 			
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
@@ -57,10 +60,25 @@ public class RemindersFragment extends Fragment {
 				
 			}			
 		};
-		adapter.addAll(reminders);
+//		adapter.addAll(reminders);
 		list.setAdapter(adapter);
 		
 		return view;
+		
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		adapter.clear();
+		adapter.addAll(ReminderService.getInstance().getAllDataFromTable());
+		adapter.notifyDataSetChanged();
+		
+		if(adapter.getCount() > 0){
+			none.setVisibility(View.GONE);
+		} else {
+			none.setVisibility(View.VISIBLE);
+		}
 		
 	}
 }

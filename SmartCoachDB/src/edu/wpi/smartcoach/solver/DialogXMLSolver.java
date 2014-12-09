@@ -47,7 +47,7 @@ public class DialogXMLSolver implements ProblemSolver {
 	
 	private Node flow;
 	private Node currentNode;
-	private Stack<Node> nodeStack;
+	private Stack<Element> pathStack;
 	
 	private boolean flowFinished = false;
 	private boolean screensFinished = false;
@@ -89,7 +89,7 @@ public class DialogXMLSolver implements ProblemSolver {
 		screens = new ArrayList<DialogXMLSolver>();
 		currentNode = flow.getFirstChild();
 		setConditions = new ArrayList<String>();
-		nodeStack = new Stack<Node>();
+		pathStack = new Stack<Element>();
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class DialogXMLSolver implements ProblemSolver {
 				return screens.get(screenIndex).getNextQuestion();
 			}
 		} else {
-			Log.d(TAG, currentElement.getAttribute("id")); 
+			//Log.d(TAG, currentElement.getAttribute("id")); 
 			return getQuestionById(currentElement.getAttribute("id"));
 		}
 		
@@ -126,13 +126,14 @@ public class DialogXMLSolver implements ProblemSolver {
 					String id = ((Element)currentNode).getAttribute("name");
 					List<String> firstList = evaluateCondition(id);
 					for(String s:firstList){
-						String storedId = s.substring(s.indexOf('[')+1, s.indexOf(']'));
-						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-						Set<String> storedConds = prefs.getStringSet("conditions."+storedId, new HashSet<String>());
+						Log.d(TAG, "ready set crash: \'"+s+"\'");
+						//String storedId = s.substring(s.indexOf('[')+1, s.indexOf(']'));
+						//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+						//Set<String> storedConds = prefs.getStringSet("conditions."+storedId, new HashSet<String>());
 						
-						for(String ss:storedConds){
-							setConditions.add(s.replace("["+storedId+"]", ss));
-						}
+						//for(String ss:storedConds){
+							//setConditions.add(s.replace("["+storedId+"]", ss));
+						//}
 						
 					}
 				}
@@ -156,7 +157,12 @@ public class DialogXMLSolver implements ProblemSolver {
 	private void advanceFlow(){
 				
 		Element cElement = (Element)currentNode;
-		nodeStack.push(currentNode);
+		
+		if(cElement.getTagName().equals("question")){
+			Log.d(TAG,"pushing" + cElement.getAttribute("id"));
+			pathStack.push(cElement);
+		}
+		
 		if(currentNode.getNextSibling() != null){
 			//Log.d(TAG, "next sibling");
 			currentNode = currentNode.getNextSibling();
@@ -210,11 +216,6 @@ public class DialogXMLSolver implements ProblemSolver {
 	
 	}
 
-
-	private void reverseFlow(){
-		currentNode = nodeStack.pop();
-	}
-	
 	public QuestionModel getQuestionById(String id){
 		QuestionModel question = null;
 		for(QuestionModel oom:questions){
@@ -250,14 +251,37 @@ public class DialogXMLSolver implements ProblemSolver {
 
 	@Override
 	public boolean isBackAllowed() {
-		// TODO Auto-generated method stub
-		return currentNode != flow.getFirstChild();
+		
+		if(!flowFinished){
+			return !pathStack.isEmpty();
+		} else if (!screensFinished){
+			return screens.get(screenIndex).isBackAllowed();
+		}
+		
+		return false;
+		
 	}
 
 	@Override
 	public void back() {
-		// TODO Auto-generated method stub
 		
+		if(!flowFinished){
+			Element previous = pathStack.pop();
+			currentNode = previous;
+			//questions.
+			//Log.d(TAG, String.format("back to question %s", previous.getAttribute("id")));
+		} else if (!screensFinished){
+			if(screens.get(screenIndex).isFirstQuestion()){
+				if(screenIndex > 0){
+					screenIndex--;
+				} else {
+					flowFinished = false;
+					back();
+				}
+			} else {
+				screens.get(screenIndex).back();
+			}
+		}		
 	}
 	
 	public int getResource(){
