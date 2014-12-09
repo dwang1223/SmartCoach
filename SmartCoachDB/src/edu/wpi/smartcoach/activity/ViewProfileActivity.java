@@ -57,7 +57,7 @@ public class ViewProfileActivity extends Activity {
 		//birthdate = (TextView)findViewById(R.id.birthdate);
 		
 
-		height = (TextView)findViewById(R.id.height);
+		height = (TextView)findViewById(R.id.goalLbl);
 		weight = (TextView)findViewById(R.id.start_weight);
 		goal = (TextView)findViewById(R.id.goal_weight);
 		
@@ -138,6 +138,8 @@ public class ViewProfileActivity extends Activity {
 		goal.setText((int)(metrics.getGoalWeight())+" lbs");
 		
 		GraphView graph = new LineGraphView(this, profile.getFirstName()+"'s weight");
+		
+		graph.setManualYAxisBounds(metrics.getWeight()+10, metrics.getGoalWeight()-10);
 		
 		List<Entry<Long, Float>> weightData = WeightService.getInstance().getAllDataFromTable();
 		Log.d(TAG, weightData.toString());

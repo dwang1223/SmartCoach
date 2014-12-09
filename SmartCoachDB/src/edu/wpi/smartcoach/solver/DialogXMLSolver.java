@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -37,6 +38,7 @@ public class DialogXMLSolver implements ProblemSolver {
 	private List<QuestionModel> questions;
 	private HashMap<String, String> conditions;
 	private HashMap<String, Solution> solutions;
+	
 		
 	private List<String> setConditions;
 	
@@ -45,6 +47,7 @@ public class DialogXMLSolver implements ProblemSolver {
 	
 	private Node flow;
 	private Node currentNode;
+	private Stack<Node> nodeStack;
 	
 	private boolean flowFinished = false;
 	private boolean screensFinished = false;
@@ -86,6 +89,7 @@ public class DialogXMLSolver implements ProblemSolver {
 		screens = new ArrayList<DialogXMLSolver>();
 		currentNode = flow.getFirstChild();
 		setConditions = new ArrayList<String>();
+		nodeStack = new Stack<Node>();
 	}
 
 	@Override
@@ -152,7 +156,7 @@ public class DialogXMLSolver implements ProblemSolver {
 	private void advanceFlow(){
 				
 		Element cElement = (Element)currentNode;
-
+		nodeStack.push(currentNode);
 		if(currentNode.getNextSibling() != null){
 			//Log.d(TAG, "next sibling");
 			currentNode = currentNode.getNextSibling();
@@ -207,6 +211,10 @@ public class DialogXMLSolver implements ProblemSolver {
 	}
 
 
+	private void reverseFlow(){
+		currentNode = nodeStack.pop();
+	}
+	
 	public QuestionModel getQuestionById(String id){
 		QuestionModel question = null;
 		for(QuestionModel oom:questions){
@@ -243,7 +251,7 @@ public class DialogXMLSolver implements ProblemSolver {
 	@Override
 	public boolean isBackAllowed() {
 		// TODO Auto-generated method stub
-		return false;
+		return currentNode != flow.getFirstChild();
 	}
 
 	@Override

@@ -42,6 +42,7 @@ public class SetReminderFragment extends Fragment {
 	
 	int position;
 	int total;
+	boolean singleDayMode = false;
 	String reminder;
 	OnClickListener listener;
 	private TimePicker time;
@@ -56,29 +57,12 @@ public class SetReminderFragment extends Fragment {
 		this.reminder = reminder;
 	}
 
-	public void setListener(View.OnClickListener l) {
-		listener = l;
+	public void setSingleDayMode(boolean mode){
+		singleDayMode = mode;
 	}
 	
-	public String getSaveString(){
-		String s = reminder;
-		s += "#";
-		boolean dayChecked = false;
-		for(int i = 0; i < days.length; i++){
-			if(dayButtons[i].isChecked()){
-				s += days[i]+",";
-				dayChecked = true;
-			}
-		}
-		if(dayChecked){
-			s = s.substring(0, s.length()-1);
-		}
-		s+=" #";
-		
-		int hour = time.getCurrentHour();
-		String ampm = hour>12?"PM":"AM";
-		s += (time.getCurrentHour()%12)+":"+String.format("%02d",time.getCurrentMinute());
-		return s;
+	public void setListener(View.OnClickListener l) {
+		listener = l;
 	}
 	
 	public String getMessage(){
@@ -142,12 +126,25 @@ public class SetReminderFragment extends Fragment {
 					if(dayButtons[index].isChecked()){
 						dayButtons[index].setTextColor(Color.WHITE);
 						dayButtons[index].setBackgroundResource(R.drawable.hologreen_btn_default_holo_light);
+						
+						if(singleDayMode){
+							for(int j = 0; j < index; j++){
+								if(j != index ){
+									dayButtons[j].setChecked(false);
+									dayButtons[j].setTextColor(Color.BLACK);
+									dayButtons[j].setBackgroundDrawable(bg);
+								}							
+							}
+						}
+						
+						
 					} else {
 						dayButtons[index].setTextColor(Color.BLACK);
 						dayButtons[index].setBackgroundDrawable(bg);
 						
 					}
 					
+
 				}
 			});
 		}

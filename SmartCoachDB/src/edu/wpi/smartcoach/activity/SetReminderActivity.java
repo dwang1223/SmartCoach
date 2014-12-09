@@ -58,14 +58,9 @@ public class SetReminderActivity extends FragmentActivity {
 	}
 	
 	private void doFinish(){
-		
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-		 Set<String> reminders = prefs.getStringSet("reminders", new HashSet<String>());		
-		
+			
 		for(int i = 0; i < mSectionsPagerAdapter.getCount(); i++){
 			SetReminderFragment f = (SetReminderFragment)mSectionsPagerAdapter.getItem(i);
-			reminders.add(f.getSaveString());
 			
 			Reminder r = f.createReminder();
 			Integer[] reminderDays = f.getDayInts();
@@ -74,17 +69,8 @@ public class SetReminderActivity extends FragmentActivity {
 			for(Integer d:reminderDays){
 				setAlarm(d, r.getHour(), r.getMinute(), r.getId());
 			}
-			
-			
-			
-			//Log.d(TAG, ReminderService.getInstance().getAllDataFromTable().toString());
-			
-			//ReminderService.getInstance().addReminder(f.getSaveString());
 		}
 		
-		prefs.edit().putStringSet("reminders", reminders).commit();
-		
-		//Toast.makeText(getBaseContext(), reminders.size()+" new reminder(s) set.", Toast.LENGTH_SHORT).show();
 		finish();
 		
 	}
