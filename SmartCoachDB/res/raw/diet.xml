@@ -346,14 +346,14 @@
 	<solution id='1'>Add a meal where you are used to skipping to prevent hunger.</solution>
 	<solution id='2'>Add extra exercise the day of a party to offset added intake. Record it all in your mobile app.</solution>
 	<solution id='3'>Add some yoga to your week to reduce stress.</solution>
-	<solution id='4'>Adjust recipes so that you only make one serving per person</solution>
+	<solution id='4' link='http://www.cookinglight.com/'>Adjust recipes so that you only make one serving per person</solution>
 	<solution id='5'>Allow yourself one plate. Serve small portions. </solution>
 	<solution id='6'>Ask a friend or family member at the party to help you control your intake.</solution>
 	<solution id='7'>Ask coworkers to bring in healthy snacks to share rather than unhealthy treats. </solution>
 	<solution id='8'>Ask for drinks on the rocks so it slowly dilutes. </solution>
 	<solution id='9'>Ask for recipes instead of leftovers so you don't feel like you are missing out.</solution>
 	<solution id='10'>Ask someone in the house to help you avoid tempting foods.</solution>
-	<solution id='11'>Ask someone to join you for grocery shopping to help you avoid buying tempting foods.</solution>
+	<solution id='11' link='http://www.diabeticlivingonline.com/food-to-eat/nutrition/tips-healthy-shopping-grocery-store'>Ask someone to join you for grocery shopping to help you avoid buying tempting foods.</solution>
 	<solution id='12'>Ask someone with good willpower to do some of the grocery shopping  so it doesn't always fall on you. </solution>
 	<solution id='13'>Ask the bartender to make your cocktail "skinny"</solution>
 	<solution id='14'>Ask the server to not bring bread to the table.</solution>
@@ -377,16 +377,16 @@
 	<solution id='32'>Bring healthy snacks to work so you have them on hand when hungry.</solution>
 	<solution id='33'>Bring healthy snacks with you to avoid stress eating junk food.</solution>
 	<solution id='34'>Bring healthy snacks with you to school each day.</solution>
-	<solution id='35'>Bring someone grocery shopping with you to help you keep to your list.</solution>
+	<solution id='35' link='http://www.eatright.org/Public/content.aspx?id=6442463962'>Bring someone grocery shopping with you to help you keep to your list.</solution>
 	<solution id='36'>Buy non-fat milk versions</solution>
 	<solution id='37'>Calculate the number of times you eat out each week and eliminate at least one.</solution>
 	<solution id='38'>Call a friend on your commute when stressed to help calm down.</solution>
 	<solution id='39'>Change your route if you pass many tempting restaurants on your usual route.</solution>
 	<solution id='40'>Choose low calorie alcoholic drinks (e.g., light beer)</solution>
 	<solution id='41'>Choose low calorie alcoholic drinks (e.g., light beer, hard liquor and soda)</solution>
-	<solution id='42'>Come up with a way to reward yourself for every trip in which you stuck to a healthy list. </solution>
-	<solution id='43'>Confide in a friend when stressed instead of reaching for food.</solution>
-	<solution id='44'>Confide in a good friend when stressed instead of reaching for food.</solution>
+	<solution id='42' link='http://www.fudiet.com/2012/08/5-ways-to-make-diet-journaling-easier/'>Come up with a way to reward yourself for every trip in which you stuck to a healthy list. </solution>
+	<solution id='43' link='http://www.fudiet.com/2012/02/overcoming-emotional-eating/'>Confide in a friend when stressed instead of reaching for food.</solution>
+	<solution id='44' link='http://www.fudiet.com/2012/02/overcoming-emotional-eating/'>Confide in a good friend when stressed instead of reaching for food.</solution>
 	<solution id='45'>Consider volunteer work.</solution>
 	<solution id='46'>Decide which food is your favorite and enjoy a full portion of that. </solution>
 	<solution id='47'>Delegate tasks at work to reduce your load and the stress that comes with it. </solution>
@@ -396,7 +396,7 @@
 	<solution id='51'>Dilute with club soda and ice.</solution>
 	<solution id='52'>Dilute with club soda.</solution>
 	<solution id='53'>Dilute with water.</solution>
-	<solution id='54'>Do diet tracking on weekend days to help reduce your intake.</solution>
+	<solution id='54' link='http://www.fudiet.com/2012/08/5-ways-to-make-diet-journaling-easier/'>Do diet tracking on weekend days to help reduce your intake.</solution>
 	<solution id='55'>Drink a coffee, tea, water or other low cal beverage during class instead of snacking.</solution>
 	<solution id='56'>Drink a glass of water in between alcoholic drinks to limit intake.</solution>
 	<solution id='57'>Drink a glass of water in between alcoholic drinks to slow you down and fill you up.</solution>
@@ -408,10 +408,10 @@
 	<solution id='63'>Exercise after school to reduce stress from the day.</solution>
 	<solution id='64'>Exercise after work to reduce stress from the workday.</solution>
 	<solution id='65'>Fill up on raw veggies or salad before dinner so your appetite is more under control.</solution>
-	<solution id='66'>Find healthier versions of recipes for weekend family dinners</solution>
-	<solution id='67'>Find healthier versions of recipes for your favorite weekend breakfast foods</solution>
-	<solution id='68'>Find healthy recipes on the internet and compile a schedule of meals for the month.</solution>
-	<solution id='69'>Find quick healthy dinner ideas and plan to eat at home more often.</solution>
+	<solution id='66' link='http://www.cookinglight.com/'>Find healthier versions of recipes for weekend family dinners</solution>
+	<solution id='67' link='http://www.cookinglight.com/'>Find healthier versions of recipes for your favorite weekend breakfast foods</solution>
+	<solution id='68' link='http://www.cookinglight.com/'>Find healthy recipes on the internet and compile a schedule of meals for the month.</solution>
+	<solution id='69' link='http://www.cookinglight.com/'>Find quick healthy dinner ideas and plan to eat at home more often.</solution>
 	<solution id='70'>Freeze party leftovers and use for a meal later in the week.</solution>
 	<solution id='71'>Give yourself a limit for how many drinks you can have on one occasion/night and this will force you to spread them out. </solution>
 	<solution id='72'>Give yourself a limit for how many drinks you consume each week and keep track.</solution>
@@ -419,7 +419,7 @@
 	<solution id='74'>When willpower feels weak, go for a short walk to let the craving pass.</solution>
 	<solution id='75'>Go to the grocery store directly after a meal.</solution>
 	<solution id='76'>Go to the library to read or work on the computer.</solution>
-	<solution id='77'>Gradually reduce the amount of sugar added by 1/2 packet every 2 weeks.</solution>
+	<solution id='77' link='http://www.fudiet.com/2011/07/how-to-get-over-your-sugar-addiction/'>Gradually reduce the amount of sugar added by 1/2 packet every 2 weeks.</solution>
 	<solution id='78'>Grocery shop on the weekend so you have ingredients for meals all week</solution>
 	<solution id='79'>Have fresh fruit washed and ready to eat at home at all times.</solution>
 	<solution id='80'>Have fresh fruit washed and ready to eat at work at all times.</solution>
@@ -476,8 +476,8 @@
 	<solution id='131'>Make appointment with a school counselor for help reducing the stress of your school load</solution>
 	<solution id='132'>Make at home to control the amount of flavor going in. Gradually reduce the amount in small increments</solution>
 	<solution id='133'>Make homemade and use non-caloric sweeteners </solution>
-	<solution id='134'>Make homemade so you can control amount of sugar</solution>
-	<solution id='135'>Make lower calorie, healthy recipes when catering parties. </solution>
+	<solution id='134' link='http://www.fudiet.com/2011/07/how-to-get-over-your-sugar-addiction/'>Make homemade so you can control amount of sugar</solution>
+	<solution id='135' link='http://www.cookinglight.com/'>Make lower calorie, healthy recipes when catering parties. </solution>
 	<solution id='136'>Make social plans during times you are bored alone at home.</solution>
 	<solution id='137'>Make your own wine cooler by mixing wine with club soda or diet tonic. Add fresh fruit for flavor.</solution>
 	<solution id='138'>Never buy more than 1 bottle at a time.</solution>
@@ -524,15 +524,15 @@
 	<solution id='179'>Subtract one drink from your current usual intake.</solution>
 	<solution id='180'>Switch to a lower calorie wine (e.g., Skinny Girl).</solution>
 	<solution id='181'>Switch to an alcoholic beverage that you tend to show better self-control. </solution>
-	<solution id='182'>Switch your snacks to high protein or high fiber to increase sense of fullness.</solution>
+	<solution id='182' link='http://healthyeating.sfgate.com/protein-fiber-work-together-1317.html'>Switch your snacks to high protein or high fiber to increase sense of fullness.</solution>
 	<solution id='183'>Take a hot bath to relax from long day.</solution>
 	<solution id='184'>Take notes during class to keep your mind focused and off of your tummy.</solution>
 	<solution id='185'>Take notes to prevent from snacking during class.</solution>
-	<solution id='186'>Take short walk breaks at school to reduce stress.</solution>
-	<solution id='187'>Take short walk breaks at work to reduce stress on the job.</solution>
+	<solution id='186' link='http://www.fudiet.com/2012/02/overcoming-emotional-eating/'>Take short walk breaks at school to reduce stress.</solution>
+	<solution id='187' link='http://www.fudiet.com/2012/02/overcoming-emotional-eating/'>Take short walk breaks at work to reduce stress on the job.</solution>
 	<solution id='188'>Take short walks to break up down time and re-energize your brain.</solution>
 	<solution id='189'>Take short walks to break up too much time in the house.</solution>
-	<solution id='190'>Talk to your boss about ways you can reduce the stress of your job.</solution>
+	<solution id='190' link='http://www.fudiet.com/2012/02/overcoming-emotional-eating/'>Talk to your boss about ways you can reduce the stress of your job.</solution>
 	<solution id='191'>Tell family members you will only purchase junk food for them if it is a kind you do not like.</solution>
 	<solution id='192'>Tell host you are watching your weight so he/she doesn't push extra food on you.</solution>
 	<solution id='193'>Tell the bartender to hold (or go light) the simple syrup or sour mix.</solution>
@@ -541,10 +541,10 @@
 	<solution id='196'>To prevent use of vending machines, don't carry cash. </solution>
 	<solution id='197'>To reduce calories, substitute starches (e.g., potato, rice, pasta) for steamed or grilled vegetables.</solution>
 	<solution id='198'>Track your hunger for a few days to help you better space your meals and snacks.</solution>
-	<solution id='199'>Track your intake with an app or food diary on high stress days to curb overeating.</solution>
-	<solution id='200'>Use a grocery service like Peapod to avoid all the temptations at the store.</solution>
+	<solution id='199' link='http://www.fudiet.com/2014/02/why-do-i-need-to-track-calories-to-lose-weight/'>Track your intake with an app or food diary on high stress days to curb overeating.</solution>
+	<solution id='200' link='http://www.diabeticlivingonline.com/food-to-eat/nutrition/tips-healthy-shopping-grocery-store'>Use a grocery service like Peapod to avoid all the temptations at the store.</solution>
 	<solution id='201'>Use a powder mix to control the amount you mix into water. Make a diluted version.</solution>
-	<solution id='202'>Use a small basket or no basket when you only need a few things so you aren't tempted to add unplanned purchases.</solution>
+	<solution id='202' link='http://www.diabeticlivingonline.com/food-to-eat/nutrition/tips-healthy-shopping-grocery-store'>Use a small basket or no basket when you only need a few things so you aren't tempted to add unplanned purchases.</solution>
 	<solution id='203'>Use an app like Fooducate to identify healthier choices.</solution>
 	<solution id='204'>Use club soda instead of tonic.</solution>
 	<solution id='205'>Use diet sodas instead of full-sugar sodas when mixing with soda.</solution>
@@ -568,7 +568,7 @@
 		
 	<solution id='223'>Stress may be making you feel exhausted, delegate a few key tasks that will open up some free time for you.</solution>
 	<solution id='224'>Identify a source of stress that you can eliminate.</solution> 
-	<solution id='225'>Try a deep breathing or other stress reduction exercise when you are feeling fatigued.</solution>	
+	<solution id='225' link='http://www.fudiet.com/2012/02/overcoming-emotional-eating/'>Try a deep breathing or other stress reduction exercise when you are feeling fatigued.</solution>	
 	<solution id='226'>Track the time of day you feel fatigued and make sure you only have healthy low calorie options available for snacking.</solution>
 				
 	
