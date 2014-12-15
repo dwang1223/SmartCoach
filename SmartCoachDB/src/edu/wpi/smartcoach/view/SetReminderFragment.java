@@ -137,7 +137,6 @@ public class SetReminderFragment extends Fragment {
 							}
 						}
 						
-						
 					} else {
 						dayButtons[index].setTextColor(Color.BLACK);
 						dayButtons[index].setBackgroundDrawable(bg);

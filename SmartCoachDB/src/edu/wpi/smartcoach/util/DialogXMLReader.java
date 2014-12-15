@@ -61,6 +61,8 @@ public class DialogXMLReader {
 						String qType = questionElement.getAttribute("type");
 						if(qType.equals("multiple")){ 
 							type = QuestionType.MULTIPLE;
+						} else if (qType.equals("at_least_one")){
+							type = QuestionType.AT_LEAST_ONE;
 						}
 					}
 					
@@ -109,8 +111,7 @@ public class DialogXMLReader {
 								condition = op.getAttribute("condition");
 							}
 							String text = op.getTextContent();  
-							options.add(new DialogXMLOption(oId, text, condition));
-							
+							options.add(new DialogXMLOption(oId, text, condition));		
 						}
 						questions.add(new OptionQuestionModel(id, "", prompt, options, type, false, false));
 					}					
@@ -140,18 +141,13 @@ public class DialogXMLReader {
 				
 				solutions.put(id, new Solution(Solution.TYPE_DEFAULT, text, link));				
 			}
-			
-			
+						
 			solver = new DialogXMLSolver(questions, conditions, solutions, flow, resource, context);
-					
-			
-			
+							
 		} catch(Exception e){
 			e.printStackTrace();
 		}	
 		
 		return solver;
 	}
-	
-
 }
