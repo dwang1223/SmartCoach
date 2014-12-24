@@ -13,6 +13,11 @@ import android.widget.TimePicker;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
 
+/**
+ * A Question Fragment to prompt the user to input a time of day
+ * @author Akshay
+ *
+ */
 public class TimeQuestionFragment extends QuestionFragment {
 
 	private static final String TAG = TimeQuestionFragment.class.getSimpleName();
@@ -29,8 +34,8 @@ public class TimeQuestionFragment extends QuestionFragment {
 	
 	private TimePicker timePicker;
 	
-	private Button next;
-	private Button back;
+	private Button nextButton;
+	private Button backButton;
 	
 	private String[] minutes;
 	
@@ -91,14 +96,14 @@ public class TimeQuestionFragment extends QuestionFragment {
 		
 		timePicker = (TimePicker)root.findViewById(R.id.numSolutions);
 
-		next = (Button)root.findViewById(R.id.nextButton);
-		back = (Button)root.findViewById(R.id.backButton);
+		nextButton = (Button)root.findViewById(R.id.nextButton);
+		backButton = (Button)root.findViewById(R.id.backButton);
 		
 		if(isLast){
-			next.setText("Finish");
+			nextButton.setText("Finish");
 		}
 		
-		next.setOnClickListener(new View.OnClickListener() {			
+		nextButton.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
 				//Log.d(TAG, String.format("time picked %d:%d", hourPicker.getValue(),Integer.parseInt(minutes[minutePicker.getValue()])));
@@ -112,7 +117,7 @@ public class TimeQuestionFragment extends QuestionFragment {
 			}
 		});
 		
-		back.setOnClickListener(new OnClickListener() {
+		backButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -123,7 +128,7 @@ public class TimeQuestionFragment extends QuestionFragment {
 		});
 		
 		if(!backEnabled){
-			back.setVisibility(View.INVISIBLE);
+			backButton.setVisibility(View.INVISIBLE);
 		}
 		
 		questionView.setText(question.getPrompt());

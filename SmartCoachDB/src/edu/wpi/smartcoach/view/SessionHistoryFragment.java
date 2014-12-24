@@ -1,9 +1,6 @@
 package edu.wpi.smartcoach.view;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.google.gson.Gson;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -17,6 +14,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.activity.SessionActivity;
 import edu.wpi.smartcoach.model.Session;

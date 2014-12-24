@@ -22,8 +22,8 @@
 			<option id='A' condition='alone'>Alone</option>
 			<option id='B' condition='friend'>With a friend</option>
 			<option id='C' condition='group'>With a group</option>
-			<option id='D' condition='any'>It doesn't matter</option>
 			<option id='E' condition='trainer'>With a trainer</option>
+			<option id='DEFAULT' condition='any'>It doesn't matter</option>
 		</question>
 
 		<question id='3' type='multiple'>
@@ -44,21 +44,21 @@
 		<question id='6'>
 			<prompt>Do you have childcare responsibilities that make it difficult to free up time to exercise?</prompt>
 			<option id='A' condition='children'>Yes</option>
-			<option id='B'>No</option>
+			<option id='DEFAULT'>No</option>
 		</question>
 
 		<question id='7' type='at_least_one'>
 			<prompt>Which one of these describes your life style</prompt>
 			<option id='A' condition='retired'>Retired</option>
 			<option id='B' condition='homemaker'>Homemaker</option>
-			<option id='C' condition='work_student'>I work full time</option>
+			<option id='DEFAULT' condition='work_student'>I work full time</option>
 			<option id='D' condition='work_student'>I am a student</option>
 			<option id='E' condition='unemployed'>Unemployed</option>
 		</question>
 		
 		<question id='8'>
 		    <prompt>How often would you like a reminder to weigh in if I haven't heard from you?</prompt>
-		    <option id='A' condition='1w'>1 Week</option>
+		    <option id='DEFAULT' condition='1w'>1 Week</option>
 		    <option id='B' condition='2w'>2 Weeks</option>
 		    <option id='C' condition='3w'>3 Weeks</option>
 		    <option id='D' condition='4w'>1 Month</option>

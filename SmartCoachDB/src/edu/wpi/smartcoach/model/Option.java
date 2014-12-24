@@ -1,5 +1,10 @@
-package edu.wpi.smartcoach.view;
+package edu.wpi.smartcoach.model;
 
+/**
+ * A selectable option in an Option Question
+ * @author Akshay
+ *
+ */
 public class Option {
 	
 	private String id;

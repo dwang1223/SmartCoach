@@ -47,10 +47,10 @@
                     android:layout_marginTop="15dp" >
 
                     <TextView
-                        android:id="@+id/start_weight"
+                        android:id="@+id/firstLbl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="First Name:" />
+                        android:text="First Name*:" />
                 </LinearLayout>
 
                 <EditText
@@ -69,7 +69,7 @@
                     android:layout_marginTop="15dp" >
 
                     <TextView
-                        android:id="@id/start_weight"
+                        android:id="@id/firstLbl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Last Name:" />
@@ -88,7 +88,7 @@
                     android:layout_marginTop="15dp" >
 
                     <TextView
-                        android:id="@+id/instructions"
+                        android:id="@+id/genderLbl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Gender:" />
@@ -101,6 +101,110 @@
                     android:layout_marginTop="0dp"
                     android:entries="@array/gender" />
             </LinearLayout>
+            
+            <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:id="@+id/height_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/height_ft"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="(in)"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/height_ft"
+                android:layout_width="83dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/heightLbl"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="(ft)"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/goal"
+                android:layout_width="58dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/current"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/current"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="(lbs)"
+                android:inputType="numberSigned" >
+
+            </EditText>
+
+            <EditText
+                android:id="@+id/current"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/height_in"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/startLbl"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="(lbs)"
+                android:inputType="numberSigned" />
+
+            <TextView
+                android:id="@+id/startLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/current"
+                android:layout_alignBottom="@+id/current"
+                android:layout_alignParentLeft="true"
+                android:layout_weight="0"
+                android:text="Starting Weight*"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/goalLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/goal"
+                android:layout_alignBottom="@+id/goal"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/startLbl"
+                android:layout_weight="0"
+                android:text="Goal Weight"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/heightLbl"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/height_ft"
+                android:layout_alignBottom="@+id/height_ft"
+                android:layout_alignParentLeft="true"
+                android:layout_weight="0.21"
+                android:text="Height"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </RelativeLayout>
+    </LinearLayout>
+            
         </LinearLayout>
     </ScrollView>
 

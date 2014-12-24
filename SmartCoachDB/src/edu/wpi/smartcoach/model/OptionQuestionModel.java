@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import edu.wpi.smartcoach.view.Option;
-
 /**
  * A question with a list of options to pick from.
  * @author Akshay
@@ -206,7 +204,7 @@ public class OptionQuestionModel implements QuestionModel{
 		for(Option opt:options){
 			if(opt.getId().equals(DEFAULT)){
 				defaultResponse = opt;
-				this.options.remove(defaultResponse);
+				//this.options.remove(defaultResponse);
 				break;
 			}
 		}
@@ -222,7 +220,7 @@ public class OptionQuestionModel implements QuestionModel{
 		}
 		
 		if(defaultResponse != null){
-			this.options.add(defaultResponse);
+			//this.options.add(defaultResponse);
 			defaultResponse.setSelected(true);
 		}	
 	}

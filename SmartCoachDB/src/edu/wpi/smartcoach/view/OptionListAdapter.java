@@ -4,34 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 
+/**
+ * Adapter for displaying options from a OptionQuestionModel in a ListView
+ * @author Akshay
+ *
+ */
 public class OptionListAdapter extends BaseAdapter {
 
 	public interface ResponseChangedListener{
 		public void responseChanged(OptionQuestionModel q);
 	}
 	
-	private static final String TAG = OptionListAdapter.class
-			.getSimpleName();
+	private static final String TAG = OptionListAdapter.class.getSimpleName();
 
 	private Context context;
-
-	protected OptionQuestionModel question;
-	
-	private ResponseChangedListener responseListener;
-	
-	private String search = null;
-	
+	private OptionQuestionModel question;	
+	private ResponseChangedListener responseListener;	
 	private List<Option> active;
 
+	/**
+	 * Constructor
+	 * @param context Android context
+	 * @param qm OptionQuestionModel whose options should be displayed
+	 */
 	public OptionListAdapter(Context context, OptionQuestionModel qm) {
 		super();
 		this.context = context;
@@ -67,9 +71,7 @@ public class OptionListAdapter extends BaseAdapter {
 		final Option op = getItem(position);
 		CheckBox cb = (CheckBox) view.findViewById(R.id.checkBox);
 		cb.setChecked(op.isSelected());
-
 		cb.setText(op.getText());
-
 		cb.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -80,15 +82,8 @@ public class OptionListAdapter extends BaseAdapter {
 				}
 				
 				notifyDataSetChanged();
-
 			}
 		});
-
-		if(search != null && !op.getText().toLowerCase().startsWith(search)){
-			view.setVisibility(View.GONE);
-		} else {
-			view.setVisibility(View.VISIBLE);
-		}
 		
 		return view;
 	}
@@ -108,9 +103,13 @@ public class OptionListAdapter extends BaseAdapter {
 		return position;
 	}
 	
+	/**
+	 * Set the search filter for the option list. 
+	 * Options whose display name does not start with the filter will be hidden
+	 * @param search Search filter
+	 */
 	public void setFilter(String search){
 		if(search == null || search.isEmpty()){
-			this.search = null;
 			active.clear();
 			active.addAll(question.getOptions());
 		} else {

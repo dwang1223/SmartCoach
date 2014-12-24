@@ -20,7 +20,7 @@ import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.service.PatientInfoService;
+import edu.wpi.smartcoach.service.PatientProfile;
 import edu.wpi.smartcoach.service.WeightService;
 
 /**
@@ -35,7 +35,6 @@ public class ViewProfileActivity extends Activity {
 	TextView heightView,startWeightView, goalWeightView;
 	
 	Button editUserButton;
-	Button editMetricsButton;
 	Button editPrefsButton;
 	
 	Button weighInButton;
@@ -51,15 +50,13 @@ public class ViewProfileActivity extends Activity {
 		
 		nameView = (TextView)findViewById(R.id.name);
 		genderView = (TextView)findViewById(R.id.gender);
-		//birthdate = (TextView)findViewById(R.id.birthdate);
 		
 
 		heightView = (TextView)findViewById(R.id.goalLbl);
-		startWeightView = (TextView)findViewById(R.id.start_weight);
+		startWeightView = (TextView)findViewById(R.id.firstLbl);
 		goalWeightView = (TextView)findViewById(R.id.goal_weight);
 		
 		editUserButton = (Button)findViewById(R.id.editUser);
-		editMetricsButton = (Button)findViewById(R.id.editMetrics);
 		editPrefsButton = (Button)findViewById(R.id.editPrefs);
 		weighInButton = (Button)findViewById(R.id.weigh_in);
 		
@@ -87,17 +84,6 @@ public class ViewProfileActivity extends Activity {
 			}
 		});
 		
-		editMetricsButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getBaseContext(), PatientMetricsActivity.class);
-				intent.putExtra("edit", true);
-				startActivity(intent);
-				
-			}
-		});
-		
 		editPrefsButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -116,15 +102,19 @@ public class ViewProfileActivity extends Activity {
 		super.onResume();
 		
 		//get info from profile
-		String firstName = PatientInfoService.getFirstName(this);
-		String lastName = PatientInfoService.getLastName(this);
-		String gender = PatientInfoService.getGender(this);
+		String firstName = PatientProfile.getFirstName(this);
+		String lastName = PatientProfile.getLastName(this);
+		String gender = PatientProfile.getGender(this);
 		
-		int height = PatientInfoService.getHeight(this);
+		int height = PatientProfile.getHeight(this);
 		String heightStr = String.format("%d\' %d\"", height/12, height%12);
 		
-		float startWeight = PatientInfoService.getStartWeight(this);
-		float goalWeight = PatientInfoService.getGoalWeight(this);
+		if(height < 0){
+			heightStr = "???";
+		}
+		
+		float startWeight = PatientProfile.getStartWeight(this);
+		float goalWeight = PatientProfile.getGoalWeight(this);
 		
 		//set text fields
 		nameView.setText(firstName + " "+ lastName);
@@ -132,7 +122,12 @@ public class ViewProfileActivity extends Activity {
 		
 		heightView.setText(heightStr);
 		startWeightView.setText(startWeight+" lbs");
-		goalWeightView.setText(goalWeight+" lbs");
+		
+		if(goalWeight > 0){
+			goalWeightView.setText(goalWeight+" lbs");
+		} else {
+			goalWeightView.setText("??? lbs");
+		}
 		
 		//set up weight graph
 		GraphView graph = new LineGraphView(this, firstName+"'s weight");

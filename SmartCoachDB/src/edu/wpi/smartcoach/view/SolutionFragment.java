@@ -22,6 +22,11 @@ import edu.wpi.smartcoach.solver.ProblemSolver;
 import edu.wpi.smartcoach.util.SocialHelper;
 import edu.wpi.smartcoach.util.SocialHelper.SuggestionListener;
 
+/**
+ * A fragment that displays a list of solutions that the user can select and set reminders for.
+ * @author Akshay
+ *
+ */
 public class SolutionFragment extends QuestionFragment implements SuggestionListener {
 	
 	private static final String TAG = SolutionFragment.class.getSimpleName();

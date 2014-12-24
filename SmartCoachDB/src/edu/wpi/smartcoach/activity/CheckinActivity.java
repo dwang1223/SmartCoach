@@ -11,12 +11,12 @@ import android.view.MenuItem;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
+import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.WeightQuestionModel;
 import edu.wpi.smartcoach.reminders.Reminder;
 import edu.wpi.smartcoach.service.ReminderService;
 import edu.wpi.smartcoach.service.WeightService;
-import edu.wpi.smartcoach.view.Option;
 import edu.wpi.smartcoach.view.QuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
 

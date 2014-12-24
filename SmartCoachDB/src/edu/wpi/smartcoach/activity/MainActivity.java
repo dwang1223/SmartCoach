@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.reminders.ReminderReciever;
+import edu.wpi.smartcoach.service.PatientProfile;
 import edu.wpi.smartcoach.util.DatabaseHelper;
 
 public class MainActivity extends Activity {
@@ -56,7 +57,7 @@ public class MainActivity extends Activity {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		// let it run just once
-		if (!prefs.getBoolean("init", false)) {
+		if (!PatientProfile.isInitialized(this)) {
 			mDatabaseHelp.initializeFromDefault(this);
 			startActivity(new Intent(this, RegistrationIntroActivity.class));
 			finish();

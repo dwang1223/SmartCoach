@@ -13,29 +13,32 @@ import android.widget.ListView;
 import android.widget.TextView;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
-import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.view.OptionListAdapter.ResponseChangedListener;
 
+/**
+ * Fragment that displays an OptionQuestionModel
+ * @author Akshay
+ *
+ */
 public class OptionQuestionFragment extends QuestionFragment implements ResponseChangedListener {
 	
 	private static final String TAG  = OptionQuestionFragment.class.getSimpleName();
 
 	private TextView questionView;
 	private ListView optionListView;
-	private OptionListAdapter adapter;
+	private OptionListAdapter optionAdapter;
 	
-	private TextView instructions;
-	private TextView search;
+	private TextView instructionsView;
+	private TextView searchView;
 	
 	
-	private Button next;
-	private Button back;
+	private Button nextButton;
+	private Button backButton;
 	private QuestionResponseListener nextListener;
 	private QuestionResponseListener backListener;
+	
 	private boolean backEnabled = false;
 	private boolean isLast = false;
-	private boolean social = false;
-	private int layout = R.layout.fragment_question;
 	
 	protected OptionQuestionModel question;
 
@@ -64,33 +67,24 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		isLast = last;
 	}
 	
-	public void setShowSocial(boolean show){
-		social = show;
-	}
-	
-	protected void setLayout(int layout){
-		this.layout = layout;
-	}
-
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(layout, null);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_question, null);
 		
-		questionView = (TextView)rootView.findViewById(R.id.questionText);
-		optionListView = (ListView)rootView.findViewById(R.id.optionList);
+		questionView = (TextView)view.findViewById(R.id.questionText);
+		optionListView = (ListView)view.findViewById(R.id.optionList);
 		
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 		    optionListView.setFastScrollAlwaysVisible(true);
 		}
 		
-		instructions = (TextView)rootView.findViewById(R.id.instructions);
-		search = (TextView)rootView.findViewById(R.id.search);
+		instructionsView = (TextView)view.findViewById(R.id.genderLbl);
+		searchView = (TextView)view.findViewById(R.id.search);
 		
-		next = (Button)rootView.findViewById(R.id.nextButton);
-		back = (Button)rootView.findViewById(R.id.backButton);
+		nextButton = (Button)view.findViewById(R.id.nextButton);
+		backButton = (Button)view.findViewById(R.id.backButton);
 				
-		next.setOnClickListener(new View.OnClickListener() {			
+		nextButton.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
 				if(question.hasMinimumResponses() && nextListener != null){ 
@@ -99,8 +93,7 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 			}
 		});
 		
-		back.setOnClickListener(new OnClickListener() {
-			
+		backButton.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
 				if(backListener != null){
@@ -109,51 +102,60 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 			}
 		});
 		
-		if(question.getType() == QuestionType.SINGLE){
-			 instructions.setText("Pick one:");
-		} else if (question.getType() == QuestionType.MULTIPLE){
-			instructions.setText("Pick all that apply:");
-		} else if (question.getType() == QuestionType.AT_LEAST_ONE){
-			instructions.setText("Pick at least one:");
+	
+		String instructionText = "";
+		
+		switch(question.getType()){
+			case SINGLE:
+				instructionText = "Pick one:";
+				break;
+			case MULTIPLE:
+				instructionText = "Pick all that apply:";
+				break;
+			case AT_LEAST_ONE:
+				instructionText = "Pick at least one:";
+				break;
+			default:
+				instructionText = "";			
+				break;
 		}
 		
-		 if(question.getOptions().size() == 0){
-				instructions.setText("");
-			} 
-	
+		instructionsView.setText(instructionText);
+		
+		if (question.getOptions().size() == 0) {
+			instructionsView.setText("");
+		}	
 		
 		if(!backEnabled){
-			back.setVisibility(View.INVISIBLE);
+			backButton.setVisibility(View.INVISIBLE);
 		}
 		
 		if(isLast){
-			next.setText("Finish");
+			nextButton.setText("Finish");
 		}
 		
-		if(search != null){
+		if(searchView != null){
 			if(question.isSearchable()){
-				search.setVisibility(View.VISIBLE);
+				searchView.setVisibility(View.VISIBLE);
 			} else {
-				search.setVisibility(View.GONE);
+				searchView.setVisibility(View.GONE);
 			}
 			
-			search.addTextChangedListener(new TextWatcher() {
+			searchView.addTextChangedListener(new TextWatcher() {
 				
 				@Override
 				public void onTextChanged(CharSequence s, int start, int before, int count) {				
 				}
 				
 				@Override
-				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-					// TODO Auto-generated method stub
-					
+				public void beforeTextChanged(CharSequence s, int start, int count, int after) {					
 				}
 				
 				@Override
 				public void afterTextChanged(Editable s) {
 					try{
-						adapter.setFilter(s.toString());
-						adapter.notifyDataSetChanged();
+						optionAdapter.setFilter(s.toString());
+						optionAdapter.notifyDataSetChanged();
 					}catch(Exception e){
 						e.printStackTrace();
 					}
@@ -161,25 +163,25 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 			});
 		}
 		
-		adapter = new OptionListAdapter(getActivity(), question);
-		optionListView.setAdapter(adapter);
+		optionAdapter = new OptionListAdapter(getActivity(), question);
+		optionListView.setAdapter(optionAdapter);
 		
 		
 		questionView.setText(question.getPrompt());	
 		
-		adapter.setResponseChangedListener(this);
+		optionAdapter.setResponseChangedListener(this);
 		
-		adapter.notifyDataSetChanged();
+		optionAdapter.notifyDataSetChanged();
 
-		return rootView;
+		return view;
 	}
 
 	@Override
 	public void responseChanged(OptionQuestionModel q) {
 		if(q.hasMinimumResponses()){
-			next.setBackgroundResource(R.drawable.bg_card_button);
+			nextButton.setBackgroundResource(R.drawable.bg_card_button);
 		} else {
-			next.setBackgroundResource(R.drawable.bg_card_disable);
+			nextButton.setBackgroundResource(R.drawable.bg_card_disable);
 		}
 	}
 

@@ -40,7 +40,7 @@
                 android:layout_width="83dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/instructions"
+                android:layout_toRightOf="@+id/genderLbl"
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
@@ -99,7 +99,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/instructions"
+                android:id="@+id/genderLbl"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/height_ft"
@@ -117,9 +117,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/linearLayout1"
-        android:layout_below="@+id/linearLayout1"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/bg_card_button"
-		android:layout_marginTop="10dp"
         android:text="Submit"
         android:textColor="#ffffff" />
 

@@ -13,6 +13,11 @@ import android.widget.TextView;
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.WeightQuestionModel;
 
+/**
+ * A QuestionFragment to prompt the user for their weight
+ * @author Akshay
+ *
+ */
 public class WeightQuestionFragment extends QuestionFragment {
 	
 	private WeightQuestionModel question;

@@ -20,15 +20,43 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/reminders"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="User:"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#777777"
-                android:textStyle="italic" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <Button
+                    android:id="@+id/editUser"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.07"
+                    android:background="@drawable/bg_card_button"
+                    android:gravity="center"
+                    android:text="Edit"
+                    android:textColor="#ffffff" />
+
+                <TextView
+                    android:id="@+id/userLbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="5dp"
+                    android:text="About:"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#777777"
+                    android:textStyle="italic" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+            </LinearLayout>
 
              <LinearLayout
         android:id="@+id/userinfo"
@@ -83,19 +111,8 @@
         </RelativeLayout>
     </LinearLayout>
 
-             <Button
-                 android:id="@+id/editUser"
-                 style="?android:attr/buttonStyleSmall"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="right"
-                 android:layout_margin="5dp"
-                 android:background="@drawable/bg_card_button"
-                 android:text="Edit User"
-                 android:textColor="#ffffff" />
-
     <TextView
-        android:id="@+id/instructions"
+        android:id="@+id/genderLbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -149,7 +166,7 @@
                 android:textColor="#777777" />
 
             <TextView
-                android:id="@+id/start_weight"
+                android:id="@+id/firstLbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -205,16 +222,6 @@
             android:layout_margin="5dp"
             android:background="@drawable/bg_card_button"
             android:text="Weigh In"
-            android:textColor="#ffffff" />
-
-        <Button
-            android:id="@+id/editMetrics"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/bg_card_button"
-            android:text="Edit Metrics"
             android:textColor="#ffffff" />
 
     </LinearLayout>

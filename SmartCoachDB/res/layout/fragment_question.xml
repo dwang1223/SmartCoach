@@ -62,7 +62,7 @@
         android:textColor="#ffffff" />
 
     <TextView
-        android:id="@+id/instructions"
+        android:id="@+id/genderLbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/questionText"
@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/questionText"
-        android:layout_below="@+id/instructions"
+        android:layout_below="@+id/genderLbl"
         android:ems="10"
         android:hint="Search" />
 

@@ -16,13 +16,13 @@ import org.w3c.dom.NodeList;
 import android.content.Context;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
+import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
 import edu.wpi.smartcoach.model.exercise.Equipment;
 import edu.wpi.smartcoach.model.exercise.Exercise;
 import edu.wpi.smartcoach.solver.DialogXMLSolver;
-import edu.wpi.smartcoach.view.Option;
 
 /**
  * Reads a dialog script XML files and returns the resulting ProblemSolver

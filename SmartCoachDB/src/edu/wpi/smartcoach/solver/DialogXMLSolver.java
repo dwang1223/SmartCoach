@@ -20,12 +20,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.QuestionResponseOutline;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.util.DialogXMLReader;
-import edu.wpi.smartcoach.view.Option;
 
 public class DialogXMLSolver implements ProblemSolver {
 	

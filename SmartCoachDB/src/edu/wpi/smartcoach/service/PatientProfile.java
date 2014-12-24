@@ -1,5 +1,8 @@
 package edu.wpi.smartcoach.service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -8,16 +11,27 @@ import android.content.SharedPreferences;
  * @author Akshay
  *
  */
-public class PatientInfoService {
+public class PatientProfile {
 	
 	private static final String PREFERENCE_NAME = "patient_info";
 
+	private static final String KEY_INIT = "init";
 	private static final String KEY_FIRST_NAME = "firstName";
 	private static final String KEY_LAST_NAME = "lastName";
 	private static final String KEY_GENDER = "gender";
 	private static final String KEY_HEIGHT = "height";
 	private static final String KEY_START_WEIGHT = "startWeight";
 	private static final String KEY_GOAL_WEIGHT = "goalWeight";
+	
+	private static final String KEY_PROFILE_CONDITIONS = "conditions";
+	
+	/**
+	 * Marks the profile as initialized, so that the SmartCoach intro screens are only shown once
+	 * @param c
+	 */
+	public static void setInitialized(Context c){		
+		getPreferences(c).edit().putBoolean(KEY_INIT, true).commit();
+	}
 	
 	/**
 	 * Set first name
@@ -65,6 +79,18 @@ public class PatientInfoService {
 			getPreferences(c).edit().putFloat(KEY_START_WEIGHT, value).commit();
 		}
 	}
+	
+	/**
+	 * Set the profile conditions to the given set of conditions.
+	 * @param conditions
+	 * @param c
+	 */
+	public static void setConditions(Set<String> conditions, Context c){
+		if(conditions == null){
+			conditions = new HashSet<String>();
+		}
+		getPreferences(c).edit().putStringSet(KEY_PROFILE_CONDITIONS, conditions);				
+	}
 
 	/**
 	 * Set goal weight
@@ -73,6 +99,15 @@ public class PatientInfoService {
 	 */
 	public static void setGoalWeight(float value, Context c) {
 		getPreferences(c).edit().putFloat(KEY_GOAL_WEIGHT, value).commit();
+	}
+	
+	/**
+	 * Returns whether or not the profile has been marked as initialized
+	 * @param c Android context
+	 * @return is initialized
+	 */
+	public static boolean isInitialized(Context c){
+		return getPreferences(c).getBoolean(KEY_INIT, false);
 	}
 	
 	public static String getFirstName(Context c){
@@ -88,15 +123,25 @@ public class PatientInfoService {
 	}
 	
 	public static int getHeight(Context c){
-		return getPreferences(c).getInt(KEY_HEIGHT, 65);			
+		return getPreferences(c).getInt(KEY_HEIGHT, -1);			
 	}
 	
 	public static float getStartWeight(Context c){
-		return getPreferences(c).getFloat(KEY_START_WEIGHT, 0);
+		return getPreferences(c).getFloat(KEY_START_WEIGHT, -1);
 	}
 	
 	public static float getGoalWeight(Context c){
-		return getPreferences(c).getFloat(KEY_GOAL_WEIGHT, 0);
+		return getPreferences(c).getFloat(KEY_GOAL_WEIGHT, -1);
+	}
+	
+	/**
+	 * Returns whether the profile has the given condition
+	 * @param condition condition to check for
+	 * @param c Android context
+	 * @return whether the profile has the given condition
+	 */
+	public static boolean hasCondition(String condition, Context c){
+		return getPreferences(c).getStringSet(KEY_PROFILE_CONDITIONS, new HashSet<String>()).contains(condition);
 	}
 	
 	/**

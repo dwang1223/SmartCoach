@@ -6,10 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -17,20 +14,26 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.service.PatientProfile;
 import edu.wpi.smartcoach.util.DialogXMLReader;
-import edu.wpi.smartcoach.view.Option;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionResponseListener;
 
+/**
+ * Activity where the user answers some basic profile questions
+ * @author Akshay
+ *
+ */
 public class ProfileActivity extends FragmentActivity {
 	
 
 	QuestionsPagerAdapter mSectionsPagerAdapter;
 
 	ViewPager mViewPager;
-	
+		
 	List<OptionQuestionModel> questions;
 
 	@Override
@@ -40,43 +43,40 @@ public class ProfileActivity extends FragmentActivity {
 		setTitle("SmartCoach Profile Information");
 		
 		questions = new ArrayList<OptionQuestionModel>();
-		List<QuestionModel> read = DialogXMLReader.readXML(R.raw.profile, this).getQuestions();//QuestionReader.readQuestions(R.raw.profile_questions, getBaseContext());
+		List<QuestionModel> read = DialogXMLReader.readXML(R.raw.profile, this).getQuestions(); //profile doesnt have "solutions", just get the question list
+		
 		for(QuestionModel qm:read){
 			questions.add((OptionQuestionModel)qm);
 		}
 	
-		mSectionsPagerAdapter = new QuestionsPagerAdapter(
-				getSupportFragmentManager());
+		mSectionsPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager());
 
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 	}
 	
+	/**
+	 * Saves the conditions, marks profile as initialized and finishes
+	 */
 	private void doFinish(){
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		Editor prefEdit = prefs.edit();
-		for(OptionQuestionModel qm:questions){
-			Set<String> conditions = new HashSet<String>();
-			Set<String> optionIds = new HashSet<String>();
-			for(Option opt:qm.getSelectedOptions()){
-				optionIds.add(opt.getId());
-				if(opt.getCondition() != null){
-					conditions.add(String.format("profile.%s.%s",qm.getId(),opt.getCondition()));
+		Set<String> conditions = new HashSet<String>();
+		
+		for(OptionQuestionModel question:questions){
+			for(Option opt:question.getSelectedOptions()){
+				if(opt.isSelected()){
+					conditions.add(opt.getCondition());
 				}
 			}
-			prefEdit.putStringSet(String.format("responses.profile.%s", qm.getId()), optionIds);
-			prefEdit.putStringSet(String.format("conditions.profile.%s", qm.getId()),  conditions);
-			
 		}
-		prefEdit.commit();	
 		
-
-		prefs.edit().putBoolean("init", true).commit();
+		PatientProfile.setConditions(conditions, this);
+		PatientProfile.setInitialized(this);
+	
 		
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);		
 		finish();
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);	
 	}
 
 	@Override
