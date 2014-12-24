@@ -1,34 +1,25 @@
 package edu.wpi.smartcoach.activity;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.PatientProfile;
-import edu.wpi.smartcoach.service.PatientProfileService;
+import edu.wpi.smartcoach.service.PatientInfoService;
 import edu.wpi.smartcoach.util.DatabaseHelper;
 
-public class RegistrationActivity extends Activity implements OnDateSetListener {
+/**
+ * Activity that allows the user to enter in basic profile information
+ * @author Akshay
+ */
+public class RegistrationActivity extends Activity{
 
-	private EditText first, last;
-	//private EditText address, occupation;
-	private Spinner gender;
-	//private TextView birthday;
+	private EditText firstNameField, lastNameField;
+	private Spinner genderSpinner;
 	
 	private Button submit;
 	
@@ -47,34 +38,21 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 			editing = false;
 		}
 		
-		
-		
 		DatabaseHelper.getInstance(this);
 		
-		first = (EditText) findViewById(R.id.firstName);
-		last = (EditText) findViewById(R.id.lastName);
-//		address = (EditText) findViewById(R.id.address);
-//		occupation = (EditText) findViewById(R.id.occupation);
+		firstNameField = (EditText) findViewById(R.id.firstName);
+		lastNameField = (EditText) findViewById(R.id.lastName);
+		genderSpinner = (Spinner) findViewById(R.id.gender);
 
-		gender = (Spinner) findViewById(R.id.gender);
-//		birthday = (TextView) findViewById(R.id.birthday);
-//
-//		birthday.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				Calendar c = Calendar.getInstance();
-//				new DatePickerDialog(RegistrationActivity.this,
-//						RegistrationActivity.this, 1970, 0, 1).show();
-//			}
-//		});
 		
 		if(editing){
-			PatientProfile profile = PatientProfileService.getInstance().getProfile();
-			first.setText(profile.getFirstName());
-			last.setText(profile.getLastName());
-			gender.setSelection(profile.getGender().equals("Male")?0:1);
-			//Date d = profile.getPatientBirthday();
-			//onDateSet(null, d.getYear(),d.getMonth(), d.getDate());
+			String firstName = PatientInfoService.getFirstName(this);
+			String lastName = PatientInfoService.getLastName(this);
+			String gender = PatientInfoService.getGender(this);
+			
+			firstNameField.setText(firstName);
+			lastNameField.setText(lastName);
+			genderSpinner.setSelection((gender.equals("Male")?0:1));
 		}
 
 		submit = (Button) findViewById(R.id.submit);
@@ -86,59 +64,25 @@ public class RegistrationActivity extends Activity implements OnDateSetListener 
 				submit();
 			}
 		});
-
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.registration, menu);
-		return true;
-	}
-
+	/**
+	 * Save entered data and finish this activity
+	 */
 	private void submit() {
-		String firstName = first.getText().toString();
-		String lastName = last.getText().toString();
-		//String addressStr = address.getText().toString();
-		//String occupationStr = occupation.getText().toString();
- 
-		String genderStr = gender.getSelectedItem().toString();
-		
-//		Date bd = null;
-//		try{
-//			bd = new Date(Date.parse(birthday.getText().toString()));
-//		}catch(Exception e){
-//			return;
-//		}
-		
-		PatientProfileService.getInstance().initPatientProfile(new PatientProfile(firstName, lastName, genderStr, null, "address", "occupation"));
+		String firstName = firstNameField.getText().toString();
+		String lastName = lastNameField.getText().toString(); 
+		String gender = genderSpinner.getSelectedItem().toString();
 
+		PatientInfoService.setFirstName(firstName, this);
+		PatientInfoService.setLastName(lastName, this);
+		PatientInfoService.setGender(gender, this);
+		
 		if(!editing){
 			Intent intent = new Intent(this, PatientMetricsActivity.class);
 			startActivity(intent);
 		}
+		
 		finish();
 	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.numSolutions) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public void onDateSet(DatePicker view, int year, int monthOfYear,
-			int dayOfMonth) {
-		GregorianCalendar calendar = new GregorianCalendar(year, monthOfYear+1, dayOfMonth);
-		//birthday.setText(String.format("%d/%d/%02d", monthOfYear+1, dayOfMonth, year%100));
-		
-	}
-
 }

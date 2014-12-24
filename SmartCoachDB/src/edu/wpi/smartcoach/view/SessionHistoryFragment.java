@@ -18,7 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.SessionActivity;
+import edu.wpi.smartcoach.activity.SessionActivity;
 import edu.wpi.smartcoach.model.Session;
 import edu.wpi.smartcoach.service.SessionService;
 

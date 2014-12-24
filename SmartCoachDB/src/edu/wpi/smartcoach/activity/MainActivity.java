@@ -53,8 +53,6 @@ public class MainActivity extends Activity {
         manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, (long)(7*24*60*60*1000) , pending); 
 	
 		
-		
-		
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		// let it run just once
@@ -102,17 +100,11 @@ public class MainActivity extends Activity {
 					startActivity(intent);					
 				}
 			});
-			
-			
-		}
-		
-		
-		
+		}		
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
@@ -129,7 +121,7 @@ public class MainActivity extends Activity {
 //		}
 		startActivity(new Intent(this, CheckinActivity.class));
 		
-		DatabaseHelper.getInstance().copyToStorage(this);
+		DatabaseHelper.getInstance(this).copyToStorage(this);
 				
 		return super.onOptionsItemSelected(item);
 	}

@@ -5,17 +5,10 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.R.id;
-import edu.wpi.smartcoach.R.layout;
-import edu.wpi.smartcoach.R.menu;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
 import edu.wpi.smartcoach.model.QuestionModel;
@@ -42,7 +35,7 @@ public class CheckinActivity extends FragmentActivity implements QuestionRespons
 		questions = new ArrayList<QuestionModel>();
 		questions.add(new WeightQuestionModel("weight", "What is your current weight?"));
 	
-		List<Reminder> reminders = ReminderService.getInstance().getAllDataFromTable();
+		List<Reminder> reminders = ReminderService.getInstance().getAllDataFromTable(this);
 		
 		List<Option> successesOptions = new ArrayList<Option>();
 		List<Option> repeatOptions = new ArrayList<Option>();
@@ -137,7 +130,7 @@ public class CheckinActivity extends FragmentActivity implements QuestionRespons
 			float weight = ((WeightQuestionModel)question).getWeight();
 			long id = System.currentTimeMillis();
 			if(weight > 0){
-				WeightService.getInstance().addWeight(id, weight);
+				WeightService.getInstance().addWeight(id, weight, this);
 			}
 		}
 			

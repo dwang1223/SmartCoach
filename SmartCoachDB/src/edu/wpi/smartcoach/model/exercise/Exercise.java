@@ -1,39 +1,93 @@
 package edu.wpi.smartcoach.model.exercise;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import android.content.Context;
+import edu.wpi.smartcoach.R;
+
+/**
+ * An exercise
+ * @author Akshay
+ */
 public class Exercise {
-	private int id;
-	private String name;
-	private String type;
-	private String numberOfPersons;
-	private String equipment;
 	
+	
+	private static final int RESOURCE_EXERCISE_LIST = R.raw.exercise_list; // res/raw/exercise_list.xml
+	
+	private static List<Exercise> exercises;
+	
+	/**
+	 * Returns a list of all exercises
+	 * @param c Android context
+	 * @return list of all exercises
+	 */
+	public static List<Exercise> getAll(Context c){
+		
+		if(exercises == null || exercises.isEmpty()){
+			readExercises(c);
+		}
+		
+		return new ArrayList<Exercise>(exercises);
+	}
+	
+	/**
+	 * Reads the list of exercises from the exercise_list xml resource
+	 * @param c Android context
+	 */
+	private static void readExercises(Context c){
+		exercises = new ArrayList<Exercise>();
+		
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			InputStream qStream = c.getResources().openRawResource(RESOURCE_EXERCISE_LIST);
+			Document doc = dBuilder.parse(qStream);
+			
+			NodeList exerciseList = ((Element)doc.getElementsByTagName("exercises").item(0)).getElementsByTagName("exercise");
+			
+			for(int e = 0; e < exerciseList.getLength(); e++){
+				Element exerciseElement = (Element)exerciseList.item(e);
+				exercises.add(new Exercise(
+						Integer.parseInt(exerciseElement.getAttribute("id")),
+						exerciseElement.getAttribute("name"),
+						exerciseElement.getAttribute("present"),
+						exerciseElement.getAttribute("continuous")));
+			}
+			
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	private int id;
+	private String name;	
 	private String formPresent;
 	private String formContinuous;
-
-	public Exercise() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Exercise(int id, String exerciseName) {
+	
+	/**
+	 * Constructor
+	 * @param id
+	 * @param name
+	 * @param formPresent
+	 * @param formContinuous
+	 */
+	public Exercise(int id, String name, String formPresent, String formContinuous) {
 		super();
 		this.id = id;
-		this.name = exerciseName;
+		this.name = name;
+		this.formPresent = formPresent;
+		this.formContinuous = formContinuous;
 	}
-
-	public Exercise(String exerciseName, String exerciseType,
-			String exerciseNumberOfPersons, String exerciseEquipment, String present) {
-		super();
-		this.name = exerciseName;
-		this.type = exerciseType;
-		this.numberOfPersons = exerciseNumberOfPersons;
-		this.equipment = exerciseEquipment;
-		this.formPresent = present;
-	}
-
-	
-	
+		
 	/**
 	 * @return the id
 	 */
@@ -46,27 +100,6 @@ public class Exercise {
 	 */
 	public String getName() {
 		return name;
-	}
-
-	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * @return the numberOfPersons
-	 */
-	public String getNumberOfPersons() {
-		return numberOfPersons;
-	}
-
-	/**
-	 * @return the equipment
-	 */
-	public String getEquipment() {
-		return equipment;
 	}
 
 	/**
@@ -98,27 +131,6 @@ public class Exercise {
 	}
 
 	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	/**
-	 * @param numberOfPersons the numberOfPersons to set
-	 */
-	public void setNumberOfPersons(String numberOfPersons) {
-		this.numberOfPersons = numberOfPersons;
-	}
-
-	/**
-	 * @param equipment the equipment to set
-	 */
-	public void setEquipment(String equipment) {
-		this.equipment = equipment;
-	}
-
-	/**
 	 * @param formPresent the formPresent to set
 	 */
 	public void setFormPresent(String formPresent) {
@@ -132,11 +144,6 @@ public class Exercise {
 		this.formContinuous = formContinuous;
 	}
 
-	@Override
-	public String toString(){
-		return name;
-	}
-	
 	@Override
 	public boolean equals(Object e){
 		if(e == null){

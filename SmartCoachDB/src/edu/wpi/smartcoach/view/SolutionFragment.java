@@ -95,7 +95,7 @@ public class SolutionFragment extends QuestionFragment implements SuggestionList
 						if(text.isEmpty()){
 							text = "Your custom solution";
 						}
-						solutions.add(new Solution(Solution.TYPE_COMMUNITY, text));
+						solutions.add(new Solution(Solution.TYPE_COMMUNITY, text, null));
 						
 
 						QuestionResponseOutline[] outline = solver.getOutline();
@@ -167,7 +167,7 @@ public class SolutionFragment extends QuestionFragment implements SuggestionList
 			@Override
 			public void run() {
 				for(String s:solutions){
-					adapter.solutions.add(new Solution(Solution.TYPE_COMMUNITY, s));
+					adapter.solutions.add(new Solution(Solution.TYPE_COMMUNITY, s, null));
 				}
 				adapter.notifyDataSetChanged();
 			}

@@ -1,5 +1,10 @@
 package edu.wpi.smartcoach.model;
 
+/**
+ * A question that prompts the user to input a time of day
+ * @author Akshay
+ *
+ */
 public class TimeQuestionModel implements QuestionModel {
 	
 	private String id;

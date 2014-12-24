@@ -2,12 +2,10 @@ package edu.wpi.smartcoach.activity;
 
 import java.util.List;
 import java.util.Map.Entry;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -15,35 +13,34 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.jjoe64.graphview.CustomLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
-
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.PatientMetrics;
-import edu.wpi.smartcoach.model.PatientProfile;
-import edu.wpi.smartcoach.service.PatientMetricsService;
-import edu.wpi.smartcoach.service.PatientProfileService;
+import edu.wpi.smartcoach.service.PatientInfoService;
 import edu.wpi.smartcoach.service.WeightService;
 
+/**
+ * Activity where the user can view and edit their profile information and perform weight tracking
+ * @author Akshay
+ */
 public class ViewProfileActivity extends Activity {
 	
 	private static final String TAG = ViewProfileActivity.class.getSimpleName();
 	
-	TextView name,gender, birthdate;
-	TextView height,weight, goal;
+	TextView nameView,genderView;
+	TextView heightView,startWeightView, goalWeightView;
 	
-	Button editUser;
-	Button editMetrics;
-	Button editPrefs;
+	Button editUserButton;
+	Button editMetricsButton;
+	Button editPrefsButton;
 	
-	Button weighIn;
+	Button weighInButton;
 	
-	LinearLayout graphContainer;
+	LinearLayout graphContainerLayout;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +49,21 @@ public class ViewProfileActivity extends Activity {
 
 		setTitle("SmartCoach Profile");
 		
-		name = (TextView)findViewById(R.id.name);
-		gender = (TextView)findViewById(R.id.gender);
+		nameView = (TextView)findViewById(R.id.name);
+		genderView = (TextView)findViewById(R.id.gender);
 		//birthdate = (TextView)findViewById(R.id.birthdate);
 		
 
-		height = (TextView)findViewById(R.id.goalLbl);
-		weight = (TextView)findViewById(R.id.start_weight);
-		goal = (TextView)findViewById(R.id.goal_weight);
+		heightView = (TextView)findViewById(R.id.goalLbl);
+		startWeightView = (TextView)findViewById(R.id.start_weight);
+		goalWeightView = (TextView)findViewById(R.id.goal_weight);
 		
-		editUser = (Button)findViewById(R.id.editUser);
-		editMetrics = (Button)findViewById(R.id.editMetrics);
-		editPrefs = (Button)findViewById(R.id.editPrefs);
-		weighIn = (Button)findViewById(R.id.weigh_in);
+		editUserButton = (Button)findViewById(R.id.editUser);
+		editMetricsButton = (Button)findViewById(R.id.editMetrics);
+		editPrefsButton = (Button)findViewById(R.id.editPrefs);
+		weighInButton = (Button)findViewById(R.id.weigh_in);
 		
-		weighIn.setOnClickListener(new OnClickListener() {
+		weighInButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -75,14 +72,11 @@ public class ViewProfileActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		
-
-		PatientProfile profile = PatientProfileService.getInstance().getProfile();
-		
-		graphContainer = (LinearLayout)findViewById(R.id.graphContainer);
+				
+		graphContainerLayout = (LinearLayout)findViewById(R.id.graphContainer);
 		
 		
-		editUser.setOnClickListener(new OnClickListener() {
+		editUserButton.setOnClickListener(new OnClickListener() {
 	
 			@Override
 			public void onClick(View v) {
@@ -93,7 +87,7 @@ public class ViewProfileActivity extends Activity {
 			}
 		});
 		
-		editMetrics.setOnClickListener(new OnClickListener() {
+		editMetricsButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -104,7 +98,7 @@ public class ViewProfileActivity extends Activity {
 			}
 		});
 		
-		editPrefs.setOnClickListener(new OnClickListener() {
+		editPrefsButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -116,40 +110,46 @@ public class ViewProfileActivity extends Activity {
 				
 	}
 	
+	@SuppressLint("DefaultLocale")
 	@Override
 	protected void onResume(){
 		super.onResume();
 		
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		//get info from profile
+		String firstName = PatientInfoService.getFirstName(this);
+		String lastName = PatientInfoService.getLastName(this);
+		String gender = PatientInfoService.getGender(this);
 		
-		PatientProfile profile = PatientProfileService.getInstance().getProfile();
-		PatientMetrics metrics = PatientMetricsService.getInstance().getMetrics();
+		int height = PatientInfoService.getHeight(this);
+		String heightStr = String.format("%d\' %d\"", height/12, height%12);
 		
-		name.setText(profile.getFirstName() + " "+ profile.getLastName());
-		gender.setText(profile.getGender());
+		float startWeight = PatientInfoService.getStartWeight(this);
+		float goalWeight = PatientInfoService.getGoalWeight(this);
 		
-		//Date bDate = profile.getPatientBirthday();
-		//String bds = String.format("%d/%d/%02d", bDate.getMonth()+1, bDate.getDate(), (bDate.getYear())%100);
-		//birthdate.setText(bds);
+		//set text fields
+		nameView.setText(firstName + " "+ lastName);
+		genderView.setText(gender);
 		
-		String heightStr = String.format("%d\' %d\"", (int)metrics.getHeight()/12, (int)metrics.getHeight()%12);
-		height.setText(heightStr);
-		weight.setText((int)(metrics.getWeight())+" lbs");
-		goal.setText((int)(metrics.getGoalWeight())+" lbs");
+		heightView.setText(heightStr);
+		startWeightView.setText(startWeight+" lbs");
+		goalWeightView.setText(goalWeight+" lbs");
 		
-		GraphView graph = new LineGraphView(this, profile.getFirstName()+"'s weight");
+		//set up weight graph
+		GraphView graph = new LineGraphView(this, firstName+"'s weight");
 		
-		graph.setManualYAxisBounds(metrics.getWeight()+10, metrics.getGoalWeight()-10);
+		//set graph boundaries to 10 pounds above & below start and goal weight
+		graph.setManualYAxisBounds(startWeight+10, goalWeight-10);
 		
-		List<Entry<Long, Float>> weightData = WeightService.getInstance().getAllDataFromTable();
+		List<Entry<Long, Float>> weightData = WeightService.getInstance().getAllDataFromTable(this);
 		Log.d(TAG, weightData.toString());
 		GraphViewData gData[] = new GraphViewData[weightData.size()];
 		for(Entry<Long, Float> we:weightData){
 			gData[weightData.indexOf(we)] = new GraphViewData(we.getKey(), we.getValue());
 		}
-		
-		
+				
 		graph.addSeries(new GraphViewSeries("", new GraphViewSeriesStyle(getResources().getColor(R.color.hologreen_color), 3), gData));
+		
+		//format horizontal axis dates from millisecond time to month/day
 		graph.setCustomLabelFormatter(new CustomLabelFormatter() {
 			
 			@Override
@@ -161,7 +161,7 @@ public class ViewProfileActivity extends Activity {
 		});
 		
 		graph.getGraphViewStyle().setTextSize(30);
-		graphContainer.removeAllViews();
-		graphContainer.addView(graph);
+		graphContainerLayout.removeAllViews();
+		graphContainerLayout.addView(graph);
 	}
 }

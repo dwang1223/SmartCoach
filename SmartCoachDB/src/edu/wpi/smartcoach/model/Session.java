@@ -4,7 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
- * A question session
+ * A problem solving session
+ * This class is for storing the user's session history
  * @author Akshay
  *
  */
@@ -13,8 +14,7 @@ public class Session {
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM d, yyyy h:mm a");
 	
 	private long time;
-	private String type;
-	
+	private String type;	
 	private List<Solution> solutions;
 
 	public Session(){
@@ -28,9 +28,7 @@ public class Session {
 		this.time = time;
 		this.type = type;
 		this.solutions = solutions;
-	}
-
-	
+	}	
 
 	/**
 	 * @return the time

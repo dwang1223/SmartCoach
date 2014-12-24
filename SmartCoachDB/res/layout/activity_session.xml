@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#eeeeee"
 
-    tools:context="edu.wpi.smartcoach.SessionActivity" >
+    tools:context="edu.wpi.smartcoach.activity.SessionActivity" >
 
     <ListView
         android:id="@+id/list"

@@ -22,10 +22,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return instance;
 	}
 
-	public static DatabaseHelper getInstance() {
-		return instance;
-	}
-
 	private static final String DATABASE_NAME = "smartcoach.db";
 	private static final int DATABASE_VERSION = 1;
 

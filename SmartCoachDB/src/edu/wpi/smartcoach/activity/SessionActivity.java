@@ -1,4 +1,4 @@
-package edu.wpi.smartcoach;
+package edu.wpi.smartcoach.activity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.R.id;
+import edu.wpi.smartcoach.R.layout;
 import edu.wpi.smartcoach.model.Session;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.view.SolutionListAdapter;

@@ -1,0 +1,23 @@
+<exercises>
+    <exercise id='1' name='Walking' present='walk' continuous='walking'/>
+    <exercise id='2' name='Running' present='run' continuous='running'/>
+    <exercise id='3' name='Biking' present='bike' continuous='biking'/>
+    <exercise id='4' name='Hiking' present='hike' continuous='hiking'/>
+    <exercise id='5' name='Skating' present='skate' continuous='skating'/>
+    <exercise id='6' name='Yoga' present='do yoga' continuous='doing yoga'/>
+    <exercise id='7' name='Pilates/Aerobics' present='do pilates/aerobics' continuous='doing pilates/aerobics'/>
+    <exercise id='8' name='Weight Training' present='do weight training' continuous='weight training'/>
+    <exercise id='9' name='Dancing/Zumba' present='dance' continuous='dancing'/>
+    <exercise id='10' name='Swimming' present='swim' continuous='swimming'/>
+    <exercise id='11' name='Basketball' present='play basketball' continuous='playing basketball'/>
+    <exercise id='12' name='Rollerblading' present='roller blade' continuous='roller blading'/>
+    <exercise id='13' name='Skiing' present='ski' continuous='skiing'/>
+    <exercise id='14' name='Martial Arts/Kickboxing' present='do martial arts/kickboxing' continuous='doing martial arts/kickboxing'/>
+    <exercise id='15' name='Tennis' present='pay tennis' continuous='playing tennis'/>
+    <exercise id='16' name='Rowing' present='row' continuous='rowing'/>
+    <exercise id='17' name='Soccer/Football' present='play soccer/football' continuous='playing soccer/football'/>
+    <exercise id='18' name='Jumping Rope' present='jump rope' continuous='jumping rope'/>
+    <exercise id='19' name='Golf (no cart)' present='play golf' continuous='playing golf'/>
+    <exercise id='20' name='Elliptical Machine' present='use the elliptical machine' continuous='using the elliptical machine'/>
+    <exercise id='21' name='Stairclimbing' present='stair climb' continuous='stair climbing'/>                  
+</exercises>

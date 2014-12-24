@@ -17,7 +17,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.DialogXMLOption;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.util.DialogXMLReader;
@@ -62,8 +61,8 @@ public class ProfileActivity extends FragmentActivity {
 			Set<String> optionIds = new HashSet<String>();
 			for(Option opt:qm.getSelectedOptions()){
 				optionIds.add(opt.getId());
-				if(((DialogXMLOption)opt).getCondition() != null){
-					conditions.add(String.format("profile.%s.%s",qm.getId(),((DialogXMLOption)opt).getCondition()));
+				if(opt.getCondition() != null){
+					conditions.add(String.format("profile.%s.%s",qm.getId(),opt.getCondition()));
 				}
 			}
 			prefEdit.putStringSet(String.format("responses.profile.%s", qm.getId()), optionIds);

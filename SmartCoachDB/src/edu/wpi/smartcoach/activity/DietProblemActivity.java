@@ -29,7 +29,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_exercise_problem);
+		setContentView(R.layout.activity_problem);
 		setTitle("SmartCoach Problem Solving");
 		
 		solver = DialogXMLReader.readXML(R.raw.diet, this);

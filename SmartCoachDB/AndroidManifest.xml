@@ -38,7 +38,7 @@
         </activity>
         <activity
             android:name=".activity.PatientMetricsActivity"
-            android:label="@string/title_activity_patient_info"
+            android:label="@string/title_activity_patient_metrics"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -82,7 +82,7 @@
             android:label="@string/title_activity_reminders" >
         </activity>
         <activity
-            android:name=".SessionActivity"
+            android:name="edu.wpi.smartcoach.activity.SessionActivity"
             android:label="@string/title_activity_session" >
         </activity>
     </application>

@@ -1,0 +1,16 @@
+<equipments>
+    <equipment id='1' name='Treadmill'/>
+    <equipment id='2' name='Elliptical'/>
+    <equipment id='3' name='Stationary Bike'/>
+    <equipment id='4' name='Bike'/>
+    <equipment id='5' name='Stepper'/>
+    <equipment id='6' name='Tennis Racket'/>
+    <equipment id='7' name='Badminton Racquet'/>
+    <equipment id='8' name='Roller Blades/Skates'/>
+    <equipment id='9' name='Ice Skates'/>
+    <equipment id='10' name='Running Shoes'/>
+    <equipment id='11' name='Swimsuit'/>
+    <equipment id='12' name='Exercise Videos'/>
+    <equipment id='13' name='Gym membership'/>
+</equipments>
+   

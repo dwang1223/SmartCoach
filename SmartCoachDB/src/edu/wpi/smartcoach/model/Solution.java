@@ -1,5 +1,10 @@
 package edu.wpi.smartcoach.model;
 
+/**
+ * A solution that is given to the user after a problem solving session
+ * @author Akshay
+ *
+ */
 public class Solution {
 	
 	public static final int TYPE_DEFAULT = 0;
@@ -9,25 +14,17 @@ public class Solution {
 	protected String message;
 	protected String link;
 	
-	public Solution(String message){
-		this(TYPE_DEFAULT, message);
-	}
-	
-	public Solution(int type, String message){
-		this(type, message, null);
-	}
-	
+	/**
+	 * Constructor with specified type & info link
+	 * @param type Either TYPE_COMMUNITY or TYPE_DEFAULT
+	 * @param message the solution's message
+	 * @param info The url of the info site
+	 */
 	public Solution(int type, String message, String info){
 		this.type = type;
 		this.message = message;
 		this.link = info;
 	}
-	
-	public Solution(String message, String info){
-		this(TYPE_DEFAULT, message, info);
-	}
-	
-	
 	
 	public String getMessage() {
 		return message;

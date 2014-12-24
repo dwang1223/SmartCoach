@@ -104,7 +104,7 @@ public class SetReminderFragment extends Fragment {
 	}
 	
 	public Reminder createReminder(){
-		return new Reminder(ReminderService.getInstance().getNewId(), reminder, getDays(), getHour(), getMinute());
+		return new Reminder(ReminderService.getInstance().getNewId(getActivity()), reminder, getDays(), getHour(), getMinute());
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -64,7 +64,7 @@ public class SetReminderActivity extends FragmentActivity {
 			
 			Reminder r = f.createReminder();
 			Integer[] reminderDays = f.getDayInts();
-			ReminderService.getInstance().addReminder(r);
+			ReminderService.getInstance().addReminder(r, this);
 			
 			for(Integer d:reminderDays){
 				setAlarm(d, r.getHour(), r.getMinute(), r.getId());

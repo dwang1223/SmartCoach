@@ -71,7 +71,7 @@ public class RemindersFragment extends Fragment {
 	public void onResume(){
 		super.onResume();
 		adapter.clear();
-		adapter.addAll(ReminderService.getInstance().getAllDataFromTable());
+		adapter.addAll(ReminderService.getInstance().getAllDataFromTable(getActivity()));
 		adapter.notifyDataSetChanged();
 		
 		if(adapter.getCount() > 0){

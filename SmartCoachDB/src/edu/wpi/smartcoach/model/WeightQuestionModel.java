@@ -1,5 +1,10 @@
 package edu.wpi.smartcoach.model;
 
+/**
+ * A question that prompts the user ot input their weight
+ * @author Akshay
+ *
+ */
 public class WeightQuestionModel implements QuestionModel {
 
 	private String id;
@@ -33,8 +38,7 @@ public class WeightQuestionModel implements QuestionModel {
 	
 	public float getWeight(){
 		return weight;
-	}
-	
+	}	
 
 	@Override
 	public QuestionResponseOutline getOutline() {

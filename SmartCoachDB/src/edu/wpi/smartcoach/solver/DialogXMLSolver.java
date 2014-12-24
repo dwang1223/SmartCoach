@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import edu.wpi.smartcoach.model.DialogXMLOption;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.QuestionResponseOutline;
@@ -296,11 +295,10 @@ public class DialogXMLSolver implements ProblemSolver {
 		for(QuestionModel oom:questions){
 			if(oom instanceof OptionQuestionModel){
 				OptionQuestionModel opq = (OptionQuestionModel)oom;
-				for(Option op:opq.getSelectedOptions()){									
-					if(op instanceof DialogXMLOption){						
-						String condition = ((DialogXMLOption)op).getCondition();
+				for(Option op:opq.getSelectedOptions()){					
+						String condition = op.getCondition();
 						setConditions.addAll(evaluateCondition(condition)); 
-					}				
+									
 				}
 			}
 		}
@@ -346,13 +344,12 @@ public class DialogXMLSolver implements ProblemSolver {
 				
 				if(prefixQuestion != null){
 					for(Option prefixOption:prefixQuestion.getSelectedOptions()){
-						if(prefixOption instanceof DialogXMLOption){
-							String prefixCondition = ((DialogXMLOption)prefixOption).getCondition();
-							List<String> prefixes = evaluateCondition(prefixCondition);
-							for(String p:prefixes){
-								results.add(p + condition.substring(condition.indexOf(']')+1));
-							}
+						String prefixCondition = prefixOption.getCondition();
+						List<String> prefixes = evaluateCondition(prefixCondition);
+						for(String p:prefixes){
+							results.add(p + condition.substring(condition.indexOf(']')+1));
 						}
+						
 					}
 				}
 			} else {

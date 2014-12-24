@@ -1,33 +1,78 @@
 package edu.wpi.smartcoach.model.exercise;
 
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import android.content.Context;
+import edu.wpi.smartcoach.R;
+
+/**
+ * Equipment used for exercise
+ * @author Akshay
+ */
 public class Equipment {
 	
-	public static final int ID_GYM_MEMBERSHIP = 13;
+	private static final int RESOURCE_EQUIPMENT_LIST = R.raw.equipment_list; // res/raw/equipment_list.xml
 	
-	public static ArrayList<Equipment> equipment;
+	private static ArrayList<Equipment> equipment;
 	
-	
-	
-	static {
-		equipment = new ArrayList<Equipment>(){{
-			add(new Equipment(0, "Treadmill", new int[]{1,2}));
-			add(new Equipment(1, "Elliptical", new int[]{1}));
-			add(new Equipment(2, "Stationary Bike", new int[]{3}));
-			add(new Equipment(3, "Bike", new int[]{3}));
-			add(new Equipment(4, "Stepper", new int[]{1}));
-			add(new Equipment(5, "Tennis Racquet", new int[]{}));
-			add(new Equipment(6, "Badminton Racquet", new int[]{}));
-			add(new Equipment(7, "Roller blades/skates", new int[]{5}));
-			add(new Equipment(8, "Ice skates", new int[]{5}));
-			add(new Equipment(9, "Running Shoes", new int[]{1,2,4}));
-			add(new Equipment(10, "Swimsuit", new int[]{11}));
-			add(new Equipment(12, "Exercise Videos", new int[]{7,10}));
-			add(new Equipment(ID_GYM_MEMBERSHIP, "Gym membership", new int[]{1,2,3,6,9,12}));
-		}};
+	/**
+	 * Returns a list of all Equipment
+	 * @param c Android context
+	 * @return list of all equipment
+	 */
+	public static List<Equipment> getAll(Context c){
+		
+		if(equipment == null || equipment.isEmpty()){
+			readEquipment(c);
+		}
+		
+		
+		return new ArrayList<Equipment>(equipment);
+		
 	}
 	
+	/**
+	 * Reads the list of equipment from the equipment_list xml resource
+	 * @param c Android context
+	 */
+	private static void readEquipment(Context c){
+		equipment = new ArrayList<Equipment>();
+		
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			InputStream qStream = c.getResources().openRawResource(RESOURCE_EQUIPMENT_LIST);
+			Document doc = dBuilder.parse(qStream);
+			
+			NodeList exerciseList = ((Element)doc.getElementsByTagName("equipments").item(0)).getElementsByTagName("equipment");
+			
+			for(int e = 0; e < exerciseList.getLength(); e++){
+				Element exerciseElement = (Element)exerciseList.item(e);
+				equipment.add(new Equipment(
+						Integer.parseInt(exerciseElement.getAttribute("id")),
+						exerciseElement.getAttribute("name"),
+						null));
+			}
+			
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Gets the Equipment with the given id
+	 * @param id the id to search for
+	 * @return The equipment that has id
+	 */
 	public static Equipment getEquipmentById(int id){
 		for(Equipment e:equipment){
 			if(id == e.getId()){
