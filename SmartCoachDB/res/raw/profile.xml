@@ -17,7 +17,7 @@
 			<options src='EXERCISES'/>
 		</question>
 
-		<question id='2' type='multiple'>
+		<question id='2' type='at_least_one'>
 			<prompt>With whom do you prefer to exercise?</prompt>
 			<option id='A' condition='alone'>Alone</option>
 			<option id='B' condition='friend'>With a friend</option>
@@ -47,7 +47,7 @@
 			<option id='B'>No</option>
 		</question>
 
-		<question id='7' type='multiple'>
+		<question id='7' type='at_least_one'>
 			<prompt>Which one of these describes your life style</prompt>
 			<option id='A' condition='retired'>Retired</option>
 			<option id='B' condition='homemaker'>Homemaker</option>
