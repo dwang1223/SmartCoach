@@ -1,12 +1,8 @@
 package edu.wpi.smartcoach.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,20 +10,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.wpi.smartcoach.R;
-import edu.wpi.smartcoach.model.QuestionResponseOutline;
+import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.SocialNetworkSubmission;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.solver.ProblemSolver;
+import edu.wpi.smartcoach.util.Callback;
 import edu.wpi.smartcoach.util.SocialHelper;
-import edu.wpi.smartcoach.util.SocialHelper.SuggestionListener;
 
 /**
  * A fragment that displays a list of solutions that the user can select and set reminders for.
  * @author Akshay
  *
  */
-public class SolutionFragment extends QuestionFragment implements SuggestionListener {
+public class SolutionFragment extends QuestionFragment implements Callback<String[]> {
 	
 	private static final String TAG = SolutionFragment.class.getSimpleName();
 	
@@ -36,7 +37,7 @@ public class SolutionFragment extends QuestionFragment implements SuggestionList
 	
 	private List<Solution> solutions;
 	
-	private QuestionResponseListener listener;
+	private Callback<QuestionModel> listener;
 	private Button next;
 
 	SolutionListAdapter adapter;
@@ -72,22 +73,19 @@ public class SolutionFragment extends QuestionFragment implements SuggestionList
 		comm.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				Log.d(TAG, "click");
-
-				SocialHelper.getSuggestions(category, solver.getOutline(), SolutionFragment.this);								
-				//list.setSelection(adapter.getCount()-1);
-				
+			public void onClick(View view) {
+                getActivity().setProgressBarIndeterminate(true);
+                getActivity().setProgressBarIndeterminateVisibility(true);
+				SocialHelper.getSuggestions(category, solver.getConditionsRecursive(), SolutionFragment.this);
 				comm.setEnabled(false);
-				comm.setBackgroundResource(R.drawable.bg_card_disable); 
-				
+				comm.setBackgroundResource(R.drawable.bg_card_disable);
 			}
 		});
 		
 		suggest.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
+			public void onClick(View view) {
 				final EditText input = new EditText(getActivity());
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 				builder.setTitle("Enter in a custom solution:")
@@ -101,12 +99,8 @@ public class SolutionFragment extends QuestionFragment implements SuggestionList
 							text = "Your custom solution";
 						}
 						solutions.add(new Solution(Solution.TYPE_COMMUNITY, text, null));
-						
 
-						QuestionResponseOutline[] outline = solver.getOutline();
-						
-						SocialNetworkSubmission submission = new SocialNetworkSubmission(category, text, solver.getOutline());
-						
+						SocialNetworkSubmission submission = new SocialNetworkSubmission(category, text, solver.getConditionsRecursive());
 						SocialHelper.submitSolution(submission);
 						
 						adapter.notifyDataSetChanged();
@@ -118,8 +112,8 @@ public class SolutionFragment extends QuestionFragment implements SuggestionList
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+
 						// TODO Auto-generated method stub
-						
 					}
 				})
 				.create().show();
@@ -131,9 +125,9 @@ public class SolutionFragment extends QuestionFragment implements SuggestionList
 		next.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
+			public void onClick(View view) {
 				if(listener != null){
-					listener.responseEntered(null);
+					listener.callback(null);
 				}
 				
 			}
@@ -154,23 +148,29 @@ public class SolutionFragment extends QuestionFragment implements SuggestionList
 	}
 
 	@Override
-	public QuestionFragment setNextButtonListener(final QuestionResponseListener listener) {
+	public QuestionFragment setNextButtonListener(final Callback<QuestionModel> listener) {
 		this.listener = listener;
 
 		return this;
 	}
 
 	@Override
-	public QuestionFragment setBackButtonListener(QuestionResponseListener listener) {
+	public QuestionFragment setBackButtonListener(Callback<QuestionModel> listener) {
 		return this;
 	}
 
+    /**
+     * Called when suggested solutions have been recieved by the server
+     * @param solutions
+     */
 	@Override
-	public void suggestionsRecieved(final String[] solutions) {
+	public void callback(final String[] solutions) {
 		getActivity().runOnUiThread(new Runnable() {
 			
 			@Override
 			public void run() {
+                getActivity().setProgressBarIndeterminateVisibility(false);
+                Toast.makeText(getActivity(), String.format("Found %d community solution(s)", solutions.length), Toast.LENGTH_SHORT).show();
 				for(String s:solutions){
 					adapter.solutions.add(new Solution(Solution.TYPE_COMMUNITY, s, null));
 				}

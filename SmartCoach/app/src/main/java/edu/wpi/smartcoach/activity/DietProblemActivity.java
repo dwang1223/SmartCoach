@@ -14,13 +14,13 @@ import edu.wpi.smartcoach.model.SocialNetworkSubmission;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.service.SessionService;
 import edu.wpi.smartcoach.solver.DialogXMLSolver;
+import edu.wpi.smartcoach.util.Callback;
 import edu.wpi.smartcoach.util.DialogXMLReader;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment;
-import edu.wpi.smartcoach.view.QuestionResponseListener;
 import edu.wpi.smartcoach.view.SolutionFragment;
 
-public class DietProblemActivity extends FragmentActivity implements QuestionResponseListener {
+public class DietProblemActivity extends FragmentActivity implements Callback<QuestionModel> {
 
 	private DialogXMLSolver solver;
 	private OptionQuestionFragment questionFragment;
@@ -31,7 +31,6 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_problem);
-		setTitle("SmartCoach Problem Solving");
 		
 		solver = DialogXMLReader.readXML(R.raw.diet, this);
 		questionFragment = new OptionQuestionFragment();
@@ -41,9 +40,13 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 		getSupportFragmentManager().beginTransaction().add(R.id.container, questionFragment).commit();
 		solutions = new ArrayList<Solution>();
 	}
-	
+
+    /**
+     * Called when a question is responded to
+     * @param question
+     */
 	@Override
-	public void responseEntered(QuestionModel question) {
+	public void callback(QuestionModel question) {
 		
 		if(solved){
 //			OptionQuestionModel sln = (OptionQuestionModel)question;
@@ -75,10 +78,10 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 			questionFragment = (OptionQuestionFragment)QuestionFragment.createQuestion(nextQuestion);
 			questionFragment.setQuestion((OptionQuestionModel)nextQuestion);
 			questionFragment.setNextButtonListener(this);
-			questionFragment.setBackButtonListener(new QuestionResponseListener() {
+			questionFragment.setBackButtonListener(new Callback<QuestionModel>() {
 				
 				@Override
-				public void responseEntered(QuestionModel question) {
+				public void callback(QuestionModel question) {
 					navigateBack();
 				}
 			});
@@ -91,7 +94,7 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 	private void showSolution(List<Solution> solutions){
 		SolutionFragment solutionFragment = new SolutionFragment();
 		solutionFragment.setSolutions(solutions);
-		solutionFragment.setSolver(SocialNetworkSubmission.DIET, solver);
+		solutionFragment.setSolver(SocialNetworkSubmission.CATEGORY_DIET, solver);
 		solutionFragment.setNextButtonListener(this);
 		getSupportFragmentManager().beginTransaction().replace(R.id.container, solutionFragment).commit();	
 		
@@ -103,10 +106,10 @@ public class DietProblemActivity extends FragmentActivity implements QuestionRes
 		
 		QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
 		questionFragment.setNextButtonListener(this);
-		questionFragment.setBackButtonListener(new QuestionResponseListener() {
+		questionFragment.setBackButtonListener(new Callback<QuestionModel>() {
 			
 			@Override
-			public void responseEntered(QuestionModel question) {
+			public void callback(QuestionModel question) {
 				navigateBack();
 			}
 		});

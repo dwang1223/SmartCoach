@@ -1,3 +1,6 @@
+//what percentage of conditions have to match for the solution to be suggested to the user
+var MATCH_THRESHOLD = 0.3;
+
 var storage = require('node-persist');
 var express = require('express');
 var bodyParser = require('body-parser')
@@ -7,8 +10,6 @@ var url = require('url');
 var redirects = [];
 
 storage.initSync();
-
-
 
 if(!storage.getItem('pending')){
 	storage.setItem('pending', []);
@@ -23,9 +24,10 @@ var httpApp = express();
 httpApp.use(bodyParser.json());
 httpApp.use(bodyParser.urlencoded());
 
-
+/**
+* Get the admin panel page. Shows list of pending solutions
+*/
 httpApp.get("/admin", function(req, res){
-	console.log("index="+redirects.indexOf(req.query.redirect));
 
 	res.writeHead(200, {'Content-Type': 'text/html'});	
 	res.write("<html><head><title></title></head><body background='#eeeeee'><h1>SmartCoach Social Features Manager</h1>");
@@ -40,36 +42,41 @@ httpApp.get("/admin", function(req, res){
 	res.end("</body></html>");
 });
 
+/**
+* Submit form to approve/reject pending solutions
+* Redirects back to /admin with a status
+*/
 httpApp.post("/admin/approve", function(req, res){
-
 	var pending = storage.getItem('pending');
 	var solutions = storage.getItem('solutions');
 
 	var selected = [];
 
-	pending.forEach(function(item){
+	//add items with selected ids to selected list
+	for(var p = 0; p < pending.length; p++){
+		var item = pending[p];
 		if(req.body[item.id]){
-			selected.push(item);
-			pending.splice(pending.indexOf(item), 1);
+			console.log("approving "+item.id);
+			selected.push(item);			
 		}
-	});
+	}
 
+	//remove selected items from the pending list
+	selected.forEach(function(s){
+			pending.splice(pending.indexOf(s), 1);
+	});
 	storage.setItem('pending', pending);
 
-
-	console.log("selected: "+selected);
 
 	var redirect = new Date().getTime();
 	redirects.push(redirect);
 	console.log("redirects= "+redirects);
 
+	//if 'approve' was selected, add the selected items to the approved solutions
 	if(req.body.action == 'approve'){
-
-		console.log("Approving "+selected.length+" submissions");
 		selected.forEach(function(item){
 			solutions.push(item);
-		})
-
+		});
 		storage.setItem('solutions', solutions);
 
 		res.redirect('/admin?status=approved&count='+selected.length+"&redirect="+redirect);
@@ -81,25 +88,44 @@ httpApp.post("/admin/approve", function(req, res){
 
 });
 
+/**
+* Handles solution submissions from the app
+* Stores submitted solution in the pending list for approval
+*/
 httpApp.post("/submit", function(req, res){
 	var submission = JSON.parse(req.body.submission);
 	submission.id = "submission"+(new Date().getTime());
-	console.log("Incoming Submission: "+submission);
 	var pending = storage.getItem('pending');
+	for(var i = 0; i < pending.length; i++){
+		if(pending[i].solution == submission.solution){
+			return;
+		}
+	}
 	pending.push(submission);
 	storage.setItem('pending', pending);
+	
+	res.writeHead(200, {'Content-Type': 'text/html'})
+	res.write("success");
+	res.end();
 });
 
+/**
+* Handles suggesstion requests from the app.
+* Responds a list of solutions (string) 
+*/
 httpApp.post("/suggest", function(req, res){
 	var category = req.body.category;
-	var path = JSON.parse(req.body.path);
-	var suggestions = getSuggestions(category, path);
+	var conditions = JSON.parse(req.body.conditions);
+	var suggestions = getSuggestions(category, conditions);
 	console.log(suggestions);
 	res.json(suggestions);
+	res.end();
 })
 
+/**
+* Creates the table to pending solutions for the admin page
+*/
 function listPendingSubmissions(){
-	console.log("listing submissions...");
 	var html = "";
 	var pending = storage.getItem('pending');
 	if(pending.length > 0){
@@ -116,56 +142,52 @@ function listPendingSubmissions(){
 	} else {
 		html = "No new submissions.";
 	}
-	  return html;
+
+  	return html;
 }
 
+/**
+* Creates element to display the given solutions
+*/
 function renderSubmission(submission){
 	var html = "";	
 	html += "<h3 style='display:inline;'> ["+submission.category+"]</h3>";
 	html += "<h2 style='display:inline;'> "+submission.solution+"</h2>";
-	html += "<br/><b>Path:</b>";
+	html += "<br/><b>Conditions:</b>";
 	html += "<ul>";
-	for(var i = 0; i < submission.path.length; i++){
-		html += "<li><b>"+submission.path[i].questionID+": </b>";
-
-		for(var j = 0; j < submission.path[i].responses.length-1; j++){
-			html += submission.path[i].responses[j] + ", ";
-		}
-		html += submission.path[i].responses[submission.path[i].responses.length-1];
+	for(var i = 0; i < submission.conditions.length; i++){
+		html += "<li><b>"+submission.conditions[i]+"</b>";
 		html += "</li>";
-
 	}
 	html += "<ul>";
 
 	return html;
 }
 
-function getSuggestions(category, path){
+function getSuggestions(category, conditions){
 	var solutions = storage.getItem('solutions');
 	var selected = [];
 	solutions.forEach(function(item){
 		if(category == item.category){
-			selected.push(item.solution);
+			
+			var matchedConditions = 0;
+
+			//count how many of the conditions match
+			item.conditions.forEach(function(c){
+				if(conditions.indexOf(c) != -1){
+					matchedConditions++;
+				}
+			});
+
+			console.log(matchedConditions/conditions.length+" : "+item.solution);
+			if(matchedConditions/conditions.length >= MATCH_THRESHOLD){
+				selected.push(item.solution);
+			}
 		}
 	});
-
-	if(category.indexOf('exercise') == 0){
-		selected = filterExercise(selected, path);
-	} else {
-		selected = filterDiet(selected, path);
-	}
 	
 	return selected;
 }
 
-function filterExercise(list, path){
-
-
-	return list;
-}
-
-function filterDiet(list, path){
-	return list;
-}
 httpApp.listen(80);
 console.log('Server running');

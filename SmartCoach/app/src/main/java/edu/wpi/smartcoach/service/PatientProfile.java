@@ -1,10 +1,10 @@
 package edu.wpi.smartcoach.service;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Manages storage of patient registration information in preferences
@@ -24,6 +24,7 @@ public class PatientProfile {
 	private static final String KEY_GOAL_WEIGHT = "goalWeight";
 	
 	private static final String KEY_PROFILE_CONDITIONS = "conditions";
+    private static final String KEY_PROFILE_RESPONSES = "responses";
 	
 	/**
 	 * Marks the profile as initialized, so that the SmartCoach intro screens are only shown once
@@ -66,13 +67,13 @@ public class PatientProfile {
 	 * @param c Android context
 	 */
 	public static void setHeight(int heightInches, Context c){
-		getPreferences(c).edit().putInt(KEY_HEIGHT, heightInches);
+		getPreferences(c).edit().putInt(KEY_HEIGHT, heightInches).commit();
 	}
 	
 	/**
 	 * Set start weight. Only sets the weight if it has not been set already
 	 * @param value start weight
-	 * @param Android context
+	 * @param c android context
 	 */
 	public static void setStartWeight(float value, Context c) {
 		if(!isStartWeightSet(c)){
@@ -89,8 +90,21 @@ public class PatientProfile {
 		if(conditions == null){
 			conditions = new HashSet<String>();
 		}
-		getPreferences(c).edit().putStringSet(KEY_PROFILE_CONDITIONS, conditions);				
+		getPreferences(c).edit().putStringSet(KEY_PROFILE_CONDITIONS, conditions).commit();
 	}
+
+    /**
+     * Save the response to a profile question
+     * @param questionId id of the question
+     * @param optionIds list of selected option ids
+     * @param c Android context
+     */
+    public static void setResponse(String questionId, Set<String> optionIds, Context c){
+        if(optionIds == null){
+            optionIds = new HashSet<String>();
+        }
+        getPreferences(c).edit().putStringSet(KEY_PROFILE_RESPONSES+"."+questionId, optionIds).commit();
+    }
 
 	/**
 	 * Set goal weight
@@ -143,6 +157,16 @@ public class PatientProfile {
 	public static boolean hasCondition(String condition, Context c){
 		return getPreferences(c).getStringSet(KEY_PROFILE_CONDITIONS, new HashSet<String>()).contains(condition);
 	}
+
+    /**
+     * Get the saved responses to a profile question
+     * @param questionId question to get the responses to
+     * @param c Android context
+     * @return set of selected option ids
+     */
+    public static Set<String> getResponses(String questionId, Context c){
+        return getPreferences(c).getStringSet(KEY_PROFILE_RESPONSES+"."+questionId, new HashSet<String>());
+    }
 	
 	/**
 	 * Returns whether the start weight has been set before

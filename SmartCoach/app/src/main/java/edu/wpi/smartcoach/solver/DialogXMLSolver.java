@@ -1,8 +1,14 @@
 package edu.wpi.smartcoach.solver;
 
+import android.content.Context;
+import android.util.Log;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -12,19 +18,11 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
-import edu.wpi.smartcoach.model.QuestionResponseOutline;
 import edu.wpi.smartcoach.model.Solution;
+import edu.wpi.smartcoach.service.PatientProfile;
 import edu.wpi.smartcoach.util.DialogXMLReader;
 
 public class DialogXMLSolver implements ProblemSolver {
@@ -35,10 +33,9 @@ public class DialogXMLSolver implements ProblemSolver {
 	private Context context;
 	
 	private List<QuestionModel> questions;
-	private HashMap<String, String> conditions;
-	private HashMap<String, Solution> solutions;
-	
-		
+	private HashMap<String, String> conditionMap;
+	private HashMap<String, Solution> solutionMap;
+
 	private List<String> setConditions;
 	
 	private ArrayList<DialogXMLSolver> screens;
@@ -52,10 +49,10 @@ public class DialogXMLSolver implements ProblemSolver {
 	private boolean screensFinished = false;
 	
 	
-	public DialogXMLSolver(List<QuestionModel> questions, HashMap<String, String> conditions, HashMap<String, Solution> solutions, Node flow, int resource, Context context){
+	public DialogXMLSolver(List<QuestionModel> questions, HashMap<String, String> conditionMap, HashMap<String, Solution> solutionMap, Node flow, int resource, Context context){
 		this.questions = questions;
-		this.conditions = conditions;
-		this.solutions = solutions;
+		this.conditionMap = conditionMap;
+		this.solutionMap = solutionMap;
 		this.flow = flow;
 		this.resource = resource;
 		this.context = context;
@@ -125,7 +122,6 @@ public class DialogXMLSolver implements ProblemSolver {
 					String id = ((Element)currentNode).getAttribute("name");
 					List<String> firstList = evaluateCondition(id);
 					for(String s:firstList){
-						Log.d(TAG, "ready set crash: \'"+s+"\'");
 						//String storedId = s.substring(s.indexOf('[')+1, s.indexOf(']'));
 						//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 						//Set<String> storedConds = prefs.getStringSet("conditions."+storedId, new HashSet<String>());
@@ -154,45 +150,51 @@ public class DialogXMLSolver implements ProblemSolver {
 	}
 	
 	private void advanceFlow(){
-				
-		Element cElement = (Element)currentNode;
+        Element cElement;
+		if(currentNode instanceof Element) {
+            cElement = (Element) currentNode;
+
+            if(cElement.getTagName().equals("question")){
+                Log.d(TAG,"pushing " + cElement.getAttribute("id"));
+                pathStack.push(cElement);
+            }
+        }
 		
-		if(cElement.getTagName().equals("question")){
-			Log.d(TAG,"pushing" + cElement.getAttribute("id"));
-			pathStack.push(cElement);
-		}
+
 		
 		if(currentNode.getNextSibling() != null){
 			//Log.d(TAG, "next sibling");
 			currentNode = currentNode.getNextSibling();
-			cElement = (Element)currentNode;
-			if(cElement.getTagName().equals("if")){
-				String ifId = cElement.getAttribute("id");
-				String[] ifResponse = cElement.getAttribute("response").split(",");
-				if(ifId.startsWith("profile")){
-					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);					
-					Set<String> responseSet = prefs.getStringSet("responses."+ifId, new HashSet<String>());
-					
-					for(String ifRes:ifResponse){
-						if(responseSet.contains(ifRes)){
-							currentNode = cElement.getFirstChild();
-							return;
-						}
-					}
-				} else {
-					OptionQuestionModel testQuestion = (OptionQuestionModel)getQuestionById(ifId);
-					for(Option op:testQuestion.getSelectedOptions()){
-						for(String ifRes:ifResponse){
-							if(op.getId().equals(ifRes)){
-								currentNode = cElement.getFirstChild();
-								return;
-							}	
-						}
-					}
-					
-				}
-	
-			}
+            if(currentNode instanceof  Element) {
+                cElement = (Element) currentNode;
+                if (cElement.getTagName().equals("if")) {
+                    String ifId = cElement.getAttribute("id");
+                    String[] ifResponse = cElement.getAttribute("response").split(",");
+                    if (ifId.startsWith("profile")) {
+                        Set<String> responseSet = PatientProfile.getResponses(ifId, context);
+                        for (String ifRes : ifResponse) {
+                            if (responseSet.contains(ifRes)) {
+                                currentNode = cElement.getFirstChild();
+                                return;
+                            }
+                        }
+                    } else {
+                        OptionQuestionModel testQuestion = (OptionQuestionModel) getQuestionById(ifId);
+                        for (Option op : testQuestion.getSelectedOptions()) {
+                            for (String ifRes : ifResponse) {
+                                if (op.getId().equals(ifRes)) {
+                                    currentNode = cElement.getFirstChild();
+                                    return;
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+            } else {
+                advanceFlow();
+            }
 			
 		} else {
 			currentNode = currentNode.getParentNode();
@@ -227,11 +229,11 @@ public class DialogXMLSolver implements ProblemSolver {
 	}
 	
 	public Solution getSolutionById(String id){
-		return solutions.get(id);
+		return solutionMap.get(id);
 	}
 	
 	public boolean hasCondition(String condition){
-		return setConditions.contains(condition);
+		return getConditions().contains(condition);
 	}
 	
 	@Override
@@ -287,29 +289,48 @@ public class DialogXMLSolver implements ProblemSolver {
 		return resource;
 	}
 	
-	
+	public List<String> getConditions(){
+        List<String> conditions = new ArrayList<String>();
+        conditions.addAll(setConditions);
 
-	@Override
+        for(QuestionModel questionModel:questions){
+            if(questionModel instanceof OptionQuestionModel){
+                OptionQuestionModel question = (OptionQuestionModel)questionModel;
+                for(Option selectedOption:question.getSelectedOptions()){
+                    String condition = selectedOption.getCondition();
+                    conditions.addAll(evaluateCondition(condition));
+
+                }
+            }
+        }
+
+        return conditions;
+    }
+
+    @Override
+    public List<String> getConditionsRecursive() {
+        List<String> allConditions = getConditions();
+
+        for(DialogXMLSolver screen:screens){
+            allConditions.addAll(screen.getConditionsRecursive());
+        }
+
+        return allConditions;
+    }
+
+    @Override
 	public List<Solution> getSolution(Context ctx) {
 		List<Solution> solutionList = new ArrayList<Solution>();
-		for(QuestionModel oom:questions){
-			if(oom instanceof OptionQuestionModel){
-				OptionQuestionModel opq = (OptionQuestionModel)oom;
-				for(Option op:opq.getSelectedOptions()){					
-						String condition = op.getCondition();
-						setConditions.addAll(evaluateCondition(condition)); 
-									
-				}
-			}
-		}
-		
-		for(String c:setConditions){
+
+        List<String> allConditions = getConditions();
+
+		for(String c:allConditions){
 			Log.d(TAG, "Solutions For "+c);
-			if(this.conditions.containsKey(c)){
-				String[] solutionIds = this.conditions.get(c).split(",");
+			if(this.conditionMap.containsKey(c)){
+				String[] solutionIds = conditionMap.get(c).split(",");
 				for(String s:solutionIds){
-					if(solutions.containsKey(s)){
-						Solution soln = solutions.get(s);
+					if(solutionMap.containsKey(s)){
+						Solution soln = solutionMap.get(s);
 						if(soln != null && !solutionList.contains(soln)){
 							solutionList.add(soln); 
 						}
@@ -363,12 +384,6 @@ public class DialogXMLSolver implements ProblemSolver {
 	
 	public List<QuestionModel> getQuestions(){
 		return questions;
-	}
-
-	@Override
-	public QuestionResponseOutline[] getOutline() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

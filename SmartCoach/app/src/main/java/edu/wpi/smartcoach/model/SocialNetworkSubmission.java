@@ -1,68 +1,44 @@
 package edu.wpi.smartcoach.model;
 
+import java.util.List;
+
 public class SocialNetworkSubmission {
 
-	public static final String EXERCISE_TIME = "exercise_time";
-	public static final String EXERCISE_MOTIVATION = "exercise_motivation";
-	public static final String EXERCISE_BOREDOM = "exericse_boredom";
-	public static final String EXERCISE_INJURY = "exericse_injury";
-	public static final String EXERCISE_TIRED = "exercise_tired";
-	public static final String EXERCISE_WEATHER = "exercise_weather";
-	public static final String DIET = "diet";
+	public static final String CATEGORY_EXERCISE = "exercise";
+	public static final String CATEGORY_DIET = "diet";
 	
 	private String solution;	
 	private String category;
-	private QuestionResponseOutline[] path;
+	private List<String> conditions;
 
-	public SocialNetworkSubmission(String category, String solution, QuestionResponseOutline[] path) {
+	public SocialNetworkSubmission(String category, String solution, List<String> conditions) {
 		super();
 		this.category = category;
 		this.solution = solution;
-		this.path = path;
+		this.conditions = conditions;
 	}
 
-	/**
-	 * @return the solution
-	 */
-	public String getSolution() {
-		return solution;
-	}
+    public String getSolution() {
+        return solution;
+    }
 
-	/**
-	 * @return the path
-	 */
-	public Object getPath() {
-		return path;
-	}
+    public void setSolution(String solution) {
+        this.solution = solution;
+    }
 
-	/**
-	 * @param solution the solution to set
-	 */
-	public void setSolution(String solution) {
-		this.solution = solution;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	/**
-	 * @param path the path to set
-	 */
-	public void setPath(QuestionResponseOutline[] path) {
-		this.path = path;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	/**
-	 * @return the category
-	 */
-	public String getCategory() {
-		return category;
-	}
+    public List<String> getConditions() {
+        return conditions;
+    }
 
-	/**
-	 * @param category the category to set
-	 */
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	
-	
-
+    public void setConditions(List<String> conditions) {
+        this.conditions = conditions;
+    }
 }

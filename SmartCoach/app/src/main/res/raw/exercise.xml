@@ -95,7 +95,9 @@
 		</question>
 
 		<question id='8'>
-			<prompt>Which weather conditions are causing you to cancel you workouts lately?</prompt>
+			<prompt>
+                Which weather conditions are causing you to cancel you workouts lately?
+            </prompt>
 			<option id='A' condition='weather.hot'>Hot</option>
 			<option id='B' condition='weather.cold'>Cold</option>
 			<option id='C' condition='weather.rain'>Rain</option>

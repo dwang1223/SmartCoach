@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,9 +18,9 @@ import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.service.PatientProfile;
+import edu.wpi.smartcoach.util.Callback;
 import edu.wpi.smartcoach.util.DialogXMLReader;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
-import edu.wpi.smartcoach.view.QuestionResponseListener;
 
 /**
  * Activity where the user answers some basic profile questions
@@ -41,7 +40,6 @@ public class ProfileActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		setTitle("SmartCoach Profile Information");
 		
 		questions = new ArrayList<OptionQuestionModel>();
 		List<QuestionModel> read = DialogXMLReader.readXML(R.raw.profile, this).getQuestions(); //profile doesnt have "solutions", just get the question list
@@ -80,11 +78,7 @@ public class ProfileActivity extends FragmentActivity {
 		startActivity(intent);	
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.profile, menu);
-		return true;
-	}
+
 
 	public class QuestionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -98,10 +92,10 @@ public class ProfileActivity extends FragmentActivity {
 			qf.setQuestion(questions.get(position));
 			qf.setBackEnabled(position != 0);
 			qf.setLast(position == getCount()-1);
-			qf.setNextButtonListener( new QuestionResponseListener() {
+			qf.setNextButtonListener( new Callback<QuestionModel>() {
 					
 					@Override
-					public void responseEntered(QuestionModel question) {
+					public void callback(QuestionModel question) {
 						if(position == getCount()-1){
 							doFinish();
 						} else {
@@ -110,10 +104,10 @@ public class ProfileActivity extends FragmentActivity {
 						
 					}
 				});
-			qf.setBackButtonListener(new QuestionResponseListener() {
+			qf.setBackButtonListener(new Callback<QuestionModel>() {
 				
 				@Override
-				public void responseEntered(QuestionModel question) {
+				public void callback(QuestionModel question) {
 					mViewPager.setCurrentItem(position-1, true);					
 				}
 			});

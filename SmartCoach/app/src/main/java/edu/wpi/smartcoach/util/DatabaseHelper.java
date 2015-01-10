@@ -1,14 +1,15 @@
 package edu.wpi.smartcoach.util;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import edu.wpi.smartcoach.R;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -60,7 +61,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			e.printStackTrace();
 		}
 	}
-	
+
+    /**
+     * Copies the database file to the phone's public storage (sdcard/Android/data/edu.wpi.smartcoach)
+     * @param ctx
+     */
 	public void copyToStorage(Context ctx){
 		File dbFile = new File(getWritableDatabase().getPath());
 		File outFile = new File(ctx.getExternalFilesDir(null), "smartcoachdb.db");

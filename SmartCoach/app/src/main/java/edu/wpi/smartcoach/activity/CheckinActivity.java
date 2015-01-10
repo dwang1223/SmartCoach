@@ -3,8 +3,6 @@ package edu.wpi.smartcoach.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,18 +16,18 @@ import edu.wpi.smartcoach.model.WeightQuestionModel;
 import edu.wpi.smartcoach.reminders.Reminder;
 import edu.wpi.smartcoach.service.ReminderService;
 import edu.wpi.smartcoach.service.WeightService;
+import edu.wpi.smartcoach.util.Callback;
 import edu.wpi.smartcoach.view.QuestionFragment;
-import edu.wpi.smartcoach.view.QuestionResponseListener;
 
-public class CheckinActivity extends FragmentActivity implements QuestionResponseListener {
+public class CheckinActivity extends FragmentActivity implements Callback<QuestionModel> {
 	
-	List<QuestionModel> questions;
-	int index = 0;
+	private List<QuestionModel> questions;
+    private int index = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkin);
-		setTitle("SmartCoach Check-In");
 		
 		boolean weighInOnly = getIntent().getBooleanExtra("weighInOnly", false);
 		
@@ -79,8 +77,7 @@ public class CheckinActivity extends FragmentActivity implements QuestionRespons
 				questions.add(successes);
 				questions.add(repeat);
 			}
-				questions.add(doDiet);
-			
+            questions.add(doDiet);
 			questions.add(doExercise);
 		}
 		
@@ -90,30 +87,15 @@ public class CheckinActivity extends FragmentActivity implements QuestionRespons
 			.beginTransaction()
 			.add(R.id.container, qFrag)
 			.commit();
-//		if (savedInstanceState == null) {
-//			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
-//		}
+
 	}
 
+    /**
+     * Called when a question is responded to
+     * @param question
+     */
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.checkin, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-
-	@Override
-	public void responseEntered(QuestionModel question) {
+	public void callback(QuestionModel question) {
 		
 		if(question.getId().equals("diet")){
 			if(((OptionQuestionModel)question).getSelectedOption().getId().equals("yes")){
@@ -137,8 +119,8 @@ public class CheckinActivity extends FragmentActivity implements QuestionRespons
 			QuestionFragment qFrag = QuestionFragment.createQuestion(questions.get(index));
 			qFrag.setNextButtonListener(this);
 			getSupportFragmentManager()
-			.beginTransaction()
-			.add(R.id.container, qFrag)
+                .beginTransaction()
+                .add(R.id.container, qFrag)
 			.commit();
 		} else {
 			finish();

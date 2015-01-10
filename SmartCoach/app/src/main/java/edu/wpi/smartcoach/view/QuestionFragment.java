@@ -1,10 +1,12 @@
 package edu.wpi.smartcoach.view;
 
 import android.support.v4.app.Fragment;
+
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
 import edu.wpi.smartcoach.model.WeightQuestionModel;
+import edu.wpi.smartcoach.util.Callback;
 
 /**
  * A generic fragment that displays a QuestionModel
@@ -49,13 +51,13 @@ public abstract class QuestionFragment extends Fragment {
 	 * @param listener
 	 * @return
 	 */
-	public abstract QuestionFragment setNextButtonListener(QuestionResponseListener listener);
+	public abstract QuestionFragment setNextButtonListener(Callback<QuestionModel> listener);
 	
 	/**
 	 * Set the listener that should be notified when the back button is pressed
 	 * @param listener
 	 * @return
 	 */
-	public abstract QuestionFragment setBackButtonListener(QuestionResponseListener listener);
+	public abstract QuestionFragment setBackButtonListener(Callback<QuestionModel> listener);
 
 }

@@ -22,7 +22,7 @@ public class ReminderReciever extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		long id = intent.getLongExtra("id", -1);
+		int id = intent.getIntExtra("id", -1);
 		
 		if(id == 9001){//the checkin reminder
 			  Intent checkinIntent = new Intent(context, CheckinActivity.class);
@@ -37,8 +37,7 @@ public class ReminderReciever extends BroadcastReceiver {
 			NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 			notificationManager.notify(0, n);
-		}
-		else if(id != -1) { // a regular reminder
+		} else if(id != -1) { // a regular reminder
 			Reminder r = ReminderService.getInstance().getReminder(id, context);
 			if(r != null){
 				NotificationCompat.Builder builder = new NotificationCompat.Builder(context);

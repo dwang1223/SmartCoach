@@ -10,9 +10,9 @@ public class Solution {
 	public static final int TYPE_DEFAULT = 0;
 	public static final int TYPE_COMMUNITY = 1;
 	
-	protected int type;
-	protected String message;
-	protected String link;
+	private int type;
+	private String message;
+	private String link;
 	
 	/**
 	 * Constructor with specified type & info link

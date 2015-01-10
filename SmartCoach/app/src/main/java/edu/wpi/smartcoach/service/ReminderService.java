@@ -1,10 +1,11 @@
 package edu.wpi.smartcoach.service;
 
+import android.content.Context;
+import android.database.Cursor;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
-import android.database.Cursor;
 import edu.wpi.smartcoach.reminders.Reminder;
 import edu.wpi.smartcoach.util.DatabaseHelper;
 
@@ -16,11 +17,12 @@ public class ReminderService {
 		if(instance == null){
 			instance = new ReminderService();
 		}
-		
 		return instance;
 	}
+
+    private ReminderService(){}
 	
-	public Reminder getReminder(long id, Context c){
+	public Reminder getReminder(int id, Context c){
 		List<Reminder> all = getAllDataFromTable(c);
 		Reminder reminder = null;
 		for(Reminder r:all){
@@ -40,7 +42,7 @@ public class ReminderService {
 		
 		while(cursor.moveToNext()){
 			reminders.add(new Reminder(
-					(int)cursor.getLong(0),
+					(int)cursor.getInt(0),
 					cursor.getString(1),
 					cursor.getString(2),
 					cursor.getInt(3),
@@ -69,5 +71,4 @@ public class ReminderService {
 		
 		return (int)max;
 	}
-
 }

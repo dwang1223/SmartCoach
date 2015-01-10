@@ -1,12 +1,13 @@
 package edu.wpi.smartcoach.service;
 
+import android.content.Context;
+import android.database.Cursor;
+
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import android.content.Context;
-import android.database.Cursor;
 import edu.wpi.smartcoach.util.DatabaseHelper;
 
 /**
@@ -16,7 +17,7 @@ import edu.wpi.smartcoach.util.DatabaseHelper;
 public class WeightService {
 		
 		private static WeightService instance = null;
-		
+
 		public static WeightService getInstance(){
 			if(instance == null){
 				instance = new WeightService();
@@ -24,6 +25,8 @@ public class WeightService {
 			
 			return instance;
 		}
+
+        private WeightService(){}
 		
 		public List<Entry<Long, Float>> getAllDataFromTable(Context c){
 			List<Entry<Long, Float>> reminders = new ArrayList<Entry<Long, Float>>();
@@ -36,13 +39,11 @@ public class WeightService {
 						cursor.getLong(0),
 						cursor.getFloat(1)));
 			}
-			
 			return reminders;
 		}
 		
 		public void addWeight(long time, float weight, Context c){
 			String sql = String.format("insert into t_weight (time, weight) values (%d, %f)", time, weight);
-		
 			DatabaseHelper.getInstance(c).getWritableDatabase().execSQL(sql);
 		}	
 }

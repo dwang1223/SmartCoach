@@ -1,5 +1,11 @@
 package edu.wpi.smartcoach.model.exercise;
 
+import android.content.Context;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +13,6 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import android.content.Context;
 import edu.wpi.smartcoach.R;
 
 /**
@@ -154,7 +155,6 @@ public class Exercise {
 		} else {
 			return false;
 		}
-		
 	}
 
 

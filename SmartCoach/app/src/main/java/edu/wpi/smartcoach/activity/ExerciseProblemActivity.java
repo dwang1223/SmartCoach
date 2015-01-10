@@ -16,13 +16,13 @@ import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
 import edu.wpi.smartcoach.service.SessionService;
 import edu.wpi.smartcoach.solver.DialogXMLSolver;
+import edu.wpi.smartcoach.util.Callback;
 import edu.wpi.smartcoach.util.DialogXMLReader;
 import edu.wpi.smartcoach.view.OptionQuestionFragment;
 import edu.wpi.smartcoach.view.QuestionFragment;
-import edu.wpi.smartcoach.view.QuestionResponseListener;
 import edu.wpi.smartcoach.view.SolutionFragment;
 
-public class ExerciseProblemActivity extends FragmentActivity implements QuestionResponseListener {
+public class ExerciseProblemActivity extends FragmentActivity implements Callback<QuestionModel> {
 
 	private final static String TAG = ExerciseProblemActivity.class.getSimpleName();
 	
@@ -37,7 +37,6 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_problem);
-		setTitle("SmartCoach Problem Solving");
 		
 		solver = DialogXMLReader.readXML(R.raw.exercise, this);
 		questionFragment = new OptionQuestionFragment();
@@ -49,7 +48,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	}
 	 
 	@Override
-	public void responseEntered(QuestionModel question) {
+	public void callback(QuestionModel question) {
 		
 		if(solved){
 //			OptionQuestionModel sln = (OptionQuestionModel)question;
@@ -84,10 +83,10 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 			questionFragment = QuestionFragment.createQuestion(nextQuestion);
 			//questionFragment.setQuestion((QuestionModel)nextQuestion);
 			questionFragment.setNextButtonListener(this);
-			questionFragment.setBackButtonListener(new QuestionResponseListener() {
+			questionFragment.setBackButtonListener(new Callback<QuestionModel>() {
 				
 				@Override
-				public void responseEntered(QuestionModel question) {
+				public void callback(QuestionModel question) {
 					navigateBack();
 				}
 			});
@@ -100,7 +99,7 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 	private void showSolution(List<Solution> solutions){
 		SolutionFragment solutionFragment = new SolutionFragment();
 		solutionFragment.setSolutions(solutions);
-		solutionFragment.setSolver(SocialNetworkSubmission.DIET, solver);
+		solutionFragment.setSolver(SocialNetworkSubmission.CATEGORY_EXERCISE, solver);
 		solutionFragment.setNextButtonListener(this);
 		getSupportFragmentManager().beginTransaction().replace(R.id.container, solutionFragment).commit();	
 		
@@ -112,10 +111,10 @@ public class ExerciseProblemActivity extends FragmentActivity implements Questio
 		
 		QuestionFragment questionFragment = QuestionFragment.createQuestion(newQuestion);
 		questionFragment.setNextButtonListener(this);
-		questionFragment.setBackButtonListener(new QuestionResponseListener() {
+		questionFragment.setBackButtonListener(new Callback<QuestionModel>() {
 			
 			@Override
-			public void responseEntered(QuestionModel question) {
+			public void callback(QuestionModel question) {
 				navigateBack();
 			}
 		});

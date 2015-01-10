@@ -1,0 +1,32 @@
+<script>
+    <questions>
+        <flow>
+            <!--Example flow-->
+            <question id='1'/>
+            <question id='2'/>
+            <question id='3'/>
+        </flow>
+
+        <question id='1'>
+            <!-- Question text/type information -->
+        </question>
+
+        <question id='2'>
+            <!-- Question text/type information -->
+        </question>
+
+        <question id='3'>
+            <!-- Question text/type information -->
+        </question>
+    </questions>
+
+    <conditions>
+        <condition name='conditionA'>solution1,solution2</condition>
+    </conditions>
+
+    <solutions>
+        <solution id='solution1'>Solution 1 Text</solution>
+        <solution id='solution2'>Solution 2 Text</solution>
+    </solutions>
+
+</script>

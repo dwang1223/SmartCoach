@@ -10,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.WeightQuestionModel;
+import edu.wpi.smartcoach.util.Callback;
 
 /**
  * A QuestionFragment to prompt the user for their weight
@@ -27,7 +30,7 @@ public class WeightQuestionFragment extends QuestionFragment {
 	private Button next;
 	private Button back;
 	
-	private QuestionResponseListener nextListener = null;
+	private Callback<QuestionModel> nextListener = null;
 	
 	public WeightQuestionFragment(){
 		
@@ -74,7 +77,7 @@ public class WeightQuestionFragment extends QuestionFragment {
 			@Override
 			public void onClick(View v) {
 				if(nextListener != null){
-					nextListener.responseEntered(question);
+					nextListener.callback(question);
 				}
 				
 			}
@@ -102,13 +105,13 @@ public class WeightQuestionFragment extends QuestionFragment {
 	}
 
 	@Override
-	public QuestionFragment setNextButtonListener(QuestionResponseListener listener) {
+	public QuestionFragment setNextButtonListener(Callback<QuestionModel> listener) {
 		nextListener = listener;
 		return this;
 	}
 
 	@Override
-	public QuestionFragment setBackButtonListener(QuestionResponseListener listener) {
+	public QuestionFragment setBackButtonListener(Callback<QuestionModel> listener) {
 		// TODO Auto-generated method stub
 		return this;
 	}

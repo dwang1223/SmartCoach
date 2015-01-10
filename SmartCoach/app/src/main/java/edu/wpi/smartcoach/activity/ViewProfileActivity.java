@@ -34,22 +34,21 @@ public class ViewProfileActivity extends Activity {
 	
 	private static final String TAG = ViewProfileActivity.class.getSimpleName();
 	
-	TextView nameView,genderView;
-	TextView heightView,startWeightView, goalWeightView;
-	
-	Button editUserButton;
-	Button editPrefsButton;
-	
-	Button weighInButton;
-	
-	LinearLayout graphContainerLayout;
+	private TextView nameView,genderView;
+    private TextView heightView,startWeightView, goalWeightView;
+
+    private Button editUserButton;
+    private Button editPrefsButton;
+
+    private Button weighInButton;
+
+    private LinearLayout graphContainerLayout;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_profile);
 
-		setTitle("SmartCoach Profile");
 		
 		nameView = (TextView)findViewById(R.id.name);
 		genderView = (TextView)findViewById(R.id.gender);
@@ -66,7 +65,7 @@ public class ViewProfileActivity extends Activity {
 		weighInButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
+			public void onClick(View view) {
 				Intent intent = new Intent(getApplicationContext(), CheckinActivity.class);
 				intent.putExtra("weighInOnly", true);
 				startActivity(intent);
@@ -79,7 +78,7 @@ public class ViewProfileActivity extends Activity {
 		editUserButton.setOnClickListener(new OnClickListener() {
 	
 			@Override
-			public void onClick(View v) {
+			public void onClick(View view) {
 				Intent intent = new Intent(getBaseContext(), RegistrationActivity.class);
 				intent.putExtra("edit", true);
 				startActivity(intent);
@@ -90,7 +89,7 @@ public class ViewProfileActivity extends Activity {
 		editPrefsButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
+			public void onClick(View view) {
 				Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
 				intent.putExtra("edit", true);
 				startActivity(intent);				

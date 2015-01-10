@@ -6,7 +6,9 @@ package edu.wpi.smartcoach.model;
  *
  */
 public class TimeQuestionModel implements QuestionModel {
-	
+
+    private static final String TAG = TimeQuestionModel.class.getSimpleName();
+
 	private String id;
 	private String title;
 	private String prompt;
@@ -15,7 +17,14 @@ public class TimeQuestionModel implements QuestionModel {
 	
 	public static String formatTime(int time){
 		time = time % (60*24);
-		return String.format("%d:%02d %s", time/60, time%60, time < 12*60 ? "AM":"PM");
+        int hour = (time/60)%12;
+        if(hour == 0){
+            hour = 12;
+        }
+        int minute = time%60;
+        String formattedTime = String.format("%d:%02d %s", hour, minute, time < 12*60 ? "AM":"PM");
+        //Log.d(TAG, String.format("formatted \'%d\' to \'%s\'", time, formattedTime));
+		return formattedTime;
 	}
 	
 	public TimeQuestionModel(String id, String title, String prompt) {
@@ -73,9 +82,5 @@ public class TimeQuestionModel implements QuestionModel {
 	public TimeQuestionModel clone(){
 		return new TimeQuestionModel(id, title, prompt);
 	}
-	@Override
-	public QuestionResponseOutline getOutline() {
-		// TODO Auto-generated method stub
-		return new QuestionResponseOutline(id, new String[]{response+""});
-	}
+
 }

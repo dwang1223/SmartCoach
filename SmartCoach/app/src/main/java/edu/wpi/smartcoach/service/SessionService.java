@@ -1,10 +1,5 @@
 package edu.wpi.smartcoach.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,11 +7,16 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import edu.wpi.smartcoach.model.Session;
 
 public class SessionService {
 	
-	private static final String TAG= SessionService.class.getSimpleName();
+	private static final String TAG = SessionService.class.getSimpleName();
 	
 	private static final String PREF_SESSION = "sessions";
 	private static final String PREF_SOLUTION = "solutions";
@@ -30,6 +30,8 @@ public class SessionService {
 		}
 		return instance;
 	}
+
+    private SessionService(){}
 	
 	public List<Session> getAllSessions(Context context){
 		List<Session> sessionList = new ArrayList<Session>();

@@ -295,7 +295,7 @@
 			<condition name='bored.at_home.retired'>195,128,45,124,68</condition>
 			<condition name='bored.at_home.job_downtime'>109,148,126</condition>
 			<condition name='bored.at_home.homemaker'>82,195,228,229,230,231,232</condition>
-			<condition name='boerd.at_home.live_alone'>109,148,126,136</condition>
+			<condition name='bored.at_home.live_alone'>109,148,126,136</condition>
 			<condition name='bored.at_home.busy'>109,148,126,183</condition>
 
 		<condition name='bored.at_work'>188,161,195,81,216,127,98,16</condition>

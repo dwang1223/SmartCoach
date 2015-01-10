@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
+import edu.wpi.smartcoach.util.Callback;
 
 /**
  * A Question Fragment to prompt the user to input a time of day
@@ -24,8 +26,8 @@ public class TimeQuestionFragment extends QuestionFragment {
 	
 	private TimeQuestionModel question;
 	
-	private QuestionResponseListener nextListener;
-	private QuestionResponseListener backListener;
+	private Callback<QuestionModel> nextListener;
+	private Callback<QuestionModel> backListener;
 	private boolean backEnabled = false;
 	
 	private TextView questionView;
@@ -47,7 +49,7 @@ public class TimeQuestionFragment extends QuestionFragment {
 	
 	@Override
 	public TimeQuestionFragment setNextButtonListener(
-			QuestionResponseListener listener) {
+			Callback<QuestionModel> listener) {
 		this.nextListener = listener;
 		return this;
 	}
@@ -57,7 +59,7 @@ public class TimeQuestionFragment extends QuestionFragment {
 		return this;
 	}
 	
-	public TimeQuestionFragment setBackButtonListener(QuestionResponseListener ocl){
+	public TimeQuestionFragment setBackButtonListener(Callback<QuestionModel> ocl){
 		backListener = ocl;
 		return this;
 	}
@@ -112,7 +114,7 @@ public class TimeQuestionFragment extends QuestionFragment {
 				int minute = timePicker.getCurrentMinute();
 				Log.d(TAG, String.format("Time picked %d:%d", hour, minute));
 				question.setResponse(hour, minute);
-				nextListener.responseEntered(question);
+				nextListener.callback(question);
 				
 			}
 		});
@@ -122,7 +124,7 @@ public class TimeQuestionFragment extends QuestionFragment {
 			@Override
 			public void onClick(View v) {
 				if(backListener != null){
-					backListener.responseEntered(question);
+					backListener.callback(question);
 				}
 			}
 		});

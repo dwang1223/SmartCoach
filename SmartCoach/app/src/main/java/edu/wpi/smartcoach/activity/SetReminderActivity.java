@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
 import android.view.View;
 
 import java.util.Calendar;
@@ -26,17 +25,16 @@ public class SetReminderActivity extends FragmentActivity {
 	
 	private static final String TAG = SetReminderActivity.class.getSimpleName();
 
-	ReminderPagerAdapter mSectionsPagerAdapter;
+    private ReminderPagerAdapter mSectionsPagerAdapter;
 
-	ViewPager mViewPager;
+    private ViewPager mViewPager;
 
-	String[] reminders;
+    private String[] reminders;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		setTitle("SmartCoach Set Reminders");
 		
 		reminders = getIntent().getExtras().getStringArray("reminder");
 		
@@ -85,17 +83,12 @@ public class SetReminderActivity extends FragmentActivity {
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
         
         Intent intent = new Intent(this, ReminderReciever.class);
-        intent.putExtra("id", id);
+        intent.putExtra("id", (Integer)id);
         PendingIntent pending = PendingIntent.getBroadcast(this, id, intent, 0);
         
         manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, (long)(7*24*60*60*1000) , pending); 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.profile, menu);
-		return true;
-	}
 
 	public class ReminderPagerAdapter extends FragmentPagerAdapter {
 		
@@ -116,7 +109,7 @@ public class SetReminderActivity extends FragmentActivity {
 				f.setListener(new View.OnClickListener() {
 					
 					@Override
-					public void onClick(View v) {
+					public void onClick(View view) {
 						if(position != reminders.length-1){
 							mViewPager.setCurrentItem(position+1);
 						}else  {

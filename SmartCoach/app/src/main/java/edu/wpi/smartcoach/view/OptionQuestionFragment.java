@@ -11,16 +11,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
-import edu.wpi.smartcoach.view.OptionListAdapter.ResponseChangedListener;
+import edu.wpi.smartcoach.model.QuestionModel;
+import edu.wpi.smartcoach.util.Callback;
 
 /**
  * Fragment that displays an OptionQuestionModel
  * @author Akshay
  *
  */
-public class OptionQuestionFragment extends QuestionFragment implements ResponseChangedListener {
+public class OptionQuestionFragment extends QuestionFragment implements Callback<OptionQuestionModel> {
 	
 	private static final String TAG  = OptionQuestionFragment.class.getSimpleName();
 
@@ -34,8 +36,8 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 	
 	private Button nextButton;
 	private Button backButton;
-	private QuestionResponseListener nextListener;
-	private QuestionResponseListener backListener;
+	private Callback<QuestionModel> nextListener;
+	private Callback<QuestionModel> backListener;
 	
 	private boolean backEnabled = false;
 	private boolean isLast = false;
@@ -49,12 +51,12 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 		return this;
 	}
 	
-	public OptionQuestionFragment setNextButtonListener(QuestionResponseListener ocl){		
+	public OptionQuestionFragment setNextButtonListener(Callback<QuestionModel> ocl){
 		nextListener = ocl;
 		return this;
 	}
 	
-	public OptionQuestionFragment setBackButtonListener(QuestionResponseListener ocl){
+	public OptionQuestionFragment setBackButtonListener(Callback<QuestionModel> ocl){
 		backListener = ocl;
 		return this;
 	}
@@ -86,18 +88,18 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 				
 		nextButton.setOnClickListener(new View.OnClickListener() {			
 			@Override
-			public void onClick(View v) {
+			public void onClick(View view) {
 				if(question.hasMinimumResponses() && nextListener != null){ 
-					nextListener.responseEntered(question);
+					nextListener.callback(question);
 				} 
 			}
 		});
 		
 		backButton.setOnClickListener(new OnClickListener() {			
 			@Override
-			public void onClick(View v) {
+			public void onClick(View view) {
 				if(backListener != null){
-					backListener.responseEntered(question);
+					backListener.callback(question);
 				}
 			}
 		});
@@ -177,7 +179,7 @@ public class OptionQuestionFragment extends QuestionFragment implements Response
 	}
 
 	@Override
-	public void responseChanged(OptionQuestionModel q) {
+	public void callback(OptionQuestionModel q) {
 		if(q.hasMinimumResponses()){
 			nextButton.setBackgroundResource(R.drawable.bg_card_button);
 		} else {

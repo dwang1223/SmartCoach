@@ -290,18 +290,7 @@ public class OptionQuestionModel implements QuestionModel{
 	public String toString(){
 		return String.format("%s:%s", id, prompt);
 	}
-	
-	@Override
-	public QuestionResponseOutline getOutline(){
-		List<Object> selected = getSelectedValues();
-		String[] responseStrings = new String[selected.size()];
-		for(int i = 0; i < selected.size(); i++){
-			responseStrings[i] = selected.get(i).toString();		
-		}
-		
-		return new QuestionResponseOutline(id, responseStrings);
-	}
-	
+
 	@Override
 	public OptionQuestionModel clone(){
 		List<Option> optionClone = new ArrayList<Option>();

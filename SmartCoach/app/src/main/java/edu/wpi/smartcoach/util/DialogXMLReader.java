@@ -1,5 +1,12 @@
 package edu.wpi.smartcoach.util;
 
+import android.content.Context;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,15 +15,9 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import android.content.Context;
+import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
 import edu.wpi.smartcoach.model.OptionQuestionModel.QuestionType;
-import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.QuestionModel;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
@@ -72,7 +73,9 @@ public class DialogXMLReader {
 							type = QuestionType.MULTIPLE;
 						} else if (qType.equals("at_least_one")){
 							type = QuestionType.AT_LEAST_ONE;
-						}
+						} else if (qType.equals("single")){
+                            type = QuestionType.SINGLE;
+                        }
 					}
 
 					// NodeList ll = questionElement.getChildNodes();
@@ -124,7 +127,13 @@ public class DialogXMLReader {
 							String text = op.getTextContent();
 							options.add(new Option(oId, text, condition));
 
-						}
+                        }
+
+                        //if there are no options, make the question type multiple so that the user can proceed
+                        if(options.isEmpty()){
+                            type = QuestionType.MULTIPLE;
+                        }
+
 						questions.add(new OptionQuestionModel(id, "", prompt, options, type, false, false));
 					}
 				}

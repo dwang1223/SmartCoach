@@ -4,16 +4,17 @@
     <string name="app_name">SmartCoach</string>
     <string name="action_settings">Settings</string>
     <string name="checkin">Check-In</string>
-    <string name="title_activity_show_profile">ShowProfileActivity</string>
+    <string name="fitbit_logout">Log out of Fitbit</string>
+    <string name="title_activity_profile">SmartCoach Profile Information</string>
     <string name="title_activity_registration">SmartCoach Registration</string>
-    <string name="title_activity_exercise_problem">ExerciseProblemActivity</string>
+    <string name="title_activity_problem">SmartCoach Problem Solving</string>
     <string name="title_activity_patient_metrics">Patient Metrics</string>
-    <string name="title_activity_registration_intro">RegistrationIntroActivity</string>
-    <string name="title_activity_view_profile">Profile</string>
-    <string name="title_activity_set_reminder">SetReminderActivity</string>
+    <string name="title_activity_registration_intro">Welcome to SmartCoach</string>
+    <string name="title_activity_view_profile">SmartCoach Profile</string>
+    <string name="title_activity_set_reminder">Set Reminder</string>
     <string name="title_activity_show_reminders">ShowRemindersActivity</string>
-    <string name="title_activity_checkin">CheckinActivity</string>
-    <string name="title_activity_reminders">RemindersActivity</string>
-    <string name="title_activity_session">SessionActivity</string>
+    <string name="title_activity_checkin">SmartCoach Check-In</string>
+    <string name="title_activity_reminders">Reminders</string>
+    <string name="title_activity_session">Session</string>
 
 </resources>

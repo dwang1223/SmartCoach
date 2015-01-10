@@ -1,17 +1,19 @@
 package edu.wpi.smartcoach.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.wpi.smartcoach.R;
 import edu.wpi.smartcoach.model.Option;
 import edu.wpi.smartcoach.model.OptionQuestionModel;
+import edu.wpi.smartcoach.util.Callback;
 
 /**
  * Adapter for displaying options from a OptionQuestionModel in a ListView
@@ -20,15 +22,11 @@ import edu.wpi.smartcoach.model.OptionQuestionModel;
  */
 public class OptionListAdapter extends BaseAdapter {
 
-	public interface ResponseChangedListener{
-		public void responseChanged(OptionQuestionModel q);
-	}
-	
 	private static final String TAG = OptionListAdapter.class.getSimpleName();
 
 	private Context context;
 	private OptionQuestionModel question;	
-	private ResponseChangedListener responseListener;	
+	private Callback<OptionQuestionModel> responseListener;
 	private List<Option> active;
 
 	/**
@@ -43,10 +41,10 @@ public class OptionListAdapter extends BaseAdapter {
 		active = new ArrayList<Option>(qm.getOptions());
 	}
 	
-	public void setResponseChangedListener(ResponseChangedListener rl){
+	public void setResponseChangedListener(Callback<OptionQuestionModel> rl){
 		responseListener = rl;
 		if(responseListener != null){
-			responseListener.responseChanged(question);
+			responseListener.callback(question);
 		}
 	}
 
@@ -78,7 +76,7 @@ public class OptionListAdapter extends BaseAdapter {
 				question.optionSelected(op);
 				
 				if(responseListener != null){
-					responseListener.responseChanged(question);
+					responseListener.callback(question);
 				}
 				
 				notifyDataSetChanged();

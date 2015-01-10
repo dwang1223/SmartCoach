@@ -36,8 +36,7 @@ public class RegistrationActivity extends Activity implements TextWatcher {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registration);
-		
-		setTitle("SmartCoach Registration");
+
 		
 		if(getIntent().getExtras() != null){
 			editing = getIntent().getExtras().getBoolean("edit", false);

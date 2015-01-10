@@ -2,6 +2,7 @@
 	<questions>
 		<flow>
 			<question id='1'/>
+            <!--Question 2 is not asked, since it usually asked before starting this screener-->
 			<question id='3'/>
 			<question id='4'/>
 			<question id='5'/>

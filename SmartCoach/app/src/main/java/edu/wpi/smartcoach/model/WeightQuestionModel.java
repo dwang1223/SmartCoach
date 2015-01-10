@@ -40,12 +40,6 @@ public class WeightQuestionModel implements QuestionModel {
 		return weight;
 	}	
 
-	@Override
-	public QuestionResponseOutline getOutline() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public WeightQuestionModel clone(){
 		return new WeightQuestionModel(id, prompt);
 	}
