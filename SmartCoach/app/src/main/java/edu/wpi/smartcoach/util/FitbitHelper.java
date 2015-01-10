@@ -1,8 +1,11 @@
 package edu.wpi.smartcoach.util;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -24,8 +27,10 @@ import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import edu.wpi.smartcoach.R;
+import edu.wpi.smartcoach.reminders.FitbitReciever;
 
 /**
  * Abstractions for Fitbit API
@@ -39,6 +44,10 @@ public class FitbitHelper {
 
     private static final String CLIENT_KEY = "10afc04216c74a8aa6f60352a715124b";
     private static final String CLIENT_SECRET = "da0ec9aee4f44d519937fe56fe6bbc71";
+
+    public  static final int ALARM_ID = 9002;
+    private static final int ALARM_HOUR = 20;//8:00 PM
+    private static final int ALARM_MINUTE = 0;
 
     private static final String JS_GET_ACCESS_TOKEN = "javascript:FitbitHelper.submitPin(document.getElementsByClassName('pin')[0].innerHTML)";
     private static final String JS_CHECK_DENIED = "javascript:if(document.getElementsByClassName('err')[0].innerHTML == 'Denied'){FitbitHelper.denied();}";
@@ -140,6 +149,7 @@ public class FitbitHelper {
                     Token accessToken = service.getAccessToken(requestToken, verifier);
                     setAccessToken(accessToken, context);
                     logInListener.callback(true); //log in succeeded
+                    setFitbitAlarm(context);
                 } catch(Exception e){
                     logInListener.callback(false);
                     e.printStackTrace();
@@ -261,6 +271,25 @@ public class FitbitHelper {
 
         return response;
     }
+
+    private static void setFitbitAlarm(Context context){
+
+            Calendar alarm = new GregorianCalendar();
+
+            alarm.set(Calendar.HOUR_OF_DAY, ALARM_HOUR);
+            alarm.set(Calendar.MINUTE, ALARM_MINUTE);
+            alarm.set(Calendar.SECOND, 0);
+
+            long alarmTime = alarm.getTimeInMillis();
+            //Also change the time to 24 hours.
+            AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+            Intent intent = new Intent(context, FitbitReciever.class);
+            PendingIntent pending = PendingIntent.getBroadcast(context, ALARM_ID, intent, 0);
+
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, (long)(24*60*60*1000) , pending); //repeat daily
+    }
+
 
     /**
      * Save the API access token
