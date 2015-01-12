@@ -13,6 +13,10 @@ ADDED from AndroidManifest.xml:1:1
 	android:versionCode
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
+uses-permission#android.permission.INTERNET
+ADDED from AndroidManifest.xml:2:5
+	android:name
+		ADDED from AndroidManifest.xml:2:22
 application
 ADDED from AndroidManifest.xml:3:5
 MERGED from com.android.support:support-v13:21.0.3:16:5
@@ -111,24 +115,32 @@ ADDED from AndroidManifest.xml:52:9
 		ADDED from AndroidManifest.xml:54:13
 	android:name
 		ADDED from AndroidManifest.xml:53:13
-activity#edu.wpi.smartcoach.activity.CheckinActivity
-ADDED from AndroidManifest.xml:58:9
-	android:label
+receiver#edu.wpi.smartcoach.reminders.FitbitReciever
+ADDED from AndroidManifest.xml:57:9
+	android:exported
 		ADDED from AndroidManifest.xml:60:13
-	android:name
+	android:enabled
 		ADDED from AndroidManifest.xml:59:13
-activity#edu.wpi.smartcoach.activity.RemindersActivity
-ADDED from AndroidManifest.xml:62:9
+	android:name
+		ADDED from AndroidManifest.xml:58:13
+activity#edu.wpi.smartcoach.activity.CheckinActivity
+ADDED from AndroidManifest.xml:63:9
 	android:label
+		ADDED from AndroidManifest.xml:65:13
+	android:name
 		ADDED from AndroidManifest.xml:64:13
-	android:name
-		ADDED from AndroidManifest.xml:63:13
-activity#edu.wpi.smartcoach.activity.SessionActivity
-ADDED from AndroidManifest.xml:66:9
+activity#edu.wpi.smartcoach.activity.RemindersActivity
+ADDED from AndroidManifest.xml:67:9
 	android:label
-		ADDED from AndroidManifest.xml:68:13
+		ADDED from AndroidManifest.xml:69:13
 	android:name
-		ADDED from AndroidManifest.xml:67:13
+		ADDED from AndroidManifest.xml:68:13
+activity#edu.wpi.smartcoach.activity.SessionActivity
+ADDED from AndroidManifest.xml:71:9
+	android:label
+		ADDED from AndroidManifest.xml:73:13
+	android:name
+		ADDED from AndroidManifest.xml:72:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:support-v13:21.0.3:15:5

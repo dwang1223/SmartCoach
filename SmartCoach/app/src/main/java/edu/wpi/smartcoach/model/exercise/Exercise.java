@@ -39,6 +39,22 @@ public class Exercise {
 		
 		return new ArrayList<Exercise>(exercises);
 	}
+
+    /**
+     * Get the exercise object with the given id
+     * @param id id to search for
+     * @param c Android context
+     * @return exercise matching given id, null if not found
+     */
+    public static Exercise getById(int id, Context c){
+        Exercise result = null;
+        for(Exercise exercise : getAll(c)){
+            if(id == exercise.getId()){
+                result = exercise;
+            }
+        }
+        return result;
+    }
 	
 	/**
 	 * Reads the list of exercises from the exercise_list xml resource

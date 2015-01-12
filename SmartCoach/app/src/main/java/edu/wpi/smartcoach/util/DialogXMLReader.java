@@ -78,16 +78,6 @@ public class DialogXMLReader {
                         }
 					}
 
-					// NodeList ll = questionElement.getChildNodes();
-					// for(int d = 0; d < ll.getLength(); d++){
-					// Log.d(TAG,((Element)ll.item(d)).getTagName());
-					// }
-					//
-					// Log.d(TAG,
-					// id+" "+questionElement.getElementsByTagName("prompt").getLength()
-					// );
-					//
-
 					String prompt = questionElement.getElementsByTagName("prompt").item(0).getTextContent();
 
 					List<Option> options = new ArrayList<Option>();

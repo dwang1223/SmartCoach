@@ -158,6 +158,10 @@ public class PatientProfile {
 		return getPreferences(c).getStringSet(KEY_PROFILE_CONDITIONS, new HashSet<String>()).contains(condition);
 	}
 
+    public static Set<String> getConditions(Context c){
+        return getPreferences(c).getStringSet(KEY_PROFILE_CONDITIONS, new HashSet<String>());
+    }
+
     /**
      * Get the saved responses to a profile question
      * @param questionId question to get the responses to

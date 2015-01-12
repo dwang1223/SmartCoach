@@ -24,9 +24,8 @@ import edu.wpi.smartcoach.model.SocialNetworkSubmission;
 public class SocialHelper {
 
 	private static final String TAG = SocialHelper.class.getSimpleName();
-	
-	private static final int PORT = 1337;
-	private static final String SERVER_ADDRESS = "http://10.0.0.20";
+
+	private static final String SERVER_ADDRESS = "http://104.236.100.71";
 	
 	public static void submitSolution(final SocialNetworkSubmission submission){
 		new Thread(){
@@ -47,7 +46,6 @@ public class SocialHelper {
 
 			        // Execute HTTP Post Request
 			        HttpResponse response = client.execute(request);
-
 			        
 			    } catch (Exception e) {
 			    	e.printStackTrace();

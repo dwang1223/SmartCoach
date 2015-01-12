@@ -62,11 +62,18 @@ public class ProfileActivity extends FragmentActivity {
 		Set<String> conditions = new HashSet<String>();
 		
 		for(OptionQuestionModel question:questions){
+            Set<String> selections = new HashSet<>();
 			for(Option opt:question.getSelectedOptions()){
+
 				if(opt.isSelected()){
-					conditions.add(opt.getCondition());
+                    selections.add(opt.getId());
+                    if(opt.getCondition() != null) {
+                        conditions.add("profile." + question.getId() + "." + opt.getCondition());
+                    }
 				}
 			}
+
+            PatientProfile.setResponse(question.getId(), selections, this);
 		}
 		
 		PatientProfile.setConditions(conditions, this);

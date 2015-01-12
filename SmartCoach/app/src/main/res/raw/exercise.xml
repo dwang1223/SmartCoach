@@ -260,7 +260,8 @@
 		<solution id='96'>Wear a light baseball hat or visor to keep sun off of your face.</solution>
 		<solution id='97'>Work with a personal trainer to identify exercises that work different body parts than the one that is injured.</solution>
 		<solution id='98'>You mentioned that you own [equipment] pick one of these to use in the next week. </solution>
-		<solution id='99'>You said you are interested in trying []selected option in profile 6]. Select one that you will try in the next week.</solution>
+        <solution id='99'>You said you are interested in trying [exercises]. Select one that you will try in the next week.</solution>
+        <solution id='99b'>You said you are interested in trying [exercise]. Try it in the next week.</solution>
 		<solution id='100'>You said you enjoy or want to try [winter sports], make plans to do these.</solution>
 		<solution id='101'>You said you had [home exercise equipment], construct an indoor workout with these.</solution>
 		<solution id='102'>You said you like these exercises [selected options] select one that you are willing to start this week.</solution>

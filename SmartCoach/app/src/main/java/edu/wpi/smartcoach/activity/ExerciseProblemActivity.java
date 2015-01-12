@@ -14,6 +14,8 @@ import edu.wpi.smartcoach.model.Session;
 import edu.wpi.smartcoach.model.SocialNetworkSubmission;
 import edu.wpi.smartcoach.model.Solution;
 import edu.wpi.smartcoach.model.TimeQuestionModel;
+import edu.wpi.smartcoach.model.exercise.Exercise;
+import edu.wpi.smartcoach.service.PatientProfile;
 import edu.wpi.smartcoach.service.SessionService;
 import edu.wpi.smartcoach.solver.DialogXMLSolver;
 import edu.wpi.smartcoach.util.Callback;
@@ -126,7 +128,8 @@ public class ExerciseProblemActivity extends FragmentActivity implements Callbac
 	
 	private List<Solution> getExerciseSolutions(){
 		List<Solution> solutions = solver.getSolution(this);
-		
+
+        //time gap solutions
 		int timeSleep = ((TimeQuestionModel)solver.getQuestionById("2")).getResponse();
 		int timeWakeup = ((TimeQuestionModel)solver.getQuestionById("3")).getResponse();
 		int timeLeave = ((TimeQuestionModel)solver.getQuestionById("4")).getResponse();
@@ -160,6 +163,34 @@ public class ExerciseProblemActivity extends FragmentActivity implements Callbac
 			solutions.add(solver.getSolutionById("36"));
 			//no gap
 		}
+
+        //new exercise solutions
+        //check if the user selected "bored" or "hard to get started"
+        if(solver.hasCondition("boredom") || solver.hasCondition("motivation")){
+           List<String> likeToTry =  new ArrayList<>(PatientProfile.getResponses("4", this)); //list of exercises the user would like to try
+
+            Log.d(TAG, "likeToTry: "+likeToTry.toString());
+           if(!likeToTry.isEmpty()){
+                String exercisesListPhrase = "";
+                if(likeToTry.size() == 1) { // if there is one selected exercise use the alternative singular version of the solution
+                    Solution tryExerciseSolution = solver.getSolutionById("99b").clone();
+                    exercisesListPhrase = Exercise.getById(Integer.parseInt(likeToTry.get(0)), this).getName().toLowerCase();
+                    tryExerciseSolution.setMessage(tryExerciseSolution.getMessage().replace("[exercise]", exercisesListPhrase));
+                    solutions.add(tryExerciseSolution);
+                } else { // multiple selections, use the default version
+                    Solution tryExerciseSolution = solver.getSolutionById("99").clone();
+                    for (String id : likeToTry) { // make the string such as "a, b, or c"
+                        if(likeToTry.indexOf(id) == likeToTry.size() - 1){
+                            exercisesListPhrase += " or "+ Exercise.getById(Integer.parseInt(id), this).getName().toLowerCase();
+                        } else {
+                            exercisesListPhrase += Exercise.getById(Integer.parseInt(id), this).getName().toLowerCase() + ", ";
+                        }
+                    }
+                    tryExerciseSolution.setMessage(tryExerciseSolution.getMessage().replace("[exercises]", exercisesListPhrase));
+                    solutions.add(tryExerciseSolution);
+                }
+           }
+        }
 		
 		return solutions;
 				

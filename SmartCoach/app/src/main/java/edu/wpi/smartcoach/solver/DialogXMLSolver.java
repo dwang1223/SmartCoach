@@ -63,6 +63,7 @@ public class DialogXMLSolver implements ProblemSolver {
 		
 		NodeList emptyTextNodes;
 		try {
+            //remove whitespace
 			XPathFactory xpathFactory = XPathFactory.newInstance();
 			// XPath to find empty text nodes.
 			XPathExpression xpathExp = xpathFactory.newXPath().compile("//text()[normalize-space(.) = '']");  
@@ -120,17 +121,7 @@ public class DialogXMLSolver implements ProblemSolver {
 					
 				} else if(((Element)currentNode).getTagName().equals("condition")){
 					String id = ((Element)currentNode).getAttribute("name");
-					List<String> firstList = evaluateCondition(id);
-					for(String s:firstList){
-						//String storedId = s.substring(s.indexOf('[')+1, s.indexOf(']'));
-						//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-						//Set<String> storedConds = prefs.getStringSet("conditions."+storedId, new HashSet<String>());
-						
-						//for(String ss:storedConds){
-							//setConditions.add(s.replace("["+storedId+"]", ss));
-						//}
-						
-					}
+					setConditions.addAll(evaluateCondition(id));
 				}
 			} while(!((Element)currentNode).getTagName().equals("question") && !flowFinished);
 		} else {
@@ -354,31 +345,44 @@ public class DialogXMLSolver implements ProblemSolver {
 	
 	private List<String> evaluateCondition(String condition){
 		List<String> results = new ArrayList<String>();
-		
-		if(condition != null){
-			if( condition.startsWith("[")){
-				String prefixId = condition.substring(condition.indexOf('[')+1, condition.indexOf(']'));
-				OptionQuestionModel prefixQuestion = null;
-				if(getQuestionById(prefixId) instanceof OptionQuestionModel){
-					prefixQuestion = (OptionQuestionModel)getQuestionById(prefixId);
-				}
-				
-				if(prefixQuestion != null){
-					for(Option prefixOption:prefixQuestion.getSelectedOptions()){
-						String prefixCondition = prefixOption.getCondition();
-						List<String> prefixes = evaluateCondition(prefixCondition);
-						for(String p:prefixes){
-							results.add(p + condition.substring(condition.indexOf(']')+1));
-						}
-						
-					}
-				}
-			} else {
-				results.add(condition);
-				
-			}
-		}
-		
+
+        if(condition != null){
+            if(condition.contains("[")){
+                String prefixId = condition.substring(condition.indexOf('[')+1, condition.indexOf(']'));
+                List<String> subConditions = new ArrayList<String>();
+
+                if(prefixId.contains("profile")){
+                    Set<String> profileConditions = PatientProfile.getConditions(context);
+                    for(String pCond:profileConditions){
+                        if(pCond.startsWith(prefixId)){
+                            subConditions.add(pCond);
+                        }
+                    }
+                } else {
+                    OptionQuestionModel prefixQuestion = null;
+                    if(getQuestionById(prefixId) instanceof OptionQuestionModel){
+                        prefixQuestion = (OptionQuestionModel)getQuestionById(prefixId);
+                    }
+
+                    if(prefixQuestion != null){
+                        for(Option prefixOption:prefixQuestion.getSelectedOptions()){
+                            String prefixCondition = prefixOption.getCondition();
+                            subConditions.addAll(evaluateCondition(prefixCondition));
+                        }
+                    }
+                }
+
+                for(String sub:subConditions){
+                    results.addAll(evaluateCondition(condition.replace("["+prefixId+"]", sub)));
+                }
+
+            } else {
+                results.add(condition);
+            }
+        }
+
+        Log.d(TAG, "EVAL "+condition+" -> "+results.toString());
+
 		return results;
 	}
 	
