@@ -27,10 +27,10 @@ httpApp.use(bodyParser.urlencoded());
 /**
 * Get the admin panel page. Shows list of pending solutions
 */
-httpApp.get("/admin", function(req, res){
+httpApp.get("/", function(req, res){
 
 	res.writeHead(200, {'Content-Type': 'text/html'});	
-	res.write("<html><head><title></title></head><body background='#eeeeee'><h1>SmartCoach Social Features Manager</h1>");
+	res.write("<html><head><title></title></head><body background='#eeeeee'><h1 style='text-align:center;'>SmartCoach Social Features Manager</h1>");
 	if(req.query.status){
 		if(req.query.status == 'fail'){
 			res.write("<h3><span style='color:red;'>Action failed, please try again.</span></h3>");
@@ -44,9 +44,9 @@ httpApp.get("/admin", function(req, res){
 
 /**
 * Submit form to approve/reject pending solutions
-* Redirects back to /admin with a status
+* Redirects back to / with a status
 */
-httpApp.post("/admin/approve", function(req, res){
+httpApp.post("/approve", function(req, res){
 	var pending = storage.getItem('pending');
 	var solutions = storage.getItem('solutions');
 
@@ -79,11 +79,11 @@ httpApp.post("/admin/approve", function(req, res){
 		});
 		storage.setItem('solutions', solutions);
 
-		res.redirect('/admin?status=approved&count='+selected.length+"&redirect="+redirect);
+		res.redirect('?status=approved&count='+selected.length+"&redirect="+redirect);
 	} else if (req.body.action == 'reject'){
-		res.redirect('/admin?status=rejected&count='+selected.length+"&redirect="+redirect);
+		res.redirect('?status=rejected&count='+selected.length+"&redirect="+redirect);
 	} else {
-		res.redirect('/admin?status=fail&redirect='+redirect);
+		res.redirect('?status=fail&redirect='+redirect);
 	}
 
 });
@@ -129,7 +129,7 @@ function listPendingSubmissions(){
 	var html = "";
 	var pending = storage.getItem('pending');
 	if(pending.length > 0){
-		html += "<form method='post' action='/admin/approve'><table width='80%' align='center' border='1'>";
+		html += "<form method='post' action='/approve'><table width='80%' align='center' border='1'>";
 		  for(var i = 0; i < pending.length; i++){
 		  	html += "<tr><td><input type='checkbox'name='"+pending[i].id+"''></td>";
 		  	html += "<td width='90%'>";
@@ -140,9 +140,8 @@ function listPendingSubmissions(){
 		  html += "<button name='action' type='submit' value='approve' />Approve</button>";
 		  html += "<button name='action' type='submit' value='reject' />Reject</button></form>";
 	} else {
-		html = "No new submissions.";
+		html = "<p style='text-align:center'>No new submissions</p>";
 	}
-
   	return html;
 }
 
