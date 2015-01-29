@@ -25,7 +25,7 @@ public class SocialHelper {
 
 	private static final String TAG = SocialHelper.class.getSimpleName();
 
-	private static final String SERVER_ADDRESS = "http://104.236.100.71";
+	private static final String SERVER_ADDRESS = "http://smartcoach.wpi.edu";
 	
 	public static void submitSolution(final SocialNetworkSubmission submission){
 		new Thread(){
